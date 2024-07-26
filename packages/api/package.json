@@ -1,0 +1,13 @@
+{
+  "name": "@tiles-tbd/api",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint . --fix"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
