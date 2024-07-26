@@ -6,6 +6,5 @@
     "christian-kohler.npm-intellisense",
     "dbaeumer.vscode-eslint",
     "arcanis.vscode-zipfs",
-    "esbenp.prettier-vscode"
   ]
 }

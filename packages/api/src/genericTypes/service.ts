@@ -1,13 +1,12 @@
 export interface IService {
-    [key: string]: {
-      payload: any;
-      response: any;
-    };
-  }
+  [key: string]: {
+    payload: unknown;
+    response: unknown;
+  };
+}
 
 export type IServiceImplementation<Service> = {
-    [Key in keyof Service]: {
-      endpoint: string;
-    };
+  [Key in keyof Service]: {
+    endpoint: string;
   };
-  
+};

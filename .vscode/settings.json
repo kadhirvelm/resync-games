@@ -4,7 +4,12 @@
     "**/.pnp.*": true
   },
   "eslint.nodePath": ".yarn/sdks",
+  "eslint.useFlatConfig": true,
+  "eslint.workingDirectories": [{ "mode": "auto" }],
   "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  }
 }
