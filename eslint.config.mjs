@@ -20,5 +20,8 @@ export default [
       "typescript-sort-keys/interface": "error",
       "typescript-sort-keys/string-enum": "error"
     }
+  },
+  {
+    ignores: ["**/dist/**", "**/.next/**", "**/.turbo/**", "**/next.config.js"]
   }
 ];

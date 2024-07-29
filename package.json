@@ -9,6 +9,7 @@
     "node": "22.5.1"
   },
   "scripts": {
+    "ci": "turbo run ci",
     "dev": "turbo run dev --filter=@tiles-tbd/${0}",
     "docker": "docker-compose -p tiles-tbd -f docker-compose.yml up -d"
   },

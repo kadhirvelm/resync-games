@@ -3,11 +3,12 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "lint": "eslint . --fix"
+    "lint": "eslint ."
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
+    "eslint": "^9.7.0",
     "typescript": "^5.2.2"
   }
 }

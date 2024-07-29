@@ -17,7 +17,7 @@ services:
       - PGADMIN_LISTEN_ADDRESS=0.0.0.0
       - PGADMIN_DEFAULT_PASSWORD=admin
   yarn-container:
-    image: node:22.5-slim
+    image: node:22.5
     volumes:
       - ./:/home/tiles-tbd:rw
     working_dir: /home/tiles-tbd
@@ -25,13 +25,13 @@ services:
     stop_grace_period: 1s
     command: tail -f /dev/null
   api:
-    image: node:22.5-slim
+    image: node:22.5
     volumes:
       - ./:/home/tiles-tbd:rw
     working_dir: /home/tiles-tbd/packages/api
     command: bash -c "corepack enable && yarn && cd ../../ && yarn dev api"
   backend:
-    image: node:22.5-slim
+    image: node:22.5
     ports:
       - '8080:8080'
     volumes:
