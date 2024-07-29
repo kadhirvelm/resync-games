@@ -1,4 +1,4 @@
-import { Service, ServiceDefinition } from "./genericTypes/service";
+import { Service, ServiceDefinition } from "../genericTypes/service";
 
 export interface HealthService extends Service {
   ready: {
