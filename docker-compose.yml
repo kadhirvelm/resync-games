@@ -47,5 +47,7 @@ services:
       - '3000:3000'
     volumes:
       - ./:/home/tiles-tbd:rw
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8080
     working_dir: /home/tiles-tbd/packages/frontend
     command: bash -c "corepack enable && yarn && cd ../../ && yarn dev frontend"

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import styles from "./layout.module.scss";
 
 export const metadata: Metadata = {
-  title: "Tiles tbd",
-  description: "tbd"
+  description: "tbd",
+  title: "Tiles tbd"
 };
 
 export default function RootLayout({
