@@ -1,3 +1,5 @@
+import { RemoveExtendsString } from "./removeExtendsString";
+
 /**
  * Used to declare the interface (payloads and responses) for a service definition.
  */
@@ -21,8 +23,6 @@ export type ServiceDefinition<Service> = {
    * The endpoints for the service. This is how the frontend will call on the service.
    */
   endpoints: {
-    [Key in keyof Service]: {
-      endpoint: string;
-    };
+    [Key in keyof RemoveExtendsString<Service>]: string;
   };
 };
