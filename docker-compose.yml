@@ -17,7 +17,7 @@ services:
       - PGADMIN_LISTEN_ADDRESS=0.0.0.0
       - PGADMIN_DEFAULT_PASSWORD=admin
   yarn-container:
-    image: node:22.5.1
+    image: node:22.5-slim
     volumes:
       - ./:/home/tiles-tbd:rw
     working_dir: /home/tiles-tbd
@@ -25,13 +25,13 @@ services:
     stop_grace_period: 1s
     command: tail -f /dev/null
   api:
-    image: node:22.5.1
+    image: node:22.5-slim
     volumes:
       - ./:/home/tiles-tbd:rw
     working_dir: /home/tiles-tbd/packages/api
-    command: bash -c "yarn && cd ../../ && yarn dev api"
+    command: bash -c "corepack enable && yarn && cd ../../ && yarn dev api"
   backend:
-    image: node:22.5.1
+    image: node:22.5-slim
     ports:
       - '8080:8080'
     volumes:
@@ -40,12 +40,12 @@ services:
     environment:
       - PORT=8080
       - DATABASE=postgresql://postgres@host.docker.internal:5432/tiles-tbd?schema=public
-    command: bash -c "yarn && cd ../../ && yarn dev backend"
+    command: bash -c "corepack enable && yarn && cd ../../ && yarn dev backend"
   frontend:
-    image: node:22.5.1
+    image: node:22.5-slim
     ports:
       - '3000:3000'
     volumes:
       - ./:/home/tiles-tbd:rw
     working_dir: /home/tiles-tbd/packages/frontend
-    command: bash -c "yarn && cd ../../ && yarn dev frontend"
+    command: bash -c "corepack enable && yarn && cd ../../ && yarn dev frontend"
