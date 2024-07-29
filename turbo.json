@@ -11,6 +11,12 @@
             ]
         },
         "dev": {},
-        "lint": {}
+        "lint": {},
+        "ci": {
+            "dependsOn": [
+                "^build",
+                "^lint"
+            ]
+        }
     }
 }
