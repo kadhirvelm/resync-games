@@ -10,8 +10,6 @@ export interface HealthService extends Service {
 export const HealthServiceDefinition: ServiceDefinition<HealthService> = {
   controller: "health",
   endpoints: {
-    ready: {
-      endpoint: "ready"
-    }
+    ready: "ready"
   }
 };
