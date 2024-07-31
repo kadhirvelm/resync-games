@@ -15,19 +15,20 @@
   },
   "monorepo": true,
   "devDependencies": {
-    "@eslint/js": "^9.7.0",
-    "@types/eslint": "^9",
+    "@eslint/js": "^9.8.0",
+    "@types/eslint": "^9.6.0",
     "@types/eslint__js": "^8.42.3",
-    "@types/node": "^20.9.2",
-    "@yarnpkg/pnpify": "^4.0.1",
-    "eslint": "^9.7.0",
+    "@types/node": "^22.0.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@yarnpkg/pnpify": "^4.1.0",
+    "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "prettier": "^3.3.3",
-    "turbo": "^1.10.16",
+    "turbo": "2.0.10",
     "typescript": "^5.5.4",
-    "typescript-eslint": "^7.17.0"
+    "typescript-eslint": "^7.18.0"
   },
   "dependencies": {
     "eslint-plugin-typescript-sort-keys": "^3.2.0"
