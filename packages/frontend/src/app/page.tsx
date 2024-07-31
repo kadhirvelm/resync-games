@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import styles from "./page.module.scss";
-import { ServiceCallers } from "@/services/getServices";
+import { ServiceCallers } from "@/services/serviceCallers";
 
 export default function Home() {
   const callOnBackend = async () => {
