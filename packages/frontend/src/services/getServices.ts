@@ -60,5 +60,3 @@ export function getAvailableServiceCallers(): AvailableServiceCaller {
 
   return services;
 }
-
-export const ServiceCallers = getAvailableServiceCallers();

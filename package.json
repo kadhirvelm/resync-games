@@ -11,7 +11,7 @@
   "scripts": {
     "ci": "turbo run ci",
     "dev": "turbo run dev --filter=@tiles-tbd/${0}",
-    "docker": "docker-compose -p tiles-tbd -f docker-compose.yml up -d"
+    "docker": "open /Applications/Docker.app && docker-compose -p tiles-tbd -f docker-compose.yml up -d"
   },
   "monorepo": true,
   "devDependencies": {
