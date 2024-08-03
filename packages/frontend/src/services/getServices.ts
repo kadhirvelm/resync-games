@@ -50,7 +50,9 @@ function constructSingleServiceCaller<Key extends keyof AvailableServices>(
 }
 
 export function getAvailableServiceCallers(): AvailableServiceCaller {
-  const services = {} as AvailableServiceCaller;
+  const services: {
+    [key: string]: ServiceCaller<AvailableServices[keyof AvailableServices]>;
+  } = {};
 
   for (const [key, serviceDefinition] of Object.entries(AVAILABLE_SERVICES)) {
     const typedKey = key as keyof AvailableServices;
@@ -58,5 +60,5 @@ export function getAvailableServiceCallers(): AvailableServiceCaller {
       constructSingleServiceCaller<typeof typedKey>(serviceDefinition);
   }
 
-  return services;
+  return services as AvailableServiceCaller;
 }

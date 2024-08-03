@@ -1,4 +1,4 @@
-import { HealthService, HealthServiceDefinition } from "@tiles-tbd/api";
+import { HealthServiceApi, HealthServiceDefinition } from "@tiles-tbd/api";
 import {
   getDecorator,
   ServiceControllerInterface
@@ -7,7 +7,7 @@ import { Controller } from "@nestjs/common";
 
 @Controller(HealthServiceDefinition.controller)
 export class HealthController
-  implements ServiceControllerInterface<HealthService>
+  implements ServiceControllerInterface<HealthServiceApi>
 {
   @getDecorator(HealthServiceDefinition.endpoints.ready)
   public ready() {

@@ -1,8 +1,13 @@
 import { ServiceDefinition } from "./genericTypes/service";
-import { HealthService, HealthServiceDefinition } from "./services/health";
+import { HealthServiceApi, HealthServiceDefinition } from "./services/health";
+import {
+  TileMapServiceApi,
+  TileMapServiceDefinition
+} from "./services/tileMap";
 
 export type AvailableServices = {
-  health: HealthService;
+  health: HealthServiceApi;
+  tileMap: TileMapServiceApi;
 };
 
 export type AvailbleServicesDefinition = {
@@ -10,5 +15,6 @@ export type AvailbleServicesDefinition = {
 };
 
 export const AVAILABLE_SERVICES: AvailbleServicesDefinition = {
-  health: HealthServiceDefinition
+  health: HealthServiceDefinition,
+  tileMap: TileMapServiceDefinition
 };
