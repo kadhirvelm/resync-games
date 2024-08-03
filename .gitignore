@@ -14,5 +14,6 @@
 dist/
 .turbo/
 .swc/
+.env
 
 node_modules/
