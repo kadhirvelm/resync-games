@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_HOST_URL")
+}
+
+model TileMap {
+  tileMapId String   @id @default(cuid()) @map("tile_map_id")
+  createdAt DateTime @default(now())
+
+  startingTileId String @map("starting_tile_id")
+
+  tiles Tile[] @relation("map")
+}
+
+model Tile {
+  tileId    String   @id @default(cuid()) @map("tile_id")
+  createdAt DateTime @default(now())
+
+  image     String @map("image")
+  tileMapId String @map("tile_map_id")
+
+  tileMap  TileMap @relation(fields: [tileMapId], references: [tileMapId], name: "map")
+  fromTile Edge[]  @relation("from_tile")
+  toTile   Edge[]  @relation("to_tile")
+}
+
+model Edge {
+  edgeId    String   @id @default(cuid()) @map("edge_id")
+  createdAt DateTime @default(now())
+
+  flavorText String @map("flavor_text")
+  toTileId   String @map("to_tile_id")
+  fromTileId String @map("from_tile_id")
+
+  fromTile Tile @relation(fields: [fromTileId], references: [tileId], name: "from_tile")
+  toTile   Tile @relation(fields: [toTileId], references: [tileId], name: "to_tile")
+}

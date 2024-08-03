@@ -1,0 +1,15 @@
+{
+    "extends": ["//"],
+    "tasks": {
+        "build": {
+            "env": [
+                "DATABASE_HOST_URL"
+            ]
+        },
+        "dev": {
+            "env": [
+                "DATABASE_HOST_URL"
+            ]
+        }
+    }
+}

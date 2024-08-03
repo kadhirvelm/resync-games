@@ -7,5 +7,6 @@
     "arcanis.vscode-zipfs",
     "graphite.gti-vscode",
     "github.copilot-chat",
+    "prisma.prisma",
   ]
 }

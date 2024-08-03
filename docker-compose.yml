@@ -21,6 +21,8 @@ services:
     working_dir: /home/tiles-tbd
     tty: true
     stop_grace_period: 1s
+    environment:
+      - DATABASE_HOST_URL=postgresql://postgres@host.docker.internal:5432/tiles-tbd?schema=public
     command: tail -f /dev/null
   api:
     image: node:22.5
@@ -37,7 +39,7 @@ services:
     working_dir: /home/tiles-tbd/packages/backend
     environment:
       - PORT=8080
-      - DATABASE=postgresql://postgres@host.docker.internal:5432/tiles-tbd?schema=public
+      - DATABASE_HOST_URL=postgresql://postgres@host.docker.internal:5432/tiles-tbd?schema=public
     command: bash -c "corepack enable && yarn && cd ../../ && yarn dev backend"
   frontend:
     image: node:22.5-slim
