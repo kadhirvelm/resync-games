@@ -1,17 +1,13 @@
-"use client";
-
-import { ServiceCallers } from "@/services/serviceCallers";
-import { useEffect } from "react";
+import AvailableMaps from "@/components/AvailableMaps";
 import styles from "./page.module.scss";
+import { Suspense } from "react";
 
-export default function Home() {
-  const callOnBackend = async () => {
-    ServiceCallers.health.ready({});
-  };
-
-  useEffect(() => {
-    callOnBackend();
-  }, []);
-
-  return <div className={styles.entryPoint}>Hello world!</div>;
+export default async function Home() {
+  return (
+    <div className={styles.entryPoint}>
+      <Suspense fallback={"Loading maps..."}>
+        <AvailableMaps />
+      </Suspense>
+    </div>
+  );
 }
