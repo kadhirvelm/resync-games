@@ -1,6 +1,6 @@
+import { TileMap } from "@/components/TileMap";
 import { ServiceCallers } from "@/services/serviceCallers";
 import { isServiceError, TileMapId } from "@tiles-tbd/api";
-import { Box } from "grommet";
 import { redirect } from "next/navigation";
 
 export default async function Page({
@@ -17,5 +17,5 @@ export default async function Page({
     redirect("/");
   }
 
-  return <Box>{JSON.stringify(maybeLoadedTileMap.tileMap)}</Box>;
+  return <TileMap tileMap={maybeLoadedTileMap.tileMap} />;
 }
