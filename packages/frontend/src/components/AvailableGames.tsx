@@ -17,11 +17,13 @@ export default async function AvailableGames() {
       <Text>Available games</Text>
       {maybeAvailableGames.tileGames.map((tileGame) => (
         <Link href={`tile-game/${tileGame.tileGameId}`}>
-          <Button label={tileGame.tileGameId} key={tileGame.tileGameId} />
+          <Button label={tileGame.name} key={tileGame.tileGameId} />
         </Link>
       ))}
       <Box>
-        <Text>Create new game</Text>
+        <Link href="/tile-game/create">
+          <Button>Create new game</Button>
+        </Link>
       </Box>
     </Box>
   );
