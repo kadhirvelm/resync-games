@@ -1,7 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/database/prisma.service";
 import * as _ from "lodash";
-import { CreateTileGameRequest, TileGameId } from "@tiles-tbd/api";
+import {
+  CreateTileGameRequest,
+  MovePawnRequest,
+  TileGameId
+} from "@tiles-tbd/api";
 import { TileMapService } from "src/map/tileMap.service";
 import { TILE_GAME_PAWN_COLORS } from "./tileGame.constants";
 
@@ -74,6 +78,23 @@ export class TileGameService {
 
     return {
       game: this.prismaService.converterService.convertTileGame(newGame)
+    };
+  };
+
+  public movePawn = async (movePawnRequest: MovePawnRequest) => {
+    const newPawnState = await this.prismaService.client.tilePawn.update({
+      data: {
+        onTileId: movePawnRequest.toTileId
+      },
+      where: {
+        onTileId: movePawnRequest.fromTildId,
+        tilePawnId: movePawnRequest.tilePawnId
+      }
+    });
+
+    return {
+      newPawnState:
+        this.prismaService.converterService.convertTilePawn(newPawnState)
     };
   };
 }
