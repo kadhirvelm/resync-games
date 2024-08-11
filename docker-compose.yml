@@ -40,7 +40,7 @@ services:
     environment:
       - PORT=8080
       - DATABASE_HOST_URL=postgresql://postgres@host.docker.internal:5432/tiles-tbd?schema=public
-    command: bash -c "corepack enable && yarn && cd ../../ && yarn dev backend"
+    command: bash -c "corepack enable && yarn && cd ../../ && yarn migrate && yarn dev backend"
   frontend:
     image: node:22.5-slim
     ports:

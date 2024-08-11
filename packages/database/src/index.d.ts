@@ -28,6 +28,16 @@ export type Tile = $Result.DefaultSelection<Prisma.$TilePayload>
  * 
  */
 export type Edge = $Result.DefaultSelection<Prisma.$EdgePayload>
+/**
+ * Model TileGame
+ * 
+ */
+export type TileGame = $Result.DefaultSelection<Prisma.$TileGamePayload>
+/**
+ * Model TilePawn
+ * 
+ */
+export type TilePawn = $Result.DefaultSelection<Prisma.$TilePawnPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -180,6 +190,26 @@ export class PrismaClient<
     * ```
     */
   get edge(): Prisma.EdgeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.tileGame`: Exposes CRUD operations for the **TileGame** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TileGames
+    * const tileGames = await prisma.tileGame.findMany()
+    * ```
+    */
+  get tileGame(): Prisma.TileGameDelegate<ExtArgs>;
+
+  /**
+   * `prisma.tilePawn`: Exposes CRUD operations for the **TilePawn** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TilePawns
+    * const tilePawns = await prisma.tilePawn.findMany()
+    * ```
+    */
+  get tilePawn(): Prisma.TilePawnDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -659,7 +689,9 @@ export namespace Prisma {
   export const ModelName: {
     TileMap: 'TileMap',
     Tile: 'Tile',
-    Edge: 'Edge'
+    Edge: 'Edge',
+    TileGame: 'TileGame',
+    TilePawn: 'TilePawn'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -675,7 +707,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "tileMap" | "tile" | "edge"
+      modelProps: "tileMap" | "tile" | "edge" | "tileGame" | "tilePawn"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -889,6 +921,146 @@ export namespace Prisma {
           }
         }
       }
+      TileGame: {
+        payload: Prisma.$TileGamePayload<ExtArgs>
+        fields: Prisma.TileGameFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TileGameFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TileGamePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TileGameFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TileGamePayload>
+          }
+          findFirst: {
+            args: Prisma.TileGameFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TileGamePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TileGameFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TileGamePayload>
+          }
+          findMany: {
+            args: Prisma.TileGameFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TileGamePayload>[]
+          }
+          create: {
+            args: Prisma.TileGameCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TileGamePayload>
+          }
+          createMany: {
+            args: Prisma.TileGameCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TileGameCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TileGamePayload>[]
+          }
+          delete: {
+            args: Prisma.TileGameDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TileGamePayload>
+          }
+          update: {
+            args: Prisma.TileGameUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TileGamePayload>
+          }
+          deleteMany: {
+            args: Prisma.TileGameDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TileGameUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TileGameUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TileGamePayload>
+          }
+          aggregate: {
+            args: Prisma.TileGameAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTileGame>
+          }
+          groupBy: {
+            args: Prisma.TileGameGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TileGameGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TileGameCountArgs<ExtArgs>
+            result: $Utils.Optional<TileGameCountAggregateOutputType> | number
+          }
+        }
+      }
+      TilePawn: {
+        payload: Prisma.$TilePawnPayload<ExtArgs>
+        fields: Prisma.TilePawnFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TilePawnFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TilePawnPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TilePawnFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TilePawnPayload>
+          }
+          findFirst: {
+            args: Prisma.TilePawnFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TilePawnPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TilePawnFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TilePawnPayload>
+          }
+          findMany: {
+            args: Prisma.TilePawnFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TilePawnPayload>[]
+          }
+          create: {
+            args: Prisma.TilePawnCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TilePawnPayload>
+          }
+          createMany: {
+            args: Prisma.TilePawnCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TilePawnCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TilePawnPayload>[]
+          }
+          delete: {
+            args: Prisma.TilePawnDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TilePawnPayload>
+          }
+          update: {
+            args: Prisma.TilePawnUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TilePawnPayload>
+          }
+          deleteMany: {
+            args: Prisma.TilePawnDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TilePawnUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TilePawnUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TilePawnPayload>
+          }
+          aggregate: {
+            args: Prisma.TilePawnAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTilePawn>
+          }
+          groupBy: {
+            args: Prisma.TilePawnGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TilePawnGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TilePawnCountArgs<ExtArgs>
+            result: $Utils.Optional<TilePawnCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1051,10 +1223,12 @@ export namespace Prisma {
 
   export type TileMapCountOutputType = {
     tiles: number
+    TileGame: number
   }
 
   export type TileMapCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tiles?: boolean | TileMapCountOutputTypeCountTilesArgs
+    TileGame?: boolean | TileMapCountOutputTypeCountTileGameArgs
   }
 
   // Custom InputTypes
@@ -1075,6 +1249,13 @@ export namespace Prisma {
     where?: TileWhereInput
   }
 
+  /**
+   * TileMapCountOutputType without action
+   */
+  export type TileMapCountOutputTypeCountTileGameArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TileGameWhereInput
+  }
+
 
   /**
    * Count Type TileCountOutputType
@@ -1083,11 +1264,13 @@ export namespace Prisma {
   export type TileCountOutputType = {
     fromTile: number
     toTile: number
+    TilePawn: number
   }
 
   export type TileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     fromTile?: boolean | TileCountOutputTypeCountFromTileArgs
     toTile?: boolean | TileCountOutputTypeCountToTileArgs
+    TilePawn?: boolean | TileCountOutputTypeCountTilePawnArgs
   }
 
   // Custom InputTypes
@@ -1113,6 +1296,44 @@ export namespace Prisma {
    */
   export type TileCountOutputTypeCountToTileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EdgeWhereInput
+  }
+
+  /**
+   * TileCountOutputType without action
+   */
+  export type TileCountOutputTypeCountTilePawnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TilePawnWhereInput
+  }
+
+
+  /**
+   * Count Type TileGameCountOutputType
+   */
+
+  export type TileGameCountOutputType = {
+    TilePawn: number
+  }
+
+  export type TileGameCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    TilePawn?: boolean | TileGameCountOutputTypeCountTilePawnArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TileGameCountOutputType without action
+   */
+  export type TileGameCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TileGameCountOutputType
+     */
+    select?: TileGameCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TileGameCountOutputType without action
+   */
+  export type TileGameCountOutputTypeCountTilePawnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TilePawnWhereInput
   }
 
 
@@ -1269,6 +1490,7 @@ export namespace Prisma {
     createdAt?: boolean
     startingTileId?: boolean
     tiles?: boolean | TileMap$tilesArgs<ExtArgs>
+    TileGame?: boolean | TileMap$TileGameArgs<ExtArgs>
     _count?: boolean | TileMapCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tileMap"]>
 
@@ -1286,6 +1508,7 @@ export namespace Prisma {
 
   export type TileMapInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tiles?: boolean | TileMap$tilesArgs<ExtArgs>
+    TileGame?: boolean | TileMap$TileGameArgs<ExtArgs>
     _count?: boolean | TileMapCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TileMapIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1294,6 +1517,7 @@ export namespace Prisma {
     name: "TileMap"
     objects: {
       tiles: Prisma.$TilePayload<ExtArgs>[]
+      TileGame: Prisma.$TileGamePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       tileMapId: string
@@ -1664,6 +1888,7 @@ export namespace Prisma {
   export interface Prisma__TileMapClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tiles<T extends TileMap$tilesArgs<ExtArgs> = {}>(args?: Subset<T, TileMap$tilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TilePayload<ExtArgs>, T, "findMany"> | Null>
+    TileGame<T extends TileMap$TileGameArgs<ExtArgs> = {}>(args?: Subset<T, TileMap$TileGameArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TileGamePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2030,6 +2255,26 @@ export namespace Prisma {
   }
 
   /**
+   * TileMap.TileGame
+   */
+  export type TileMap$TileGameArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TileGame
+     */
+    select?: TileGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TileGameInclude<ExtArgs> | null
+    where?: TileGameWhereInput
+    orderBy?: TileGameOrderByWithRelationInput | TileGameOrderByWithRelationInput[]
+    cursor?: TileGameWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TileGameScalarFieldEnum | TileGameScalarFieldEnum[]
+  }
+
+  /**
    * TileMap without action
    */
   export type TileMapDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2203,6 +2448,7 @@ export namespace Prisma {
     tileMap?: boolean | TileMapDefaultArgs<ExtArgs>
     fromTile?: boolean | Tile$fromTileArgs<ExtArgs>
     toTile?: boolean | Tile$toTileArgs<ExtArgs>
+    TilePawn?: boolean | Tile$TilePawnArgs<ExtArgs>
     _count?: boolean | TileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tile"]>
 
@@ -2225,6 +2471,7 @@ export namespace Prisma {
     tileMap?: boolean | TileMapDefaultArgs<ExtArgs>
     fromTile?: boolean | Tile$fromTileArgs<ExtArgs>
     toTile?: boolean | Tile$toTileArgs<ExtArgs>
+    TilePawn?: boolean | Tile$TilePawnArgs<ExtArgs>
     _count?: boolean | TileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2237,6 +2484,7 @@ export namespace Prisma {
       tileMap: Prisma.$TileMapPayload<ExtArgs>
       fromTile: Prisma.$EdgePayload<ExtArgs>[]
       toTile: Prisma.$EdgePayload<ExtArgs>[]
+      TilePawn: Prisma.$TilePawnPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       tileId: string
@@ -2610,6 +2858,7 @@ export namespace Prisma {
     tileMap<T extends TileMapDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TileMapDefaultArgs<ExtArgs>>): Prisma__TileMapClient<$Result.GetResult<Prisma.$TileMapPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     fromTile<T extends Tile$fromTileArgs<ExtArgs> = {}>(args?: Subset<T, Tile$fromTileArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EdgePayload<ExtArgs>, T, "findMany"> | Null>
     toTile<T extends Tile$toTileArgs<ExtArgs> = {}>(args?: Subset<T, Tile$toTileArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EdgePayload<ExtArgs>, T, "findMany"> | Null>
+    TilePawn<T extends Tile$TilePawnArgs<ExtArgs> = {}>(args?: Subset<T, Tile$TilePawnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TilePawnPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2998,6 +3247,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EdgeScalarFieldEnum | EdgeScalarFieldEnum[]
+  }
+
+  /**
+   * Tile.TilePawn
+   */
+  export type Tile$TilePawnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TilePawn
+     */
+    select?: TilePawnSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TilePawnInclude<ExtArgs> | null
+    where?: TilePawnWhereInput
+    orderBy?: TilePawnOrderByWithRelationInput | TilePawnOrderByWithRelationInput[]
+    cursor?: TilePawnWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TilePawnScalarFieldEnum | TilePawnScalarFieldEnum[]
   }
 
   /**
@@ -3955,6 +4224,1904 @@ export namespace Prisma {
 
 
   /**
+   * Model TileGame
+   */
+
+  export type AggregateTileGame = {
+    _count: TileGameCountAggregateOutputType | null
+    _min: TileGameMinAggregateOutputType | null
+    _max: TileGameMaxAggregateOutputType | null
+  }
+
+  export type TileGameMinAggregateOutputType = {
+    tileGameId: string | null
+    createdAt: Date | null
+    tileMapId: string | null
+    name: string | null
+    state: string | null
+  }
+
+  export type TileGameMaxAggregateOutputType = {
+    tileGameId: string | null
+    createdAt: Date | null
+    tileMapId: string | null
+    name: string | null
+    state: string | null
+  }
+
+  export type TileGameCountAggregateOutputType = {
+    tileGameId: number
+    createdAt: number
+    tileMapId: number
+    name: number
+    state: number
+    _all: number
+  }
+
+
+  export type TileGameMinAggregateInputType = {
+    tileGameId?: true
+    createdAt?: true
+    tileMapId?: true
+    name?: true
+    state?: true
+  }
+
+  export type TileGameMaxAggregateInputType = {
+    tileGameId?: true
+    createdAt?: true
+    tileMapId?: true
+    name?: true
+    state?: true
+  }
+
+  export type TileGameCountAggregateInputType = {
+    tileGameId?: true
+    createdAt?: true
+    tileMapId?: true
+    name?: true
+    state?: true
+    _all?: true
+  }
+
+  export type TileGameAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TileGame to aggregate.
+     */
+    where?: TileGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TileGames to fetch.
+     */
+    orderBy?: TileGameOrderByWithRelationInput | TileGameOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TileGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TileGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TileGames.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TileGames
+    **/
+    _count?: true | TileGameCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TileGameMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TileGameMaxAggregateInputType
+  }
+
+  export type GetTileGameAggregateType<T extends TileGameAggregateArgs> = {
+        [P in keyof T & keyof AggregateTileGame]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTileGame[P]>
+      : GetScalarType<T[P], AggregateTileGame[P]>
+  }
+
+
+
+
+  export type TileGameGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TileGameWhereInput
+    orderBy?: TileGameOrderByWithAggregationInput | TileGameOrderByWithAggregationInput[]
+    by: TileGameScalarFieldEnum[] | TileGameScalarFieldEnum
+    having?: TileGameScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TileGameCountAggregateInputType | true
+    _min?: TileGameMinAggregateInputType
+    _max?: TileGameMaxAggregateInputType
+  }
+
+  export type TileGameGroupByOutputType = {
+    tileGameId: string
+    createdAt: Date
+    tileMapId: string
+    name: string
+    state: string
+    _count: TileGameCountAggregateOutputType | null
+    _min: TileGameMinAggregateOutputType | null
+    _max: TileGameMaxAggregateOutputType | null
+  }
+
+  type GetTileGameGroupByPayload<T extends TileGameGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TileGameGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TileGameGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TileGameGroupByOutputType[P]>
+            : GetScalarType<T[P], TileGameGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TileGameSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    tileGameId?: boolean
+    createdAt?: boolean
+    tileMapId?: boolean
+    name?: boolean
+    state?: boolean
+    tileMap?: boolean | TileMapDefaultArgs<ExtArgs>
+    TilePawn?: boolean | TileGame$TilePawnArgs<ExtArgs>
+    _count?: boolean | TileGameCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tileGame"]>
+
+  export type TileGameSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    tileGameId?: boolean
+    createdAt?: boolean
+    tileMapId?: boolean
+    name?: boolean
+    state?: boolean
+    tileMap?: boolean | TileMapDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tileGame"]>
+
+  export type TileGameSelectScalar = {
+    tileGameId?: boolean
+    createdAt?: boolean
+    tileMapId?: boolean
+    name?: boolean
+    state?: boolean
+  }
+
+  export type TileGameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tileMap?: boolean | TileMapDefaultArgs<ExtArgs>
+    TilePawn?: boolean | TileGame$TilePawnArgs<ExtArgs>
+    _count?: boolean | TileGameCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TileGameIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tileMap?: boolean | TileMapDefaultArgs<ExtArgs>
+  }
+
+  export type $TileGamePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TileGame"
+    objects: {
+      tileMap: Prisma.$TileMapPayload<ExtArgs>
+      TilePawn: Prisma.$TilePawnPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      tileGameId: string
+      createdAt: Date
+      tileMapId: string
+      name: string
+      state: string
+    }, ExtArgs["result"]["tileGame"]>
+    composites: {}
+  }
+
+  type TileGameGetPayload<S extends boolean | null | undefined | TileGameDefaultArgs> = $Result.GetResult<Prisma.$TileGamePayload, S>
+
+  type TileGameCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TileGameFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TileGameCountAggregateInputType | true
+    }
+
+  export interface TileGameDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TileGame'], meta: { name: 'TileGame' } }
+    /**
+     * Find zero or one TileGame that matches the filter.
+     * @param {TileGameFindUniqueArgs} args - Arguments to find a TileGame
+     * @example
+     * // Get one TileGame
+     * const tileGame = await prisma.tileGame.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TileGameFindUniqueArgs>(args: SelectSubset<T, TileGameFindUniqueArgs<ExtArgs>>): Prisma__TileGameClient<$Result.GetResult<Prisma.$TileGamePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one TileGame that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TileGameFindUniqueOrThrowArgs} args - Arguments to find a TileGame
+     * @example
+     * // Get one TileGame
+     * const tileGame = await prisma.tileGame.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TileGameFindUniqueOrThrowArgs>(args: SelectSubset<T, TileGameFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TileGameClient<$Result.GetResult<Prisma.$TileGamePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first TileGame that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TileGameFindFirstArgs} args - Arguments to find a TileGame
+     * @example
+     * // Get one TileGame
+     * const tileGame = await prisma.tileGame.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TileGameFindFirstArgs>(args?: SelectSubset<T, TileGameFindFirstArgs<ExtArgs>>): Prisma__TileGameClient<$Result.GetResult<Prisma.$TileGamePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first TileGame that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TileGameFindFirstOrThrowArgs} args - Arguments to find a TileGame
+     * @example
+     * // Get one TileGame
+     * const tileGame = await prisma.tileGame.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TileGameFindFirstOrThrowArgs>(args?: SelectSubset<T, TileGameFindFirstOrThrowArgs<ExtArgs>>): Prisma__TileGameClient<$Result.GetResult<Prisma.$TileGamePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more TileGames that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TileGameFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TileGames
+     * const tileGames = await prisma.tileGame.findMany()
+     * 
+     * // Get first 10 TileGames
+     * const tileGames = await prisma.tileGame.findMany({ take: 10 })
+     * 
+     * // Only select the `tileGameId`
+     * const tileGameWithTileGameIdOnly = await prisma.tileGame.findMany({ select: { tileGameId: true } })
+     * 
+     */
+    findMany<T extends TileGameFindManyArgs>(args?: SelectSubset<T, TileGameFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TileGamePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a TileGame.
+     * @param {TileGameCreateArgs} args - Arguments to create a TileGame.
+     * @example
+     * // Create one TileGame
+     * const TileGame = await prisma.tileGame.create({
+     *   data: {
+     *     // ... data to create a TileGame
+     *   }
+     * })
+     * 
+     */
+    create<T extends TileGameCreateArgs>(args: SelectSubset<T, TileGameCreateArgs<ExtArgs>>): Prisma__TileGameClient<$Result.GetResult<Prisma.$TileGamePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many TileGames.
+     * @param {TileGameCreateManyArgs} args - Arguments to create many TileGames.
+     * @example
+     * // Create many TileGames
+     * const tileGame = await prisma.tileGame.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TileGameCreateManyArgs>(args?: SelectSubset<T, TileGameCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TileGames and returns the data saved in the database.
+     * @param {TileGameCreateManyAndReturnArgs} args - Arguments to create many TileGames.
+     * @example
+     * // Create many TileGames
+     * const tileGame = await prisma.tileGame.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TileGames and only return the `tileGameId`
+     * const tileGameWithTileGameIdOnly = await prisma.tileGame.createManyAndReturn({ 
+     *   select: { tileGameId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TileGameCreateManyAndReturnArgs>(args?: SelectSubset<T, TileGameCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TileGamePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a TileGame.
+     * @param {TileGameDeleteArgs} args - Arguments to delete one TileGame.
+     * @example
+     * // Delete one TileGame
+     * const TileGame = await prisma.tileGame.delete({
+     *   where: {
+     *     // ... filter to delete one TileGame
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TileGameDeleteArgs>(args: SelectSubset<T, TileGameDeleteArgs<ExtArgs>>): Prisma__TileGameClient<$Result.GetResult<Prisma.$TileGamePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one TileGame.
+     * @param {TileGameUpdateArgs} args - Arguments to update one TileGame.
+     * @example
+     * // Update one TileGame
+     * const tileGame = await prisma.tileGame.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TileGameUpdateArgs>(args: SelectSubset<T, TileGameUpdateArgs<ExtArgs>>): Prisma__TileGameClient<$Result.GetResult<Prisma.$TileGamePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more TileGames.
+     * @param {TileGameDeleteManyArgs} args - Arguments to filter TileGames to delete.
+     * @example
+     * // Delete a few TileGames
+     * const { count } = await prisma.tileGame.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TileGameDeleteManyArgs>(args?: SelectSubset<T, TileGameDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TileGames.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TileGameUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TileGames
+     * const tileGame = await prisma.tileGame.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TileGameUpdateManyArgs>(args: SelectSubset<T, TileGameUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TileGame.
+     * @param {TileGameUpsertArgs} args - Arguments to update or create a TileGame.
+     * @example
+     * // Update or create a TileGame
+     * const tileGame = await prisma.tileGame.upsert({
+     *   create: {
+     *     // ... data to create a TileGame
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TileGame we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TileGameUpsertArgs>(args: SelectSubset<T, TileGameUpsertArgs<ExtArgs>>): Prisma__TileGameClient<$Result.GetResult<Prisma.$TileGamePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of TileGames.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TileGameCountArgs} args - Arguments to filter TileGames to count.
+     * @example
+     * // Count the number of TileGames
+     * const count = await prisma.tileGame.count({
+     *   where: {
+     *     // ... the filter for the TileGames we want to count
+     *   }
+     * })
+    **/
+    count<T extends TileGameCountArgs>(
+      args?: Subset<T, TileGameCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TileGameCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TileGame.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TileGameAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TileGameAggregateArgs>(args: Subset<T, TileGameAggregateArgs>): Prisma.PrismaPromise<GetTileGameAggregateType<T>>
+
+    /**
+     * Group by TileGame.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TileGameGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TileGameGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TileGameGroupByArgs['orderBy'] }
+        : { orderBy?: TileGameGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TileGameGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTileGameGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TileGame model
+   */
+  readonly fields: TileGameFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TileGame.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TileGameClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tileMap<T extends TileMapDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TileMapDefaultArgs<ExtArgs>>): Prisma__TileMapClient<$Result.GetResult<Prisma.$TileMapPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    TilePawn<T extends TileGame$TilePawnArgs<ExtArgs> = {}>(args?: Subset<T, TileGame$TilePawnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TilePawnPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TileGame model
+   */ 
+  interface TileGameFieldRefs {
+    readonly tileGameId: FieldRef<"TileGame", 'String'>
+    readonly createdAt: FieldRef<"TileGame", 'DateTime'>
+    readonly tileMapId: FieldRef<"TileGame", 'String'>
+    readonly name: FieldRef<"TileGame", 'String'>
+    readonly state: FieldRef<"TileGame", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TileGame findUnique
+   */
+  export type TileGameFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TileGame
+     */
+    select?: TileGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TileGameInclude<ExtArgs> | null
+    /**
+     * Filter, which TileGame to fetch.
+     */
+    where: TileGameWhereUniqueInput
+  }
+
+  /**
+   * TileGame findUniqueOrThrow
+   */
+  export type TileGameFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TileGame
+     */
+    select?: TileGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TileGameInclude<ExtArgs> | null
+    /**
+     * Filter, which TileGame to fetch.
+     */
+    where: TileGameWhereUniqueInput
+  }
+
+  /**
+   * TileGame findFirst
+   */
+  export type TileGameFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TileGame
+     */
+    select?: TileGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TileGameInclude<ExtArgs> | null
+    /**
+     * Filter, which TileGame to fetch.
+     */
+    where?: TileGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TileGames to fetch.
+     */
+    orderBy?: TileGameOrderByWithRelationInput | TileGameOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TileGames.
+     */
+    cursor?: TileGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TileGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TileGames.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TileGames.
+     */
+    distinct?: TileGameScalarFieldEnum | TileGameScalarFieldEnum[]
+  }
+
+  /**
+   * TileGame findFirstOrThrow
+   */
+  export type TileGameFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TileGame
+     */
+    select?: TileGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TileGameInclude<ExtArgs> | null
+    /**
+     * Filter, which TileGame to fetch.
+     */
+    where?: TileGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TileGames to fetch.
+     */
+    orderBy?: TileGameOrderByWithRelationInput | TileGameOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TileGames.
+     */
+    cursor?: TileGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TileGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TileGames.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TileGames.
+     */
+    distinct?: TileGameScalarFieldEnum | TileGameScalarFieldEnum[]
+  }
+
+  /**
+   * TileGame findMany
+   */
+  export type TileGameFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TileGame
+     */
+    select?: TileGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TileGameInclude<ExtArgs> | null
+    /**
+     * Filter, which TileGames to fetch.
+     */
+    where?: TileGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TileGames to fetch.
+     */
+    orderBy?: TileGameOrderByWithRelationInput | TileGameOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TileGames.
+     */
+    cursor?: TileGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TileGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TileGames.
+     */
+    skip?: number
+    distinct?: TileGameScalarFieldEnum | TileGameScalarFieldEnum[]
+  }
+
+  /**
+   * TileGame create
+   */
+  export type TileGameCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TileGame
+     */
+    select?: TileGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TileGameInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TileGame.
+     */
+    data: XOR<TileGameCreateInput, TileGameUncheckedCreateInput>
+  }
+
+  /**
+   * TileGame createMany
+   */
+  export type TileGameCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TileGames.
+     */
+    data: TileGameCreateManyInput | TileGameCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TileGame createManyAndReturn
+   */
+  export type TileGameCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TileGame
+     */
+    select?: TileGameSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many TileGames.
+     */
+    data: TileGameCreateManyInput | TileGameCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TileGameIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TileGame update
+   */
+  export type TileGameUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TileGame
+     */
+    select?: TileGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TileGameInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TileGame.
+     */
+    data: XOR<TileGameUpdateInput, TileGameUncheckedUpdateInput>
+    /**
+     * Choose, which TileGame to update.
+     */
+    where: TileGameWhereUniqueInput
+  }
+
+  /**
+   * TileGame updateMany
+   */
+  export type TileGameUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TileGames.
+     */
+    data: XOR<TileGameUpdateManyMutationInput, TileGameUncheckedUpdateManyInput>
+    /**
+     * Filter which TileGames to update
+     */
+    where?: TileGameWhereInput
+  }
+
+  /**
+   * TileGame upsert
+   */
+  export type TileGameUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TileGame
+     */
+    select?: TileGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TileGameInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TileGame to update in case it exists.
+     */
+    where: TileGameWhereUniqueInput
+    /**
+     * In case the TileGame found by the `where` argument doesn't exist, create a new TileGame with this data.
+     */
+    create: XOR<TileGameCreateInput, TileGameUncheckedCreateInput>
+    /**
+     * In case the TileGame was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TileGameUpdateInput, TileGameUncheckedUpdateInput>
+  }
+
+  /**
+   * TileGame delete
+   */
+  export type TileGameDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TileGame
+     */
+    select?: TileGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TileGameInclude<ExtArgs> | null
+    /**
+     * Filter which TileGame to delete.
+     */
+    where: TileGameWhereUniqueInput
+  }
+
+  /**
+   * TileGame deleteMany
+   */
+  export type TileGameDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TileGames to delete
+     */
+    where?: TileGameWhereInput
+  }
+
+  /**
+   * TileGame.TilePawn
+   */
+  export type TileGame$TilePawnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TilePawn
+     */
+    select?: TilePawnSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TilePawnInclude<ExtArgs> | null
+    where?: TilePawnWhereInput
+    orderBy?: TilePawnOrderByWithRelationInput | TilePawnOrderByWithRelationInput[]
+    cursor?: TilePawnWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TilePawnScalarFieldEnum | TilePawnScalarFieldEnum[]
+  }
+
+  /**
+   * TileGame without action
+   */
+  export type TileGameDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TileGame
+     */
+    select?: TileGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TileGameInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TilePawn
+   */
+
+  export type AggregateTilePawn = {
+    _count: TilePawnCountAggregateOutputType | null
+    _min: TilePawnMinAggregateOutputType | null
+    _max: TilePawnMaxAggregateOutputType | null
+  }
+
+  export type TilePawnMinAggregateOutputType = {
+    tilePawnId: string | null
+    createdAt: Date | null
+    onTileId: string | null
+    tileGameId: string | null
+    color: string | null
+  }
+
+  export type TilePawnMaxAggregateOutputType = {
+    tilePawnId: string | null
+    createdAt: Date | null
+    onTileId: string | null
+    tileGameId: string | null
+    color: string | null
+  }
+
+  export type TilePawnCountAggregateOutputType = {
+    tilePawnId: number
+    createdAt: number
+    onTileId: number
+    tileGameId: number
+    color: number
+    _all: number
+  }
+
+
+  export type TilePawnMinAggregateInputType = {
+    tilePawnId?: true
+    createdAt?: true
+    onTileId?: true
+    tileGameId?: true
+    color?: true
+  }
+
+  export type TilePawnMaxAggregateInputType = {
+    tilePawnId?: true
+    createdAt?: true
+    onTileId?: true
+    tileGameId?: true
+    color?: true
+  }
+
+  export type TilePawnCountAggregateInputType = {
+    tilePawnId?: true
+    createdAt?: true
+    onTileId?: true
+    tileGameId?: true
+    color?: true
+    _all?: true
+  }
+
+  export type TilePawnAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TilePawn to aggregate.
+     */
+    where?: TilePawnWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TilePawns to fetch.
+     */
+    orderBy?: TilePawnOrderByWithRelationInput | TilePawnOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TilePawnWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TilePawns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TilePawns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TilePawns
+    **/
+    _count?: true | TilePawnCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TilePawnMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TilePawnMaxAggregateInputType
+  }
+
+  export type GetTilePawnAggregateType<T extends TilePawnAggregateArgs> = {
+        [P in keyof T & keyof AggregateTilePawn]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTilePawn[P]>
+      : GetScalarType<T[P], AggregateTilePawn[P]>
+  }
+
+
+
+
+  export type TilePawnGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TilePawnWhereInput
+    orderBy?: TilePawnOrderByWithAggregationInput | TilePawnOrderByWithAggregationInput[]
+    by: TilePawnScalarFieldEnum[] | TilePawnScalarFieldEnum
+    having?: TilePawnScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TilePawnCountAggregateInputType | true
+    _min?: TilePawnMinAggregateInputType
+    _max?: TilePawnMaxAggregateInputType
+  }
+
+  export type TilePawnGroupByOutputType = {
+    tilePawnId: string
+    createdAt: Date
+    onTileId: string
+    tileGameId: string
+    color: string
+    _count: TilePawnCountAggregateOutputType | null
+    _min: TilePawnMinAggregateOutputType | null
+    _max: TilePawnMaxAggregateOutputType | null
+  }
+
+  type GetTilePawnGroupByPayload<T extends TilePawnGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TilePawnGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TilePawnGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TilePawnGroupByOutputType[P]>
+            : GetScalarType<T[P], TilePawnGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TilePawnSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    tilePawnId?: boolean
+    createdAt?: boolean
+    onTileId?: boolean
+    tileGameId?: boolean
+    color?: boolean
+    onTile?: boolean | TileDefaultArgs<ExtArgs>
+    tileGame?: boolean | TileGameDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tilePawn"]>
+
+  export type TilePawnSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    tilePawnId?: boolean
+    createdAt?: boolean
+    onTileId?: boolean
+    tileGameId?: boolean
+    color?: boolean
+    onTile?: boolean | TileDefaultArgs<ExtArgs>
+    tileGame?: boolean | TileGameDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tilePawn"]>
+
+  export type TilePawnSelectScalar = {
+    tilePawnId?: boolean
+    createdAt?: boolean
+    onTileId?: boolean
+    tileGameId?: boolean
+    color?: boolean
+  }
+
+  export type TilePawnInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    onTile?: boolean | TileDefaultArgs<ExtArgs>
+    tileGame?: boolean | TileGameDefaultArgs<ExtArgs>
+  }
+  export type TilePawnIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    onTile?: boolean | TileDefaultArgs<ExtArgs>
+    tileGame?: boolean | TileGameDefaultArgs<ExtArgs>
+  }
+
+  export type $TilePawnPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TilePawn"
+    objects: {
+      onTile: Prisma.$TilePayload<ExtArgs>
+      tileGame: Prisma.$TileGamePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      tilePawnId: string
+      createdAt: Date
+      onTileId: string
+      tileGameId: string
+      color: string
+    }, ExtArgs["result"]["tilePawn"]>
+    composites: {}
+  }
+
+  type TilePawnGetPayload<S extends boolean | null | undefined | TilePawnDefaultArgs> = $Result.GetResult<Prisma.$TilePawnPayload, S>
+
+  type TilePawnCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TilePawnFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TilePawnCountAggregateInputType | true
+    }
+
+  export interface TilePawnDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TilePawn'], meta: { name: 'TilePawn' } }
+    /**
+     * Find zero or one TilePawn that matches the filter.
+     * @param {TilePawnFindUniqueArgs} args - Arguments to find a TilePawn
+     * @example
+     * // Get one TilePawn
+     * const tilePawn = await prisma.tilePawn.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TilePawnFindUniqueArgs>(args: SelectSubset<T, TilePawnFindUniqueArgs<ExtArgs>>): Prisma__TilePawnClient<$Result.GetResult<Prisma.$TilePawnPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one TilePawn that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TilePawnFindUniqueOrThrowArgs} args - Arguments to find a TilePawn
+     * @example
+     * // Get one TilePawn
+     * const tilePawn = await prisma.tilePawn.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TilePawnFindUniqueOrThrowArgs>(args: SelectSubset<T, TilePawnFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TilePawnClient<$Result.GetResult<Prisma.$TilePawnPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first TilePawn that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilePawnFindFirstArgs} args - Arguments to find a TilePawn
+     * @example
+     * // Get one TilePawn
+     * const tilePawn = await prisma.tilePawn.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TilePawnFindFirstArgs>(args?: SelectSubset<T, TilePawnFindFirstArgs<ExtArgs>>): Prisma__TilePawnClient<$Result.GetResult<Prisma.$TilePawnPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first TilePawn that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilePawnFindFirstOrThrowArgs} args - Arguments to find a TilePawn
+     * @example
+     * // Get one TilePawn
+     * const tilePawn = await prisma.tilePawn.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TilePawnFindFirstOrThrowArgs>(args?: SelectSubset<T, TilePawnFindFirstOrThrowArgs<ExtArgs>>): Prisma__TilePawnClient<$Result.GetResult<Prisma.$TilePawnPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more TilePawns that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilePawnFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TilePawns
+     * const tilePawns = await prisma.tilePawn.findMany()
+     * 
+     * // Get first 10 TilePawns
+     * const tilePawns = await prisma.tilePawn.findMany({ take: 10 })
+     * 
+     * // Only select the `tilePawnId`
+     * const tilePawnWithTilePawnIdOnly = await prisma.tilePawn.findMany({ select: { tilePawnId: true } })
+     * 
+     */
+    findMany<T extends TilePawnFindManyArgs>(args?: SelectSubset<T, TilePawnFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TilePawnPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a TilePawn.
+     * @param {TilePawnCreateArgs} args - Arguments to create a TilePawn.
+     * @example
+     * // Create one TilePawn
+     * const TilePawn = await prisma.tilePawn.create({
+     *   data: {
+     *     // ... data to create a TilePawn
+     *   }
+     * })
+     * 
+     */
+    create<T extends TilePawnCreateArgs>(args: SelectSubset<T, TilePawnCreateArgs<ExtArgs>>): Prisma__TilePawnClient<$Result.GetResult<Prisma.$TilePawnPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many TilePawns.
+     * @param {TilePawnCreateManyArgs} args - Arguments to create many TilePawns.
+     * @example
+     * // Create many TilePawns
+     * const tilePawn = await prisma.tilePawn.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TilePawnCreateManyArgs>(args?: SelectSubset<T, TilePawnCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TilePawns and returns the data saved in the database.
+     * @param {TilePawnCreateManyAndReturnArgs} args - Arguments to create many TilePawns.
+     * @example
+     * // Create many TilePawns
+     * const tilePawn = await prisma.tilePawn.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TilePawns and only return the `tilePawnId`
+     * const tilePawnWithTilePawnIdOnly = await prisma.tilePawn.createManyAndReturn({ 
+     *   select: { tilePawnId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TilePawnCreateManyAndReturnArgs>(args?: SelectSubset<T, TilePawnCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TilePawnPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a TilePawn.
+     * @param {TilePawnDeleteArgs} args - Arguments to delete one TilePawn.
+     * @example
+     * // Delete one TilePawn
+     * const TilePawn = await prisma.tilePawn.delete({
+     *   where: {
+     *     // ... filter to delete one TilePawn
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TilePawnDeleteArgs>(args: SelectSubset<T, TilePawnDeleteArgs<ExtArgs>>): Prisma__TilePawnClient<$Result.GetResult<Prisma.$TilePawnPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one TilePawn.
+     * @param {TilePawnUpdateArgs} args - Arguments to update one TilePawn.
+     * @example
+     * // Update one TilePawn
+     * const tilePawn = await prisma.tilePawn.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TilePawnUpdateArgs>(args: SelectSubset<T, TilePawnUpdateArgs<ExtArgs>>): Prisma__TilePawnClient<$Result.GetResult<Prisma.$TilePawnPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more TilePawns.
+     * @param {TilePawnDeleteManyArgs} args - Arguments to filter TilePawns to delete.
+     * @example
+     * // Delete a few TilePawns
+     * const { count } = await prisma.tilePawn.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TilePawnDeleteManyArgs>(args?: SelectSubset<T, TilePawnDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TilePawns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilePawnUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TilePawns
+     * const tilePawn = await prisma.tilePawn.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TilePawnUpdateManyArgs>(args: SelectSubset<T, TilePawnUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TilePawn.
+     * @param {TilePawnUpsertArgs} args - Arguments to update or create a TilePawn.
+     * @example
+     * // Update or create a TilePawn
+     * const tilePawn = await prisma.tilePawn.upsert({
+     *   create: {
+     *     // ... data to create a TilePawn
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TilePawn we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TilePawnUpsertArgs>(args: SelectSubset<T, TilePawnUpsertArgs<ExtArgs>>): Prisma__TilePawnClient<$Result.GetResult<Prisma.$TilePawnPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of TilePawns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilePawnCountArgs} args - Arguments to filter TilePawns to count.
+     * @example
+     * // Count the number of TilePawns
+     * const count = await prisma.tilePawn.count({
+     *   where: {
+     *     // ... the filter for the TilePawns we want to count
+     *   }
+     * })
+    **/
+    count<T extends TilePawnCountArgs>(
+      args?: Subset<T, TilePawnCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TilePawnCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TilePawn.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilePawnAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TilePawnAggregateArgs>(args: Subset<T, TilePawnAggregateArgs>): Prisma.PrismaPromise<GetTilePawnAggregateType<T>>
+
+    /**
+     * Group by TilePawn.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilePawnGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TilePawnGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TilePawnGroupByArgs['orderBy'] }
+        : { orderBy?: TilePawnGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TilePawnGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTilePawnGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TilePawn model
+   */
+  readonly fields: TilePawnFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TilePawn.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TilePawnClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    onTile<T extends TileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TileDefaultArgs<ExtArgs>>): Prisma__TileClient<$Result.GetResult<Prisma.$TilePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    tileGame<T extends TileGameDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TileGameDefaultArgs<ExtArgs>>): Prisma__TileGameClient<$Result.GetResult<Prisma.$TileGamePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TilePawn model
+   */ 
+  interface TilePawnFieldRefs {
+    readonly tilePawnId: FieldRef<"TilePawn", 'String'>
+    readonly createdAt: FieldRef<"TilePawn", 'DateTime'>
+    readonly onTileId: FieldRef<"TilePawn", 'String'>
+    readonly tileGameId: FieldRef<"TilePawn", 'String'>
+    readonly color: FieldRef<"TilePawn", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TilePawn findUnique
+   */
+  export type TilePawnFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TilePawn
+     */
+    select?: TilePawnSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TilePawnInclude<ExtArgs> | null
+    /**
+     * Filter, which TilePawn to fetch.
+     */
+    where: TilePawnWhereUniqueInput
+  }
+
+  /**
+   * TilePawn findUniqueOrThrow
+   */
+  export type TilePawnFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TilePawn
+     */
+    select?: TilePawnSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TilePawnInclude<ExtArgs> | null
+    /**
+     * Filter, which TilePawn to fetch.
+     */
+    where: TilePawnWhereUniqueInput
+  }
+
+  /**
+   * TilePawn findFirst
+   */
+  export type TilePawnFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TilePawn
+     */
+    select?: TilePawnSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TilePawnInclude<ExtArgs> | null
+    /**
+     * Filter, which TilePawn to fetch.
+     */
+    where?: TilePawnWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TilePawns to fetch.
+     */
+    orderBy?: TilePawnOrderByWithRelationInput | TilePawnOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TilePawns.
+     */
+    cursor?: TilePawnWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TilePawns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TilePawns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TilePawns.
+     */
+    distinct?: TilePawnScalarFieldEnum | TilePawnScalarFieldEnum[]
+  }
+
+  /**
+   * TilePawn findFirstOrThrow
+   */
+  export type TilePawnFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TilePawn
+     */
+    select?: TilePawnSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TilePawnInclude<ExtArgs> | null
+    /**
+     * Filter, which TilePawn to fetch.
+     */
+    where?: TilePawnWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TilePawns to fetch.
+     */
+    orderBy?: TilePawnOrderByWithRelationInput | TilePawnOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TilePawns.
+     */
+    cursor?: TilePawnWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TilePawns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TilePawns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TilePawns.
+     */
+    distinct?: TilePawnScalarFieldEnum | TilePawnScalarFieldEnum[]
+  }
+
+  /**
+   * TilePawn findMany
+   */
+  export type TilePawnFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TilePawn
+     */
+    select?: TilePawnSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TilePawnInclude<ExtArgs> | null
+    /**
+     * Filter, which TilePawns to fetch.
+     */
+    where?: TilePawnWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TilePawns to fetch.
+     */
+    orderBy?: TilePawnOrderByWithRelationInput | TilePawnOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TilePawns.
+     */
+    cursor?: TilePawnWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TilePawns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TilePawns.
+     */
+    skip?: number
+    distinct?: TilePawnScalarFieldEnum | TilePawnScalarFieldEnum[]
+  }
+
+  /**
+   * TilePawn create
+   */
+  export type TilePawnCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TilePawn
+     */
+    select?: TilePawnSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TilePawnInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TilePawn.
+     */
+    data: XOR<TilePawnCreateInput, TilePawnUncheckedCreateInput>
+  }
+
+  /**
+   * TilePawn createMany
+   */
+  export type TilePawnCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TilePawns.
+     */
+    data: TilePawnCreateManyInput | TilePawnCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TilePawn createManyAndReturn
+   */
+  export type TilePawnCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TilePawn
+     */
+    select?: TilePawnSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many TilePawns.
+     */
+    data: TilePawnCreateManyInput | TilePawnCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TilePawnIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TilePawn update
+   */
+  export type TilePawnUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TilePawn
+     */
+    select?: TilePawnSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TilePawnInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TilePawn.
+     */
+    data: XOR<TilePawnUpdateInput, TilePawnUncheckedUpdateInput>
+    /**
+     * Choose, which TilePawn to update.
+     */
+    where: TilePawnWhereUniqueInput
+  }
+
+  /**
+   * TilePawn updateMany
+   */
+  export type TilePawnUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TilePawns.
+     */
+    data: XOR<TilePawnUpdateManyMutationInput, TilePawnUncheckedUpdateManyInput>
+    /**
+     * Filter which TilePawns to update
+     */
+    where?: TilePawnWhereInput
+  }
+
+  /**
+   * TilePawn upsert
+   */
+  export type TilePawnUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TilePawn
+     */
+    select?: TilePawnSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TilePawnInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TilePawn to update in case it exists.
+     */
+    where: TilePawnWhereUniqueInput
+    /**
+     * In case the TilePawn found by the `where` argument doesn't exist, create a new TilePawn with this data.
+     */
+    create: XOR<TilePawnCreateInput, TilePawnUncheckedCreateInput>
+    /**
+     * In case the TilePawn was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TilePawnUpdateInput, TilePawnUncheckedUpdateInput>
+  }
+
+  /**
+   * TilePawn delete
+   */
+  export type TilePawnDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TilePawn
+     */
+    select?: TilePawnSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TilePawnInclude<ExtArgs> | null
+    /**
+     * Filter which TilePawn to delete.
+     */
+    where: TilePawnWhereUniqueInput
+  }
+
+  /**
+   * TilePawn deleteMany
+   */
+  export type TilePawnDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TilePawns to delete
+     */
+    where?: TilePawnWhereInput
+  }
+
+  /**
+   * TilePawn without action
+   */
+  export type TilePawnDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TilePawn
+     */
+    select?: TilePawnSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TilePawnInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3996,6 +6163,28 @@ export namespace Prisma {
   };
 
   export type EdgeScalarFieldEnum = (typeof EdgeScalarFieldEnum)[keyof typeof EdgeScalarFieldEnum]
+
+
+  export const TileGameScalarFieldEnum: {
+    tileGameId: 'tileGameId',
+    createdAt: 'createdAt',
+    tileMapId: 'tileMapId',
+    name: 'name',
+    state: 'state'
+  };
+
+  export type TileGameScalarFieldEnum = (typeof TileGameScalarFieldEnum)[keyof typeof TileGameScalarFieldEnum]
+
+
+  export const TilePawnScalarFieldEnum: {
+    tilePawnId: 'tilePawnId',
+    createdAt: 'createdAt',
+    onTileId: 'onTileId',
+    tileGameId: 'tileGameId',
+    color: 'color'
+  };
+
+  export type TilePawnScalarFieldEnum = (typeof TilePawnScalarFieldEnum)[keyof typeof TilePawnScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4072,6 +6261,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"TileMap"> | Date | string
     startingTileId?: StringFilter<"TileMap"> | string
     tiles?: TileListRelationFilter
+    TileGame?: TileGameListRelationFilter
   }
 
   export type TileMapOrderByWithRelationInput = {
@@ -4079,6 +6269,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     startingTileId?: SortOrder
     tiles?: TileOrderByRelationAggregateInput
+    TileGame?: TileGameOrderByRelationAggregateInput
   }
 
   export type TileMapWhereUniqueInput = Prisma.AtLeast<{
@@ -4089,6 +6280,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"TileMap"> | Date | string
     startingTileId?: StringFilter<"TileMap"> | string
     tiles?: TileListRelationFilter
+    TileGame?: TileGameListRelationFilter
   }, "tileMapId">
 
   export type TileMapOrderByWithAggregationInput = {
@@ -4120,6 +6312,7 @@ export namespace Prisma {
     tileMap?: XOR<TileMapRelationFilter, TileMapWhereInput>
     fromTile?: EdgeListRelationFilter
     toTile?: EdgeListRelationFilter
+    TilePawn?: TilePawnListRelationFilter
   }
 
   export type TileOrderByWithRelationInput = {
@@ -4130,6 +6323,7 @@ export namespace Prisma {
     tileMap?: TileMapOrderByWithRelationInput
     fromTile?: EdgeOrderByRelationAggregateInput
     toTile?: EdgeOrderByRelationAggregateInput
+    TilePawn?: TilePawnOrderByRelationAggregateInput
   }
 
   export type TileWhereUniqueInput = Prisma.AtLeast<{
@@ -4143,6 +6337,7 @@ export namespace Prisma {
     tileMap?: XOR<TileMapRelationFilter, TileMapWhereInput>
     fromTile?: EdgeListRelationFilter
     toTile?: EdgeListRelationFilter
+    TilePawn?: TilePawnListRelationFilter
   }, "tileId">
 
   export type TileOrderByWithAggregationInput = {
@@ -4223,11 +6418,128 @@ export namespace Prisma {
     fromTileId?: StringWithAggregatesFilter<"Edge"> | string
   }
 
+  export type TileGameWhereInput = {
+    AND?: TileGameWhereInput | TileGameWhereInput[]
+    OR?: TileGameWhereInput[]
+    NOT?: TileGameWhereInput | TileGameWhereInput[]
+    tileGameId?: StringFilter<"TileGame"> | string
+    createdAt?: DateTimeFilter<"TileGame"> | Date | string
+    tileMapId?: StringFilter<"TileGame"> | string
+    name?: StringFilter<"TileGame"> | string
+    state?: StringFilter<"TileGame"> | string
+    tileMap?: XOR<TileMapRelationFilter, TileMapWhereInput>
+    TilePawn?: TilePawnListRelationFilter
+  }
+
+  export type TileGameOrderByWithRelationInput = {
+    tileGameId?: SortOrder
+    createdAt?: SortOrder
+    tileMapId?: SortOrder
+    name?: SortOrder
+    state?: SortOrder
+    tileMap?: TileMapOrderByWithRelationInput
+    TilePawn?: TilePawnOrderByRelationAggregateInput
+  }
+
+  export type TileGameWhereUniqueInput = Prisma.AtLeast<{
+    tileGameId?: string
+    AND?: TileGameWhereInput | TileGameWhereInput[]
+    OR?: TileGameWhereInput[]
+    NOT?: TileGameWhereInput | TileGameWhereInput[]
+    createdAt?: DateTimeFilter<"TileGame"> | Date | string
+    tileMapId?: StringFilter<"TileGame"> | string
+    name?: StringFilter<"TileGame"> | string
+    state?: StringFilter<"TileGame"> | string
+    tileMap?: XOR<TileMapRelationFilter, TileMapWhereInput>
+    TilePawn?: TilePawnListRelationFilter
+  }, "tileGameId">
+
+  export type TileGameOrderByWithAggregationInput = {
+    tileGameId?: SortOrder
+    createdAt?: SortOrder
+    tileMapId?: SortOrder
+    name?: SortOrder
+    state?: SortOrder
+    _count?: TileGameCountOrderByAggregateInput
+    _max?: TileGameMaxOrderByAggregateInput
+    _min?: TileGameMinOrderByAggregateInput
+  }
+
+  export type TileGameScalarWhereWithAggregatesInput = {
+    AND?: TileGameScalarWhereWithAggregatesInput | TileGameScalarWhereWithAggregatesInput[]
+    OR?: TileGameScalarWhereWithAggregatesInput[]
+    NOT?: TileGameScalarWhereWithAggregatesInput | TileGameScalarWhereWithAggregatesInput[]
+    tileGameId?: StringWithAggregatesFilter<"TileGame"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"TileGame"> | Date | string
+    tileMapId?: StringWithAggregatesFilter<"TileGame"> | string
+    name?: StringWithAggregatesFilter<"TileGame"> | string
+    state?: StringWithAggregatesFilter<"TileGame"> | string
+  }
+
+  export type TilePawnWhereInput = {
+    AND?: TilePawnWhereInput | TilePawnWhereInput[]
+    OR?: TilePawnWhereInput[]
+    NOT?: TilePawnWhereInput | TilePawnWhereInput[]
+    tilePawnId?: StringFilter<"TilePawn"> | string
+    createdAt?: DateTimeFilter<"TilePawn"> | Date | string
+    onTileId?: StringFilter<"TilePawn"> | string
+    tileGameId?: StringFilter<"TilePawn"> | string
+    color?: StringFilter<"TilePawn"> | string
+    onTile?: XOR<TileRelationFilter, TileWhereInput>
+    tileGame?: XOR<TileGameRelationFilter, TileGameWhereInput>
+  }
+
+  export type TilePawnOrderByWithRelationInput = {
+    tilePawnId?: SortOrder
+    createdAt?: SortOrder
+    onTileId?: SortOrder
+    tileGameId?: SortOrder
+    color?: SortOrder
+    onTile?: TileOrderByWithRelationInput
+    tileGame?: TileGameOrderByWithRelationInput
+  }
+
+  export type TilePawnWhereUniqueInput = Prisma.AtLeast<{
+    tilePawnId?: string
+    AND?: TilePawnWhereInput | TilePawnWhereInput[]
+    OR?: TilePawnWhereInput[]
+    NOT?: TilePawnWhereInput | TilePawnWhereInput[]
+    createdAt?: DateTimeFilter<"TilePawn"> | Date | string
+    onTileId?: StringFilter<"TilePawn"> | string
+    tileGameId?: StringFilter<"TilePawn"> | string
+    color?: StringFilter<"TilePawn"> | string
+    onTile?: XOR<TileRelationFilter, TileWhereInput>
+    tileGame?: XOR<TileGameRelationFilter, TileGameWhereInput>
+  }, "tilePawnId">
+
+  export type TilePawnOrderByWithAggregationInput = {
+    tilePawnId?: SortOrder
+    createdAt?: SortOrder
+    onTileId?: SortOrder
+    tileGameId?: SortOrder
+    color?: SortOrder
+    _count?: TilePawnCountOrderByAggregateInput
+    _max?: TilePawnMaxOrderByAggregateInput
+    _min?: TilePawnMinOrderByAggregateInput
+  }
+
+  export type TilePawnScalarWhereWithAggregatesInput = {
+    AND?: TilePawnScalarWhereWithAggregatesInput | TilePawnScalarWhereWithAggregatesInput[]
+    OR?: TilePawnScalarWhereWithAggregatesInput[]
+    NOT?: TilePawnScalarWhereWithAggregatesInput | TilePawnScalarWhereWithAggregatesInput[]
+    tilePawnId?: StringWithAggregatesFilter<"TilePawn"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"TilePawn"> | Date | string
+    onTileId?: StringWithAggregatesFilter<"TilePawn"> | string
+    tileGameId?: StringWithAggregatesFilter<"TilePawn"> | string
+    color?: StringWithAggregatesFilter<"TilePawn"> | string
+  }
+
   export type TileMapCreateInput = {
     tileMapId?: string
     createdAt?: Date | string
     startingTileId: string
     tiles?: TileCreateNestedManyWithoutTileMapInput
+    TileGame?: TileGameCreateNestedManyWithoutTileMapInput
   }
 
   export type TileMapUncheckedCreateInput = {
@@ -4235,6 +6547,7 @@ export namespace Prisma {
     createdAt?: Date | string
     startingTileId: string
     tiles?: TileUncheckedCreateNestedManyWithoutTileMapInput
+    TileGame?: TileGameUncheckedCreateNestedManyWithoutTileMapInput
   }
 
   export type TileMapUpdateInput = {
@@ -4242,6 +6555,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startingTileId?: StringFieldUpdateOperationsInput | string
     tiles?: TileUpdateManyWithoutTileMapNestedInput
+    TileGame?: TileGameUpdateManyWithoutTileMapNestedInput
   }
 
   export type TileMapUncheckedUpdateInput = {
@@ -4249,6 +6563,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startingTileId?: StringFieldUpdateOperationsInput | string
     tiles?: TileUncheckedUpdateManyWithoutTileMapNestedInput
+    TileGame?: TileGameUncheckedUpdateManyWithoutTileMapNestedInput
   }
 
   export type TileMapCreateManyInput = {
@@ -4276,6 +6591,7 @@ export namespace Prisma {
     tileMap: TileMapCreateNestedOneWithoutTilesInput
     fromTile?: EdgeCreateNestedManyWithoutFromTileInput
     toTile?: EdgeCreateNestedManyWithoutToTileInput
+    TilePawn?: TilePawnCreateNestedManyWithoutOnTileInput
   }
 
   export type TileUncheckedCreateInput = {
@@ -4285,6 +6601,7 @@ export namespace Prisma {
     tileMapId: string
     fromTile?: EdgeUncheckedCreateNestedManyWithoutFromTileInput
     toTile?: EdgeUncheckedCreateNestedManyWithoutToTileInput
+    TilePawn?: TilePawnUncheckedCreateNestedManyWithoutOnTileInput
   }
 
   export type TileUpdateInput = {
@@ -4294,6 +6611,7 @@ export namespace Prisma {
     tileMap?: TileMapUpdateOneRequiredWithoutTilesNestedInput
     fromTile?: EdgeUpdateManyWithoutFromTileNestedInput
     toTile?: EdgeUpdateManyWithoutToTileNestedInput
+    TilePawn?: TilePawnUpdateManyWithoutOnTileNestedInput
   }
 
   export type TileUncheckedUpdateInput = {
@@ -4303,6 +6621,7 @@ export namespace Prisma {
     tileMapId?: StringFieldUpdateOperationsInput | string
     fromTile?: EdgeUncheckedUpdateManyWithoutFromTileNestedInput
     toTile?: EdgeUncheckedUpdateManyWithoutToTileNestedInput
+    TilePawn?: TilePawnUncheckedUpdateManyWithoutOnTileNestedInput
   }
 
   export type TileCreateManyInput = {
@@ -4379,6 +6698,119 @@ export namespace Prisma {
     fromTileId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type TileGameCreateInput = {
+    tileGameId?: string
+    createdAt?: Date | string
+    name: string
+    state: string
+    tileMap: TileMapCreateNestedOneWithoutTileGameInput
+    TilePawn?: TilePawnCreateNestedManyWithoutTileGameInput
+  }
+
+  export type TileGameUncheckedCreateInput = {
+    tileGameId?: string
+    createdAt?: Date | string
+    tileMapId: string
+    name: string
+    state: string
+    TilePawn?: TilePawnUncheckedCreateNestedManyWithoutTileGameInput
+  }
+
+  export type TileGameUpdateInput = {
+    tileGameId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    tileMap?: TileMapUpdateOneRequiredWithoutTileGameNestedInput
+    TilePawn?: TilePawnUpdateManyWithoutTileGameNestedInput
+  }
+
+  export type TileGameUncheckedUpdateInput = {
+    tileGameId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tileMapId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    TilePawn?: TilePawnUncheckedUpdateManyWithoutTileGameNestedInput
+  }
+
+  export type TileGameCreateManyInput = {
+    tileGameId?: string
+    createdAt?: Date | string
+    tileMapId: string
+    name: string
+    state: string
+  }
+
+  export type TileGameUpdateManyMutationInput = {
+    tileGameId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TileGameUncheckedUpdateManyInput = {
+    tileGameId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tileMapId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TilePawnCreateInput = {
+    tilePawnId?: string
+    createdAt?: Date | string
+    color: string
+    onTile: TileCreateNestedOneWithoutTilePawnInput
+    tileGame: TileGameCreateNestedOneWithoutTilePawnInput
+  }
+
+  export type TilePawnUncheckedCreateInput = {
+    tilePawnId?: string
+    createdAt?: Date | string
+    onTileId: string
+    tileGameId: string
+    color: string
+  }
+
+  export type TilePawnUpdateInput = {
+    tilePawnId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    color?: StringFieldUpdateOperationsInput | string
+    onTile?: TileUpdateOneRequiredWithoutTilePawnNestedInput
+    tileGame?: TileGameUpdateOneRequiredWithoutTilePawnNestedInput
+  }
+
+  export type TilePawnUncheckedUpdateInput = {
+    tilePawnId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onTileId?: StringFieldUpdateOperationsInput | string
+    tileGameId?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TilePawnCreateManyInput = {
+    tilePawnId?: string
+    createdAt?: Date | string
+    onTileId: string
+    tileGameId: string
+    color: string
+  }
+
+  export type TilePawnUpdateManyMutationInput = {
+    tilePawnId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    color?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TilePawnUncheckedUpdateManyInput = {
+    tilePawnId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onTileId?: StringFieldUpdateOperationsInput | string
+    tileGameId?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -4411,7 +6843,17 @@ export namespace Prisma {
     none?: TileWhereInput
   }
 
+  export type TileGameListRelationFilter = {
+    every?: TileGameWhereInput
+    some?: TileGameWhereInput
+    none?: TileGameWhereInput
+  }
+
   export type TileOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TileGameOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -4476,7 +6918,17 @@ export namespace Prisma {
     none?: EdgeWhereInput
   }
 
+  export type TilePawnListRelationFilter = {
+    every?: TilePawnWhereInput
+    some?: TilePawnWhereInput
+    none?: TilePawnWhereInput
+  }
+
   export type EdgeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TilePawnOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -4530,6 +6982,59 @@ export namespace Prisma {
     fromTileId?: SortOrder
   }
 
+  export type TileGameCountOrderByAggregateInput = {
+    tileGameId?: SortOrder
+    createdAt?: SortOrder
+    tileMapId?: SortOrder
+    name?: SortOrder
+    state?: SortOrder
+  }
+
+  export type TileGameMaxOrderByAggregateInput = {
+    tileGameId?: SortOrder
+    createdAt?: SortOrder
+    tileMapId?: SortOrder
+    name?: SortOrder
+    state?: SortOrder
+  }
+
+  export type TileGameMinOrderByAggregateInput = {
+    tileGameId?: SortOrder
+    createdAt?: SortOrder
+    tileMapId?: SortOrder
+    name?: SortOrder
+    state?: SortOrder
+  }
+
+  export type TileGameRelationFilter = {
+    is?: TileGameWhereInput
+    isNot?: TileGameWhereInput
+  }
+
+  export type TilePawnCountOrderByAggregateInput = {
+    tilePawnId?: SortOrder
+    createdAt?: SortOrder
+    onTileId?: SortOrder
+    tileGameId?: SortOrder
+    color?: SortOrder
+  }
+
+  export type TilePawnMaxOrderByAggregateInput = {
+    tilePawnId?: SortOrder
+    createdAt?: SortOrder
+    onTileId?: SortOrder
+    tileGameId?: SortOrder
+    color?: SortOrder
+  }
+
+  export type TilePawnMinOrderByAggregateInput = {
+    tilePawnId?: SortOrder
+    createdAt?: SortOrder
+    onTileId?: SortOrder
+    tileGameId?: SortOrder
+    color?: SortOrder
+  }
+
   export type TileCreateNestedManyWithoutTileMapInput = {
     create?: XOR<TileCreateWithoutTileMapInput, TileUncheckedCreateWithoutTileMapInput> | TileCreateWithoutTileMapInput[] | TileUncheckedCreateWithoutTileMapInput[]
     connectOrCreate?: TileCreateOrConnectWithoutTileMapInput | TileCreateOrConnectWithoutTileMapInput[]
@@ -4537,11 +7042,25 @@ export namespace Prisma {
     connect?: TileWhereUniqueInput | TileWhereUniqueInput[]
   }
 
+  export type TileGameCreateNestedManyWithoutTileMapInput = {
+    create?: XOR<TileGameCreateWithoutTileMapInput, TileGameUncheckedCreateWithoutTileMapInput> | TileGameCreateWithoutTileMapInput[] | TileGameUncheckedCreateWithoutTileMapInput[]
+    connectOrCreate?: TileGameCreateOrConnectWithoutTileMapInput | TileGameCreateOrConnectWithoutTileMapInput[]
+    createMany?: TileGameCreateManyTileMapInputEnvelope
+    connect?: TileGameWhereUniqueInput | TileGameWhereUniqueInput[]
+  }
+
   export type TileUncheckedCreateNestedManyWithoutTileMapInput = {
     create?: XOR<TileCreateWithoutTileMapInput, TileUncheckedCreateWithoutTileMapInput> | TileCreateWithoutTileMapInput[] | TileUncheckedCreateWithoutTileMapInput[]
     connectOrCreate?: TileCreateOrConnectWithoutTileMapInput | TileCreateOrConnectWithoutTileMapInput[]
     createMany?: TileCreateManyTileMapInputEnvelope
     connect?: TileWhereUniqueInput | TileWhereUniqueInput[]
+  }
+
+  export type TileGameUncheckedCreateNestedManyWithoutTileMapInput = {
+    create?: XOR<TileGameCreateWithoutTileMapInput, TileGameUncheckedCreateWithoutTileMapInput> | TileGameCreateWithoutTileMapInput[] | TileGameUncheckedCreateWithoutTileMapInput[]
+    connectOrCreate?: TileGameCreateOrConnectWithoutTileMapInput | TileGameCreateOrConnectWithoutTileMapInput[]
+    createMany?: TileGameCreateManyTileMapInputEnvelope
+    connect?: TileGameWhereUniqueInput | TileGameWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -4566,6 +7085,20 @@ export namespace Prisma {
     deleteMany?: TileScalarWhereInput | TileScalarWhereInput[]
   }
 
+  export type TileGameUpdateManyWithoutTileMapNestedInput = {
+    create?: XOR<TileGameCreateWithoutTileMapInput, TileGameUncheckedCreateWithoutTileMapInput> | TileGameCreateWithoutTileMapInput[] | TileGameUncheckedCreateWithoutTileMapInput[]
+    connectOrCreate?: TileGameCreateOrConnectWithoutTileMapInput | TileGameCreateOrConnectWithoutTileMapInput[]
+    upsert?: TileGameUpsertWithWhereUniqueWithoutTileMapInput | TileGameUpsertWithWhereUniqueWithoutTileMapInput[]
+    createMany?: TileGameCreateManyTileMapInputEnvelope
+    set?: TileGameWhereUniqueInput | TileGameWhereUniqueInput[]
+    disconnect?: TileGameWhereUniqueInput | TileGameWhereUniqueInput[]
+    delete?: TileGameWhereUniqueInput | TileGameWhereUniqueInput[]
+    connect?: TileGameWhereUniqueInput | TileGameWhereUniqueInput[]
+    update?: TileGameUpdateWithWhereUniqueWithoutTileMapInput | TileGameUpdateWithWhereUniqueWithoutTileMapInput[]
+    updateMany?: TileGameUpdateManyWithWhereWithoutTileMapInput | TileGameUpdateManyWithWhereWithoutTileMapInput[]
+    deleteMany?: TileGameScalarWhereInput | TileGameScalarWhereInput[]
+  }
+
   export type TileUncheckedUpdateManyWithoutTileMapNestedInput = {
     create?: XOR<TileCreateWithoutTileMapInput, TileUncheckedCreateWithoutTileMapInput> | TileCreateWithoutTileMapInput[] | TileUncheckedCreateWithoutTileMapInput[]
     connectOrCreate?: TileCreateOrConnectWithoutTileMapInput | TileCreateOrConnectWithoutTileMapInput[]
@@ -4578,6 +7111,20 @@ export namespace Prisma {
     update?: TileUpdateWithWhereUniqueWithoutTileMapInput | TileUpdateWithWhereUniqueWithoutTileMapInput[]
     updateMany?: TileUpdateManyWithWhereWithoutTileMapInput | TileUpdateManyWithWhereWithoutTileMapInput[]
     deleteMany?: TileScalarWhereInput | TileScalarWhereInput[]
+  }
+
+  export type TileGameUncheckedUpdateManyWithoutTileMapNestedInput = {
+    create?: XOR<TileGameCreateWithoutTileMapInput, TileGameUncheckedCreateWithoutTileMapInput> | TileGameCreateWithoutTileMapInput[] | TileGameUncheckedCreateWithoutTileMapInput[]
+    connectOrCreate?: TileGameCreateOrConnectWithoutTileMapInput | TileGameCreateOrConnectWithoutTileMapInput[]
+    upsert?: TileGameUpsertWithWhereUniqueWithoutTileMapInput | TileGameUpsertWithWhereUniqueWithoutTileMapInput[]
+    createMany?: TileGameCreateManyTileMapInputEnvelope
+    set?: TileGameWhereUniqueInput | TileGameWhereUniqueInput[]
+    disconnect?: TileGameWhereUniqueInput | TileGameWhereUniqueInput[]
+    delete?: TileGameWhereUniqueInput | TileGameWhereUniqueInput[]
+    connect?: TileGameWhereUniqueInput | TileGameWhereUniqueInput[]
+    update?: TileGameUpdateWithWhereUniqueWithoutTileMapInput | TileGameUpdateWithWhereUniqueWithoutTileMapInput[]
+    updateMany?: TileGameUpdateManyWithWhereWithoutTileMapInput | TileGameUpdateManyWithWhereWithoutTileMapInput[]
+    deleteMany?: TileGameScalarWhereInput | TileGameScalarWhereInput[]
   }
 
   export type TileMapCreateNestedOneWithoutTilesInput = {
@@ -4600,6 +7147,13 @@ export namespace Prisma {
     connect?: EdgeWhereUniqueInput | EdgeWhereUniqueInput[]
   }
 
+  export type TilePawnCreateNestedManyWithoutOnTileInput = {
+    create?: XOR<TilePawnCreateWithoutOnTileInput, TilePawnUncheckedCreateWithoutOnTileInput> | TilePawnCreateWithoutOnTileInput[] | TilePawnUncheckedCreateWithoutOnTileInput[]
+    connectOrCreate?: TilePawnCreateOrConnectWithoutOnTileInput | TilePawnCreateOrConnectWithoutOnTileInput[]
+    createMany?: TilePawnCreateManyOnTileInputEnvelope
+    connect?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+  }
+
   export type EdgeUncheckedCreateNestedManyWithoutFromTileInput = {
     create?: XOR<EdgeCreateWithoutFromTileInput, EdgeUncheckedCreateWithoutFromTileInput> | EdgeCreateWithoutFromTileInput[] | EdgeUncheckedCreateWithoutFromTileInput[]
     connectOrCreate?: EdgeCreateOrConnectWithoutFromTileInput | EdgeCreateOrConnectWithoutFromTileInput[]
@@ -4612,6 +7166,13 @@ export namespace Prisma {
     connectOrCreate?: EdgeCreateOrConnectWithoutToTileInput | EdgeCreateOrConnectWithoutToTileInput[]
     createMany?: EdgeCreateManyToTileInputEnvelope
     connect?: EdgeWhereUniqueInput | EdgeWhereUniqueInput[]
+  }
+
+  export type TilePawnUncheckedCreateNestedManyWithoutOnTileInput = {
+    create?: XOR<TilePawnCreateWithoutOnTileInput, TilePawnUncheckedCreateWithoutOnTileInput> | TilePawnCreateWithoutOnTileInput[] | TilePawnUncheckedCreateWithoutOnTileInput[]
+    connectOrCreate?: TilePawnCreateOrConnectWithoutOnTileInput | TilePawnCreateOrConnectWithoutOnTileInput[]
+    createMany?: TilePawnCreateManyOnTileInputEnvelope
+    connect?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
   }
 
   export type TileMapUpdateOneRequiredWithoutTilesNestedInput = {
@@ -4650,6 +7211,20 @@ export namespace Prisma {
     deleteMany?: EdgeScalarWhereInput | EdgeScalarWhereInput[]
   }
 
+  export type TilePawnUpdateManyWithoutOnTileNestedInput = {
+    create?: XOR<TilePawnCreateWithoutOnTileInput, TilePawnUncheckedCreateWithoutOnTileInput> | TilePawnCreateWithoutOnTileInput[] | TilePawnUncheckedCreateWithoutOnTileInput[]
+    connectOrCreate?: TilePawnCreateOrConnectWithoutOnTileInput | TilePawnCreateOrConnectWithoutOnTileInput[]
+    upsert?: TilePawnUpsertWithWhereUniqueWithoutOnTileInput | TilePawnUpsertWithWhereUniqueWithoutOnTileInput[]
+    createMany?: TilePawnCreateManyOnTileInputEnvelope
+    set?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    disconnect?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    delete?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    connect?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    update?: TilePawnUpdateWithWhereUniqueWithoutOnTileInput | TilePawnUpdateWithWhereUniqueWithoutOnTileInput[]
+    updateMany?: TilePawnUpdateManyWithWhereWithoutOnTileInput | TilePawnUpdateManyWithWhereWithoutOnTileInput[]
+    deleteMany?: TilePawnScalarWhereInput | TilePawnScalarWhereInput[]
+  }
+
   export type EdgeUncheckedUpdateManyWithoutFromTileNestedInput = {
     create?: XOR<EdgeCreateWithoutFromTileInput, EdgeUncheckedCreateWithoutFromTileInput> | EdgeCreateWithoutFromTileInput[] | EdgeUncheckedCreateWithoutFromTileInput[]
     connectOrCreate?: EdgeCreateOrConnectWithoutFromTileInput | EdgeCreateOrConnectWithoutFromTileInput[]
@@ -4678,6 +7253,20 @@ export namespace Prisma {
     deleteMany?: EdgeScalarWhereInput | EdgeScalarWhereInput[]
   }
 
+  export type TilePawnUncheckedUpdateManyWithoutOnTileNestedInput = {
+    create?: XOR<TilePawnCreateWithoutOnTileInput, TilePawnUncheckedCreateWithoutOnTileInput> | TilePawnCreateWithoutOnTileInput[] | TilePawnUncheckedCreateWithoutOnTileInput[]
+    connectOrCreate?: TilePawnCreateOrConnectWithoutOnTileInput | TilePawnCreateOrConnectWithoutOnTileInput[]
+    upsert?: TilePawnUpsertWithWhereUniqueWithoutOnTileInput | TilePawnUpsertWithWhereUniqueWithoutOnTileInput[]
+    createMany?: TilePawnCreateManyOnTileInputEnvelope
+    set?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    disconnect?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    delete?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    connect?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    update?: TilePawnUpdateWithWhereUniqueWithoutOnTileInput | TilePawnUpdateWithWhereUniqueWithoutOnTileInput[]
+    updateMany?: TilePawnUpdateManyWithWhereWithoutOnTileInput | TilePawnUpdateManyWithWhereWithoutOnTileInput[]
+    deleteMany?: TilePawnScalarWhereInput | TilePawnScalarWhereInput[]
+  }
+
   export type TileCreateNestedOneWithoutFromTileInput = {
     create?: XOR<TileCreateWithoutFromTileInput, TileUncheckedCreateWithoutFromTileInput>
     connectOrCreate?: TileCreateOrConnectWithoutFromTileInput
@@ -4704,6 +7293,90 @@ export namespace Prisma {
     upsert?: TileUpsertWithoutToTileInput
     connect?: TileWhereUniqueInput
     update?: XOR<XOR<TileUpdateToOneWithWhereWithoutToTileInput, TileUpdateWithoutToTileInput>, TileUncheckedUpdateWithoutToTileInput>
+  }
+
+  export type TileMapCreateNestedOneWithoutTileGameInput = {
+    create?: XOR<TileMapCreateWithoutTileGameInput, TileMapUncheckedCreateWithoutTileGameInput>
+    connectOrCreate?: TileMapCreateOrConnectWithoutTileGameInput
+    connect?: TileMapWhereUniqueInput
+  }
+
+  export type TilePawnCreateNestedManyWithoutTileGameInput = {
+    create?: XOR<TilePawnCreateWithoutTileGameInput, TilePawnUncheckedCreateWithoutTileGameInput> | TilePawnCreateWithoutTileGameInput[] | TilePawnUncheckedCreateWithoutTileGameInput[]
+    connectOrCreate?: TilePawnCreateOrConnectWithoutTileGameInput | TilePawnCreateOrConnectWithoutTileGameInput[]
+    createMany?: TilePawnCreateManyTileGameInputEnvelope
+    connect?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+  }
+
+  export type TilePawnUncheckedCreateNestedManyWithoutTileGameInput = {
+    create?: XOR<TilePawnCreateWithoutTileGameInput, TilePawnUncheckedCreateWithoutTileGameInput> | TilePawnCreateWithoutTileGameInput[] | TilePawnUncheckedCreateWithoutTileGameInput[]
+    connectOrCreate?: TilePawnCreateOrConnectWithoutTileGameInput | TilePawnCreateOrConnectWithoutTileGameInput[]
+    createMany?: TilePawnCreateManyTileGameInputEnvelope
+    connect?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+  }
+
+  export type TileMapUpdateOneRequiredWithoutTileGameNestedInput = {
+    create?: XOR<TileMapCreateWithoutTileGameInput, TileMapUncheckedCreateWithoutTileGameInput>
+    connectOrCreate?: TileMapCreateOrConnectWithoutTileGameInput
+    upsert?: TileMapUpsertWithoutTileGameInput
+    connect?: TileMapWhereUniqueInput
+    update?: XOR<XOR<TileMapUpdateToOneWithWhereWithoutTileGameInput, TileMapUpdateWithoutTileGameInput>, TileMapUncheckedUpdateWithoutTileGameInput>
+  }
+
+  export type TilePawnUpdateManyWithoutTileGameNestedInput = {
+    create?: XOR<TilePawnCreateWithoutTileGameInput, TilePawnUncheckedCreateWithoutTileGameInput> | TilePawnCreateWithoutTileGameInput[] | TilePawnUncheckedCreateWithoutTileGameInput[]
+    connectOrCreate?: TilePawnCreateOrConnectWithoutTileGameInput | TilePawnCreateOrConnectWithoutTileGameInput[]
+    upsert?: TilePawnUpsertWithWhereUniqueWithoutTileGameInput | TilePawnUpsertWithWhereUniqueWithoutTileGameInput[]
+    createMany?: TilePawnCreateManyTileGameInputEnvelope
+    set?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    disconnect?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    delete?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    connect?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    update?: TilePawnUpdateWithWhereUniqueWithoutTileGameInput | TilePawnUpdateWithWhereUniqueWithoutTileGameInput[]
+    updateMany?: TilePawnUpdateManyWithWhereWithoutTileGameInput | TilePawnUpdateManyWithWhereWithoutTileGameInput[]
+    deleteMany?: TilePawnScalarWhereInput | TilePawnScalarWhereInput[]
+  }
+
+  export type TilePawnUncheckedUpdateManyWithoutTileGameNestedInput = {
+    create?: XOR<TilePawnCreateWithoutTileGameInput, TilePawnUncheckedCreateWithoutTileGameInput> | TilePawnCreateWithoutTileGameInput[] | TilePawnUncheckedCreateWithoutTileGameInput[]
+    connectOrCreate?: TilePawnCreateOrConnectWithoutTileGameInput | TilePawnCreateOrConnectWithoutTileGameInput[]
+    upsert?: TilePawnUpsertWithWhereUniqueWithoutTileGameInput | TilePawnUpsertWithWhereUniqueWithoutTileGameInput[]
+    createMany?: TilePawnCreateManyTileGameInputEnvelope
+    set?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    disconnect?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    delete?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    connect?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+    update?: TilePawnUpdateWithWhereUniqueWithoutTileGameInput | TilePawnUpdateWithWhereUniqueWithoutTileGameInput[]
+    updateMany?: TilePawnUpdateManyWithWhereWithoutTileGameInput | TilePawnUpdateManyWithWhereWithoutTileGameInput[]
+    deleteMany?: TilePawnScalarWhereInput | TilePawnScalarWhereInput[]
+  }
+
+  export type TileCreateNestedOneWithoutTilePawnInput = {
+    create?: XOR<TileCreateWithoutTilePawnInput, TileUncheckedCreateWithoutTilePawnInput>
+    connectOrCreate?: TileCreateOrConnectWithoutTilePawnInput
+    connect?: TileWhereUniqueInput
+  }
+
+  export type TileGameCreateNestedOneWithoutTilePawnInput = {
+    create?: XOR<TileGameCreateWithoutTilePawnInput, TileGameUncheckedCreateWithoutTilePawnInput>
+    connectOrCreate?: TileGameCreateOrConnectWithoutTilePawnInput
+    connect?: TileGameWhereUniqueInput
+  }
+
+  export type TileUpdateOneRequiredWithoutTilePawnNestedInput = {
+    create?: XOR<TileCreateWithoutTilePawnInput, TileUncheckedCreateWithoutTilePawnInput>
+    connectOrCreate?: TileCreateOrConnectWithoutTilePawnInput
+    upsert?: TileUpsertWithoutTilePawnInput
+    connect?: TileWhereUniqueInput
+    update?: XOR<XOR<TileUpdateToOneWithWhereWithoutTilePawnInput, TileUpdateWithoutTilePawnInput>, TileUncheckedUpdateWithoutTilePawnInput>
+  }
+
+  export type TileGameUpdateOneRequiredWithoutTilePawnNestedInput = {
+    create?: XOR<TileGameCreateWithoutTilePawnInput, TileGameUncheckedCreateWithoutTilePawnInput>
+    connectOrCreate?: TileGameCreateOrConnectWithoutTilePawnInput
+    upsert?: TileGameUpsertWithoutTilePawnInput
+    connect?: TileGameWhereUniqueInput
+    update?: XOR<XOR<TileGameUpdateToOneWithWhereWithoutTilePawnInput, TileGameUpdateWithoutTilePawnInput>, TileGameUncheckedUpdateWithoutTilePawnInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -4779,6 +7452,7 @@ export namespace Prisma {
     image: string
     fromTile?: EdgeCreateNestedManyWithoutFromTileInput
     toTile?: EdgeCreateNestedManyWithoutToTileInput
+    TilePawn?: TilePawnCreateNestedManyWithoutOnTileInput
   }
 
   export type TileUncheckedCreateWithoutTileMapInput = {
@@ -4787,6 +7461,7 @@ export namespace Prisma {
     image: string
     fromTile?: EdgeUncheckedCreateNestedManyWithoutFromTileInput
     toTile?: EdgeUncheckedCreateNestedManyWithoutToTileInput
+    TilePawn?: TilePawnUncheckedCreateNestedManyWithoutOnTileInput
   }
 
   export type TileCreateOrConnectWithoutTileMapInput = {
@@ -4796,6 +7471,32 @@ export namespace Prisma {
 
   export type TileCreateManyTileMapInputEnvelope = {
     data: TileCreateManyTileMapInput | TileCreateManyTileMapInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TileGameCreateWithoutTileMapInput = {
+    tileGameId?: string
+    createdAt?: Date | string
+    name: string
+    state: string
+    TilePawn?: TilePawnCreateNestedManyWithoutTileGameInput
+  }
+
+  export type TileGameUncheckedCreateWithoutTileMapInput = {
+    tileGameId?: string
+    createdAt?: Date | string
+    name: string
+    state: string
+    TilePawn?: TilePawnUncheckedCreateNestedManyWithoutTileGameInput
+  }
+
+  export type TileGameCreateOrConnectWithoutTileMapInput = {
+    where: TileGameWhereUniqueInput
+    create: XOR<TileGameCreateWithoutTileMapInput, TileGameUncheckedCreateWithoutTileMapInput>
+  }
+
+  export type TileGameCreateManyTileMapInputEnvelope = {
+    data: TileGameCreateManyTileMapInput | TileGameCreateManyTileMapInput[]
     skipDuplicates?: boolean
   }
 
@@ -4825,16 +7526,45 @@ export namespace Prisma {
     tileMapId?: StringFilter<"Tile"> | string
   }
 
+  export type TileGameUpsertWithWhereUniqueWithoutTileMapInput = {
+    where: TileGameWhereUniqueInput
+    update: XOR<TileGameUpdateWithoutTileMapInput, TileGameUncheckedUpdateWithoutTileMapInput>
+    create: XOR<TileGameCreateWithoutTileMapInput, TileGameUncheckedCreateWithoutTileMapInput>
+  }
+
+  export type TileGameUpdateWithWhereUniqueWithoutTileMapInput = {
+    where: TileGameWhereUniqueInput
+    data: XOR<TileGameUpdateWithoutTileMapInput, TileGameUncheckedUpdateWithoutTileMapInput>
+  }
+
+  export type TileGameUpdateManyWithWhereWithoutTileMapInput = {
+    where: TileGameScalarWhereInput
+    data: XOR<TileGameUpdateManyMutationInput, TileGameUncheckedUpdateManyWithoutTileMapInput>
+  }
+
+  export type TileGameScalarWhereInput = {
+    AND?: TileGameScalarWhereInput | TileGameScalarWhereInput[]
+    OR?: TileGameScalarWhereInput[]
+    NOT?: TileGameScalarWhereInput | TileGameScalarWhereInput[]
+    tileGameId?: StringFilter<"TileGame"> | string
+    createdAt?: DateTimeFilter<"TileGame"> | Date | string
+    tileMapId?: StringFilter<"TileGame"> | string
+    name?: StringFilter<"TileGame"> | string
+    state?: StringFilter<"TileGame"> | string
+  }
+
   export type TileMapCreateWithoutTilesInput = {
     tileMapId?: string
     createdAt?: Date | string
     startingTileId: string
+    TileGame?: TileGameCreateNestedManyWithoutTileMapInput
   }
 
   export type TileMapUncheckedCreateWithoutTilesInput = {
     tileMapId?: string
     createdAt?: Date | string
     startingTileId: string
+    TileGame?: TileGameUncheckedCreateNestedManyWithoutTileMapInput
   }
 
   export type TileMapCreateOrConnectWithoutTilesInput = {
@@ -4890,6 +7620,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TilePawnCreateWithoutOnTileInput = {
+    tilePawnId?: string
+    createdAt?: Date | string
+    color: string
+    tileGame: TileGameCreateNestedOneWithoutTilePawnInput
+  }
+
+  export type TilePawnUncheckedCreateWithoutOnTileInput = {
+    tilePawnId?: string
+    createdAt?: Date | string
+    tileGameId: string
+    color: string
+  }
+
+  export type TilePawnCreateOrConnectWithoutOnTileInput = {
+    where: TilePawnWhereUniqueInput
+    create: XOR<TilePawnCreateWithoutOnTileInput, TilePawnUncheckedCreateWithoutOnTileInput>
+  }
+
+  export type TilePawnCreateManyOnTileInputEnvelope = {
+    data: TilePawnCreateManyOnTileInput | TilePawnCreateManyOnTileInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TileMapUpsertWithoutTilesInput = {
     update: XOR<TileMapUpdateWithoutTilesInput, TileMapUncheckedUpdateWithoutTilesInput>
     create: XOR<TileMapCreateWithoutTilesInput, TileMapUncheckedCreateWithoutTilesInput>
@@ -4905,12 +7659,14 @@ export namespace Prisma {
     tileMapId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startingTileId?: StringFieldUpdateOperationsInput | string
+    TileGame?: TileGameUpdateManyWithoutTileMapNestedInput
   }
 
   export type TileMapUncheckedUpdateWithoutTilesInput = {
     tileMapId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startingTileId?: StringFieldUpdateOperationsInput | string
+    TileGame?: TileGameUncheckedUpdateManyWithoutTileMapNestedInput
   }
 
   export type EdgeUpsertWithWhereUniqueWithoutFromTileInput = {
@@ -4956,12 +7712,40 @@ export namespace Prisma {
     data: XOR<EdgeUpdateManyMutationInput, EdgeUncheckedUpdateManyWithoutToTileInput>
   }
 
+  export type TilePawnUpsertWithWhereUniqueWithoutOnTileInput = {
+    where: TilePawnWhereUniqueInput
+    update: XOR<TilePawnUpdateWithoutOnTileInput, TilePawnUncheckedUpdateWithoutOnTileInput>
+    create: XOR<TilePawnCreateWithoutOnTileInput, TilePawnUncheckedCreateWithoutOnTileInput>
+  }
+
+  export type TilePawnUpdateWithWhereUniqueWithoutOnTileInput = {
+    where: TilePawnWhereUniqueInput
+    data: XOR<TilePawnUpdateWithoutOnTileInput, TilePawnUncheckedUpdateWithoutOnTileInput>
+  }
+
+  export type TilePawnUpdateManyWithWhereWithoutOnTileInput = {
+    where: TilePawnScalarWhereInput
+    data: XOR<TilePawnUpdateManyMutationInput, TilePawnUncheckedUpdateManyWithoutOnTileInput>
+  }
+
+  export type TilePawnScalarWhereInput = {
+    AND?: TilePawnScalarWhereInput | TilePawnScalarWhereInput[]
+    OR?: TilePawnScalarWhereInput[]
+    NOT?: TilePawnScalarWhereInput | TilePawnScalarWhereInput[]
+    tilePawnId?: StringFilter<"TilePawn"> | string
+    createdAt?: DateTimeFilter<"TilePawn"> | Date | string
+    onTileId?: StringFilter<"TilePawn"> | string
+    tileGameId?: StringFilter<"TilePawn"> | string
+    color?: StringFilter<"TilePawn"> | string
+  }
+
   export type TileCreateWithoutFromTileInput = {
     tileId?: string
     createdAt?: Date | string
     image: string
     tileMap: TileMapCreateNestedOneWithoutTilesInput
     toTile?: EdgeCreateNestedManyWithoutToTileInput
+    TilePawn?: TilePawnCreateNestedManyWithoutOnTileInput
   }
 
   export type TileUncheckedCreateWithoutFromTileInput = {
@@ -4970,6 +7754,7 @@ export namespace Prisma {
     image: string
     tileMapId: string
     toTile?: EdgeUncheckedCreateNestedManyWithoutToTileInput
+    TilePawn?: TilePawnUncheckedCreateNestedManyWithoutOnTileInput
   }
 
   export type TileCreateOrConnectWithoutFromTileInput = {
@@ -4983,6 +7768,7 @@ export namespace Prisma {
     image: string
     tileMap: TileMapCreateNestedOneWithoutTilesInput
     fromTile?: EdgeCreateNestedManyWithoutFromTileInput
+    TilePawn?: TilePawnCreateNestedManyWithoutOnTileInput
   }
 
   export type TileUncheckedCreateWithoutToTileInput = {
@@ -4991,6 +7777,7 @@ export namespace Prisma {
     image: string
     tileMapId: string
     fromTile?: EdgeUncheckedCreateNestedManyWithoutFromTileInput
+    TilePawn?: TilePawnUncheckedCreateNestedManyWithoutOnTileInput
   }
 
   export type TileCreateOrConnectWithoutToTileInput = {
@@ -5015,6 +7802,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     tileMap?: TileMapUpdateOneRequiredWithoutTilesNestedInput
     toTile?: EdgeUpdateManyWithoutToTileNestedInput
+    TilePawn?: TilePawnUpdateManyWithoutOnTileNestedInput
   }
 
   export type TileUncheckedUpdateWithoutFromTileInput = {
@@ -5023,6 +7811,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     tileMapId?: StringFieldUpdateOperationsInput | string
     toTile?: EdgeUncheckedUpdateManyWithoutToTileNestedInput
+    TilePawn?: TilePawnUncheckedUpdateManyWithoutOnTileNestedInput
   }
 
   export type TileUpsertWithoutToTileInput = {
@@ -5042,6 +7831,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     tileMap?: TileMapUpdateOneRequiredWithoutTilesNestedInput
     fromTile?: EdgeUpdateManyWithoutFromTileNestedInput
+    TilePawn?: TilePawnUpdateManyWithoutOnTileNestedInput
   }
 
   export type TileUncheckedUpdateWithoutToTileInput = {
@@ -5050,6 +7840,191 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     tileMapId?: StringFieldUpdateOperationsInput | string
     fromTile?: EdgeUncheckedUpdateManyWithoutFromTileNestedInput
+    TilePawn?: TilePawnUncheckedUpdateManyWithoutOnTileNestedInput
+  }
+
+  export type TileMapCreateWithoutTileGameInput = {
+    tileMapId?: string
+    createdAt?: Date | string
+    startingTileId: string
+    tiles?: TileCreateNestedManyWithoutTileMapInput
+  }
+
+  export type TileMapUncheckedCreateWithoutTileGameInput = {
+    tileMapId?: string
+    createdAt?: Date | string
+    startingTileId: string
+    tiles?: TileUncheckedCreateNestedManyWithoutTileMapInput
+  }
+
+  export type TileMapCreateOrConnectWithoutTileGameInput = {
+    where: TileMapWhereUniqueInput
+    create: XOR<TileMapCreateWithoutTileGameInput, TileMapUncheckedCreateWithoutTileGameInput>
+  }
+
+  export type TilePawnCreateWithoutTileGameInput = {
+    tilePawnId?: string
+    createdAt?: Date | string
+    color: string
+    onTile: TileCreateNestedOneWithoutTilePawnInput
+  }
+
+  export type TilePawnUncheckedCreateWithoutTileGameInput = {
+    tilePawnId?: string
+    createdAt?: Date | string
+    onTileId: string
+    color: string
+  }
+
+  export type TilePawnCreateOrConnectWithoutTileGameInput = {
+    where: TilePawnWhereUniqueInput
+    create: XOR<TilePawnCreateWithoutTileGameInput, TilePawnUncheckedCreateWithoutTileGameInput>
+  }
+
+  export type TilePawnCreateManyTileGameInputEnvelope = {
+    data: TilePawnCreateManyTileGameInput | TilePawnCreateManyTileGameInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TileMapUpsertWithoutTileGameInput = {
+    update: XOR<TileMapUpdateWithoutTileGameInput, TileMapUncheckedUpdateWithoutTileGameInput>
+    create: XOR<TileMapCreateWithoutTileGameInput, TileMapUncheckedCreateWithoutTileGameInput>
+    where?: TileMapWhereInput
+  }
+
+  export type TileMapUpdateToOneWithWhereWithoutTileGameInput = {
+    where?: TileMapWhereInput
+    data: XOR<TileMapUpdateWithoutTileGameInput, TileMapUncheckedUpdateWithoutTileGameInput>
+  }
+
+  export type TileMapUpdateWithoutTileGameInput = {
+    tileMapId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startingTileId?: StringFieldUpdateOperationsInput | string
+    tiles?: TileUpdateManyWithoutTileMapNestedInput
+  }
+
+  export type TileMapUncheckedUpdateWithoutTileGameInput = {
+    tileMapId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startingTileId?: StringFieldUpdateOperationsInput | string
+    tiles?: TileUncheckedUpdateManyWithoutTileMapNestedInput
+  }
+
+  export type TilePawnUpsertWithWhereUniqueWithoutTileGameInput = {
+    where: TilePawnWhereUniqueInput
+    update: XOR<TilePawnUpdateWithoutTileGameInput, TilePawnUncheckedUpdateWithoutTileGameInput>
+    create: XOR<TilePawnCreateWithoutTileGameInput, TilePawnUncheckedCreateWithoutTileGameInput>
+  }
+
+  export type TilePawnUpdateWithWhereUniqueWithoutTileGameInput = {
+    where: TilePawnWhereUniqueInput
+    data: XOR<TilePawnUpdateWithoutTileGameInput, TilePawnUncheckedUpdateWithoutTileGameInput>
+  }
+
+  export type TilePawnUpdateManyWithWhereWithoutTileGameInput = {
+    where: TilePawnScalarWhereInput
+    data: XOR<TilePawnUpdateManyMutationInput, TilePawnUncheckedUpdateManyWithoutTileGameInput>
+  }
+
+  export type TileCreateWithoutTilePawnInput = {
+    tileId?: string
+    createdAt?: Date | string
+    image: string
+    tileMap: TileMapCreateNestedOneWithoutTilesInput
+    fromTile?: EdgeCreateNestedManyWithoutFromTileInput
+    toTile?: EdgeCreateNestedManyWithoutToTileInput
+  }
+
+  export type TileUncheckedCreateWithoutTilePawnInput = {
+    tileId?: string
+    createdAt?: Date | string
+    image: string
+    tileMapId: string
+    fromTile?: EdgeUncheckedCreateNestedManyWithoutFromTileInput
+    toTile?: EdgeUncheckedCreateNestedManyWithoutToTileInput
+  }
+
+  export type TileCreateOrConnectWithoutTilePawnInput = {
+    where: TileWhereUniqueInput
+    create: XOR<TileCreateWithoutTilePawnInput, TileUncheckedCreateWithoutTilePawnInput>
+  }
+
+  export type TileGameCreateWithoutTilePawnInput = {
+    tileGameId?: string
+    createdAt?: Date | string
+    name: string
+    state: string
+    tileMap: TileMapCreateNestedOneWithoutTileGameInput
+  }
+
+  export type TileGameUncheckedCreateWithoutTilePawnInput = {
+    tileGameId?: string
+    createdAt?: Date | string
+    tileMapId: string
+    name: string
+    state: string
+  }
+
+  export type TileGameCreateOrConnectWithoutTilePawnInput = {
+    where: TileGameWhereUniqueInput
+    create: XOR<TileGameCreateWithoutTilePawnInput, TileGameUncheckedCreateWithoutTilePawnInput>
+  }
+
+  export type TileUpsertWithoutTilePawnInput = {
+    update: XOR<TileUpdateWithoutTilePawnInput, TileUncheckedUpdateWithoutTilePawnInput>
+    create: XOR<TileCreateWithoutTilePawnInput, TileUncheckedCreateWithoutTilePawnInput>
+    where?: TileWhereInput
+  }
+
+  export type TileUpdateToOneWithWhereWithoutTilePawnInput = {
+    where?: TileWhereInput
+    data: XOR<TileUpdateWithoutTilePawnInput, TileUncheckedUpdateWithoutTilePawnInput>
+  }
+
+  export type TileUpdateWithoutTilePawnInput = {
+    tileId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: StringFieldUpdateOperationsInput | string
+    tileMap?: TileMapUpdateOneRequiredWithoutTilesNestedInput
+    fromTile?: EdgeUpdateManyWithoutFromTileNestedInput
+    toTile?: EdgeUpdateManyWithoutToTileNestedInput
+  }
+
+  export type TileUncheckedUpdateWithoutTilePawnInput = {
+    tileId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: StringFieldUpdateOperationsInput | string
+    tileMapId?: StringFieldUpdateOperationsInput | string
+    fromTile?: EdgeUncheckedUpdateManyWithoutFromTileNestedInput
+    toTile?: EdgeUncheckedUpdateManyWithoutToTileNestedInput
+  }
+
+  export type TileGameUpsertWithoutTilePawnInput = {
+    update: XOR<TileGameUpdateWithoutTilePawnInput, TileGameUncheckedUpdateWithoutTilePawnInput>
+    create: XOR<TileGameCreateWithoutTilePawnInput, TileGameUncheckedCreateWithoutTilePawnInput>
+    where?: TileGameWhereInput
+  }
+
+  export type TileGameUpdateToOneWithWhereWithoutTilePawnInput = {
+    where?: TileGameWhereInput
+    data: XOR<TileGameUpdateWithoutTilePawnInput, TileGameUncheckedUpdateWithoutTilePawnInput>
+  }
+
+  export type TileGameUpdateWithoutTilePawnInput = {
+    tileGameId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    tileMap?: TileMapUpdateOneRequiredWithoutTileGameNestedInput
+  }
+
+  export type TileGameUncheckedUpdateWithoutTilePawnInput = {
+    tileGameId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tileMapId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
   }
 
   export type TileCreateManyTileMapInput = {
@@ -5058,12 +8033,20 @@ export namespace Prisma {
     image: string
   }
 
+  export type TileGameCreateManyTileMapInput = {
+    tileGameId?: string
+    createdAt?: Date | string
+    name: string
+    state: string
+  }
+
   export type TileUpdateWithoutTileMapInput = {
     tileId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     image?: StringFieldUpdateOperationsInput | string
     fromTile?: EdgeUpdateManyWithoutFromTileNestedInput
     toTile?: EdgeUpdateManyWithoutToTileNestedInput
+    TilePawn?: TilePawnUpdateManyWithoutOnTileNestedInput
   }
 
   export type TileUncheckedUpdateWithoutTileMapInput = {
@@ -5072,12 +8055,36 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     fromTile?: EdgeUncheckedUpdateManyWithoutFromTileNestedInput
     toTile?: EdgeUncheckedUpdateManyWithoutToTileNestedInput
+    TilePawn?: TilePawnUncheckedUpdateManyWithoutOnTileNestedInput
   }
 
   export type TileUncheckedUpdateManyWithoutTileMapInput = {
     tileId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     image?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TileGameUpdateWithoutTileMapInput = {
+    tileGameId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    TilePawn?: TilePawnUpdateManyWithoutTileGameNestedInput
+  }
+
+  export type TileGameUncheckedUpdateWithoutTileMapInput = {
+    tileGameId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    TilePawn?: TilePawnUncheckedUpdateManyWithoutTileGameNestedInput
+  }
+
+  export type TileGameUncheckedUpdateManyWithoutTileMapInput = {
+    tileGameId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
   }
 
   export type EdgeCreateManyFromTileInput = {
@@ -5092,6 +8099,13 @@ export namespace Prisma {
     createdAt?: Date | string
     flavorText: string
     fromTileId: string
+  }
+
+  export type TilePawnCreateManyOnTileInput = {
+    tilePawnId?: string
+    createdAt?: Date | string
+    tileGameId: string
+    color: string
   }
 
   export type EdgeUpdateWithoutFromTileInput = {
@@ -5136,6 +8150,55 @@ export namespace Prisma {
     fromTileId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type TilePawnUpdateWithoutOnTileInput = {
+    tilePawnId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    color?: StringFieldUpdateOperationsInput | string
+    tileGame?: TileGameUpdateOneRequiredWithoutTilePawnNestedInput
+  }
+
+  export type TilePawnUncheckedUpdateWithoutOnTileInput = {
+    tilePawnId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tileGameId?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TilePawnUncheckedUpdateManyWithoutOnTileInput = {
+    tilePawnId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tileGameId?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TilePawnCreateManyTileGameInput = {
+    tilePawnId?: string
+    createdAt?: Date | string
+    onTileId: string
+    color: string
+  }
+
+  export type TilePawnUpdateWithoutTileGameInput = {
+    tilePawnId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    color?: StringFieldUpdateOperationsInput | string
+    onTile?: TileUpdateOneRequiredWithoutTilePawnNestedInput
+  }
+
+  export type TilePawnUncheckedUpdateWithoutTileGameInput = {
+    tilePawnId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onTileId?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TilePawnUncheckedUpdateManyWithoutTileGameInput = {
+    tilePawnId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onTileId?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+  }
+
 
 
   /**
@@ -5150,6 +8213,10 @@ export namespace Prisma {
      */
     export type TileCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TileCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use TileGameCountOutputTypeDefaultArgs instead
+     */
+    export type TileGameCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TileGameCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use TileMapDefaultArgs instead
      */
     export type TileMapArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TileMapDefaultArgs<ExtArgs>
@@ -5161,6 +8228,14 @@ export namespace Prisma {
      * @deprecated Use EdgeDefaultArgs instead
      */
     export type EdgeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EdgeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TileGameDefaultArgs instead
+     */
+    export type TileGameArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TileGameDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TilePawnDefaultArgs instead
+     */
+    export type TilePawnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TilePawnDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
