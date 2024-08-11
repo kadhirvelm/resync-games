@@ -140,6 +140,22 @@ exports.Prisma.EdgeScalarFieldEnum = {
   fromTileId: 'fromTileId'
 };
 
+exports.Prisma.TileGameScalarFieldEnum = {
+  tileGameId: 'tileGameId',
+  createdAt: 'createdAt',
+  tileMapId: 'tileMapId',
+  name: 'name',
+  state: 'state'
+};
+
+exports.Prisma.TilePawnScalarFieldEnum = {
+  tilePawnId: 'tilePawnId',
+  createdAt: 'createdAt',
+  onTileId: 'onTileId',
+  tileGameId: 'tileGameId',
+  color: 'color'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -154,7 +170,9 @@ exports.Prisma.QueryMode = {
 exports.Prisma.ModelName = {
   TileMap: 'TileMap',
   Tile: 'Tile',
-  Edge: 'Edge'
+  Edge: 'Edge',
+  TileGame: 'TileGame',
+  TilePawn: 'TilePawn'
 };
 
 /**
