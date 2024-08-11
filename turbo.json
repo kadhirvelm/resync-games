@@ -21,6 +21,9 @@
         "build",
         "lint"
       ]
+    },
+    "db:migrate": {
+      "env": ["DATABASE_HOST_URL"]
     }
   }
 }
