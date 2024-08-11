@@ -16,17 +16,21 @@ export interface GetTileGameResponse {
   tileMap: CompleteTileMap;
 }
 
-export interface InitializeTileGameRequest {
+export interface CreateTileGameRequest {
   name: string;
   numberOfPawns: number;
   tileMapId: TileMapId;
 }
 
-export interface InitializeTileGameResponse {
+export interface CreateTileGameResponse {
   game: TileGame;
 }
 
 export interface TileGameServiceApi extends Service {
+  createGame: {
+    payload: CreateTileGameRequest;
+    response: CreateTileGameResponse;
+  };
   getAvailableGames: {
     payload: Record<string, never>;
     response: GetAvailableTileGamesResponse;
@@ -35,18 +39,14 @@ export interface TileGameServiceApi extends Service {
     payload: GetTileGameRequest;
     response: GetTileGameResponse;
   };
-  initializeGame: {
-    payload: InitializeTileGameRequest;
-    response: InitializeTileGameResponse;
-  };
 }
 
 export const TileGameServiceDefinition: ServiceDefinition<TileGameServiceApi> =
   {
     controller: "tile-game",
     endpoints: {
+      createGame: "create-game",
       getAvailableGames: "get-available-games",
-      getTileGame: "get-tile-game",
-      initializeGame: "initialize-game"
+      getTileGame: "get-tile-game"
     }
   };

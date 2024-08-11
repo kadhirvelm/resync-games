@@ -3,8 +3,8 @@ import {
   GetAvailableTileGamesResponse,
   GetTileGameRequest,
   GetTileGameResponse,
-  InitializeTileGameRequest,
-  InitializeTileGameResponse,
+  CreateTileGameRequest,
+  CreateTileGameResponse,
   TileGameServiceApi,
   TileGameServiceDefinition
 } from "@tiles-tbd/api";
@@ -32,10 +32,10 @@ export class TileGameController
     return this.tileGameService.getAvailableGames();
   }
 
-  @getDecorator(TileGameServiceDefinition.endpoints.initializeGame)
-  public async initializeGame(
-    @Body() request: InitializeTileGameRequest
-  ): Promise<InitializeTileGameResponse> {
-    return this.tileGameService.initializeGame(request);
+  @getDecorator(TileGameServiceDefinition.endpoints.createGame)
+  public async createGame(
+    @Body() request: CreateTileGameRequest
+  ): Promise<CreateTileGameResponse> {
+    return this.tileGameService.createGame(request);
   }
 }

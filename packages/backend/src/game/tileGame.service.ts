@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/database/prisma.service";
 import _ from "lodash";
-import { InitializeTileGameRequest, TileGameId } from "@tiles-tbd/api";
+import { CreateTileGameRequest, TileGameId } from "@tiles-tbd/api";
 import { TileMapService } from "src/map/tileMap.service";
 import { TILE_GAME_PAWN_COLORS } from "./tileGame.constants";
 
@@ -51,9 +51,7 @@ export class TileGameService {
     };
   };
 
-  public initializeGame = async (
-    initializeGameRequest: InitializeTileGameRequest
-  ) => {
+  public createGame = async (initializeGameRequest: CreateTileGameRequest) => {
     const tileMap = await this.tileMapService.getTileMap(
       initializeGameRequest.tileMapId
     );
