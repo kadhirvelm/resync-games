@@ -33,6 +33,7 @@ function makeFetchRequest<ReturnValue>(
 }
 
 function constructSingleServiceCaller<Key extends keyof AvailableServices>(
+  hostUrl: string,
   serviceDefinition: ServiceDefinition<AvailableServices[Key]>
 ): ServiceCaller<AvailableServices[Key]> {
   const serviceCaller = {} as ServiceCaller<AvailableServices[Key]>;
@@ -41,7 +42,7 @@ function constructSingleServiceCaller<Key extends keyof AvailableServices>(
     const typedEndpoint = endpoint as keyof ServiceCaller<
       AvailableServices[Key]
     >;
-    const resolvedSlug = `${process.env.NEXT_PUBLIC_API_URL}/${serviceDefinition.controller}/${slug}`;
+    const resolvedSlug = `${hostUrl}/${serviceDefinition.controller}/${slug}`;
 
     serviceCaller[typedEndpoint] = makeFetchRequest(resolvedSlug);
   }
@@ -49,15 +50,19 @@ function constructSingleServiceCaller<Key extends keyof AvailableServices>(
   return serviceCaller;
 }
 
-export function getAvailableServiceCallers(): AvailableServiceCaller {
+export function getAvailableServiceCallers(
+  hostUrl: string
+): AvailableServiceCaller {
   const services: {
     [key: string]: ServiceCaller<AvailableServices[keyof AvailableServices]>;
   } = {};
 
   for (const [key, serviceDefinition] of Object.entries(AVAILABLE_SERVICES)) {
     const typedKey = key as keyof AvailableServices;
-    services[typedKey] =
-      constructSingleServiceCaller<typeof typedKey>(serviceDefinition);
+    services[typedKey] = constructSingleServiceCaller<typeof typedKey>(
+      hostUrl,
+      serviceDefinition
+    );
   }
 
   return services as AvailableServiceCaller;
