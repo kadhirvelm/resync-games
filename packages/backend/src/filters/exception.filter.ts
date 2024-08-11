@@ -3,12 +3,15 @@ import {
   Catch,
   ExceptionFilter,
   HttpException,
-  HttpStatus
+  HttpStatus,
+  Logger
 } from "@nestjs/common";
 import { ServiceError } from "@tiles-tbd/api";
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
+  private logger = new Logger("Exception");
+
   catch(exception: unknown, host: ArgumentsHost): void {
     const context = host.switchToHttp();
     const response = context.getResponse();
@@ -25,6 +28,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
       path: request.url,
       type: "error"
     };
+
+    this.logger.error(`Error on ${request.url}: ${exception}`);
 
     response.status(httpStatus).json(serviceError);
   }
