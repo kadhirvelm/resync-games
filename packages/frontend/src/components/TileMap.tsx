@@ -1,20 +1,20 @@
 "use client";
 
-import { CompleteTileMap as ICompleteTileMap, TileId } from "@tiles-tbd/api";
-import { useState } from "react";
+import { CompleteTileMap as ICompleteTileMap } from "@tiles-tbd/api";
+import { DisplayTile } from "./DisplayTile";
 import { indexTileMap } from "./utils/indexTileMap";
-import { DisplayTile } from "./Tile";
+import { Box } from "grommet";
 
 export const TileMap = ({ tileMap }: { tileMap: ICompleteTileMap }) => {
   const { outboundEdges, tilesIndexed } = indexTileMap(tileMap);
-  const [tileToDisplay, setTileToDisplay] = useState(
-    tileMap.tileMap.startingTileId
+
+  return (
+    <Box direction="row" style={{ padding: "10px" }}>
+      <DisplayTile
+        tilesIndexed={tilesIndexed}
+        outboundEdgesIndexed={outboundEdges}
+        tileId={tileMap.tileMap.startingTileId}
+      />
+    </Box>
   );
-
-  const onTileChange = (newTileId: TileId) => setTileToDisplay(newTileId);
-
-  const tile = tilesIndexed[tileToDisplay];
-  const edges = outboundEdges[tileToDisplay] ?? [];
-
-  return <DisplayTile tile={tile} edges={edges} onTileChange={onTileChange} />;
 };
