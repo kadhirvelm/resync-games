@@ -1,5 +1,5 @@
 import { Service, ServiceDefinition } from "../genericTypes/service";
-import { CompleteTileMap, TileMap, TileMapId } from "./map/types";
+import { CompleteTileMap, TileMap, TileMapId } from "./tileMap/types";
 
 export interface GetTileMapRequest {
   tileMapId: TileMapId;
