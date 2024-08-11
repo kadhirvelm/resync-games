@@ -6,7 +6,7 @@ export type PawnId = string & { __brand: "pawn-id" };
 
 export interface TilePawn {
   color: string;
-  onTile: TileId;
+  onTileId: TileId;
   pawnId: PawnId;
 }
 

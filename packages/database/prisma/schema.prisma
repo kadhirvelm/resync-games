@@ -14,7 +14,8 @@ model TileMap {
 
   startingTileId String @map("starting_tile_id")
 
-  tiles Tile[] @relation("map")
+  tiles    Tile[]     @relation("map")
+  TileGame TileGame[]
 }
 
 model Tile {
@@ -24,9 +25,10 @@ model Tile {
   image     String @map("image")
   tileMapId String @map("tile_map_id")
 
-  tileMap  TileMap @relation(fields: [tileMapId], references: [tileMapId], name: "map")
-  fromTile Edge[]  @relation("from_tile")
-  toTile   Edge[]  @relation("to_tile")
+  tileMap  TileMap    @relation(fields: [tileMapId], references: [tileMapId], name: "map")
+  fromTile Edge[]     @relation("from_tile")
+  toTile   Edge[]     @relation("to_tile")
+  TilePawn TilePawn[]
 }
 
 model Edge {
@@ -39,4 +41,28 @@ model Edge {
 
   fromTile Tile @relation(fields: [fromTileId], references: [tileId], name: "from_tile")
   toTile   Tile @relation(fields: [toTileId], references: [tileId], name: "to_tile")
+}
+
+model TileGame {
+  tileGameId String   @id @default(cuid()) @map("tile_game_id")
+  createdAt  DateTime @default(now())
+
+  tileMapId String @map("tile_map_id")
+  name      String @map("name")
+  state     String @map("state")
+
+  tileMap  TileMap    @relation(fields: [tileMapId], references: [tileMapId])
+  TilePawn TilePawn[]
+}
+
+model TilePawn {
+  tilePawnId String   @id @default(cuid()) @map("tile_pawn_id")
+  createdAt  DateTime @default(now())
+
+  onTileId   String @map("tile_id")
+  tileGameId String @map("tile_game_id")
+  color      String @map("color")
+
+  onTile   Tile     @relation(fields: [onTileId], references: [tileId])
+  tileGame TileGame @relation(fields: [tileGameId], references: [tileGameId])
 }
