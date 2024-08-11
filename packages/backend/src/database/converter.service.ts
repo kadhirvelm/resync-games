@@ -1,9 +1,23 @@
 import { Injectable } from "@nestjs/common";
-import { Edge, EdgeId, Tile, TileId, TileMap, TileMapId } from "@tiles-tbd/api";
+import {
+  Edge,
+  EdgeId,
+  PawnId,
+  Tile,
+  TileGame,
+  TileGameId,
+  TileGameState,
+  TileId,
+  TileMap,
+  TileMapId,
+  TilePawn
+} from "@tiles-tbd/api";
 import {
   TileMap as PrismaTileMap,
   Tile as PrismaTile,
-  Edge as PrismaEdge
+  Edge as PrismaEdge,
+  TileGame as PrismaTileGame,
+  TilePawn as PrismaTilePawn
 } from "@tiles-tbd/database";
 
 @Injectable()
@@ -29,6 +43,23 @@ export class ConverterService {
       flavorText: edge.flavorText,
       fromTileId: edge.fromTileId as TileId,
       toTileId: edge.toTileId as TileId
+    };
+  };
+
+  public convertTileGame = (tileGame: PrismaTileGame): TileGame => {
+    return {
+      name: tileGame.name,
+      state: tileGame.state as TileGameState,
+      tileGameId: tileGame.tileGameId as TileGameId,
+      tileMapId: tileGame.tileMapId as TileMapId
+    };
+  };
+
+  public convertTilePawn = (tilePawn: PrismaTilePawn): TilePawn => {
+    return {
+      color: tilePawn.color,
+      onTileId: tilePawn.onTileId as TileId,
+      tilePawnId: tilePawn.tilePawnId as PawnId
     };
   };
 }

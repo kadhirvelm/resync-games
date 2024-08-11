@@ -1,6 +1,6 @@
 import { Service, ServiceDefinition } from "../genericTypes/service";
-import { TileMap, TileMapId } from "./tileMap/types";
-import { TileGame, TileGameId } from "./tileGame/types";
+import { CompleteTileMap, TileMap, TileMapId } from "./tileMap/types";
+import { TileGame, TileGameId, TileGameWithPawns } from "./tileGame/types";
 
 export interface GetAvailableTileGamesResponse {
   tileGames: TileGame[];
@@ -12,7 +12,8 @@ export interface GetTileGameRequest {
 }
 
 export interface GetTileGameResponse {
-  game: TileGame;
+  game: TileGameWithPawns;
+  tileMap: CompleteTileMap;
 }
 
 export interface InitializeTileGameRequest {

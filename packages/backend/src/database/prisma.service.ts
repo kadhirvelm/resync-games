@@ -2,12 +2,13 @@ import { Injectable } from "@nestjs/common";
 import { PrismaClient } from "@tiles-tbd/database";
 import { CompleteTileMap, TileMap } from "@tiles-tbd/api";
 import { ConverterService } from "./converter.service";
+import _ from "lodash";
 
 @Injectable()
 export class PrismaService {
   public client: PrismaClient;
 
-  constructor(private converterService: ConverterService) {
+  constructor(public converterService: ConverterService) {
     this.client = new PrismaClient({ log: ["query"] });
   }
 
@@ -32,6 +33,21 @@ export class PrismaService {
         tileMapId: tileMap.tileMapId
       }),
       tiles: tileMap.tiles.map(this.converterService.convertTile)
+    };
+  };
+
+  public getAllTileGames = async () => {
+    const allGames = await this.client.tileGame.findMany({
+      include: { tileMap: true }
+    });
+    const allMaps = _.uniqBy(
+      allGames.flatMap((game) => game.tileMap),
+      (map) => map.tileMapId
+    );
+
+    return {
+      tileGames: allGames.map(this.converterService.convertTileGame),
+      tileMaps: allMaps.map(this.converterService.convertMap)
     };
   };
 }

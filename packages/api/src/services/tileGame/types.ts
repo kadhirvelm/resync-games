@@ -7,15 +7,18 @@ export type PawnId = string & { __brand: "pawn-id" };
 export interface TilePawn {
   color: string;
   onTileId: TileId;
-  pawnId: PawnId;
+  tilePawnId: PawnId;
 }
 
 export type TileGameState = "waiting" | "playing" | "finished";
 
 export interface TileGame {
   name: string;
-  pawns: TilePawn[];
   state: TileGameState;
   tileGameId: TileGameId;
   tileMapId: TileMapId;
+}
+
+export interface TileGameWithPawns extends TileGame {
+  pawns: TilePawn[];
 }
