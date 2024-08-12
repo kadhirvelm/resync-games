@@ -1,5 +1,7 @@
 import { Body, Controller } from "@nestjs/common";
 import {
+  GenerateTileMapRequest,
+  GenerateTileMapResponse,
   GetAllTileMapsResponse,
   GetTileMapRequest,
   GetTileMapResponse,
@@ -18,6 +20,17 @@ export class TileMapController
 {
   constructor(private readonly tileMapService: TileMapService) {}
 
+  @getDecorator(TileMapServiceDefinition.endpoints.generateTileMap)
+  public async generateTileMap(
+    @Body() request: GenerateTileMapRequest
+  ): Promise<GenerateTileMapResponse> {
+    return {
+      tileMapId: await this.tileMapService.generateTileMap(
+        request.generatorName
+      )
+    };
+  }
+
   @getDecorator(TileMapServiceDefinition.endpoints.getTileMap)
   public async getTileMap(
     @Body() request: GetTileMapRequest
@@ -32,5 +45,12 @@ export class TileMapController
     return {
       tileMaps: await this.tileMapService.getAllTileMaps()
     };
+  }
+
+  @getDecorator(
+    TileMapServiceDefinition.endpoints.getAvailableTileMapGenerators
+  )
+  public getAvailableTileMapGenerators(): string[] {
+    return this.tileMapService.getAvailableTileMapGenerators();
   }
 }

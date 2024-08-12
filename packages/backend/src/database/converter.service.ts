@@ -32,6 +32,8 @@ export class ConverterService {
   public convertTile = (tile: PrismaTile): Tile => {
     return {
       image: tile.image,
+      posX: tile.posX,
+      posY: tile.posY,
       tileId: tile.tileId as TileId,
       tileMapId: tile.tileMapId as TileMapId
     };
