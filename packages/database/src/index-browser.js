@@ -128,6 +128,8 @@ exports.Prisma.TileMapScalarFieldEnum = {
 exports.Prisma.TileScalarFieldEnum = {
   tileId: 'tileId',
   createdAt: 'createdAt',
+  posX: 'posX',
+  posY: 'posY',
   image: 'image',
   tileMapId: 'tileMapId'
 };
