@@ -18,6 +18,8 @@ type GridTileSquareId = string;
 
 class GridTileSquare {
   constructor(
+    public posX: number,
+    public posY: number,
     public northWall: boolean = false,
     public eastWall: boolean = false,
     public westWall: boolean = false,
@@ -25,8 +27,8 @@ class GridTileSquare {
     public id: string = uuidv4()
   ) {}
 
-  static getBasicSquare(): GridTileSquare {
-    return new GridTileSquare();
+  static getBasicSquare(posX: number, posY: number): GridTileSquare {
+    return new GridTileSquare(posX, posY);
   }
 
   getImage(): string {
@@ -44,6 +46,8 @@ class GridTileSquare {
   compile(mapId: string): Tile {
     return {
       image: this.getImage(),
+      posX: this.posX,
+      posY: this.posY,
       tileId: this.id as TileId,
       tileMapId: mapId as TileMapId
     };
@@ -143,16 +147,18 @@ class Grid {
 }
 
 function generateGridTile(
+  topLeftPosition: { x: number; y: number },
   dimension: number = 4,
   minOpenings: number = 1,
   maxOpenings: number = 2
 ): GridTile {
   // First generate the squares, without any walls, and arrange in a 4x4 grid
   const squares: GridTileSquare[][] = [];
+  const { x: startX, y: startY } = topLeftPosition;
   for (let i = 0; i < dimension; i++) {
     squares.push([]);
     for (let j = 0; j < dimension; j++) {
-      squares[i].push(GridTileSquare.getBasicSquare());
+      squares[i].push(GridTileSquare.getBasicSquare(startX + i, startY + j));
     }
   }
 
@@ -239,7 +245,12 @@ function generateGridFromSequentialTiles(
   // Starting and ending tile should have exactly one opening. The rest should have two.
   for (let i = 0; i < numTiles; i++) {
     tiles.push(
-      generateGridTile(tileDimension, i === 0 || i === numTiles - 1 ? 1 : 2, 2)
+      generateGridTile(
+        { x: i * tileDimension, y: 0 },
+        tileDimension,
+        i === 0 || i === numTiles - 1 ? 1 : 2,
+        2
+      )
     );
   }
   // Add edges between the tiles
