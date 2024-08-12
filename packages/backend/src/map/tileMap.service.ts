@@ -1,6 +1,15 @@
 import { Injectable } from "@nestjs/common";
 import { CompleteTileMap, TileMap, TileMapId } from "@tiles-tbd/api";
 import { PrismaService } from "src/database/prisma.service";
+import { BaseTileMapGenerator } from "src/generators/baseGenerator";
+import { MagicMazeLikeMapGenerator as MagicMazeSimpleTileMapGenerator } from "src/generators/gridMapGenerator";
+
+const AVAILABLE_TILE_MAP_GENERATORS: Record<
+  string,
+  () => BaseTileMapGenerator
+> = {
+  magicMazeSimple: () => new MagicMazeSimpleTileMapGenerator()
+};
 
 @Injectable()
 export class TileMapService {
@@ -30,5 +39,16 @@ export class TileMapService {
   public getAllTileMaps = async (): Promise<TileMap[]> => {
     const allMaps = await this.prismaService.client.tileMap.findMany({});
     return allMaps.map(this.prismaService.converterService.convertMap);
+  };
+
+  public getAvailableTileMapGenerators = (): string[] => {
+    return Object.keys(AVAILABLE_TILE_MAP_GENERATORS);
+  };
+
+  public generateTileMap = async (
+    generatorName: string
+  ): Promise<CompleteTileMap> => {
+    const generator = AVAILABLE_TILE_MAP_GENERATORS[generatorName]();
+    return generator.generate();
   };
 }

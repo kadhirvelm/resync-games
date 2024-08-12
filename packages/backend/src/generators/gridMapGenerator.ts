@@ -13,6 +13,7 @@ import {
   CompleteTileMap,
   TileMap
 } from "@tiles-tbd/api";
+import { BaseTileMapGenerator } from "./baseGenerator";
 
 type GridTileSquareId = string;
 
@@ -146,125 +147,135 @@ class Grid {
   }
 }
 
-function generateGridTile(
-  topLeftPosition: { x: number; y: number },
-  dimension: number = 4,
-  minOpenings: number = 1,
-  maxOpenings: number = 2
-): GridTile {
-  // First generate the squares, without any walls, and arrange in a 4x4 grid
-  const squares: GridTileSquare[][] = [];
-  const { x: startX, y: startY } = topLeftPosition;
-  for (let i = 0; i < dimension; i++) {
-    squares.push([]);
-    for (let j = 0; j < dimension; j++) {
-      squares[i].push(GridTileSquare.getBasicSquare(startX + i, startY + j));
+export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
+  public generate(): CompleteTileMap {
+    return this.generateGridFromSequentialTiles().compile();
+  }
+
+  private generateGridTile(
+    topLeftPosition: { x: number; y: number },
+    dimension: number = 4,
+    minOpenings: number = 1,
+    maxOpenings: number = 2
+  ): GridTile {
+    // First generate the squares, without any walls, and arrange in a 4x4 grid
+    const squares: GridTileSquare[][] = [];
+    const { x: startX, y: startY } = topLeftPosition;
+    for (let i = 0; i < dimension; i++) {
+      squares.push([]);
+      for (let j = 0; j < dimension; j++) {
+        squares[i].push(GridTileSquare.getBasicSquare(startX + i, startY + j));
+      }
     }
-  }
 
-  // Add a north wall in the top row, east wall in the rightmost column, etc.
-  for (let i = 0; i < dimension; i++) {
-    squares[0][i].northWall = true;
-    squares[dimension - 1][i].southWall = true;
-    squares[i][0].westWall = true;
-    squares[i][dimension - 1].eastWall = true;
-  }
+    // Add a north wall in the top row, east wall in the rightmost column, etc.
+    for (let i = 0; i < dimension; i++) {
+      squares[0][i].northWall = true;
+      squares[dimension - 1][i].southWall = true;
+      squares[i][0].westWall = true;
+      squares[i][dimension - 1].eastWall = true;
+    }
 
-  // Pick between minOpenings and maxOpenings squares from the boundary squares to be openings.
-  const boundarySquareIds: GridTileSquare[] = [];
-  for (let i = 0; i < dimension; i++) {
-    boundarySquareIds.push(squares[0][i]);
-    boundarySquareIds.push(squares[dimension - 1][i]);
-    boundarySquareIds.push(squares[i][0]);
-    boundarySquareIds.push(squares[i][dimension - 1]);
-  }
+    // Pick between minOpenings and maxOpenings squares from the boundary squares to be openings.
+    const boundarySquareIds: GridTileSquare[] = [];
+    for (let i = 0; i < dimension; i++) {
+      boundarySquareIds.push(squares[0][i]);
+      boundarySquareIds.push(squares[dimension - 1][i]);
+      boundarySquareIds.push(squares[i][0]);
+      boundarySquareIds.push(squares[i][dimension - 1]);
+    }
 
-  const openings: GridTileSquare[] = _.sampleSize(
-    boundarySquareIds,
-    _.random(minOpenings, maxOpenings)
-  );
-  const openingSquareIds = openings.map((opening) => opening.id);
+    const openings: GridTileSquare[] = _.sampleSize(
+      boundarySquareIds,
+      _.random(minOpenings, maxOpenings)
+    );
+    const openingSquareIds = openings.map((opening) => opening.id);
 
-  // Remove the walls from the squares which are openings
-  openings.forEach((opening) => {
-    opening.northWall = false;
-    opening.eastWall = false;
-    opening.westWall = false;
-    opening.southWall = false;
-  });
-
-  // For each of the first dimension - 1 rows, add between 0 to dimension - 1 south walls
-  for (let i = 0; i < dimension - 1; i++) {
-    const numSouthWalls = _.random(0, dimension - 1);
-    const wallIndices = _.sampleSize(_.range(dimension), numSouthWalls);
-    wallIndices.forEach((wallIndex) => {
-      squares[i][wallIndex].southWall = true;
-      squares[i + 1][wallIndex].northWall = true;
+    // Remove the walls from the squares which are openings
+    openings.forEach((opening) => {
+      opening.northWall = false;
+      opening.eastWall = false;
+      opening.westWall = false;
+      opening.southWall = false;
     });
-  }
 
-  const edges: GridTileSquareEdge[] = [];
-  // For each row, all squares except the last one have an edge to the next square
-  for (let i = 0; i < dimension; i++) {
-    for (let j = 0; j < dimension - 1; j++) {
-      edges.push(
-        new GridTileSquareEdge(squares[i][j].id, squares[i][j + 1].id, "RIGHT")
-      );
-      // In the other direction
-      edges.push(
-        new GridTileSquareEdge(squares[i][j + 1].id, squares[i][j].id, "LEFT")
-      );
+    // For each of the first dimension - 1 rows, add between 0 to dimension - 1 south walls
+    for (let i = 0; i < dimension - 1; i++) {
+      const numSouthWalls = _.random(0, dimension - 1);
+      const wallIndices = _.sampleSize(_.range(dimension), numSouthWalls);
+      wallIndices.forEach((wallIndex) => {
+        squares[i][wallIndex].southWall = true;
+        squares[i + 1][wallIndex].northWall = true;
+      });
     }
-  }
 
-  // Determine the edges between squares in neighboring rows based on the north/south walls.
-  for (let i = 0; i < dimension - 1; i++) {
-    for (let j = 0; j < dimension; j++) {
-      if (!squares[i][j].southWall && !squares[i + 1][j].northWall) {
+    const edges: GridTileSquareEdge[] = [];
+    // For each row, all squares except the last one have an edge to the next square
+    for (let i = 0; i < dimension; i++) {
+      for (let j = 0; j < dimension - 1; j++) {
         edges.push(
-          new GridTileSquareEdge(squares[i][j].id, squares[i + 1][j].id, "DOWN")
+          new GridTileSquareEdge(
+            squares[i][j].id,
+            squares[i][j + 1].id,
+            "RIGHT"
+          )
         );
         // In the other direction
         edges.push(
-          new GridTileSquareEdge(squares[i + 1][j].id, squares[i][j].id, "UP")
+          new GridTileSquareEdge(squares[i][j + 1].id, squares[i][j].id, "LEFT")
         );
       }
     }
+
+    // Determine the edges between squares in neighboring rows based on the north/south walls.
+    for (let i = 0; i < dimension - 1; i++) {
+      for (let j = 0; j < dimension; j++) {
+        if (!squares[i][j].southWall && !squares[i + 1][j].northWall) {
+          edges.push(
+            new GridTileSquareEdge(
+              squares[i][j].id,
+              squares[i + 1][j].id,
+              "DOWN"
+            )
+          );
+          // In the other direction
+          edges.push(
+            new GridTileSquareEdge(squares[i + 1][j].id, squares[i][j].id, "UP")
+          );
+        }
+      }
+    }
+
+    // Assemble the grid tile
+    return new GridTile(squares, openingSquareIds, edges);
   }
 
-  // Assemble the grid tile
-  return new GridTile(squares, openingSquareIds, edges);
-}
+  private generateGridFromSequentialTiles(
+    numTiles: number = 4,
+    tileDimension: number = 4
+  ): Grid {
+    // Simply create a sequence of tiles linearly connected together.
+    const tiles: GridTile[] = [];
+    // Starting and ending tile should have exactly one opening. The rest should have two.
+    for (let i = 0; i < numTiles; i++) {
+      tiles.push(
+        this.generateGridTile(
+          { x: i * tileDimension, y: 0 },
+          tileDimension,
+          i === 0 || i === numTiles - 1 ? 1 : 2,
+          2
+        )
+      );
+    }
+    // Add edges between the tiles
+    const edges: GridTileSquareEdge[] = [];
+    for (let i = 0; i < numTiles - 1; i++) {
+      const src = tiles[i].openings.at(-1);
+      const dest = tiles[i + 1].openings[0];
+      edges.push(new GridTileSquareEdge(src, dest, "RIGHT"));
+      edges.push(new GridTileSquareEdge(dest, src, "LEFT"));
+    }
 
-function generateGridFromSequentialTiles(
-  numTiles: number = 4,
-  tileDimension: number = 4
-): Grid {
-  // Simply create a sequence of tiles linearly connected together.
-  const tiles: GridTile[] = [];
-  // Starting and ending tile should have exactly one opening. The rest should have two.
-  for (let i = 0; i < numTiles; i++) {
-    tiles.push(
-      generateGridTile(
-        { x: i * tileDimension, y: 0 },
-        tileDimension,
-        i === 0 || i === numTiles - 1 ? 1 : 2,
-        2
-      )
-    );
+    return new Grid(tiles, edges);
   }
-  // Add edges between the tiles
-  const edges: GridTileSquareEdge[] = [];
-  for (let i = 0; i < numTiles - 1; i++) {
-    const src = tiles[i].openings.at(-1);
-    const dest = tiles[i + 1].openings[0];
-    edges.push(new GridTileSquareEdge(src, dest, "RIGHT"));
-    edges.push(new GridTileSquareEdge(dest, src, "LEFT"));
-  }
-
-  return new Grid(tiles, edges);
-}
-
-export function generateSimpleMagicMazeTileMap(): CompleteTileMap {
-  return generateGridFromSequentialTiles().compile();
 }
