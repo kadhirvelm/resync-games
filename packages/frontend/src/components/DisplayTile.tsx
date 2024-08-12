@@ -26,7 +26,7 @@ export const DisplayTile = ({
   if (visitedTiles?.[tileId]) {
     return (
       <Box className={clsx(styles.tile, styles.alreadyVisited)}>
-        {thisTile.image}
+        {thisTile?.image}
       </Box>
     );
   }
@@ -34,7 +34,7 @@ export const DisplayTile = ({
   return (
     <Box gap="10px">
       <Box className={styles.tile}>
-        {thisTile.image}
+        {thisTile?.image}
         <Box direction="row" gap="10px">
           {pawnsOnThisTile.map((pawn) => (
             <DisplayPawn key={pawn.tilePawnId} pawn={pawn} />
@@ -45,9 +45,9 @@ export const DisplayTile = ({
         {outboundEdges.map((edge) => (
           <DisplayTile
             key={edge.edgeId}
-            tilesIndexed={tilesIndexed}
             outboundEdgesIndexed={outboundEdgesIndexed}
             tileId={edge.toTileId}
+            tilesIndexed={tilesIndexed}
             visitedTiles={{ ...visitedTiles, [tileId]: true }}
           />
         ))}

@@ -12,7 +12,7 @@ export function indexTileMap(tileMap: CompleteTileMap) {
   const outboundEdges = tileMap.edges.reduce(
     (acc, edge) => {
       acc[edge.fromTileId] = acc[edge.fromTileId] ?? [];
-      acc[edge.fromTileId].push(edge);
+      acc[edge.fromTileId]?.push(edge);
       return acc;
     },
     {} as Record<string, (typeof tileMap.edges)[0][]>
@@ -21,7 +21,7 @@ export function indexTileMap(tileMap: CompleteTileMap) {
   const inboundEdges = tileMap.edges.reduce(
     (acc, edge) => {
       acc[edge.toTileId] = acc[edge.toTileId] ?? [];
-      acc[edge.toTileId].push(edge);
+      acc[edge.toTileId]?.push(edge);
       return acc;
     },
     {} as Record<string, (typeof tileMap.edges)[0][]>

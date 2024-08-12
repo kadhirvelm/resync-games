@@ -16,6 +16,6 @@ export default async function TileGame({
   }
 
   return (
-    <TileMap tileMap={maybeTileGame.tileMap} pawns={maybeTileGame.game.pawns} />
+    <TileMap pawns={maybeTileGame.game.pawns} tileMap={maybeTileGame.tileMap} />
   );
 }

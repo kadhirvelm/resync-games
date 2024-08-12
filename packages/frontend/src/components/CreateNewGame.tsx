@@ -49,33 +49,33 @@ export function CreateNewGame({ tileMaps }: { tileMaps: TileMap[] }) {
 
   return (
     <Box>
-      <Form value={value} onChange={setValue} onSubmit={createNewGame}>
+      <Form onChange={setValue} onSubmit={createNewGame} value={value}>
         <Box
           className={styles.formBox}
           gap="40px"
           style={{ maxWidth: "500px" }}
         >
-          <FormField name="name" label="Game name">
+          <FormField label="Game name" name="name">
             <TextInput name="name" placeholder="What players will see..." />
           </FormField>
-          <Box direction="row" align="flex-end">
+          <Box align="flex-end" direction="row">
             <Box flex="grow">
-              <FormField name="numberOfPawns" label="Number of pawns">
-                <RangeInput name="numberOfPawns" min={1} max={8} />
+              <FormField label="Number of pawns" name="numberOfPawns">
+                <RangeInput max={8} min={1} name="numberOfPawns" />
               </FormField>
             </Box>
             <Box margin="0 15px 15px">
               <Text size="25px">{value["numberOfPawns"]}</Text>
             </Box>
           </Box>
-          <FormField name="tileMapId" label="Tile map">
+          <FormField label="Tile map" name="tileMapId">
             <Select
               name="tileMapId"
               options={tileMaps.map((map) => map.tileMapId)}
             />
           </FormField>
           <Box direction="row" flex="grow" margin="20px">
-            <Button type="submit" style={{ flex: 1 }} primary label="Submit" />
+            <Button label="Submit" primary style={{ flex: 1 }} type="submit" />
           </Box>
         </Box>
       </Form>

@@ -8,7 +8,7 @@ export const selectPawnIndex = createSelector(
     const indexedPawns: Record<TileId, TilePawn[]> = {};
     for (const tilePawn of Object.values(pawnStates)) {
       indexedPawns[tilePawn.onTileId] = indexedPawns[tilePawn.onTileId] ?? [];
-      indexedPawns[tilePawn.onTileId].push(tilePawn);
+      indexedPawns[tilePawn.onTileId]?.push(tilePawn);
     }
 
     return indexedPawns;
