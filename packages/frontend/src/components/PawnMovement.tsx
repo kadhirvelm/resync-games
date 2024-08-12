@@ -13,7 +13,11 @@ export function PawnMovement() {
   );
 
   const onTemporaryMovePawn = (pawn: TilePawn) => async () => {
-    const nextTile = outboundEdges[pawn.onTileId][0]?.toTileId;
+    const nextTile = outboundEdges[pawn.onTileId]?.[0]?.toTileId;
+    if (nextTile === undefined) {
+      return;
+    }
+
     const updatedPawn = await ClientServiceCallers.tileGame.movePawn({
       fromTileId: pawn.onTileId,
       tilePawnId: pawn.tilePawnId,

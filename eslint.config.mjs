@@ -7,6 +7,7 @@ import typescriptSort from "eslint-plugin-typescript-sort-keys";
 import objectSort from "eslint-plugin-sort-keys-fix";
 import nextEslintPlugin from "@next/eslint-plugin-next";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
+import reactEslint from "eslint-plugin-react";
 
 export default [
   ...tseslint.config(eslint.configs.recommended, ...tseslint.configs.strict),
@@ -27,12 +28,14 @@ export default [
     files: ["**/frontend/**/*.{ts,tsx}"],
     plugins: {
       "@next/next": nextEslintPlugin,
+      react: reactEslint,
       "react-hooks": reactHooksPlugin
     },
     rules: {
       ...nextEslintPlugin.configs.recommended.rules,
       ...reactHooksPlugin.configs.recommended.rules,
-      "@next/next/no-duplicate-head": 0
+      "@next/next/no-duplicate-head": 0,
+      "react/jsx-sort-props": 1
     }
   },
   {

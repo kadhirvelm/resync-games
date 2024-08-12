@@ -17,7 +17,7 @@ export default async function AvailableGames() {
       <Text>Available games</Text>
       {maybeAvailableGames.tileGames.map((tileGame) => (
         <Link href={`tile-game/${tileGame.tileGameId}`}>
-          <Button label={tileGame.name} key={tileGame.tileGameId} />
+          <Button key={tileGame.tileGameId} label={tileGame.name} />
         </Link>
       ))}
       <Box>

@@ -36,9 +36,9 @@ export const TileMap = ({
     >
       <Box direction="row" style={{ padding: "10px" }}>
         <DisplayTile
-          tilesIndexed={tilesIndexed}
           outboundEdgesIndexed={outboundEdges}
           tileId={tileMap.tileMap.startingTileId}
+          tilesIndexed={tilesIndexed}
         />
       </Box>
       <PawnMovement />

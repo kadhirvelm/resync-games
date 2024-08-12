@@ -87,7 +87,7 @@ export class TileGameService {
         onTileId: movePawnRequest.toTileId
       },
       where: {
-        onTileId: movePawnRequest.fromTildId,
+        onTileId: movePawnRequest.fromTileId,
         tilePawnId: movePawnRequest.tilePawnId
       }
     });

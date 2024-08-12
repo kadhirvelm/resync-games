@@ -16,7 +16,7 @@ export default async function AvailableMaps() {
       <Text>Available maps</Text>
       {maybeAvailableTileMaps.tileMaps.map((tileMap) => (
         <Link href={`tile-map/${tileMap.tileMapId}`}>
-          <Button label={tileMap.tileMapId} key={tileMap.tileMapId} />
+          <Button key={tileMap.tileMapId} label={tileMap.tileMapId} />
         </Link>
       ))}
     </Box>
