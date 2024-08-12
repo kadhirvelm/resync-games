@@ -3,7 +3,7 @@
  */
 
 import { v4 as uuidv4 } from "uuid";
-import _ from "lodash";
+import * as _ from "lodash";
 import {
   EdgeId,
   TileMapId,
@@ -251,7 +251,7 @@ export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
   }
 
   private generateGridFromSequentialTiles(
-    numTiles: number = 4,
+    numTiles: number = 1,
     tileDimension: number = 4
   ): Grid {
     // Simply create a sequence of tiles linearly connected together.
