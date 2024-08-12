@@ -1,20 +1,47 @@
 "use client";
 
-import { CompleteTileMap as ICompleteTileMap, TileId } from "@tiles-tbd/api";
-import { useState } from "react";
+import { ReduxGate } from "@/stores/ReduxGate";
+import {
+  setInitialPawns,
+  setOutboundEdges,
+  setTilesIndexed
+} from "@/stores/tiles/pawnState";
+import { initializeTileStore } from "@/stores/tiles/tilesStore";
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
+import { CompleteTileMap as ICompleteTileMap, TilePawn } from "@tiles-tbd/api";
+import { Box } from "grommet";
+import { DisplayTile } from "./DisplayTile";
+import { PawnMovement } from "./PawnMovement";
 import { indexTileMap } from "./utils/indexTileMap";
-import { DisplayTile } from "./Tile";
 
-export const TileMap = ({ tileMap }: { tileMap: ICompleteTileMap }) => {
+export const TileMap = ({
+  tileMap,
+  pawns
+}: {
+  pawns?: TilePawn[];
+  tileMap: ICompleteTileMap;
+}) => {
   const { outboundEdges, tilesIndexed } = indexTileMap(tileMap);
-  const [tileToDisplay, setTileToDisplay] = useState(
-    tileMap.tileMap.startingTileId
+
+  const createInitialPawns = (dispatch: Dispatch<UnknownAction>) => {
+    dispatch(setInitialPawns(pawns ?? []));
+    dispatch(setOutboundEdges(outboundEdges));
+    dispatch(setTilesIndexed(tilesIndexed));
+  };
+
+  return (
+    <ReduxGate
+      createStore={initializeTileStore}
+      initializeStore={createInitialPawns}
+    >
+      <Box direction="row" style={{ padding: "10px" }}>
+        <DisplayTile
+          outboundEdgesIndexed={outboundEdges}
+          tileId={tileMap.tileMap.startingTileId}
+          tilesIndexed={tilesIndexed}
+        />
+      </Box>
+      <PawnMovement />
+    </ReduxGate>
   );
-
-  const onTileChange = (newTileId: TileId) => setTileToDisplay(newTileId);
-
-  const tile = tilesIndexed[tileToDisplay];
-  const edges = outboundEdges[tileToDisplay] ?? [];
-
-  return <DisplayTile tile={tile} edges={edges} onTileChange={onTileChange} />;
 };

@@ -1,12 +1,12 @@
-import AvailableMaps from "@/components/AvailableMaps";
-import styles from "./page.module.scss";
+import AvailableGames from "@/components/AvailableGames";
 import { Suspense } from "react";
+import styles from "./page.module.scss";
 
 export default async function Home() {
   return (
     <div className={styles.entryPoint}>
-      <Suspense fallback={"Loading maps..."}>
-        <AvailableMaps />
+      <Suspense fallback={"Loading games..."}>
+        <AvailableGames />
       </Suspense>
     </div>
   );

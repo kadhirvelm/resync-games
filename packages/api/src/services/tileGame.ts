@@ -1,6 +1,12 @@
 import { Service, ServiceDefinition } from "../genericTypes/service";
-import { CompleteTileMap, TileMap, TileMapId } from "./tileMap/types";
-import { TileGame, TileGameId, TileGameWithPawns } from "./tileGame/types";
+import { CompleteTileMap, TileId, TileMap, TileMapId } from "./tileMap/types";
+import {
+  PawnId,
+  TileGame,
+  TileGameId,
+  TileGameWithPawns,
+  TilePawn
+} from "./tileGame/types";
 
 export interface GetAvailableTileGamesResponse {
   tileGames: TileGame[];
@@ -26,6 +32,16 @@ export interface CreateTileGameResponse {
   game: TileGame;
 }
 
+export interface MovePawnRequest {
+  fromTileId: TileId;
+  tilePawnId: PawnId;
+  toTileId: TileId;
+}
+
+export interface MovePawnResponse {
+  newPawnState: TilePawn;
+}
+
 export interface TileGameServiceApi extends Service {
   createGame: {
     payload: CreateTileGameRequest;
@@ -39,6 +55,10 @@ export interface TileGameServiceApi extends Service {
     payload: GetTileGameRequest;
     response: GetTileGameResponse;
   };
+  movePawn: {
+    payload: MovePawnRequest;
+    response: MovePawnResponse;
+  };
 }
 
 export const TileGameServiceDefinition: ServiceDefinition<TileGameServiceApi> =
@@ -47,6 +67,7 @@ export const TileGameServiceDefinition: ServiceDefinition<TileGameServiceApi> =
     endpoints: {
       createGame: "create-game",
       getAvailableGames: "get-available-games",
-      getTileGame: "get-tile-game"
+      getTileGame: "get-tile-game",
+      movePawn: "move-pawn"
     }
   };

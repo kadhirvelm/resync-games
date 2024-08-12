@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "check:build": "tsc --noEmit",
     "start": "next start",
     "lint": "eslint .",
     "test": "jest --colors"
@@ -14,15 +15,18 @@
     "clsx": "^2.1.1",
     "grommet": "^2.39.0",
     "grommet-icons": "^4.12.1",
+    "lodash-es": "^4.17.21",
     "next": "14.2.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-redux": "^9.1.2",
     "styled-components": "^6.1.12"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@testing-library/jest-dom": "^6.4.8",
     "@types/jest": "^29.5.12",
+    "@types/lodash-es": "^4",
     "@types/node": "^22.0.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

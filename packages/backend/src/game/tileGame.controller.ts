@@ -6,7 +6,9 @@ import {
   CreateTileGameRequest,
   CreateTileGameResponse,
   TileGameServiceApi,
-  TileGameServiceDefinition
+  TileGameServiceDefinition,
+  MovePawnRequest,
+  MovePawnResponse
 } from "@tiles-tbd/api";
 import {
   ServiceControllerInterface,
@@ -37,5 +39,12 @@ export class TileGameController
     @Body() request: CreateTileGameRequest
   ): Promise<CreateTileGameResponse> {
     return this.tileGameService.createGame(request);
+  }
+
+  @getDecorator(TileGameServiceDefinition.endpoints.movePawn)
+  public async movePawn(
+    @Body() request: MovePawnRequest
+  ): Promise<MovePawnResponse> {
+    return this.tileGameService.movePawn(request);
   }
 }
