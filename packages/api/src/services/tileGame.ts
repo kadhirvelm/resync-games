@@ -33,7 +33,7 @@ export interface CreateTileGameResponse {
 }
 
 export interface MovePawnRequest {
-  fromTildId: TileId;
+  fromTileId: TileId;
   tilePawnId: PawnId;
   toTileId: TileId;
 }
