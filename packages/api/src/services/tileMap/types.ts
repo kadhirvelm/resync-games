@@ -13,6 +13,8 @@ export interface Edge {
 
 export interface Tile {
   image: string;
+  posX: number;
+  posY: number;
   tileId: TileId;
   tileMapId: TileMapId;
 }
