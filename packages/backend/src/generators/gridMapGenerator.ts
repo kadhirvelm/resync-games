@@ -33,14 +33,14 @@ class GridTileSquare {
   }
 
   getImage(): string {
-    const walls = [
-      this.northWall,
-      this.eastWall,
-      this.southWall,
-      this.westWall
+    const walls: string[] = [
+      ...(this.northWall ? ["N"] : []),
+      ...(this.southWall ? ["S"] : []),
+      ...(this.westWall ? ["W"] : []),
+      ...(this.eastWall ? ["E"] : [])
     ];
     // For now just return an encoding
-    return walls.map((wall) => (wall ? "1" : "0")).join("");
+    return `tile${walls.join("")}.png`;
   }
 
   // Compile the square into a tile corresponding to the core tile abstraction
