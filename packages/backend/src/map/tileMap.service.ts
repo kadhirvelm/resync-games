@@ -50,35 +50,34 @@ export class TileMapService {
   ): Promise<TileMapId> => {
     const generator = AVAILABLE_TILE_MAP_GENERATORS[generatorName]();
     const tileMap = generator.generate();
-    // TODO: Do a transaction
-    // Push the map to the database
-    await this.prismaService.client.tileMap.create({
-      data: {
-        startingTileId: tileMap.tileMap.startingTileId,
-        tileMapId: tileMap.tileMap.tileMapId
-      }
-    });
-
-    // Push the tiles to the database
-    await this.prismaService.client.tile.createMany({
-      data: tileMap.tiles.map((tile) => ({
-        image: tile.image,
-        posX: tile.posX,
-        posY: tile.posY,
-        tileId: tile.tileId,
-        tileMapId: tileMap.tileMap.tileMapId
-      }))
-    });
-
-    // Push the edges to the database
-    await this.prismaService.client.edge.createMany({
-      data: tileMap.edges.map((edge) => ({
-        edgeId: edge.edgeId,
-        flavorText: edge.flavorText,
-        fromTileId: edge.fromTileId,
-        toTileId: edge.toTileId
-      }))
-    });
+    await this.prismaService.client.$transaction([
+      // Map
+      this.prismaService.client.tileMap.create({
+        data: {
+          startingTileId: tileMap.tileMap.startingTileId,
+          tileMapId: tileMap.tileMap.tileMapId
+        }
+      }),
+      // Tiles
+      this.prismaService.client.tile.createMany({
+        data: tileMap.tiles.map((tile) => ({
+          image: tile.image,
+          posX: tile.posX,
+          posY: tile.posY,
+          tileId: tile.tileId,
+          tileMapId: tileMap.tileMap.tileMapId
+        }))
+      }),
+      // Edges
+      this.prismaService.client.edge.createMany({
+        data: tileMap.edges.map((edge) => ({
+          edgeId: edge.edgeId,
+          flavorText: edge.flavorText,
+          fromTileId: edge.fromTileId,
+          toTileId: edge.toTileId
+        }))
+      })
+    ]);
 
     return tileMap.tileMap.tileMapId;
   };
