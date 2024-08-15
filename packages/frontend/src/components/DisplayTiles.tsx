@@ -1,5 +1,7 @@
 import React, { RefObject, useEffect, useRef } from "react";
 import { Tile } from "@tiles-tbd/api";
+import { selectPawnIndex } from "@/stores/tiles/selectPawnState";
+import { useTileSelector } from "@/stores/tiles/tilesStore";
 
 export const DisplayTiles = ({
   tiles,
@@ -11,6 +13,22 @@ export const DisplayTiles = ({
   tiles: Tile[];
 }) => {
   const canvasRef: RefObject<HTMLCanvasElement> = useRef(null);
+  const pawnsIndexed = useTileSelector(selectPawnIndex);
+
+  // TODO(rohan): I don't know how to operate redux and get the total number of pawns directly.
+  // So, I'm calculating it here.
+  const allPawnIds: Set<string> = new Set();
+  for (const pawns of Object.values(pawnsIndexed)) {
+    for (const pawn of pawns) {
+      allPawnIds.add(pawn.tilePawnId);
+    }
+  }
+  const numPawns = allPawnIds.size;
+
+  // We draw the pawns as circles, making sure they don't overlap.
+  // Thus we arrange the circles in a square with a calculated radius.
+  const sqDimension = Math.ceil(Math.sqrt(numPawns));
+  const radius = Math.floor(tileSize / (2 * sqDimension));
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -28,7 +46,8 @@ export const DisplayTiles = ({
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw each tile
-    tiles.forEach(({ posX: x, posY: y, image }) => {
+    tiles.forEach(({ posX: x, posY: y, image, tileId }) => {
+      const pawnsOnThisTile = pawnsIndexed[tileId] ?? [];
       const img = new Image();
       img.src = `/images/${image}`;
       const posX = x * (tileSize + gap);
@@ -37,13 +56,19 @@ export const DisplayTiles = ({
       // Wait for image to load
       img.onload = () => {
         ctx.drawImage(img, posX, posY, tileSize, tileSize);
+        for (let i = 0; i < pawnsOnThisTile.length; i++) {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          const pawn = pawnsOnThisTile[i]!;
+          const pawnPosX = posX + radius + 2 * radius * (i % sqDimension);
+          const pawnPosY = posY + radius + 2 * radius * Math.floor(i / sqDimension);
+          ctx.beginPath();
+          ctx.arc(pawnPosX, pawnPosY, tileSize / 8, 0, 2 * Math.PI);
+          ctx.fillStyle = pawn.color;
+          ctx.fill();
+        }
       };
     });
-  }, [tiles, tileSize, gap]);
-
-  for (const tile of tiles) {
-    console.log(JSON.stringify(tile));
-  }
+  }, [tiles, tileSize, gap, pawnsIndexed]);
 
   return (
     <canvas

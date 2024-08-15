@@ -4,6 +4,7 @@ import { Box } from "grommet";
 import styles from "./PawnMovement.module.scss";
 import { ClientServiceCallers } from "@/services/serviceCallers";
 import { updatePawn } from "@/stores/tiles/pawnState";
+import { shuffle } from "lodash-es";
 
 export function PawnMovement() {
   const dispatch = useTileDispatch();
@@ -13,7 +14,13 @@ export function PawnMovement() {
   );
 
   const onTemporaryMovePawn = (pawn: TilePawn) => async () => {
-    const nextTile = outboundEdges[pawn.onTileId]?.[0]?.toTileId;
+    let outboundEdgesFromTile = outboundEdges[pawn.onTileId];
+    // Shuffle the edges to simulate randomness
+    if (outboundEdgesFromTile) {
+      outboundEdgesFromTile = shuffle(outboundEdgesFromTile);
+    }
+
+    const nextTile = outboundEdgesFromTile?.[0]?.toTileId;
     if (nextTile === undefined) {
       return;
     }
