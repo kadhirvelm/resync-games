@@ -15,6 +15,8 @@ import {
 } from "@tiles-tbd/api";
 import { BaseTileMapGenerator } from "./baseGenerator";
 
+type Directions = "N" | "S" | "E" | "W";
+
 type GridTileSquareId = string;
 
 class GridTileSquare {
@@ -74,12 +76,17 @@ class GridTileSquareEdge {
   }
 }
 
+type TileOpening = {
+  direction: Directions;
+  square: GridTileSquare;
+};
+
 class GridTile {
   constructor(
     // 2D array of squares
     public squares: GridTileSquare[][],
     // The squares which can be connected to openings of another tile
-    public openings: GridTileSquareId[],
+    public openings: TileOpening[],
     // Edges between the squares
     public edges: GridTileSquareEdge[]
   ) {}
@@ -106,6 +113,15 @@ class GridTile {
     // the center
     return this.squares[1][1].id;
   }
+
+  translate(x: number, y: number): void {
+    this.squares.forEach((row) => {
+      row.forEach((square) => {
+        square.posX += x;
+        square.posY += y;
+      });
+    });
+  }
 }
 
 class Grid {
@@ -118,6 +134,7 @@ class Grid {
 
   // Compile the grid into a complete tile map
   compile(): CompleteTileMap {
+    this.normalizeCoords();
     const mapId = uuidv4();
     // Aggregate the tiles and edges from each tile
     const compiledTiles: Tile[] = [];
@@ -145,26 +162,68 @@ class Grid {
       tiles: compiledTiles
     };
   }
+
+  private normalizeCoords(): void {
+    // Make sure all coordinates are positive.
+    let minX = 0,
+      minY = 0;
+    this.tiles.forEach((tile) => {
+      tile.squares.forEach((row) => {
+        row.forEach((square) => {
+          minX = Math.min(minX, square.posX);
+          minY = Math.min(minY, square.posY);
+        });
+      });
+    });
+
+    const transX = minX < 0 ? -minX : 0;
+    const transY = minY < 0 ? -minY : 0;
+
+    // Translate all squares so that the minimum x and y are 0
+    this.tiles.forEach((tile) => {
+      tile.translate(transX, transY);
+    });
+  }
+
+  isValid(): boolean {
+    // No two squares should overlap
+    const coords: string[] = this.tiles.flatMap((tile) =>
+      tile.squares.flatMap((row) =>
+        row.map((square) => `${square.posX},${square.posY}`)
+      )
+    );
+
+    if (new Set(coords).size !== coords.length) {
+      return false;
+    }
+
+    return true;
+  }
 }
 
 export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
   public generate(): CompleteTileMap {
-    return this.generateGridFromSequentialTiles().compile();
+    // Generate till valid
+    let grid = this.generateGridFromSequentialTiles();
+    while (!grid.isValid()) {
+      grid = this.generateGridFromSequentialTiles();
+    }
+
+    return grid.compile();
   }
 
   private generateGridTile(
-    topLeftPosition: { x: number; y: number },
-    dimension: number = 4,
+    dimension: number = 2,
     minOpenings: number = 1,
     maxOpenings: number = 2
   ): GridTile {
     // First generate the squares, without any walls, and arrange in a 4x4 grid
     const squares: GridTileSquare[][] = [];
-    const { x: startX, y: startY } = topLeftPosition;
     for (let i = 0; i < dimension; i++) {
       squares.push([]);
       for (let j = 0; j < dimension; j++) {
-        squares[i].push(GridTileSquare.getBasicSquare(startX + i, startY + j));
+        // Row number = y, column number = x
+        squares[i].push(GridTileSquare.getBasicSquare(j, i));
       }
     }
 
@@ -177,27 +236,36 @@ export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
     }
 
     // Pick between minOpenings and maxOpenings squares from the boundary squares to be openings.
-    const boundarySquareIds: GridTileSquare[] = [];
+    let boundarySquares: { direction: Directions; square: GridTileSquare }[] =
+      [];
     for (let i = 0; i < dimension; i++) {
-      boundarySquareIds.push(squares[0][i]);
-      boundarySquareIds.push(squares[dimension - 1][i]);
-      boundarySquareIds.push(squares[i][0]);
-      boundarySquareIds.push(squares[i][dimension - 1]);
+      boundarySquares.push({ direction: "N", square: squares[0][i] });
+      boundarySquares.push({
+        direction: "S",
+        square: squares[dimension - 1][i]
+      });
+      boundarySquares.push({ direction: "W", square: squares[i][0] });
+      boundarySquares.push({
+        direction: "E",
+        square: squares[i][dimension - 1]
+      });
     }
 
-    const openings: GridTileSquare[] = _.sampleSize(
-      boundarySquareIds,
-      _.random(minOpenings, maxOpenings)
+    const numOpenings = _.random(
+      Math.max(minOpenings, 0),
+      Math.min(4, maxOpenings)
     );
-    const openingSquareIds = openings.map((opening) => opening.id);
 
-    // Remove the walls from the squares which are openings
-    openings.forEach((opening) => {
-      opening.northWall = false;
-      opening.eastWall = false;
-      opening.westWall = false;
-      opening.southWall = false;
-    });
+    // No two openings should be from the same direction
+    const openings: { direction: Directions; square: GridTileSquare }[] = [];
+    for (let i = 0; i < numOpenings; i++) {
+      const opening = _.sample(boundarySquares);
+      openings.push(opening);
+      // Remove the squares with the same direction
+      boundarySquares = boundarySquares.filter(
+        (b) => b.direction !== opening.direction
+      );
+    }
 
     // For each of the first dimension - 1 rows, add between 0 to dimension - 1 south walls
     for (let i = 0; i < dimension - 1; i++) {
@@ -246,36 +314,118 @@ export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
       }
     }
 
+    // For openings, remove the walls corresponding to the direction
+    openings.forEach((opening) => {
+      switch (opening.direction) {
+        case "N":
+          opening.square.northWall = false;
+          break;
+        case "S":
+          opening.square.southWall = false;
+          break;
+        case "E":
+          opening.square.eastWall = false;
+          break;
+        case "W":
+          opening.square.westWall = false;
+          break;
+      }
+    });
+
     // Assemble the grid tile
-    return new GridTile(squares, openingSquareIds, edges);
+    return new GridTile(squares, openings, edges);
   }
 
   private generateGridFromSequentialTiles(
-    numTiles: number = 1,
+    numTiles: number = 4,
     tileDimension: number = 4
   ): Grid {
     // Simply create a sequence of tiles linearly connected together.
     const tiles: GridTile[] = [];
     // Starting and ending tile should have exactly one opening. The rest should have two.
+    let prevTile: GridTile | undefined = undefined;
     for (let i = 0; i < numTiles; i++) {
-      tiles.push(
-        this.generateGridTile(
-          { x: i * tileDimension, y: 0 },
+      let newTile = this.generateGridTile(
+        tileDimension,
+        i === 0 || i === numTiles - 1 ? 1 : 2,
+        i === 0 || i === numTiles - 1 ? 1 : 2
+      );
+      // We're being lazy here. Keep generating tiles until we find one that can be connected to the previous one.
+      while (
+        prevTile !== undefined &&
+        !this.areCompatibleOpeningDirections(
+          prevTile.openings.at(-1),
+          newTile.openings[0]
+        )
+      ) {
+        newTile = this.generateGridTile(
           tileDimension,
           i === 0 || i === numTiles - 1 ? 1 : 2,
           2
-        )
-      );
+        );
+      }
+      tiles.push(newTile);
+      prevTile = newTile;
     }
     // Add edges between the tiles
     const edges: GridTileSquareEdge[] = [];
     for (let i = 0; i < numTiles - 1; i++) {
       const src = tiles[i].openings.at(-1);
       const dest = tiles[i + 1].openings[0];
-      edges.push(new GridTileSquareEdge(src, dest, "RIGHT"));
-      edges.push(new GridTileSquareEdge(dest, src, "LEFT"));
+      console.log(JSON.stringify(src), JSON.stringify(dest));
+
+      edges.push(
+        new GridTileSquareEdge(src.square.id, dest.square.id, "RIGHT")
+      );
+      edges.push(new GridTileSquareEdge(dest.square.id, src.square.id, "LEFT"));
+      const translation = this.getTileTranslation(src, dest);
+      tiles[i + 1].translate(translation.x, translation.y);
+      console.log(
+        "After translation",
+        JSON.stringify(src),
+        JSON.stringify(dest)
+      );
     }
 
     return new Grid(tiles, edges);
+  }
+
+  private areCompatibleOpeningDirections(
+    opening1: TileOpening,
+    opening2: TileOpening
+  ): boolean {
+    return (
+      (opening1.direction === "N" && opening2.direction === "S") ||
+      (opening1.direction === "S" && opening2.direction === "N") ||
+      (opening1.direction === "E" && opening2.direction === "W") ||
+      (opening1.direction === "W" && opening2.direction === "E")
+    );
+  }
+
+  private getTileTranslation(
+    src: TileOpening,
+    dest: TileOpening
+  ): { x: number; y: number } {
+    // Based on the src and dest openings, determine how much the tile containing dest needs to be translated
+    // for the two tiles to align correctly.
+    // First, determine the coordinates of the tile corresponding to the dest opening
+    const destTileX =
+      src.direction === "E"
+        ? src.square.posX + 1
+        : src.direction === "W"
+          ? src.square.posX - 1
+          : src.square.posX;
+
+    const destTileY =
+      src.direction === "N"
+        ? src.square.posY - 1
+        : src.direction === "S"
+          ? src.square.posY + 1
+          : src.square.posY;
+
+    return {
+      x: destTileX - dest.square.posX,
+      y: destTileY - dest.square.posY
+    };
   }
 }

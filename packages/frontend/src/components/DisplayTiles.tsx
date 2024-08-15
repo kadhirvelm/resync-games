@@ -3,8 +3,8 @@ import { Tile } from "@tiles-tbd/api";
 
 export const DisplayTiles = ({
   tiles,
-  tileSize = 200,
-  gap = -30
+  tileSize = 100,
+  gap = -15
 }: {
   gap?: number;
   tileSize?: number;
@@ -36,7 +36,7 @@ export const DisplayTiles = ({
 
       // Wait for image to load
       img.onload = () => {
-        ctx.drawImage(img, posY, posX, tileSize, tileSize);
+        ctx.drawImage(img, posX, posY, tileSize, tileSize);
       };
     });
   }, [tiles, tileSize, gap]);
