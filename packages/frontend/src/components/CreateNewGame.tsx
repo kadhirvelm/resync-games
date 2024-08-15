@@ -34,6 +34,18 @@ export function CreateNewGame({ tileMaps }: { tileMaps: TileMap[] }) {
     tileMapId: undefined
   });
 
+  const generateTileMap = async () => {
+    const maybeTileMapIdResponse =
+      await ClientServiceCallers.tileMap.generateTileMap({
+        generatorName: "magicMazeSimple"
+      });
+    if (isServiceError(maybeTileMapIdResponse)) {
+      return;
+    }
+
+    setValue({ ...value, tileMapId: maybeTileMapIdResponse.tileMapId });
+  };
+
   const createNewGame = async () => {
     if (!isCompleteGame(value)) {
       return;
@@ -69,6 +81,9 @@ export function CreateNewGame({ tileMaps }: { tileMaps: TileMap[] }) {
             </Box>
           </Box>
           <FormField label="Tile map" name="tileMapId">
+            <Button onClick={generateTileMap} type="button">
+              <Text margin="0 15px 15px">Generate new...</Text>
+            </Button>
             <Select
               name="tileMapId"
               options={tileMaps.map((map) => map.tileMapId)}

@@ -10,7 +10,7 @@ import { initializeTileStore } from "@/stores/tiles/tilesStore";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { CompleteTileMap as ICompleteTileMap, TilePawn } from "@tiles-tbd/api";
 import { Box } from "grommet";
-import { DisplayTile } from "./DisplayTile";
+import { DisplayTiles } from "./DisplayTiles";
 import { PawnMovement } from "./PawnMovement";
 import { indexTileMap } from "./utils/indexTileMap";
 
@@ -35,11 +35,7 @@ export const TileMap = ({
       initializeStore={createInitialPawns}
     >
       <Box direction="row" style={{ padding: "10px" }}>
-        <DisplayTile
-          outboundEdgesIndexed={outboundEdges}
-          tileId={tileMap.tileMap.startingTileId}
-          tilesIndexed={tilesIndexed}
-        />
+        <DisplayTiles tiles={tileMap.tiles}></DisplayTiles>
       </Box>
       <PawnMovement />
     </ReduxGate>

@@ -22,6 +22,8 @@ model Tile {
   tileId    String   @id @default(cuid()) @map("tile_id")
   createdAt DateTime @default(now())
 
+  posX      Int    @map("pos_x")
+  posY      Int    @map("pos_y")
   image     String @map("image")
   tileMapId String @map("tile_map_id")
 
