@@ -60,7 +60,8 @@ export const DisplayTiles = ({
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           const pawn = pawnsOnThisTile[i]!;
           const pawnPosX = posX + radius + 2 * radius * (i % sqDimension);
-          const pawnPosY = posY + radius + 2 * radius * Math.floor(i / sqDimension);
+          const pawnPosY =
+            posY + radius + 2 * radius * Math.floor(i / sqDimension);
           ctx.beginPath();
           ctx.arc(pawnPosX, pawnPosY, tileSize / 8, 0, 2 * Math.PI);
           ctx.fillStyle = pawn.color;
@@ -68,7 +69,7 @@ export const DisplayTiles = ({
         }
       };
     });
-  }, [tiles, tileSize, gap, pawnsIndexed]);
+  });
 
   return (
     <canvas
