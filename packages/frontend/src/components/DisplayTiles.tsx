@@ -12,7 +12,8 @@ export const DisplayTiles = ({
   tileSize?: number;
   tiles: Tile[];
 }) => {
-  const canvasRef: RefObject<HTMLCanvasElement> = useRef(null);
+  const tilesCanvasRef: RefObject<HTMLCanvasElement> = useRef(null);
+  const pawnsCanvasRef: RefObject<HTMLCanvasElement> = useRef(null);
   const pawnsIndexed = useTileSelector(selectPawnIndex);
 
   // TODO(rohan): I don't know how to operate redux and get the total number of pawns directly.
@@ -31,14 +32,14 @@ export const DisplayTiles = ({
   const radius = Math.floor(tileSize / (2 * sqDimension));
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = tilesCanvasRef.current;
     if (canvas === null) {
-      console.error("Could not get canvas ref");
+      console.error("Could not get tiles canvas ref");
       return;
     }
     const ctx = canvas.getContext("2d");
     if (ctx === null) {
-      console.error("Could not get 2d context from canvas");
+      console.error("Could not get 2d context from tiles canvas");
       return;
     }
 
@@ -56,32 +57,71 @@ export const DisplayTiles = ({
       // Wait for image to load
       img.onload = () => {
         ctx.drawImage(img, posX, posY, tileSize, tileSize);
-        for (let i = 0; i < pawnsOnThisTile.length; i++) {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const pawn = pawnsOnThisTile[i]!;
-          const pawnPosX = posX + radius + 2 * radius * (i % sqDimension);
-          const pawnPosY =
-            posY + radius + 2 * radius * Math.floor(i / sqDimension);
-          ctx.beginPath();
-          ctx.arc(pawnPosX, pawnPosY, tileSize / 8, 0, 2 * Math.PI);
-          ctx.fillStyle = pawn.color;
-          ctx.fill();
-        }
       };
+    });
+  }, [tiles, tileSize, gap]);
+
+  useEffect(() => {
+    const canvas = pawnsCanvasRef.current;
+    if (canvas === null) {
+      console.error("Could not get pawns canvas ref");
+      return;
+    }
+    const ctx = canvas.getContext("2d");
+    if (ctx === null) {
+      console.error("Could not get 2d context from pawn canvas");
+      return;
+    }
+
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw each tile
+    tiles.forEach(({ posX: x, posY: y, image, tileId }) => {
+      const pawnsOnThisTile = pawnsIndexed[tileId] ?? [];
+      const posX = x * (tileSize + gap);
+      const posY = y * (tileSize + gap);
+
+      for (let i = 0; i < pawnsOnThisTile.length; i++) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const pawn = pawnsOnThisTile[i]!;
+        const pawnPosX = posX + radius + 2 * radius * (i % sqDimension);
+        const pawnPosY =
+          posY + radius + 2 * radius * Math.floor(i / sqDimension);
+        ctx.beginPath();
+        ctx.arc(pawnPosX, pawnPosY, tileSize / 8, 0, 2 * Math.PI);
+        ctx.fillStyle = pawn.color;
+        ctx.fill();
+      }
     });
   });
 
   return (
-    <canvas
-      height={
-        (Math.max(...tiles.map((t) => t.posY)) + 1) *
-        (tileSize + Math.max(0, gap))
-      }
-      ref={canvasRef}
-      width={
-        (Math.max(...tiles.map((t) => t.posX)) + 1) *
-        (tileSize + Math.max(0, gap))
-      }
-    />
+    <div>
+      <canvas
+        height={
+          (Math.max(...tiles.map((t) => t.posY)) + 1) *
+          (tileSize + Math.max(0, gap))
+        }
+        ref={tilesCanvasRef}
+        width={
+          (Math.max(...tiles.map((t) => t.posX)) + 1) *
+          (tileSize + Math.max(0, gap))
+        }
+        style={{ position: 'absolute', top: 0, left: 0 }}
+      />
+      <canvas
+        height={
+          (Math.max(...tiles.map((t) => t.posY)) + 1) *
+          (tileSize + Math.max(0, gap))
+        }
+        ref={pawnsCanvasRef}
+        width={
+          (Math.max(...tiles.map((t) => t.posX)) + 1) *
+          (tileSize + Math.max(0, gap))
+        }
+        style={{ position: 'absolute', top: 0, left: 0 }}
+      />
+    </div>
   );
 };
