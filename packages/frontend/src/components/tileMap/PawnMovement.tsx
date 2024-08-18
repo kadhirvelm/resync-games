@@ -3,19 +3,14 @@ import { updatePawn } from "@/stores/tiles/pawnState";
 import { useTileDispatch, useTileSelector } from "@/stores/tiles/tilesStore";
 import { Edge, isServiceError } from "@tiles-tbd/api";
 import { Box, Button } from "grommet";
-import {
-  CaretDownFill,
-  CaretLeftFill,
-  CaretRightFill,
-  CaretUpFill
-} from "grommet-icons";
+import { CaretDown, CaretNext, CaretPrevious, CaretUp } from "grommet-icons";
 import styles from "./PawnMovement.module.scss";
 
 const flavorTextToIcon = {
-  DOWN: <CaretDownFill size="75px" />,
-  LEFT: <CaretLeftFill size="75px" />,
-  RIGHT: <CaretRightFill size="75px" />,
-  UP: <CaretUpFill size="75px" />
+  DOWN: <CaretDown size="large" />,
+  LEFT: <CaretPrevious size="large" />,
+  RIGHT: <CaretNext size="large" />,
+  UP: <CaretUp size="large" />
 };
 
 const flavorTextToPosition = {
@@ -57,16 +52,18 @@ export function PawnMovement() {
       {outboundEdgesForPawn.map((edge) => (
         <Button
           className={styles.movement}
+          icon={
+            flavorTextToIcon[edge.flavorText as keyof typeof flavorTextToIcon]
+          }
           key={edge.edgeId}
           onClick={onMovePawn(edge)}
+          plain={true}
           style={
             flavorTextToPosition[
               edge.flavorText as keyof typeof flavorTextToPosition
             ]
           }
-        >
-          {flavorTextToIcon[edge.flavorText as keyof typeof flavorTextToIcon]}
-        </Button>
+        ></Button>
       ))}
       <Box
         className={styles.colorIndicator}

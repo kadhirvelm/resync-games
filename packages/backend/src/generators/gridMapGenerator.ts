@@ -372,19 +372,23 @@ export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
     for (let i = 0; i < numTiles - 1; i++) {
       const src = tiles[i].openings.at(-1);
       const dest = tiles[i + 1].openings[0];
-      console.log(JSON.stringify(src), JSON.stringify(dest));
 
       edges.push(
-        new GridTileSquareEdge(src.square.id, dest.square.id, "RIGHT")
+        new GridTileSquareEdge(
+          src.square.id,
+          dest.square.id,
+          this.openingDirectionToEdgeDirection(src.direction)
+        )
       );
-      edges.push(new GridTileSquareEdge(dest.square.id, src.square.id, "LEFT"));
+      edges.push(
+        new GridTileSquareEdge(
+          dest.square.id,
+          src.square.id,
+          this.openingDirectionToEdgeDirection(dest.direction)
+        )
+      );
       const translation = this.getTileTranslation(src, dest);
       tiles[i + 1].translate(translation.x, translation.y);
-      console.log(
-        "After translation",
-        JSON.stringify(src),
-        JSON.stringify(dest)
-      );
     }
 
     return new Grid(tiles, edges);
@@ -400,6 +404,21 @@ export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
       (opening1.direction === "E" && opening2.direction === "W") ||
       (opening1.direction === "W" && opening2.direction === "E")
     );
+  }
+
+  private openingDirectionToEdgeDirection(
+    direction: Directions
+  ): "UP" | "DOWN" | "LEFT" | "RIGHT" {
+    switch (direction) {
+      case "N":
+        return "UP";
+      case "S":
+        return "DOWN";
+      case "E":
+        return "RIGHT";
+      case "W":
+        return "LEFT";
+    }
   }
 
   private getTileTranslation(
