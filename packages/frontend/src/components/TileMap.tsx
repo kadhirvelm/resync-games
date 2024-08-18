@@ -11,8 +11,9 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { CompleteTileMap as ICompleteTileMap, TilePawn } from "@tiles-tbd/api";
 import { Box } from "grommet";
 import { DisplayTiles } from "./DisplayTiles";
-import { PawnMovement } from "./PawnMovement";
+import { PawnMovement } from "./tileMap/PawnMovement";
 import { indexTileMap } from "./utils/indexTileMap";
+import { SelectPawn } from "./tileMap/SelectPawn";
 
 export const TileMap = ({
   tileMap,
@@ -35,8 +36,9 @@ export const TileMap = ({
       initializeStore={createInitialPawns}
     >
       <Box direction="row" style={{ padding: "10px" }}>
-        <DisplayTiles tiles={tileMap.tiles}></DisplayTiles>
+        <DisplayTiles tiles={tileMap.tiles} />
       </Box>
+      <SelectPawn />
       <PawnMovement />
     </ReduxGate>
   );

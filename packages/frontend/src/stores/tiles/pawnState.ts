@@ -7,12 +7,14 @@ export interface PawnState {
   pawnState: {
     [tilePawnId: PawnId]: TilePawn;
   };
+  selectedPawnId: PawnId | undefined;
   tilesIndexed: Record<string, Tile>;
 }
 
 const initialState: PawnState = {
   outboundEdges: {},
   pawnState: {},
+  selectedPawnId: undefined,
   tilesIndexed: {}
 };
 
@@ -29,6 +31,9 @@ const pawnSlice = createSlice({
     ) => {
       state.outboundEdges = action.payload;
     },
+    setSelectedPawn: (state, action: PayloadAction<PawnId | undefined>) => {
+      state.selectedPawnId = action.payload;
+    },
     setTilesIndexed: (state, action: PayloadAction<Record<string, Tile>>) => {
       state.tilesIndexed = action.payload;
     },
@@ -41,6 +46,7 @@ const pawnSlice = createSlice({
 export const {
   setInitialPawns,
   setOutboundEdges,
+  setSelectedPawn,
   setTilesIndexed,
   updatePawn
 } = pawnSlice.actions;
