@@ -4,9 +4,10 @@ import { AppLoggerMiddleware } from "./library/Logger.middleware";
 import { TileMapModule } from "./map/tileMap.module";
 import { AllExceptionsFilter } from "./filters/exception.filter";
 import { TileGameModule } from "./game/tileGame.module";
+import { SocketModule } from "./socket/socket.module";
 
 @Module({
-  imports: [HealthModule, TileMapModule, TileGameModule],
+  imports: [HealthModule, TileMapModule, TileGameModule, SocketModule],
   providers: [AllExceptionsFilter]
 })
 export class AppModule implements NestModule {
