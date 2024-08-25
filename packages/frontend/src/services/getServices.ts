@@ -11,7 +11,6 @@ function makeFetchRequest<ReturnValue>(
   resolvedSlug: string
 ): (payload: unknown) => Promise<ReturnValue | ServiceError> {
   return async (payload: unknown) => {
-    console.log("resolvedSlug", resolvedSlug);
     try {
       const response = await fetch(resolvedSlug, {
         body: JSON.stringify(payload),
