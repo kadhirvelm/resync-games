@@ -1,15 +1,23 @@
 import { Logger } from "@nestjs/common";
 import {
+  ConnectedSocket,
   MessageBody,
   OnGatewayConnection,
   OnGatewayDisconnect,
-  OnGatewayInit,
-  SubscribeMessage,
   WebSocketGateway,
-  WebSocketServer,
-  WsResponse
+  WebSocketServer
 } from "@nestjs/websockets";
+import {
+  IdentifySocket,
+  TileFromClientToServer,
+  TileServerSocketDefinition
+} from "@tiles-tbd/api";
 import { Server, Socket } from "socket.io";
+import {
+  getSocketDecorator,
+  getSocketEmitter,
+  SocketGatewayHandleMessage
+} from "src/genericTypes/socket";
 
 @WebSocketGateway({
   cors: {
@@ -17,7 +25,10 @@ import { Server, Socket } from "socket.io";
   }
 })
 export class SocketGateway
-  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
+  implements
+    OnGatewayConnection,
+    OnGatewayDisconnect,
+    SocketGatewayHandleMessage<TileFromClientToServer>
 {
   private logger = new Logger("Socket");
   private clients: Set<Socket> = new Set();
@@ -38,8 +49,14 @@ export class SocketGateway
     this.clients.delete(client);
   }
 
-  @SubscribeMessage("identify")
-  handleMessage(@MessageBody() identifier: string): WsResponse<string> {
-    return { data: identifier, event: "identify" };
+  @getSocketDecorator(TileServerSocketDefinition.receiveMessage.identify)
+  identify(
+    @MessageBody() identifier: IdentifySocket,
+    @ConnectedSocket() client: Socket
+  ) {
+    this.logger.log(`Client identified: ${identifier.socketId}`);
+
+    const typedEmitter = getSocketEmitter(TileServerSocketDefinition, client);
+    typedEmitter.identify({ socketId: identifier.socketId });
   }
 }

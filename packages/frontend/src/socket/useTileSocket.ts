@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { getSocketEmitter, registerSocketHandler } from "@/services/socket";
+import { IdentifySocket, TileClientSocketDefinition } from "@tiles-tbd/api";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 import { v4 } from "uuid";
 
@@ -9,24 +11,41 @@ export function useTileSocket() {
   const socketIdentifier = useMemo(() => v4(), []);
 
   const socket = useMemo(() => {
-    return io(process.env.NEXT_PUBLIC_API_CLIENT_URL ?? "");
+    return io(process.env.NEXT_PUBLIC_API_CLIENT_URL ?? "", {
+      autoConnect: false
+    });
   }, []);
 
-  socket.on("connect", () => {
-    socket.emit("identify", socketIdentifier);
-  });
+  const socketEmitter = getSocketEmitter(TileClientSocketDefinition, socket);
 
-  socket.on("identify", (identifier) => {
-    if (identifier !== socketIdentifier) {
-      return;
-    }
+  const connect = useCallback(() => {
+    socketEmitter.identify({ socketId: socketIdentifier });
+  }, [socketEmitter, socketIdentifier]);
 
-    setConnectionStatus(true);
-  });
-
-  socket.on("disconnect", () => {
+  const disconnect = useCallback(() => {
     setConnectionStatus(false);
-  });
+  }, []);
 
-  return { connectionStatus };
+  const identify = useCallback(
+    (identify: IdentifySocket) => {
+      if (identify.socketId !== socketIdentifier) {
+        return;
+      }
+
+      setConnectionStatus(true);
+    },
+    [socketIdentifier]
+  );
+
+  useEffect(() => {
+    registerSocketHandler(TileClientSocketDefinition, socket, {
+      connect,
+      disconnect,
+      identify
+    });
+
+    socket.connect();
+  }, [socket, connect, disconnect, identify]);
+
+  return { connectionStatus, socketEmitter };
 }
