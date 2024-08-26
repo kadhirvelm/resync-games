@@ -8,6 +8,7 @@ import objectSort from "eslint-plugin-sort-keys-fix";
 import nextEslintPlugin from "@next/eslint-plugin-next";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
 import reactEslint from "eslint-plugin-react";
+import { fixupPluginRules } from "@eslint/compat";
 
 export default [
   ...tseslint.config(eslint.configs.recommended, ...tseslint.configs.strict),
@@ -29,7 +30,8 @@ export default [
     plugins: {
       "@next/next": nextEslintPlugin,
       react: reactEslint,
-      "react-hooks": reactHooksPlugin
+      // @ts-ignore
+      "react-hooks": fixupPluginRules(reactHooksPlugin)
     },
     rules: {
       ...nextEslintPlugin.configs.recommended.rules,
