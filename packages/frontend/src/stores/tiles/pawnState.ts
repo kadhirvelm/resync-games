@@ -22,14 +22,14 @@ const pawnSlice = createSlice({
   initialState,
   name: "pawnState",
   reducers: {
-    setInitialPawns: (state, action: PayloadAction<TilePawn[]>) => {
-      state.pawnState = keyBy(action.payload, "tilePawnId");
-    },
     setOutboundEdges: (
       state,
       action: PayloadAction<Record<string, Edge[]>>
     ) => {
       state.outboundEdges = action.payload;
+    },
+    setPawns: (state, action: PayloadAction<TilePawn[]>) => {
+      state.pawnState = keyBy(action.payload, "tilePawnId");
     },
     setSelectedPawn: (state, action: PayloadAction<PawnId | undefined>) => {
       state.selectedPawnId = action.payload;
@@ -44,7 +44,7 @@ const pawnSlice = createSlice({
 });
 
 export const {
-  setInitialPawns,
+  setPawns,
   setOutboundEdges,
   setSelectedPawn,
   setTilesIndexed,

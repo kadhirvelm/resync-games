@@ -2,13 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { reduxLogger } from "../middleware/logger";
 import { PawnStateReducer } from "./pawnState";
+import { TileGameStateReducer } from "./tileGameState";
 
 export const initializeTileStore = () => {
   return configureStore({
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(reduxLogger),
     reducer: {
-      pawnState: PawnStateReducer
+      pawnState: PawnStateReducer,
+      tileGame: TileGameStateReducer
     }
   });
 };
