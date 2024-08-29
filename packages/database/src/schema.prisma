@@ -22,10 +22,11 @@ model Tile {
   tileId    String   @id @default(cuid()) @map("tile_id")
   createdAt DateTime @default(now())
 
-  posX      Int    @map("pos_x")
-  posY      Int    @map("pos_y")
-  image     String @map("image")
-  tileMapId String @map("tile_map_id")
+  posX        Int    @map("pos_x")
+  posY        Int    @map("pos_y")
+  image       String @map("image")
+  tileMapId   String @map("tile_map_id")
+  tileGroupId String @map("tile_group_id")
 
   tileMap  TileMap    @relation(fields: [tileMapId], references: [tileMapId], name: "map")
   fromTile Edge[]     @relation("from_tile")

@@ -2318,6 +2318,7 @@ export namespace Prisma {
     posY: number | null
     image: string | null
     tileMapId: string | null
+    tileGroupId: string | null
   }
 
   export type TileMaxAggregateOutputType = {
@@ -2327,6 +2328,7 @@ export namespace Prisma {
     posY: number | null
     image: string | null
     tileMapId: string | null
+    tileGroupId: string | null
   }
 
   export type TileCountAggregateOutputType = {
@@ -2336,6 +2338,7 @@ export namespace Prisma {
     posY: number
     image: number
     tileMapId: number
+    tileGroupId: number
     _all: number
   }
 
@@ -2357,6 +2360,7 @@ export namespace Prisma {
     posY?: true
     image?: true
     tileMapId?: true
+    tileGroupId?: true
   }
 
   export type TileMaxAggregateInputType = {
@@ -2366,6 +2370,7 @@ export namespace Prisma {
     posY?: true
     image?: true
     tileMapId?: true
+    tileGroupId?: true
   }
 
   export type TileCountAggregateInputType = {
@@ -2375,6 +2380,7 @@ export namespace Prisma {
     posY?: true
     image?: true
     tileMapId?: true
+    tileGroupId?: true
     _all?: true
   }
 
@@ -2471,6 +2477,7 @@ export namespace Prisma {
     posY: number
     image: string
     tileMapId: string
+    tileGroupId: string
     _count: TileCountAggregateOutputType | null
     _avg: TileAvgAggregateOutputType | null
     _sum: TileSumAggregateOutputType | null
@@ -2499,6 +2506,7 @@ export namespace Prisma {
     posY?: boolean
     image?: boolean
     tileMapId?: boolean
+    tileGroupId?: boolean
     tileMap?: boolean | TileMapDefaultArgs<ExtArgs>
     fromTile?: boolean | Tile$fromTileArgs<ExtArgs>
     toTile?: boolean | Tile$toTileArgs<ExtArgs>
@@ -2513,6 +2521,7 @@ export namespace Prisma {
     posY?: boolean
     image?: boolean
     tileMapId?: boolean
+    tileGroupId?: boolean
     tileMap?: boolean | TileMapDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tile"]>
 
@@ -2523,6 +2532,7 @@ export namespace Prisma {
     posY?: boolean
     image?: boolean
     tileMapId?: boolean
+    tileGroupId?: boolean
   }
 
   export type TileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2551,6 +2561,7 @@ export namespace Prisma {
       posY: number
       image: string
       tileMapId: string
+      tileGroupId: string
     }, ExtArgs["result"]["tile"]>
     composites: {}
   }
@@ -2954,6 +2965,7 @@ export namespace Prisma {
     readonly posY: FieldRef<"Tile", 'Int'>
     readonly image: FieldRef<"Tile", 'String'>
     readonly tileMapId: FieldRef<"Tile", 'String'>
+    readonly tileGroupId: FieldRef<"Tile", 'String'>
   }
     
 
@@ -6212,7 +6224,8 @@ export namespace Prisma {
     posX: 'posX',
     posY: 'posY',
     image: 'image',
-    tileMapId: 'tileMapId'
+    tileMapId: 'tileMapId',
+    tileGroupId: 'tileGroupId'
   };
 
   export type TileScalarFieldEnum = (typeof TileScalarFieldEnum)[keyof typeof TileScalarFieldEnum]
@@ -6389,6 +6402,7 @@ export namespace Prisma {
     posY?: IntFilter<"Tile"> | number
     image?: StringFilter<"Tile"> | string
     tileMapId?: StringFilter<"Tile"> | string
+    tileGroupId?: StringFilter<"Tile"> | string
     tileMap?: XOR<TileMapRelationFilter, TileMapWhereInput>
     fromTile?: EdgeListRelationFilter
     toTile?: EdgeListRelationFilter
@@ -6402,6 +6416,7 @@ export namespace Prisma {
     posY?: SortOrder
     image?: SortOrder
     tileMapId?: SortOrder
+    tileGroupId?: SortOrder
     tileMap?: TileMapOrderByWithRelationInput
     fromTile?: EdgeOrderByRelationAggregateInput
     toTile?: EdgeOrderByRelationAggregateInput
@@ -6418,6 +6433,7 @@ export namespace Prisma {
     posY?: IntFilter<"Tile"> | number
     image?: StringFilter<"Tile"> | string
     tileMapId?: StringFilter<"Tile"> | string
+    tileGroupId?: StringFilter<"Tile"> | string
     tileMap?: XOR<TileMapRelationFilter, TileMapWhereInput>
     fromTile?: EdgeListRelationFilter
     toTile?: EdgeListRelationFilter
@@ -6431,6 +6447,7 @@ export namespace Prisma {
     posY?: SortOrder
     image?: SortOrder
     tileMapId?: SortOrder
+    tileGroupId?: SortOrder
     _count?: TileCountOrderByAggregateInput
     _avg?: TileAvgOrderByAggregateInput
     _max?: TileMaxOrderByAggregateInput
@@ -6448,6 +6465,7 @@ export namespace Prisma {
     posY?: IntWithAggregatesFilter<"Tile"> | number
     image?: StringWithAggregatesFilter<"Tile"> | string
     tileMapId?: StringWithAggregatesFilter<"Tile"> | string
+    tileGroupId?: StringWithAggregatesFilter<"Tile"> | string
   }
 
   export type EdgeWhereInput = {
@@ -6680,6 +6698,7 @@ export namespace Prisma {
     posX: number
     posY: number
     image: string
+    tileGroupId: string
     tileMap: TileMapCreateNestedOneWithoutTilesInput
     fromTile?: EdgeCreateNestedManyWithoutFromTileInput
     toTile?: EdgeCreateNestedManyWithoutToTileInput
@@ -6693,6 +6712,7 @@ export namespace Prisma {
     posY: number
     image: string
     tileMapId: string
+    tileGroupId: string
     fromTile?: EdgeUncheckedCreateNestedManyWithoutFromTileInput
     toTile?: EdgeUncheckedCreateNestedManyWithoutToTileInput
     TilePawn?: TilePawnUncheckedCreateNestedManyWithoutOnTileInput
@@ -6704,6 +6724,7 @@ export namespace Prisma {
     posX?: IntFieldUpdateOperationsInput | number
     posY?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
+    tileGroupId?: StringFieldUpdateOperationsInput | string
     tileMap?: TileMapUpdateOneRequiredWithoutTilesNestedInput
     fromTile?: EdgeUpdateManyWithoutFromTileNestedInput
     toTile?: EdgeUpdateManyWithoutToTileNestedInput
@@ -6717,6 +6738,7 @@ export namespace Prisma {
     posY?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     tileMapId?: StringFieldUpdateOperationsInput | string
+    tileGroupId?: StringFieldUpdateOperationsInput | string
     fromTile?: EdgeUncheckedUpdateManyWithoutFromTileNestedInput
     toTile?: EdgeUncheckedUpdateManyWithoutToTileNestedInput
     TilePawn?: TilePawnUncheckedUpdateManyWithoutOnTileNestedInput
@@ -6729,6 +6751,7 @@ export namespace Prisma {
     posY: number
     image: string
     tileMapId: string
+    tileGroupId: string
   }
 
   export type TileUpdateManyMutationInput = {
@@ -6737,6 +6760,7 @@ export namespace Prisma {
     posX?: IntFieldUpdateOperationsInput | number
     posY?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
+    tileGroupId?: StringFieldUpdateOperationsInput | string
   }
 
   export type TileUncheckedUpdateManyInput = {
@@ -6746,6 +6770,7 @@ export namespace Prisma {
     posY?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     tileMapId?: StringFieldUpdateOperationsInput | string
+    tileGroupId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EdgeCreateInput = {
@@ -7054,6 +7079,7 @@ export namespace Prisma {
     posY?: SortOrder
     image?: SortOrder
     tileMapId?: SortOrder
+    tileGroupId?: SortOrder
   }
 
   export type TileAvgOrderByAggregateInput = {
@@ -7068,6 +7094,7 @@ export namespace Prisma {
     posY?: SortOrder
     image?: SortOrder
     tileMapId?: SortOrder
+    tileGroupId?: SortOrder
   }
 
   export type TileMinOrderByAggregateInput = {
@@ -7077,6 +7104,7 @@ export namespace Prisma {
     posY?: SortOrder
     image?: SortOrder
     tileMapId?: SortOrder
+    tileGroupId?: SortOrder
   }
 
   export type TileSumOrderByAggregateInput = {
@@ -7634,6 +7662,7 @@ export namespace Prisma {
     posX: number
     posY: number
     image: string
+    tileGroupId: string
     fromTile?: EdgeCreateNestedManyWithoutFromTileInput
     toTile?: EdgeCreateNestedManyWithoutToTileInput
     TilePawn?: TilePawnCreateNestedManyWithoutOnTileInput
@@ -7645,6 +7674,7 @@ export namespace Prisma {
     posX: number
     posY: number
     image: string
+    tileGroupId: string
     fromTile?: EdgeUncheckedCreateNestedManyWithoutFromTileInput
     toTile?: EdgeUncheckedCreateNestedManyWithoutToTileInput
     TilePawn?: TilePawnUncheckedCreateNestedManyWithoutOnTileInput
@@ -7712,6 +7742,7 @@ export namespace Prisma {
     posY?: IntFilter<"Tile"> | number
     image?: StringFilter<"Tile"> | string
     tileMapId?: StringFilter<"Tile"> | string
+    tileGroupId?: StringFilter<"Tile"> | string
   }
 
   export type TileGameUpsertWithWhereUniqueWithoutTileMapInput = {
@@ -7933,6 +7964,7 @@ export namespace Prisma {
     posX: number
     posY: number
     image: string
+    tileGroupId: string
     tileMap: TileMapCreateNestedOneWithoutTilesInput
     toTile?: EdgeCreateNestedManyWithoutToTileInput
     TilePawn?: TilePawnCreateNestedManyWithoutOnTileInput
@@ -7945,6 +7977,7 @@ export namespace Prisma {
     posY: number
     image: string
     tileMapId: string
+    tileGroupId: string
     toTile?: EdgeUncheckedCreateNestedManyWithoutToTileInput
     TilePawn?: TilePawnUncheckedCreateNestedManyWithoutOnTileInput
   }
@@ -7960,6 +7993,7 @@ export namespace Prisma {
     posX: number
     posY: number
     image: string
+    tileGroupId: string
     tileMap: TileMapCreateNestedOneWithoutTilesInput
     fromTile?: EdgeCreateNestedManyWithoutFromTileInput
     TilePawn?: TilePawnCreateNestedManyWithoutOnTileInput
@@ -7972,6 +8006,7 @@ export namespace Prisma {
     posY: number
     image: string
     tileMapId: string
+    tileGroupId: string
     fromTile?: EdgeUncheckedCreateNestedManyWithoutFromTileInput
     TilePawn?: TilePawnUncheckedCreateNestedManyWithoutOnTileInput
   }
@@ -7998,6 +8033,7 @@ export namespace Prisma {
     posX?: IntFieldUpdateOperationsInput | number
     posY?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
+    tileGroupId?: StringFieldUpdateOperationsInput | string
     tileMap?: TileMapUpdateOneRequiredWithoutTilesNestedInput
     toTile?: EdgeUpdateManyWithoutToTileNestedInput
     TilePawn?: TilePawnUpdateManyWithoutOnTileNestedInput
@@ -8010,6 +8046,7 @@ export namespace Prisma {
     posY?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     tileMapId?: StringFieldUpdateOperationsInput | string
+    tileGroupId?: StringFieldUpdateOperationsInput | string
     toTile?: EdgeUncheckedUpdateManyWithoutToTileNestedInput
     TilePawn?: TilePawnUncheckedUpdateManyWithoutOnTileNestedInput
   }
@@ -8031,6 +8068,7 @@ export namespace Prisma {
     posX?: IntFieldUpdateOperationsInput | number
     posY?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
+    tileGroupId?: StringFieldUpdateOperationsInput | string
     tileMap?: TileMapUpdateOneRequiredWithoutTilesNestedInput
     fromTile?: EdgeUpdateManyWithoutFromTileNestedInput
     TilePawn?: TilePawnUpdateManyWithoutOnTileNestedInput
@@ -8043,6 +8081,7 @@ export namespace Prisma {
     posY?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     tileMapId?: StringFieldUpdateOperationsInput | string
+    tileGroupId?: StringFieldUpdateOperationsInput | string
     fromTile?: EdgeUncheckedUpdateManyWithoutFromTileNestedInput
     TilePawn?: TilePawnUncheckedUpdateManyWithoutOnTileNestedInput
   }
@@ -8137,6 +8176,7 @@ export namespace Prisma {
     posX: number
     posY: number
     image: string
+    tileGroupId: string
     tileMap: TileMapCreateNestedOneWithoutTilesInput
     fromTile?: EdgeCreateNestedManyWithoutFromTileInput
     toTile?: EdgeCreateNestedManyWithoutToTileInput
@@ -8149,6 +8189,7 @@ export namespace Prisma {
     posY: number
     image: string
     tileMapId: string
+    tileGroupId: string
     fromTile?: EdgeUncheckedCreateNestedManyWithoutFromTileInput
     toTile?: EdgeUncheckedCreateNestedManyWithoutToTileInput
   }
@@ -8196,6 +8237,7 @@ export namespace Prisma {
     posX?: IntFieldUpdateOperationsInput | number
     posY?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
+    tileGroupId?: StringFieldUpdateOperationsInput | string
     tileMap?: TileMapUpdateOneRequiredWithoutTilesNestedInput
     fromTile?: EdgeUpdateManyWithoutFromTileNestedInput
     toTile?: EdgeUpdateManyWithoutToTileNestedInput
@@ -8208,6 +8250,7 @@ export namespace Prisma {
     posY?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     tileMapId?: StringFieldUpdateOperationsInput | string
+    tileGroupId?: StringFieldUpdateOperationsInput | string
     fromTile?: EdgeUncheckedUpdateManyWithoutFromTileNestedInput
     toTile?: EdgeUncheckedUpdateManyWithoutToTileNestedInput
   }
@@ -8245,6 +8288,7 @@ export namespace Prisma {
     posX: number
     posY: number
     image: string
+    tileGroupId: string
   }
 
   export type TileGameCreateManyTileMapInput = {
@@ -8260,6 +8304,7 @@ export namespace Prisma {
     posX?: IntFieldUpdateOperationsInput | number
     posY?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
+    tileGroupId?: StringFieldUpdateOperationsInput | string
     fromTile?: EdgeUpdateManyWithoutFromTileNestedInput
     toTile?: EdgeUpdateManyWithoutToTileNestedInput
     TilePawn?: TilePawnUpdateManyWithoutOnTileNestedInput
@@ -8271,6 +8316,7 @@ export namespace Prisma {
     posX?: IntFieldUpdateOperationsInput | number
     posY?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
+    tileGroupId?: StringFieldUpdateOperationsInput | string
     fromTile?: EdgeUncheckedUpdateManyWithoutFromTileNestedInput
     toTile?: EdgeUncheckedUpdateManyWithoutToTileNestedInput
     TilePawn?: TilePawnUncheckedUpdateManyWithoutOnTileNestedInput
@@ -8282,6 +8328,7 @@ export namespace Prisma {
     posX?: IntFieldUpdateOperationsInput | number
     posY?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
+    tileGroupId?: StringFieldUpdateOperationsInput | string
   }
 
   export type TileGameUpdateWithoutTileMapInput = {

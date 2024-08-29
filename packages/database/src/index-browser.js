@@ -131,7 +131,8 @@ exports.Prisma.TileScalarFieldEnum = {
   posX: 'posX',
   posY: 'posY',
   image: 'image',
-  tileMapId: 'tileMapId'
+  tileMapId: 'tileMapId',
+  tileGroupId: 'tileGroupId'
 };
 
 exports.Prisma.EdgeScalarFieldEnum = {

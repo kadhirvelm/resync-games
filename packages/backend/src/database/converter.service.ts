@@ -35,7 +35,8 @@ export class ConverterService {
       posX: tile.posX,
       posY: tile.posY,
       tileId: tile.tileId as TileId,
-      tileMapId: tile.tileMapId as TileMapId
+      tileMapId: tile.tileMapId as TileMapId,
+      tileGroupId: tile.tileGroupId as TileGroupId
     };
   };
 

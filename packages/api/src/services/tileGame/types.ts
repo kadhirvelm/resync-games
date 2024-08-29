@@ -17,6 +17,7 @@ export interface TileGame {
   state: TileGameState;
   tileGameId: TileGameId;
   tileMapId: TileMapId;
+  visitedTileGroupIds: Set<string>;
 }
 
 export interface TileGameWithPawns extends TileGame {
