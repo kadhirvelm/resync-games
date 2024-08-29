@@ -4,6 +4,8 @@ export type TileId = string & { __brand: "tile-id" };
 
 export type EdgeId = string & { __brand: "edge-id" };
 
+export type TileGroupId = string & { __brand: "tile-group-id" };
+
 export interface Edge {
   edgeId: EdgeId;
   flavorText: string;
@@ -17,6 +19,7 @@ export interface Tile {
   posY: number;
   tileId: TileId;
   tileMapId: TileMapId;
+  tileGroupId: TileGroupId;
 }
 
 export interface TileMap {

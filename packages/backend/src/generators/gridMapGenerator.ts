@@ -11,7 +11,8 @@ import {
   TileId,
   Edge,
   CompleteTileMap,
-  TileMap
+  TileMap,
+  TileGroupId
 } from "@tiles-tbd/api";
 import { BaseTileMapGenerator } from "./baseGenerator";
 
@@ -21,6 +22,7 @@ type GridTileSquareId = string;
 
 class GridTileSquare {
   constructor(
+    public tileGroupId: TileGroupId,
     public posX: number,
     public posY: number,
     public northWall: boolean = false,
@@ -30,8 +32,8 @@ class GridTileSquare {
     public id: string = uuidv4()
   ) {}
 
-  static getBasicSquare(posX: number, posY: number): GridTileSquare {
-    return new GridTileSquare(posX, posY);
+  static getBasicSquare(tileGroup: TileGroupId, posX: number, posY: number): GridTileSquare {
+    return new GridTileSquare(tileGroup, posX, posY);
   }
 
   getImage(): string {
@@ -52,7 +54,8 @@ class GridTileSquare {
       posX: this.posX,
       posY: this.posY,
       tileId: this.id as TileId,
-      tileMapId: mapId as TileMapId
+      tileMapId: mapId as TileMapId,
+      tileGroupId: this.tileGroupId
     };
   }
 }
@@ -213,6 +216,7 @@ export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
   }
 
   private generateGridTile(
+    tileId: string,
     dimension: number = 2,
     minOpenings: number = 1,
     maxOpenings: number = 2
@@ -223,7 +227,7 @@ export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
       squares.push([]);
       for (let j = 0; j < dimension; j++) {
         // Row number = y, column number = x
-        squares[i].push(GridTileSquare.getBasicSquare(j, i));
+        squares[i].push(GridTileSquare.getBasicSquare(tileId as TileGroupId, j, i));
       }
     }
 
@@ -346,6 +350,7 @@ export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
     let prevTile: GridTile | undefined = undefined;
     for (let i = 0; i < numTiles; i++) {
       let newTile = this.generateGridTile(
+        `tile-${i}`,
         tileDimension,
         i === 0 || i === numTiles - 1 ? 1 : 2,
         i === 0 || i === numTiles - 1 ? 1 : 2
@@ -359,6 +364,7 @@ export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
         )
       ) {
         newTile = this.generateGridTile(
+        `tile-${i}`,
           tileDimension,
           i === 0 || i === numTiles - 1 ? 1 : 2,
           2
