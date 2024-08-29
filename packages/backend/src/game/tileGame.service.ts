@@ -1,19 +1,21 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "src/database/prisma.service";
-import * as _ from "lodash";
 import {
   CreateTileGameRequest,
   MovePawnRequest,
   TileGameId
 } from "@tiles-tbd/api";
+import * as _ from "lodash";
+import { PrismaService } from "src/database/prisma.service";
 import { TileMapService } from "src/map/tileMap.service";
+import { SocketGateway } from "src/socket/socket.gateway";
 import { TILE_GAME_PAWN_COLORS } from "./tileGame.constants";
 
 @Injectable()
 export class TileGameService {
   public constructor(
     private prismaService: PrismaService,
-    private tileMapService: TileMapService
+    private tileMapService: TileMapService,
+    private socketGateway: SocketGateway
   ) {}
 
   public getAvailableGames = async () => {
@@ -91,6 +93,9 @@ export class TileGameService {
         tilePawnId: movePawnRequest.tilePawnId
       }
     });
+
+    // update the global game state --> dispatch that to all the clients
+    // get the clients to update based on that game state
 
     return {
       newPawnState:

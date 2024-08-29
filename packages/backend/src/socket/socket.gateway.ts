@@ -31,7 +31,7 @@ export class SocketGateway
     SocketGatewayHandleMessage<TileFromClientToServer>
 {
   private logger = new Logger("Socket");
-  private clients: Set<Socket> = new Set();
+  public clients: Map<string, Socket> = new Map();
 
   @WebSocketServer() server: Server;
 
@@ -41,12 +41,12 @@ export class SocketGateway
 
   handleConnection(client: Socket) {
     this.logger.log(`Client connected: ${client.id}`);
-    this.clients.add(client);
+    this.clients.set(client.id, client);
   }
 
   handleDisconnect(client: Socket) {
     this.logger.log(`Client disconnected: ${client.id}`);
-    this.clients.delete(client);
+    this.clients.delete(client.id);
   }
 
   @getSocketDecorator(TileServerSocketDefinition.receiveMessage.identify)
@@ -55,8 +55,10 @@ export class SocketGateway
     @ConnectedSocket() client: Socket
   ) {
     this.logger.log(`Client identified: ${identifier.socketId}`);
-
-    const typedEmitter = getSocketEmitter(TileServerSocketDefinition, client);
-    typedEmitter.identify({ socketId: identifier.socketId });
+    this.getSocketEmitter(client).identify({ socketId: identifier.socketId });
   }
+
+  private getSocketEmitter = (client: Socket) => {
+    return getSocketEmitter(TileServerSocketDefinition, client);
+  };
 }
