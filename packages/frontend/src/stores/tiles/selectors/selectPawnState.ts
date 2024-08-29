@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { TileId, TilePawn } from "@tiles-tbd/api";
-import { TileStore } from "./tilesStore";
+import { TileStore } from "../tilesStore";
 
 export const selectPawnIndex = createSelector(
   (state: TileStore) => state.pawnState.pawnState,

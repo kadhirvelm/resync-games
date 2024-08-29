@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Tile } from "@tiles-tbd/api";
-import { selectPawnIndex } from "@/stores/tiles/selectPawnState";
+import { selectPawnIndex } from "@/stores/tiles/selectors/selectPawnState";
 import { useTileSelector } from "@/stores/tiles/tilesStore";
 import { useImageCache } from "./utils/imageCache";
 

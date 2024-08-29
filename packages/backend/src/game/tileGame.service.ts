@@ -86,7 +86,8 @@ export class TileGameService {
   public movePawn = async (movePawnRequest: MovePawnRequest) => {
     const newPawnState = await this.prismaService.client.tilePawn.update({
       data: {
-        onTileId: movePawnRequest.toTileId
+        onTileId: movePawnRequest.toTileId,
+        tileGameId: movePawnRequest.gameId
       },
       where: {
         onTileId: movePawnRequest.fromTileId,
@@ -94,12 +95,25 @@ export class TileGameService {
       }
     });
 
-    // update the global game state --> dispatch that to all the clients
-    // get the clients to update based on that game state
+    const didMove = newPawnState.onTileId === movePawnRequest.toTileId;
+    if (!didMove) {
+      return {
+        didMove: false
+      };
+    }
+
+    const pawns = await this.prismaService.client.tilePawn.findMany({
+      where: {
+        tileGameId: movePawnRequest.gameId
+      }
+    });
+
+    this.socketGateway.updatePawnState({
+      pawnState: pawns.map(this.prismaService.converterService.convertTilePawn)
+    });
 
     return {
-      newPawnState:
-        this.prismaService.converterService.convertTilePawn(newPawnState)
+      didMove: true
     };
   };
 }

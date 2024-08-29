@@ -1,5 +1,5 @@
 import { HandleMessage, SocketDefinition } from "../genericTypes/socket";
-import { IdentifySocket } from "./tileSocket/types";
+import { IdentifySocket, NewPawnState } from "./tileSocket/types";
 
 export interface TileFromClientToServer extends HandleMessage {
   identify: IdentifySocket;
@@ -7,6 +7,7 @@ export interface TileFromClientToServer extends HandleMessage {
 
 export interface TileFromServerToClient extends HandleMessage {
   identify: IdentifySocket;
+  updatePawnState: NewPawnState;
 }
 
 export const TileClientSocketDefinition: SocketDefinition<
@@ -14,7 +15,8 @@ export const TileClientSocketDefinition: SocketDefinition<
   TileFromServerToClient
 > = {
   receiveMessage: {
-    identify: "identify"
+    identify: "identify",
+    updatePawnState: "updatePawnState"
   },
   sendMessage: {
     identify: "identify"
@@ -29,6 +31,7 @@ export const TileServerSocketDefinition: SocketDefinition<
     identify: "identify"
   },
   sendMessage: {
-    identify: "identify"
+    identify: "identify",
+    updatePawnState: "updatePawnState"
   }
 };

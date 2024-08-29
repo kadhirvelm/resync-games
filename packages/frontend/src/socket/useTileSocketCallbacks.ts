@@ -1,5 +1,8 @@
+import { setPawns } from "@/stores/tiles/pawnState";
+import { useTileDispatch } from "@/stores/tiles/tilesStore";
 import {
   IdentifySocket,
+  NewPawnState,
   RemoveExtendsString,
   SocketEmitter,
   TileFromServerToClient
@@ -13,6 +16,8 @@ export function useTileSocketCallbacks(
   socketIdentifier: string,
   { setConnectionStatus }: { setConnectionStatus: (status: boolean) => void }
 ): SocketEmitter<RemoveExtendsString<TileFromServerToClient>> {
+  const dispatch = useTileDispatch();
+
   const identify = useCallback(
     (identify: IdentifySocket) => {
       if (identify.socketId !== socketIdentifier) {
@@ -24,7 +29,15 @@ export function useTileSocketCallbacks(
     [socketIdentifier, setConnectionStatus]
   );
 
+  const updatePawnState = useCallback(
+    (newPawnState: NewPawnState) => {
+      dispatch(setPawns(newPawnState.pawnState));
+    },
+    [dispatch]
+  );
+
   return {
-    identify
+    identify,
+    updatePawnState
   };
 }

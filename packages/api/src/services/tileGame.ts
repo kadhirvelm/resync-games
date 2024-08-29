@@ -1,12 +1,11 @@
 import { Service, ServiceDefinition } from "../genericTypes/service";
-import { CompleteTileMap, TileId, TileMap, TileMapId } from "./tileMap/types";
 import {
   PawnId,
   TileGame,
   TileGameId,
-  TileGameWithPawns,
-  TilePawn
+  TileGameWithPawns
 } from "./tileGame/types";
+import { CompleteTileMap, TileId, TileMap, TileMapId } from "./tileMap/types";
 
 export interface GetAvailableTileGamesResponse {
   tileGames: TileGame[];
@@ -34,12 +33,13 @@ export interface CreateTileGameResponse {
 
 export interface MovePawnRequest {
   fromTileId: TileId;
+  gameId: TileGameId;
   tilePawnId: PawnId;
   toTileId: TileId;
 }
 
 export interface MovePawnResponse {
-  newPawnState: TilePawn;
+  didMove: boolean;
 }
 
 export interface TileGameServiceApi extends Service {

@@ -15,7 +15,5 @@ export default async function TileGame({
     redirect("/");
   }
 
-  return (
-    <TileMap pawns={maybeTileGame.game.pawns} tileMap={maybeTileGame.tileMap} />
-  );
+  return <TileMap game={maybeTileGame.game} tileMap={maybeTileGame.tileMap} />;
 }

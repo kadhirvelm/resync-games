@@ -9,6 +9,7 @@ import {
 } from "@nestjs/websockets";
 import {
   IdentifySocket,
+  NewPawnState,
   TileFromClientToServer,
   TileServerSocketDefinition
 } from "@tiles-tbd/api";
@@ -57,6 +58,13 @@ export class SocketGateway
     this.logger.log(`Client identified: ${identifier.socketId}`);
     this.getSocketEmitter(client).identify({ socketId: identifier.socketId });
   }
+
+  public updatePawnState = (updatedPawnState: NewPawnState) => {
+    this.server.emit(
+      TileServerSocketDefinition.sendMessage.updatePawnState,
+      updatedPawnState
+    );
+  };
 
   private getSocketEmitter = (client: Socket) => {
     return getSocketEmitter(TileServerSocketDefinition, client);

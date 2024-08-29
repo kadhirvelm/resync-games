@@ -1,6 +1,5 @@
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { updatePawn } from "@/stores/tiles/pawnState";
-import { useTileDispatch, useTileSelector } from "@/stores/tiles/tilesStore";
+import { useTileSelector } from "@/stores/tiles/tilesStore";
 import { Edge, isServiceError } from "@tiles-tbd/api";
 import { Box, Button } from "grommet";
 import { CaretDown, CaretNext, CaretPrevious, CaretUp } from "grommet-icons";
@@ -21,10 +20,10 @@ const flavorTextToPosition = {
 };
 
 export function PawnMovement() {
-  const dispatch = useTileDispatch();
   const { pawnState, outboundEdges, selectedPawnId } = useTileSelector(
     (state) => state.pawnState
   );
+  const { game } = useTileSelector((state) => state.tileGame);
 
   const selectedPawn =
     selectedPawnId !== undefined ? pawnState[selectedPawnId] : undefined;
@@ -35,8 +34,13 @@ export function PawnMovement() {
   const outboundEdgesForPawn = outboundEdges[selectedPawn.onTileId] ?? [];
 
   const onMovePawn = (edge: Edge) => async () => {
+    if (game == null) {
+      return;
+    }
+
     const updatedPawn = await ClientServiceCallers.tileGame.movePawn({
       fromTileId: selectedPawn.onTileId,
+      gameId: game.tileGameId,
       tilePawnId: selectedPawn.tilePawnId,
       toTileId: edge.toTileId
     });
@@ -44,7 +48,7 @@ export function PawnMovement() {
       return;
     }
 
-    dispatch(updatePawn(updatedPawn.newPawnState));
+    console.log({ didMove: updatedPawn.didMove });
   };
 
   return (
