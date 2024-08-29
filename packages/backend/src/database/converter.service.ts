@@ -7,6 +7,7 @@ import {
   TileGame,
   TileGameId,
   TileGameState,
+  TileGroupId,
   TileId,
   TileMap,
   TileMapId,
@@ -54,7 +55,8 @@ export class ConverterService {
       name: tileGame.name,
       state: tileGame.state as TileGameState,
       tileGameId: tileGame.tileGameId as TileGameId,
-      tileMapId: tileGame.tileMapId as TileMapId
+      tileMapId: tileGame.tileMapId as TileMapId,
+      visitedTileGroupIds: tileGame.visitedTileGroupIds
     };
   };
 

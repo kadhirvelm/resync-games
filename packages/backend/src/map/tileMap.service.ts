@@ -65,7 +65,8 @@ export class TileMapService {
           posX: tile.posX,
           posY: tile.posY,
           tileId: tile.tileId,
-          tileMapId: tileMap.tileMap.tileMapId
+          tileMapId: tileMap.tileMap.tileMapId,
+          tileGroupId: tile.tileGroupId
         }))
       }),
       // Edges

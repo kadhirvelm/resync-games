@@ -148,7 +148,8 @@ exports.Prisma.TileGameScalarFieldEnum = {
   createdAt: 'createdAt',
   tileMapId: 'tileMapId',
   name: 'name',
-  state: 'state'
+  state: 'state',
+  visitedTileGroupIds: 'visitedTileGroupIds'
 };
 
 exports.Prisma.TilePawnScalarFieldEnum = {

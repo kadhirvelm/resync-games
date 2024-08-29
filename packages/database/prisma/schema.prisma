@@ -54,6 +54,8 @@ model TileGame {
   name      String @map("name")
   state     String @map("state")
 
+  visitedTileGroupIds String[] @map("visited_tile_group_ids")
+
   tileMap  TileMap    @relation(fields: [tileMapId], references: [tileMapId])
   TilePawn TilePawn[]
 }

@@ -4329,6 +4329,7 @@ export namespace Prisma {
     tileMapId: number
     name: number
     state: number
+    visitedTileGroupIds: number
     _all: number
   }
 
@@ -4355,6 +4356,7 @@ export namespace Prisma {
     tileMapId?: true
     name?: true
     state?: true
+    visitedTileGroupIds?: true
     _all?: true
   }
 
@@ -4436,6 +4438,7 @@ export namespace Prisma {
     tileMapId: string
     name: string
     state: string
+    visitedTileGroupIds: string[]
     _count: TileGameCountAggregateOutputType | null
     _min: TileGameMinAggregateOutputType | null
     _max: TileGameMaxAggregateOutputType | null
@@ -4461,6 +4464,7 @@ export namespace Prisma {
     tileMapId?: boolean
     name?: boolean
     state?: boolean
+    visitedTileGroupIds?: boolean
     tileMap?: boolean | TileMapDefaultArgs<ExtArgs>
     TilePawn?: boolean | TileGame$TilePawnArgs<ExtArgs>
     _count?: boolean | TileGameCountOutputTypeDefaultArgs<ExtArgs>
@@ -4472,6 +4476,7 @@ export namespace Prisma {
     tileMapId?: boolean
     name?: boolean
     state?: boolean
+    visitedTileGroupIds?: boolean
     tileMap?: boolean | TileMapDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tileGame"]>
 
@@ -4481,6 +4486,7 @@ export namespace Prisma {
     tileMapId?: boolean
     name?: boolean
     state?: boolean
+    visitedTileGroupIds?: boolean
   }
 
   export type TileGameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4504,6 +4510,7 @@ export namespace Prisma {
       tileMapId: string
       name: string
       state: string
+      visitedTileGroupIds: string[]
     }, ExtArgs["result"]["tileGame"]>
     composites: {}
   }
@@ -4904,6 +4911,7 @@ export namespace Prisma {
     readonly tileMapId: FieldRef<"TileGame", 'String'>
     readonly name: FieldRef<"TileGame", 'String'>
     readonly state: FieldRef<"TileGame", 'String'>
+    readonly visitedTileGroupIds: FieldRef<"TileGame", 'String[]'>
   }
     
 
@@ -6247,7 +6255,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     tileMapId: 'tileMapId',
     name: 'name',
-    state: 'state'
+    state: 'state',
+    visitedTileGroupIds: 'visitedTileGroupIds'
   };
 
   export type TileGameScalarFieldEnum = (typeof TileGameScalarFieldEnum)[keyof typeof TileGameScalarFieldEnum]
@@ -6535,6 +6544,7 @@ export namespace Prisma {
     tileMapId?: StringFilter<"TileGame"> | string
     name?: StringFilter<"TileGame"> | string
     state?: StringFilter<"TileGame"> | string
+    visitedTileGroupIds?: StringNullableListFilter<"TileGame">
     tileMap?: XOR<TileMapRelationFilter, TileMapWhereInput>
     TilePawn?: TilePawnListRelationFilter
   }
@@ -6545,6 +6555,7 @@ export namespace Prisma {
     tileMapId?: SortOrder
     name?: SortOrder
     state?: SortOrder
+    visitedTileGroupIds?: SortOrder
     tileMap?: TileMapOrderByWithRelationInput
     TilePawn?: TilePawnOrderByRelationAggregateInput
   }
@@ -6558,6 +6569,7 @@ export namespace Prisma {
     tileMapId?: StringFilter<"TileGame"> | string
     name?: StringFilter<"TileGame"> | string
     state?: StringFilter<"TileGame"> | string
+    visitedTileGroupIds?: StringNullableListFilter<"TileGame">
     tileMap?: XOR<TileMapRelationFilter, TileMapWhereInput>
     TilePawn?: TilePawnListRelationFilter
   }, "tileGameId">
@@ -6568,6 +6580,7 @@ export namespace Prisma {
     tileMapId?: SortOrder
     name?: SortOrder
     state?: SortOrder
+    visitedTileGroupIds?: SortOrder
     _count?: TileGameCountOrderByAggregateInput
     _max?: TileGameMaxOrderByAggregateInput
     _min?: TileGameMinOrderByAggregateInput
@@ -6582,6 +6595,7 @@ export namespace Prisma {
     tileMapId?: StringWithAggregatesFilter<"TileGame"> | string
     name?: StringWithAggregatesFilter<"TileGame"> | string
     state?: StringWithAggregatesFilter<"TileGame"> | string
+    visitedTileGroupIds?: StringNullableListFilter<"TileGame">
   }
 
   export type TilePawnWhereInput = {
@@ -6832,6 +6846,7 @@ export namespace Prisma {
     createdAt?: Date | string
     name: string
     state: string
+    visitedTileGroupIds?: TileGameCreatevisitedTileGroupIdsInput | string[]
     tileMap: TileMapCreateNestedOneWithoutTileGameInput
     TilePawn?: TilePawnCreateNestedManyWithoutTileGameInput
   }
@@ -6842,6 +6857,7 @@ export namespace Prisma {
     tileMapId: string
     name: string
     state: string
+    visitedTileGroupIds?: TileGameCreatevisitedTileGroupIdsInput | string[]
     TilePawn?: TilePawnUncheckedCreateNestedManyWithoutTileGameInput
   }
 
@@ -6850,6 +6866,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
+    visitedTileGroupIds?: TileGameUpdatevisitedTileGroupIdsInput | string[]
     tileMap?: TileMapUpdateOneRequiredWithoutTileGameNestedInput
     TilePawn?: TilePawnUpdateManyWithoutTileGameNestedInput
   }
@@ -6860,6 +6877,7 @@ export namespace Prisma {
     tileMapId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
+    visitedTileGroupIds?: TileGameUpdatevisitedTileGroupIdsInput | string[]
     TilePawn?: TilePawnUncheckedUpdateManyWithoutTileGameNestedInput
   }
 
@@ -6869,6 +6887,7 @@ export namespace Prisma {
     tileMapId: string
     name: string
     state: string
+    visitedTileGroupIds?: TileGameCreatevisitedTileGroupIdsInput | string[]
   }
 
   export type TileGameUpdateManyMutationInput = {
@@ -6876,6 +6895,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
+    visitedTileGroupIds?: TileGameUpdatevisitedTileGroupIdsInput | string[]
   }
 
   export type TileGameUncheckedUpdateManyInput = {
@@ -6884,6 +6904,7 @@ export namespace Prisma {
     tileMapId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
+    visitedTileGroupIds?: TileGameUpdatevisitedTileGroupIdsInput | string[]
   }
 
   export type TilePawnCreateInput = {
@@ -7157,12 +7178,21 @@ export namespace Prisma {
     fromTileId?: SortOrder
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type TileGameCountOrderByAggregateInput = {
     tileGameId?: SortOrder
     createdAt?: SortOrder
     tileMapId?: SortOrder
     name?: SortOrder
     state?: SortOrder
+    visitedTileGroupIds?: SortOrder
   }
 
   export type TileGameMaxOrderByAggregateInput = {
@@ -7478,6 +7508,10 @@ export namespace Prisma {
     update?: XOR<XOR<TileUpdateToOneWithWhereWithoutToTileInput, TileUpdateWithoutToTileInput>, TileUncheckedUpdateWithoutToTileInput>
   }
 
+  export type TileGameCreatevisitedTileGroupIdsInput = {
+    set: string[]
+  }
+
   export type TileMapCreateNestedOneWithoutTileGameInput = {
     create?: XOR<TileMapCreateWithoutTileGameInput, TileMapUncheckedCreateWithoutTileGameInput>
     connectOrCreate?: TileMapCreateOrConnectWithoutTileGameInput
@@ -7496,6 +7530,11 @@ export namespace Prisma {
     connectOrCreate?: TilePawnCreateOrConnectWithoutTileGameInput | TilePawnCreateOrConnectWithoutTileGameInput[]
     createMany?: TilePawnCreateManyTileGameInputEnvelope
     connect?: TilePawnWhereUniqueInput | TilePawnWhereUniqueInput[]
+  }
+
+  export type TileGameUpdatevisitedTileGroupIdsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type TileMapUpdateOneRequiredWithoutTileGameNestedInput = {
@@ -7695,6 +7734,7 @@ export namespace Prisma {
     createdAt?: Date | string
     name: string
     state: string
+    visitedTileGroupIds?: TileGameCreatevisitedTileGroupIdsInput | string[]
     TilePawn?: TilePawnCreateNestedManyWithoutTileGameInput
   }
 
@@ -7703,6 +7743,7 @@ export namespace Prisma {
     createdAt?: Date | string
     name: string
     state: string
+    visitedTileGroupIds?: TileGameCreatevisitedTileGroupIdsInput | string[]
     TilePawn?: TilePawnUncheckedCreateNestedManyWithoutTileGameInput
   }
 
@@ -7770,6 +7811,7 @@ export namespace Prisma {
     tileMapId?: StringFilter<"TileGame"> | string
     name?: StringFilter<"TileGame"> | string
     state?: StringFilter<"TileGame"> | string
+    visitedTileGroupIds?: StringNullableListFilter<"TileGame">
   }
 
   export type TileMapCreateWithoutTilesInput = {
@@ -8204,6 +8246,7 @@ export namespace Prisma {
     createdAt?: Date | string
     name: string
     state: string
+    visitedTileGroupIds?: TileGameCreatevisitedTileGroupIdsInput | string[]
     tileMap: TileMapCreateNestedOneWithoutTileGameInput
   }
 
@@ -8213,6 +8256,7 @@ export namespace Prisma {
     tileMapId: string
     name: string
     state: string
+    visitedTileGroupIds?: TileGameCreatevisitedTileGroupIdsInput | string[]
   }
 
   export type TileGameCreateOrConnectWithoutTilePawnInput = {
@@ -8271,6 +8315,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
+    visitedTileGroupIds?: TileGameUpdatevisitedTileGroupIdsInput | string[]
     tileMap?: TileMapUpdateOneRequiredWithoutTileGameNestedInput
   }
 
@@ -8280,6 +8325,7 @@ export namespace Prisma {
     tileMapId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
+    visitedTileGroupIds?: TileGameUpdatevisitedTileGroupIdsInput | string[]
   }
 
   export type TileCreateManyTileMapInput = {
@@ -8296,6 +8342,7 @@ export namespace Prisma {
     createdAt?: Date | string
     name: string
     state: string
+    visitedTileGroupIds?: TileGameCreatevisitedTileGroupIdsInput | string[]
   }
 
   export type TileUpdateWithoutTileMapInput = {
@@ -8336,6 +8383,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
+    visitedTileGroupIds?: TileGameUpdatevisitedTileGroupIdsInput | string[]
     TilePawn?: TilePawnUpdateManyWithoutTileGameNestedInput
   }
 
@@ -8344,6 +8392,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
+    visitedTileGroupIds?: TileGameUpdatevisitedTileGroupIdsInput | string[]
     TilePawn?: TilePawnUncheckedUpdateManyWithoutTileGameNestedInput
   }
 
@@ -8352,6 +8401,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
+    visitedTileGroupIds?: TileGameUpdatevisitedTileGroupIdsInput | string[]
   }
 
   export type EdgeCreateManyFromTileInput = {

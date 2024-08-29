@@ -62,6 +62,11 @@ export class TileGameService {
       initializeGameRequest.tileMapId
     );
 
+    // Get the group of the starting tile
+    const startingTile = tileMap.tiles.find(
+      (tile) => tile.tileId === tileMap.tileMap.startingTileId
+    );
+
     const pawns = _.range(initializeGameRequest.numberOfPawns).map((index) => ({
       color: TILE_GAME_PAWN_COLORS[index],
       onTileId: tileMap.tileMap.startingTileId
@@ -74,7 +79,8 @@ export class TileGameService {
         },
         name: initializeGameRequest.name,
         state: "waiting",
-        tileMapId: initializeGameRequest.tileMapId
+        tileMapId: initializeGameRequest.tileMapId,
+        visitedTileGroupIds: [startingTile.tileGroupId]
       }
     });
 
