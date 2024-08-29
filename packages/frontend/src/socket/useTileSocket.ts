@@ -1,11 +1,16 @@
 "use client";
 
 import { getSocketEmitter, registerSocketHandler } from "@/services/socket";
-import { IdentifySocket, TileClientSocketDefinition } from "@tiles-tbd/api";
+import { TileClientSocketDefinition } from "@tiles-tbd/api";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 import { v4 } from "uuid";
+import { useTileSocketCallbacks } from "./useTileSocketCallbacks";
 
+/**
+ * Registers the socket and handles all of the initialization logic. It also ensures the right listeners
+ * are connected.
+ */
 export function useTileSocket() {
   const [connectionStatus, setConnectionStatus] = useState(false);
   const socketIdentifier = useMemo(() => v4(), []);
@@ -16,7 +21,10 @@ export function useTileSocket() {
     });
   }, []);
 
-  const socketEmitter = getSocketEmitter(TileClientSocketDefinition, socket);
+  const socketEmitter = useMemo(
+    () => getSocketEmitter(TileClientSocketDefinition, socket),
+    [socket]
+  );
 
   const connect = useCallback(() => {
     socketEmitter.identify({ socketId: socketIdentifier });
@@ -26,26 +34,23 @@ export function useTileSocket() {
     setConnectionStatus(false);
   }, []);
 
-  const identify = useCallback(
-    (identify: IdentifySocket) => {
-      if (identify.socketId !== socketIdentifier) {
-        return;
-      }
-
-      setConnectionStatus(true);
-    },
-    [socketIdentifier]
-  );
+  const callbacks = useTileSocketCallbacks(socketIdentifier, {
+    setConnectionStatus: setConnectionStatus
+  });
 
   useEffect(() => {
     registerSocketHandler(TileClientSocketDefinition, socket, {
       connect,
       disconnect,
-      identify
+      ...callbacks
     });
 
     socket.connect();
-  }, [socket, connect, disconnect, identify]);
+    return () => {
+      socket.disconnect();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return { connectionStatus, socketEmitter };
 }
