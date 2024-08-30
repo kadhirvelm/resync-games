@@ -9,6 +9,7 @@ import {
 } from "@nestjs/websockets";
 import {
   IdentifySocket,
+  NewGameState,
   NewPawnState,
   TileFromClientToServer,
   TileServerSocketDefinition
@@ -65,6 +66,13 @@ export class SocketGateway
       updatedPawnState
     );
   };
+
+  public updateGameState = (updatedGameState: NewGameState) => {
+    this.server.emit(
+      TileServerSocketDefinition.sendMessage.updateGameState,
+      updatedGameState
+    );
+  }
 
   private getSocketEmitter = (client: Socket) => {
     return getSocketEmitter(TileServerSocketDefinition, client);

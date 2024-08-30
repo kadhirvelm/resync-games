@@ -1,7 +1,9 @@
 import { setPawns } from "@/stores/tiles/pawnState";
+import { setGame } from "@/stores/tiles/tileGameState";
 import { useTileDispatch } from "@/stores/tiles/tilesStore";
 import {
   IdentifySocket,
+  NewGameState,
   NewPawnState,
   RemoveExtendsString,
   SocketEmitter,
@@ -36,8 +38,16 @@ export function useTileSocketCallbacks(
     [dispatch]
   );
 
+  const updateGameState = useCallback(
+    (newGameState: NewGameState) => {
+      dispatch(setGame(newGameState.gameState));
+    },
+    [dispatch]
+  );
+
   return {
     identify,
-    updatePawnState
+    updatePawnState,
+    updateGameState,
   };
 }

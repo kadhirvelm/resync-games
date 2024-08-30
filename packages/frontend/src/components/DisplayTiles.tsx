@@ -75,10 +75,12 @@ const Canvas = ({
 
 const DisplayTilesAndPawns = ({
   tiles,
+  visitedTileGroupIds,
   tileSize,
   gap
 }: {
   gap: number;
+  visitedTileGroupIds: string[],
   tileSize: number;
   tiles: Tile[];
 }) => {
@@ -105,7 +107,10 @@ const DisplayTilesAndPawns = ({
       draw={async (_canvas, ctx) => {
         // Draw each tile
         await Promise.all(
-          tiles.map(async ({ posX: x, posY: y, image }) => {
+          tiles.map(async ({ posX: x, posY: y, image, tileGroupId }) => {
+            if (!visitedTileGroupIds.includes(tileGroupId)) {
+              return;
+            }
             const posX = x * (tileSize + gap);
             const posY = y * (tileSize + gap);
 
@@ -146,16 +151,19 @@ const DisplayTilesAndPawns = ({
 
 export const DisplayTiles = ({
   tiles,
+  visitedTileGroupIds,
   tileSize = 100,
   gap = -15
 }: {
   gap?: number;
+  visitedTileGroupIds: string[],
   tileSize?: number;
   tiles: Tile[];
 }) => {
+  console.log("HELLO", visitedTileGroupIds)
   return (
     <div>
-      <DisplayTilesAndPawns gap={gap} tileSize={tileSize} tiles={tiles} />
+      <DisplayTilesAndPawns gap={gap} tileSize={tileSize} tiles={tiles} visitedTileGroupIds={visitedTileGroupIds} />
     </div>
   );
 };

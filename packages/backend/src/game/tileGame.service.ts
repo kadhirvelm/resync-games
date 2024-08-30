@@ -9,6 +9,7 @@ import { PrismaService } from "src/database/prisma.service";
 import { TileMapService } from "src/map/tileMap.service";
 import { SocketGateway } from "src/socket/socket.gateway";
 import { TILE_GAME_PAWN_COLORS } from "./tileGame.constants";
+import { TileGame } from "@tiles-tbd/database";
 
 @Injectable()
 export class TileGameService {
@@ -108,6 +109,33 @@ export class TileGameService {
       };
     }
 
+    // Find the tile group of the new tile and mark it as visited in the game if it's not already
+    const newTile = await this.prismaService.client.tile.findUnique({
+      where: {
+        tileId: movePawnRequest.toTileId
+      }
+    });
+
+    // Fetch the visited tile groups
+    const game: TileGame = await this.prismaService.client.tileGame.findUnique({
+      where: {
+        tileGameId: movePawnRequest.gameId
+      }
+    });
+
+    const visitedTileGroups = new Set(game.visitedTileGroupIds);
+    visitedTileGroups.add(newTile.tileGroupId);
+    // Update
+    await this.prismaService.client.tileGame.update({
+      data: {
+        visitedTileGroupIds: Array.from(visitedTileGroups)
+      },
+      where: {
+        tileGameId: movePawnRequest.gameId
+      }
+    });
+    console.log(`Visited tile groups: ${Array.from(visitedTileGroups)}`);
+
     const pawns = await this.prismaService.client.tilePawn.findMany({
       where: {
         tileGameId: movePawnRequest.gameId
@@ -117,6 +145,10 @@ export class TileGameService {
     this.socketGateway.updatePawnState({
       pawnState: pawns.map(this.prismaService.converterService.convertTilePawn)
     });
+
+    this.socketGateway.updateGameState({
+      gameState: this.prismaService.converterService.convertTileGame({ ...game, visitedTileGroupIds: Array.from(visitedTileGroups) })
+    })
 
     return {
       didMove: true

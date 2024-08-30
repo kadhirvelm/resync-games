@@ -7,7 +7,7 @@ import {
   setOutboundEdges,
   setTilesIndexed
 } from "@/stores/tiles/pawnState";
-import { initializeTileStore } from "@/stores/tiles/tilesStore";
+import { initializeTileStore, useTileSelector } from "@/stores/tiles/tilesStore";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
   CompleteTileMap as ICompleteTileMap,
@@ -23,11 +23,12 @@ import { setGame } from "@/stores/tiles/tileGameState";
 
 const WithinRedux = ({ tileMap }: { tileMap: ICompleteTileMap }) => {
   const { connectionStatus } = useTileSocket();
+  const game = useTileSelector((state) => state.tileGame.game);
 
   return (
     <>
       <Box direction="row" style={{ padding: "10px" }}>
-        <DisplayTiles tiles={tileMap.tiles} />
+        <DisplayTiles tiles={tileMap.tiles} visitedTileGroupIds={game?.visitedTileGroupIds ?? []} />
       </Box>
       <SelectPawn />
       <PawnMovement />
