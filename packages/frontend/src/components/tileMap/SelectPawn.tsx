@@ -1,10 +1,11 @@
 import { useTileDispatch, useTileSelector } from "@/stores/tiles/tilesStore";
 import { TilePawn } from "@tiles-tbd/api";
-import { Box, Text } from "grommet";
+import { Text } from "@radix-ui/themes";
 import styles from "./SelectPawn.module.scss";
 import { setSelectedPawn } from "@/stores/tiles/pawnState";
 import { capitalize } from "lodash-es";
-import { FormPreviousLink } from "grommet-icons";
+import { Flex } from "@/lib/radix/Flex";
+import { Crosshair1Icon } from "@radix-ui/react-icons";
 
 export const SelectPawn = () => {
   const dispatch = useTileDispatch();
@@ -22,30 +23,25 @@ export const SelectPawn = () => {
       dispatch(setSelectedPawn(isSelected ? undefined : pawn.tilePawnId));
 
     return (
-      <Box
-        align="center"
-        direction="row"
-        key={pawn.tilePawnId}
-        onClick={selectPawn}
-      >
-        <Box
+      <Flex align="center" gap="2" key={pawn.tilePawnId} onClick={selectPawn}>
+        <Flex
           align="center"
           className={styles.pawnSelector}
           justify="center"
-          style={{ background: pawn.color }}
+          style={{ backgroundColor: pawn.color }}
         >
           <Text style={{ color: pawn.color === "yellow" ? "black" : "white" }}>
             {capitalize(pawn.color)}
           </Text>
-        </Box>
-        {isSelected && <FormPreviousLink size="50px" />}
-      </Box>
+        </Flex>
+        {isSelected && <Crosshair1Icon height={30} width={30} />}
+      </Flex>
     );
   };
 
   return (
-    <Box className={styles.selectPawn} gap="10px">
+    <Flex className={styles.selectPawn} direction="column" gap="10px">
       {availablePawns.map((pawn) => renderSinglePawn(pawn))}
-    </Box>
+    </Flex>
   );
 };

@@ -22,32 +22,26 @@ const pawnSlice = createSlice({
   initialState,
   name: "pawnState",
   reducers: {
-    setOutboundEdges: (
+    initialize: (
       state,
-      action: PayloadAction<Record<string, Edge[]>>
+      action: PayloadAction<{
+        outboundEdges: Record<string, Edge[]>;
+        pawns: TilePawn[];
+        tilesIndexed: Record<string, Tile>;
+      }>
     ) => {
-      state.outboundEdges = action.payload;
-    },
-    setPawns: (state, action: PayloadAction<TilePawn[]>) => {
-      state.pawnState = keyBy(action.payload, "tilePawnId");
+      state.pawnState = keyBy(action.payload.pawns, "tilePawnId");
+      state.outboundEdges = action.payload.outboundEdges;
+      state.tilesIndexed = action.payload.tilesIndexed;
     },
     setSelectedPawn: (state, action: PayloadAction<PawnId | undefined>) => {
       state.selectedPawnId = action.payload;
     },
-    setTilesIndexed: (state, action: PayloadAction<Record<string, Tile>>) => {
-      state.tilesIndexed = action.payload;
-    },
-    updatePawn: (state, action: PayloadAction<TilePawn>) => {
-      state.pawnState[action.payload.tilePawnId] = action.payload;
+    updatePawns: (state, action: PayloadAction<TilePawn[]>) => {
+      state.pawnState = keyBy(action.payload, "tilePawnId");
     }
   }
 });
 
-export const {
-  setPawns,
-  setOutboundEdges,
-  setSelectedPawn,
-  setTilesIndexed,
-  updatePawn
-} = pawnSlice.actions;
+export const { initialize, setSelectedPawn, updatePawns } = pawnSlice.actions;
 export const PawnStateReducer = pawnSlice.reducer;

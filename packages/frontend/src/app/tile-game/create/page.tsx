@@ -5,7 +5,7 @@ import { isServiceError } from "@tiles-tbd/api";
 export default async function CreateTileGame() {
   const availableTileMaps = await ServiceCallers.tileMap.getAllTileMaps({});
   if (isServiceError(availableTileMaps)) {
-    return <div>Error loading maps</div>;
+    return <div>Failed to load tile maps</div>;
   }
 
   return <CreateNewGame tileMaps={availableTileMaps.tileMaps} />;

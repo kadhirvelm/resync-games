@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
-import styles from "./layout.module.scss";
-import { Dosis } from "next/font/google";
 import clsx from "clsx";
-import { Grommet } from "grommet";
+import type { Metadata } from "next";
+import { Dosis } from "next/font/google";
+import styles from "./layout.module.scss";
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
 
 export const metadata: Metadata = {
   description: "tbd",
@@ -22,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={clsx(styles.body, font.className)}>
-        <Grommet plain>{children}</Grommet>
+        <Theme>{children}</Theme>
       </body>
     </html>
   );

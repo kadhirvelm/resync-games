@@ -1,22 +1,28 @@
+import { Flex } from "@/lib/radix/Flex";
 import { ClientServiceCallers } from "@/services/serviceCallers";
 import { useTileSelector } from "@/stores/tiles/tilesStore";
+import {
+  CaretDownIcon,
+  CaretLeftIcon,
+  CaretRightIcon,
+  CaretUpIcon
+} from "@radix-ui/react-icons";
+import { IconButton } from "@radix-ui/themes";
 import { Edge, isServiceError } from "@tiles-tbd/api";
-import { Box, Button } from "grommet";
-import { CaretDown, CaretNext, CaretPrevious, CaretUp } from "grommet-icons";
 import styles from "./PawnMovement.module.scss";
 
 const flavorTextToIcon = {
-  DOWN: <CaretDown size="large" />,
-  LEFT: <CaretPrevious size="large" />,
-  RIGHT: <CaretNext size="large" />,
-  UP: <CaretUp size="large" />
+  DOWN: <CaretDownIcon height={50} width={50} />,
+  LEFT: <CaretLeftIcon height={50} width={50} />,
+  RIGHT: <CaretRightIcon height={50} width={50} />,
+  UP: <CaretUpIcon height={50} width={50} />
 };
 
 const flavorTextToPosition = {
-  DOWN: { bottom: 0, left: "50%", transform: "translateX(-50%)" },
-  LEFT: { left: 0, top: "50%", transform: "translateY(-50%)" },
-  RIGHT: { right: 0, top: "50%", transform: "translateY(-50%)" },
-  UP: { left: "50%", top: 0, transform: "translateX(-50%)" }
+  DOWN: { bottom: "3px", left: "50%", transform: "translateX(-50%)" },
+  LEFT: { left: "3px", top: "50%", transform: "translateY(-50%)" },
+  RIGHT: { right: "3px", top: "50%", transform: "translateY(-50%)" },
+  UP: { left: "50%", top: "3px", transform: "translateX(-50%)" }
 };
 
 export function PawnMovement() {
@@ -52,27 +58,27 @@ export function PawnMovement() {
   };
 
   return (
-    <Box className={styles.pawnMovementContainer} flex="grow">
+    <Flex className={styles.pawnMovementContainer} flex="grow">
       {outboundEdgesForPawn.map((edge) => (
-        <Button
+        <IconButton
           className={styles.movement}
-          icon={
-            flavorTextToIcon[edge.flavorText as keyof typeof flavorTextToIcon]
-          }
           key={edge.edgeId}
           onClick={onMovePawn(edge)}
-          plain={true}
+          size="4"
           style={
             flavorTextToPosition[
               edge.flavorText as keyof typeof flavorTextToPosition
             ]
           }
-        ></Button>
+          variant="outline"
+        >
+          {flavorTextToIcon[edge.flavorText as keyof typeof flavorTextToIcon]}
+        </IconButton>
       ))}
-      <Box
+      <Flex
         className={styles.colorIndicator}
         style={{ background: selectedPawn.color }}
       />
-    </Box>
+    </Flex>
   );
 }
