@@ -1,4 +1,4 @@
-import { TileMap } from "@/components/TileMap";
+import { InitializeTileMap } from "@/components/InitializeTileMap";
 import { ServiceCallers } from "@/services/serviceCallers";
 import { isServiceError, TileMapId } from "@tiles-tbd/api";
 import { redirect } from "next/navigation";
@@ -17,5 +17,5 @@ export default async function Page({
     redirect("/");
   }
 
-  return <TileMap tileMap={maybeLoadedTileMap.tileMap} />;
+  return <InitializeTileMap tileMap={maybeLoadedTileMap.tileMap} />;
 }

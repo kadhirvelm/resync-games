@@ -1,4 +1,4 @@
-import { TileMap } from "@/components/TileMap";
+import { InitializeTileMap } from "@/components/InitializeTileMap";
 import { ServiceCallers } from "@/services/serviceCallers";
 import { isServiceError, TileGameId } from "@tiles-tbd/api";
 import { redirect } from "next/navigation";
@@ -15,5 +15,10 @@ export default async function TileGame({
     redirect("/");
   }
 
-  return <TileMap game={maybeTileGame.game} tileMap={maybeTileGame.tileMap} />;
+  return (
+    <InitializeTileMap
+      game={maybeTileGame.game}
+      tileMap={maybeTileGame.tileMap}
+    />
+  );
 }

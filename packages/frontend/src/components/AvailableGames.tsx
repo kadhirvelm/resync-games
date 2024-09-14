@@ -1,7 +1,9 @@
 import { ServiceCallers } from "@/services/serviceCallers";
 import { isServiceError } from "@tiles-tbd/api";
-import { Box, Button, Text } from "grommet";
 import Link from "next/link";
+import { Text } from "@radix-ui/themes";
+import { Flex } from "@/lib/radix/Flex";
+import { Button } from "@/lib/radix/Button";
 
 export default async function AvailableGames() {
   const maybeAvailableGames = await ServiceCallers.tileGame.getAvailableGames(
@@ -13,18 +15,18 @@ export default async function AvailableGames() {
   }
 
   return (
-    <Box gap="2" margin="10px">
+    <Flex direction="column" gap="2" m="2">
       <Text>Available games</Text>
       {maybeAvailableGames.tileGames.map((tileGame) => (
         <Link href={`tile-game/${tileGame.tileGameId}`}>
-          <Button key={tileGame.tileGameId} label={tileGame.name} />
+          <Button key={tileGame.tileGameId}>{tileGame.name}</Button>
         </Link>
       ))}
-      <Box>
+      <Flex>
         <Link href="/tile-game/create">
           <Button>Create new game</Button>
         </Link>
-      </Box>
-    </Box>
+      </Flex>
+    </Flex>
   );
 }
