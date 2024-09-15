@@ -1,0 +1,22 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  Deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2 
+      - name: Deploy
+        env:
+            EC2_SECRET_KEY: ${{secrets.EC2_SECRET_KEY}}
+            SSH_HOST: ${{secrets.SSH_HOST}}
+            SSH_USER_NAME: ${{secrets.SSH_USER_NAME}}
+      
+        run: |
+          echo "$EC2_SECRET_KEY" > EC2_SECRET_KEY && chmod 600 EC2_SECRET_KEY
+          ssh -o StrictHostKeyChecking=no -i "EC2_SECRET_KEY" ${SSH_USER_NAME}@${SSH_HOST} 'source ~/.nvm/nvm.sh && cd tiles-tbd && git pull && ./scripts/updateServer.sh'
