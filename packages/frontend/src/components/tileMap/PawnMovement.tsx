@@ -10,6 +10,7 @@ import {
 import { IconButton } from "@radix-ui/themes";
 import { Edge, isServiceError } from "@tiles-tbd/api";
 import styles from "./PawnMovement.module.scss";
+import clsx from "clsx";
 
 const flavorTextToIcon = {
   DOWN: <CaretDownIcon height={50} width={50} />,
@@ -76,8 +77,12 @@ export function PawnMovement() {
         </IconButton>
       ))}
       <Flex
-        className={styles.colorIndicator}
-        style={{ background: selectedPawn.color }}
+        className={clsx(styles.colorIndicator, {
+          [styles.red ?? ""]: selectedPawn.color === "red",
+          [styles.yellow ?? ""]: selectedPawn.color === "yellow",
+          [styles.blue ?? ""]: selectedPawn.color === "blue",
+          [styles.green ?? ""]: selectedPawn.color === "green"
+        })}
       />
     </Flex>
   );
