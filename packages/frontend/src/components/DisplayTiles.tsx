@@ -4,6 +4,13 @@ import { selectPawnIndex } from "@/stores/tiles/selectors/selectPawnState";
 import { useTileSelector } from "@/stores/tiles/tilesStore";
 import { useImageCache } from "./utils/imageCache";
 
+const COLORS = {
+  blue: "#2e86c1",
+  green: "#1d8348",
+  red: "#cb4335",
+  yellow: "#f1c40f"
+};
+
 const Canvas = ({
   width,
   height,
@@ -131,7 +138,8 @@ const DisplayTilesAndPawns = ({
                 posY + radius + 2 * radius * Math.floor(i / sqDimension);
               ctx.beginPath();
               ctx.arc(pawnPosX, pawnPosY, tileSize / 8, 0, 2 * Math.PI);
-              ctx.fillStyle = pawn.color;
+              ctx.fillStyle =
+                COLORS[pawn.color as keyof typeof COLORS] ?? pawn.color;
               ctx.fill();
             }
           })

@@ -6,6 +6,7 @@ import { setSelectedPawn } from "@/stores/tiles/pawnState";
 import { capitalize } from "lodash-es";
 import { Flex } from "@/lib/radix/Flex";
 import { Crosshair1Icon } from "@radix-ui/react-icons";
+import clsx from "clsx";
 
 export const SelectPawn = () => {
   const dispatch = useTileDispatch();
@@ -26,9 +27,13 @@ export const SelectPawn = () => {
       <Flex align="center" gap="2" key={pawn.tilePawnId} onClick={selectPawn}>
         <Flex
           align="center"
-          className={styles.pawnSelector}
+          className={clsx(styles.pawnSelector, {
+            [styles.red ?? ""]: pawn.color === "red",
+            [styles.yellow ?? ""]: pawn.color === "yellow",
+            [styles.blue ?? ""]: pawn.color === "blue",
+            [styles.green ?? ""]: pawn.color === "green"
+          })}
           justify="center"
-          style={{ backgroundColor: pawn.color }}
         >
           <Text style={{ color: pawn.color === "yellow" ? "black" : "white" }}>
             {capitalize(pawn.color)}
