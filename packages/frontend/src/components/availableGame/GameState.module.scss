@@ -1,0 +1,24 @@
+%base {
+    border-radius: 3px;
+}
+
+.waiting {
+    @extend %base;
+
+    color: white;
+    background-color: blue;
+}
+
+.playing {
+    @extend %base;
+
+    color: white;
+    background-color: green;
+}
+
+.finished {
+    @extend %base;
+
+    color: white;
+    background-color: red;
+}
