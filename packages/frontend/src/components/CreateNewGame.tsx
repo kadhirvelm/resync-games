@@ -31,6 +31,7 @@ export function CreateNewGame({ tileMaps }: { tileMaps: TileMap[] }) {
     tileMapId: undefined
   });
   const [isCreatingMap, setIsCreatingMap] = useState(false);
+  const [isCreatingGame, setIsCreatingGame] = useState(false);
 
   const setNewGameCurried =
     (key: keyof CreateTileGameRequest) =>
@@ -58,9 +59,11 @@ export function CreateNewGame({ tileMaps }: { tileMaps: TileMap[] }) {
       return;
     }
 
+    setIsCreatingGame(true);
     const maybeNewGame =
       await ClientServiceCallers.tileGame.createGame(newGame);
     if (isServiceError(maybeNewGame)) {
+      setIsCreatingGame(false);
       return;
     }
 
@@ -80,65 +83,71 @@ export function CreateNewGame({ tileMaps }: { tileMaps: TileMap[] }) {
   };
 
   return (
-    <Flex className={styles.formBox} direction="column" gap="5">
-      <Flex direction="column" gap="2">
-        <Text color="gray" size="2">
-          Game name
-        </Text>
-        <TextField
-          onChange={setNewGameCurried("name")}
-          placeholder="What players will see..."
-          value={newGame.name ?? ""}
-        />
-      </Flex>
-      <Flex direction="column" gap="2">
-        <Text color="gray" size="2">
-          Total pawns - {newGame.numberOfPawns ?? 0}
-        </Text>
-        <Slider
-          max={6}
-          min={1}
-          onValueChange={onNumberOfPawnsChange}
-          value={[newGame.numberOfPawns ?? 0]}
-        />
-      </Flex>
-      <Flex direction="column" gap="2">
-        <Text color="gray" size="2">
-          Map
-        </Text>
-        <Flex align="center" gap="2">
-          <Flex flex="2">
-            <Select
-              items={tileMaps.map((map) => ({
-                label: map.tileMapId,
-                value: map.tileMapId
-              }))}
-              onChange={setNewGameCurried("tileMapId")}
-              value={newGame.tileMapId ?? "No map selected"}
-            />
-          </Flex>
-          <Flex flex="1" gap="1">
-            <Button
-              disabled={tileMaps.length === 0}
-              onClick={randomlySelectMap}
-              variant="outline"
-            >
-              <SymbolIcon />
-            </Button>
-            <Button
-              loading={isCreatingMap}
-              onClick={generateTileMap}
-              variant="soft"
-            >
-              New map
-            </Button>
+    <Flex className={styles.formBoxContainer} direction="column" gap="2">
+      <Flex className={styles.formBox} direction="column" gap="5">
+        <Flex direction="column" gap="2">
+          <Text color="gray" size="2">
+            Game name
+          </Text>
+          <TextField
+            onChange={setNewGameCurried("name")}
+            placeholder="What players will see..."
+            value={newGame.name ?? ""}
+          />
+        </Flex>
+        <Flex direction="column" gap="2">
+          <Text color="gray" size="2">
+            Total pawns - {newGame.numberOfPawns ?? 0}
+          </Text>
+          <Slider
+            max={6}
+            min={1}
+            onValueChange={onNumberOfPawnsChange}
+            value={[newGame.numberOfPawns ?? 0]}
+          />
+        </Flex>
+        <Flex direction="column" gap="2">
+          <Text color="gray" size="2">
+            Map
+          </Text>
+          <Flex align="center" gap="2">
+            <Flex flex="2">
+              <Select
+                items={tileMaps.map((map) => ({
+                  label: map.tileMapId,
+                  value: map.tileMapId
+                }))}
+                onChange={setNewGameCurried("tileMapId")}
+                value={newGame.tileMapId ?? "No map selected"}
+              />
+            </Flex>
+            <Flex flex="1" gap="1">
+              <Button
+                disabled={tileMaps.length === 0}
+                onClick={randomlySelectMap}
+                variant="outline"
+              >
+                <SymbolIcon />
+              </Button>
+              <Button
+                loading={isCreatingMap}
+                onClick={generateTileMap}
+                variant="soft"
+              >
+                New map
+              </Button>
+            </Flex>
           </Flex>
         </Flex>
-      </Flex>
-      <Flex flexGrow="1">
-        <Button disabled={!isCompleteGame(newGame)} onClick={createNewGame}>
-          Create
-        </Button>
+        <Flex flexGrow="1">
+          <Button
+            disabled={!isCompleteGame(newGame)}
+            loading={isCreatingGame}
+            onClick={createNewGame}
+          >
+            Create
+          </Button>
+        </Flex>
       </Flex>
     </Flex>
   );
