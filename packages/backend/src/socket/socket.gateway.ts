@@ -11,6 +11,7 @@ import {
   IdentifySocket,
   NewPawnState,
   TileFromClientToServer,
+  TileGameId,
   TileServerSocketDefinition
 } from "@tiles-tbd/api";
 import { Server, Socket } from "socket.io";
@@ -42,6 +43,7 @@ export class SocketGateway
 
   handleConnection(client: Socket) {
     this.logger.log(`Client connected: ${client.id}`);
+
     this.clients.set(client.id, client);
   }
 
@@ -56,17 +58,31 @@ export class SocketGateway
     @ConnectedSocket() client: Socket
   ) {
     this.logger.log(`Client identified: ${identifier.socketId}`);
-    this.getSocketEmitter(client).identify({ socketId: identifier.socketId });
+
+    client.join(identifier.tileGameId);
+
+    this.getSocketEmitter(client).identify({
+      socketId: identifier.socketId,
+      tileGameId: identifier.tileGameId
+    });
   }
 
-  public updatePawnState = (updatedPawnState: NewPawnState) => {
-    this.server.emit(
-      TileServerSocketDefinition.sendMessage.updatePawnState,
-      updatedPawnState
-    );
+  public updatePawnState = (
+    updatedPawnState: NewPawnState,
+    tileGameId: TileGameId
+  ) => {
+    this.getServerEmitter(tileGameId).updatePawnState(updatedPawnState);
   };
 
   private getSocketEmitter = (client: Socket) => {
     return getSocketEmitter(TileServerSocketDefinition, client);
+  };
+
+  private getServerEmitter = (tileGameId: TileGameId) => {
+    return getSocketEmitter(
+      TileServerSocketDefinition,
+      this.server,
+      tileGameId
+    );
   };
 }

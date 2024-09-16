@@ -1,7 +1,7 @@
 "use client";
 
 import { getSocketEmitter, registerSocketHandler } from "@/services/socket";
-import { TileClientSocketDefinition } from "@tiles-tbd/api";
+import { TileClientSocketDefinition, TileGameId } from "@tiles-tbd/api";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 import { v4 } from "uuid";
@@ -11,7 +11,7 @@ import { useTileSocketCallbacks } from "./useTileSocketCallbacks";
  * Registers the socket and handles all of the initialization logic. It also ensures the right listeners
  * are connected.
  */
-export function useTileSocket() {
+export function useTileSocket(tileGameId: TileGameId) {
   const [connectionStatus, setConnectionStatus] = useState(false);
   const socketIdentifier = useMemo(() => v4(), []);
 
@@ -27,8 +27,8 @@ export function useTileSocket() {
   );
 
   const connect = useCallback(() => {
-    socketEmitter.identify({ socketId: socketIdentifier });
-  }, [socketEmitter, socketIdentifier]);
+    socketEmitter.identify({ socketId: socketIdentifier, tileGameId });
+  }, [socketEmitter, socketIdentifier, tileGameId]);
 
   const disconnect = useCallback(() => {
     setConnectionStatus(false);

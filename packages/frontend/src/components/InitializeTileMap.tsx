@@ -7,10 +7,13 @@ import { initializeTileStore } from "@/stores/tiles/tilesStore";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
   CompleteTileMap as ICompleteTileMap,
+  TileGameId,
   TileGameWithPawns
 } from "@tiles-tbd/api";
 import { indexTileMap } from "./utils/indexTileMap";
 import { TileMap } from "./tileMap/TileMap";
+
+const DEFAULT_GAME_ID = "DEFAULT_GAME_ID" as TileGameId;
 
 export const InitializeTileMap = ({
   tileMap,
@@ -33,7 +36,10 @@ export const InitializeTileMap = ({
       createStore={initializeTileStore}
       initializeStore={createInitialPawns}
     >
-      <TileMap tileMap={tileMap} />
+      <TileMap
+        tileGameId={game?.tileGameId ?? DEFAULT_GAME_ID}
+        tileMap={tileMap}
+      />
     </ReduxGate>
   );
 };
