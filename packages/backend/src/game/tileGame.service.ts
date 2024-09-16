@@ -108,9 +108,14 @@ export class TileGameService {
       }
     });
 
-    this.socketGateway.updatePawnState({
-      pawnState: pawns.map(this.prismaService.converterService.convertTilePawn)
-    });
+    this.socketGateway.updatePawnState(
+      {
+        pawnState: pawns.map(
+          this.prismaService.converterService.convertTilePawn
+        )
+      },
+      movePawnRequest.gameId
+    );
 
     return {
       didMove: true
