@@ -1,11 +1,10 @@
-import { Button } from "@/lib/radix/Button";
 import { Flex } from "@/lib/radix/Flex";
 import { ServiceCallers } from "@/services/serviceCallers";
 import { Code, Text } from "@radix-ui/themes";
 import { isServiceError, TileMap, TileMapId } from "@tiles-tbd/api";
 import { keyBy } from "lodash-es";
-import Link from "next/link";
 import { AvailableGame } from "./availableGame/AvailableGame";
+import { NavigateToCreate } from "./availableGame/NavigateToCreate";
 import styles from "./AvailableGames.module.scss";
 
 export default async function AvailableGames() {
@@ -46,9 +45,9 @@ export default async function AvailableGames() {
         ))}
       </Flex>
       <Flex justify="end">
-        <Link href="/tile-game/create">
-          <Button>Create new game</Button>
-        </Link>
+        <Flex>
+          <NavigateToCreate />
+        </Flex>
       </Flex>
     </Flex>
   );

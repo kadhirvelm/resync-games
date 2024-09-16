@@ -12,6 +12,7 @@ import {
 } from "@tiles-tbd/api";
 import { indexTileMap } from "./utils/indexTileMap";
 import { TileMap } from "./tileMap/TileMap";
+import { ClientGate } from "@/lib/ClientGate";
 
 const DEFAULT_GAME_ID = "DEFAULT_GAME_ID" as TileGameId;
 
@@ -32,14 +33,16 @@ export const InitializeTileMap = ({
   };
 
   return (
-    <ReduxGate
-      createStore={initializeTileStore}
-      initializeStore={createInitialPawns}
-    >
-      <TileMap
-        tileGameId={game?.tileGameId ?? DEFAULT_GAME_ID}
-        tileMap={tileMap}
-      />
-    </ReduxGate>
+    <ClientGate>
+      <ReduxGate
+        createStore={initializeTileStore}
+        initializeStore={createInitialPawns}
+      >
+        <TileMap
+          tileGameId={game?.tileGameId ?? DEFAULT_GAME_ID}
+          tileMap={tileMap}
+        />
+      </ReduxGate>
+    </ClientGate>
   );
 };

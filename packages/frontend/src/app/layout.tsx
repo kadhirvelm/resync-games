@@ -23,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={clsx(styles.body, font.className)}>
-        <Theme className={styles.entryPoint}>{children}</Theme>
+        <Theme className={styles.entryPoint} hasBackground={false}>
+          {children}
+        </Theme>
       </body>
     </html>
   );

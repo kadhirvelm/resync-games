@@ -87,7 +87,7 @@ export function CreateNewGame({ tileMaps }: { tileMaps: TileMap[] }) {
       <Flex className={styles.formBox} direction="column" gap="5">
         <Flex direction="column" gap="2">
           <Text color="gray" size="2">
-            Game name
+            1. Game name
           </Text>
           <TextField
             onChange={setNewGameCurried("name")}
@@ -97,7 +97,7 @@ export function CreateNewGame({ tileMaps }: { tileMaps: TileMap[] }) {
         </Flex>
         <Flex direction="column" gap="2">
           <Text color="gray" size="2">
-            Total pawns - {newGame.numberOfPawns ?? 0}
+            2. Total pawns - {newGame.numberOfPawns ?? 0}
           </Text>
           <Slider
             max={6}
@@ -108,7 +108,7 @@ export function CreateNewGame({ tileMaps }: { tileMaps: TileMap[] }) {
         </Flex>
         <Flex direction="column" gap="2">
           <Text color="gray" size="2">
-            Map
+            3. Map
           </Text>
           <Flex align="center" gap="2">
             <Flex flex="2">
@@ -139,7 +139,7 @@ export function CreateNewGame({ tileMaps }: { tileMaps: TileMap[] }) {
             </Flex>
           </Flex>
         </Flex>
-        <Flex flexGrow="1">
+        <Flex flexGrow="1" mt="3">
           <Button
             disabled={!isCompleteGame(newGame)}
             loading={isCreatingGame}
