@@ -7,6 +7,7 @@ import { capitalize } from "lodash-es";
 import { Flex } from "@/lib/radix/Flex";
 import { Crosshair1Icon } from "@radix-ui/react-icons";
 import clsx from "clsx";
+import { useMemo } from "react";
 
 export const SelectPawn = () => {
   const dispatch = useTileDispatch();
@@ -16,6 +17,11 @@ export const SelectPawn = () => {
   );
 
   const availablePawns = Object.values(pawnState);
+  const sortedAvailablePawns = useMemo(() => {
+    return availablePawns
+      .slice()
+      .sort((a, b) => a.color.localeCompare(b.color));
+  }, [availablePawns]);
 
   const renderSinglePawn = (pawn: TilePawn) => {
     const isSelected = selectedPawnId === pawn.tilePawnId;
@@ -39,14 +45,16 @@ export const SelectPawn = () => {
             {capitalize(pawn.color)}
           </Text>
         </Flex>
-        {isSelected && <Crosshair1Icon height={30} width={30} />}
+        {isSelected && (
+          <Crosshair1Icon className={styles.crossHair} height={30} width={30} />
+        )}
       </Flex>
     );
   };
 
   return (
     <Flex className={styles.selectPawn} direction="column" gap="10px">
-      {availablePawns.map((pawn) => renderSinglePawn(pawn))}
+      {sortedAvailablePawns.map((pawn) => renderSinglePawn(pawn))}
     </Flex>
   );
 };

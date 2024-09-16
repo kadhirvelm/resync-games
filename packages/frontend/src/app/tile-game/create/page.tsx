@@ -1,4 +1,4 @@
-import { CreateNewGame } from "@/components/CreateNewGame";
+import { CreateNewGame } from "@/components/createGame/CreateNewGame";
 import { ServiceCallers } from "@/services/serviceCallers";
 import { isServiceError } from "@tiles-tbd/api";
 

@@ -1,4 +1,4 @@
-import AvailableGames from "@/components/AvailableGames";
+import AvailableGames from "@/components/connectToGame/AvailableGames";
 import { Suspense } from "react";
 
 export default async function Home() {

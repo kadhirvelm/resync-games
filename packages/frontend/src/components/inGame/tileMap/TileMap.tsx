@@ -11,6 +11,7 @@ import { SocketStatus } from "../SocketStatus";
 import { PawnMovement } from "./PawnMovement";
 import { SelectPawn } from "./SelectPawn";
 import { Flex } from "@/lib/radix/Flex";
+import { GoHome } from "./GoHome";
 
 export const TileMap = ({
   tileMap,
@@ -26,6 +27,7 @@ export const TileMap = ({
       <Flex direction="row" style={{ padding: "10px" }}>
         <DisplayTiles tiles={tileMap.tiles} />
       </Flex>
+      <GoHome />
       <SelectPawn />
       <PawnMovement />
       <SocketStatus connectionStatus={connectionStatus} />

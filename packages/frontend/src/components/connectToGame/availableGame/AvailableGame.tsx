@@ -1,11 +1,9 @@
 "use client";
 
-import { Button } from "@/lib/radix/Button";
 import { Flex } from "@/lib/radix/Flex";
+import { NavigationButton } from "@/lib/tiles-components/NavigationButton";
 import { Text } from "@radix-ui/themes";
 import { TileGame, TileMap, TileMapId } from "@tiles-tbd/api";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import styles from "./AvailableGame.module.scss";
 import { GameState } from "./GameState";
 
@@ -16,14 +14,6 @@ export const AvailableGame = ({
   game: TileGame;
   indexedMaps: { [key: TileMapId]: TileMap };
 }) => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const onJoin = () => {
-    setIsLoading(true);
-    router.push(`/tile-game/${game.tileGameId}`);
-  };
-
   const accordingMap = indexedMaps[game.tileMapId];
 
   return (
@@ -36,19 +26,23 @@ export const AvailableGame = ({
       </Flex>
       <Flex>
         <Text color="gray" size="2">
-          Map: {accordingMap?.tileMapId}
+          Game - {game.tileGameId}
+        </Text>
+      </Flex>
+      <Flex>
+        <Text color="gray" size="2">
+          Map - {accordingMap?.tileMapId}
         </Text>
       </Flex>
       <Flex justify="end" mt="4">
         <Flex>
-          <Button
+          <NavigationButton
             disabled={game.state !== "waiting"}
-            loading={isLoading}
-            onClick={onJoin}
+            href={`/tile-game/${game.tileGameId}`}
             variant="outline"
           >
             Join game
-          </Button>
+          </NavigationButton>
         </Flex>
       </Flex>
     </Flex>

@@ -1,5 +1,8 @@
+@import "@/styles/variables.scss";
+
 .formBoxContainer {
     margin: 100px auto;
+    background: $background;
 }
 
 .formBox {
@@ -8,4 +11,5 @@
     padding: 20px;
     width: 600px;
     height: fit-content;
+    background: $white;
 }

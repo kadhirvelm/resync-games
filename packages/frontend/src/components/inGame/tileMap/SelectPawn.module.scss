@@ -1,0 +1,60 @@
+@import "@/styles/variables.scss";
+
+.selectPawn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+
+.pawnSelector {
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid black;
+}
+
+.yellow {
+    background: $yellow;
+
+    &:hover {
+        background: darken($yellow, 10%);
+    }
+}
+
+.red {
+    background: $red;
+
+    &:hover {
+        background: darken($red, 10%);
+    }
+}
+
+.blue {
+    background: $blue;
+
+    &:hover {
+        background: darken($blue, 10%);
+    }
+}
+
+.green {
+    background: $green;
+
+    &:hover {
+        background: darken($green, 10%);
+    }
+}
+
+.crossHair {
+    animation: fade-in 200ms ease-in-out;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
