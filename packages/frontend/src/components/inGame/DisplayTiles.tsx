@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Tile } from "@tiles-tbd/api";
 import { selectPawnIndex } from "@/stores/tiles/selectors/selectPawnState";
-import { useTileSelector } from "@/stores/tiles/tilesStore";
+import {
+  TileAppStore,
+  useTileAppStore,
+  useTileSelector
+} from "@/stores/tiles/tilesStore";
 import { useImageCache } from "./utils/imageCache";
 import { BaseScene } from "@/lib/game/baseScene";
 import { BaseGame } from "@/lib/game/baseGame";
@@ -15,18 +19,31 @@ const COLORS = {
 };
 
 export class MagicMazeScene extends BaseScene {
-  constructor() {
+  private tileSize: number = 100;
+  private tileGap: number = -15;
+
+  constructor(private store: TileAppStore) {
     super("MagicMazeScene");
   }
 
+  getTiles(): Tile[] {
+    const state = this.store.getState();
+    const tiles = state.tileMap.map?.tiles;
+    if (!tiles) {
+      return [];
+    }
+    return tiles;
+  }
+
   preload() {
-    console.log("this got called");
-    this.load.setBaseURL("http://localhost:3000");
-    this.load.image("tile", "images/tile.png");
+    for (const tile of this.getTiles()) {
+      this.load.image(tile.image, `/images/${tile.image}`);
+    }
   }
 
   create() {
-    this.add.image(400, 300, "tile");
+    this.renderTiles(this.getTiles());
+    return;
   }
 
   update() {
@@ -36,11 +53,26 @@ export class MagicMazeScene extends BaseScene {
   shutdown() {
     return;
   }
+
+  renderTiles(tiles: Tile[]) {
+    for (const tile of tiles) {
+      const image = this.add.image(
+        tile.posX * (this.tileSize + this.tileGap),
+        tile.posY * (this.tileSize + this.tileGap),
+        tile.image
+      );
+      image.setOrigin(0, 0);
+      image.setDisplaySize(this.tileSize, this.tileSize);
+    }
+  }
 }
 
 export class MagicMazeGame extends BaseGame {
-  constructor(parent: HTMLElement) {
-    super(parent, [new MagicMazeScene()]);
+  constructor(
+    parent: HTMLElement,
+    private store: TileAppStore
+  ) {
+    super(parent, [new MagicMazeScene(store)]);
   }
 }
 
@@ -203,10 +235,11 @@ export const DisplayTiles = ({
 
 export const DisplayMagicMazeGame = () => {
   const parentElement = useRef<HTMLDivElement>(null);
+  const store = useTileAppStore();
 
   useEffect(() => {
     if (parentElement.current) {
-      const game = new MagicMazeGame(parentElement.current);
+      const game = new MagicMazeGame(parentElement.current, store);
       return () => {
         game.destroy();
       };
