@@ -1,14 +1,14 @@
 import { Module } from "@nestjs/common";
-import { PrismaModule } from "src/database/prisma.module";
-import { TileMapService } from "src/map/tileMap.service";
+import { PrismaModule } from "src/games/tiles-tbd/database/prisma.module";
+import { TileMapService } from "src/games/tiles-tbd/map/tileMap.service";
 import { TileGameController } from "./tileGame.controller";
 import { TileGameService } from "./tileGame.service";
-import { SocketGateway } from "src/socket/socket.gateway";
+import { TileSocketGateway } from "../socket/tileSocket.gateway";
 
 @Module({
   controllers: [TileGameController],
   exports: [TileGameService],
   imports: [PrismaModule],
-  providers: [TileGameService, TileMapService, SocketGateway]
+  providers: [TileGameService, TileMapService, TileSocketGateway]
 })
 export class TileGameModule {}

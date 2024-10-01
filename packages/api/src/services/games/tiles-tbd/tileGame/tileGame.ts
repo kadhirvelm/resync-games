@@ -1,11 +1,6 @@
-import { Service, ServiceDefinition } from "../genericTypes/service";
-import {
-  PawnId,
-  TileGame,
-  TileGameId,
-  TileGameWithPawns
-} from "./tileGame/types";
-import { CompleteTileMap, TileId, TileMap, TileMapId } from "./tileMap/types";
+import { Service, ServiceDefinition } from "../../../../genericTypes/service";
+import { PawnId, TileGame, TileGameId, TileGameWithPawns } from "./types";
+import { CompleteTileMap, TileId, TileMap, TileMapId } from "../tileMap/types";
 
 export interface GetAvailableTileGamesResponse {
   tileGames: TileGame[];

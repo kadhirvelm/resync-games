@@ -1,12 +1,11 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
-import { AllExceptionsFilter } from "./filters/exception.filter";
-import { TileGameModule } from "./game/tileGame.module";
+import { GamesModule } from "./games/games.module";
 import { HealthModule } from "./health/health.module";
-import { AppLoggerMiddleware } from "./library/Logger.middleware";
-import { TileMapModule } from "./map/tileMap.module";
+import { AllExceptionsFilter } from "./library/AllExceptions.filter";
+import { AppLoggerMiddleware } from "./library/AppLogger.middleware";
 
 @Module({
-  imports: [HealthModule, TileMapModule, TileGameModule],
+  imports: [HealthModule, GamesModule],
   providers: [AllExceptionsFilter]
 })
 export class AppModule implements NestModule {
