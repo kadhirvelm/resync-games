@@ -1,0 +1,14 @@
+{
+  "name": "@tiles-tbd/games",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint ."
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "devDependencies": {
+    "eslint": "^9.8.0",
+    "typescript": "^5.5.4"
+  }
+}

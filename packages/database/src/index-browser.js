@@ -158,14 +158,36 @@ exports.Prisma.TilePawnScalarFieldEnum = {
   color: 'color'
 };
 
+exports.Prisma.GameStateScalarFieldEnum = {
+  gameId: 'gameId',
+  gameState: 'gameState',
+  gameConfiguration: 'gameConfiguration',
+  currentGameState: 'currentGameState',
+  gameType: 'gameType'
+};
+
+exports.Prisma.PlayerScalarFieldEnum = {
+  playerId: 'playerId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 
 
@@ -174,7 +196,9 @@ exports.Prisma.ModelName = {
   Tile: 'Tile',
   Edge: 'Edge',
   TileGame: 'TileGame',
-  TilePawn: 'TilePawn'
+  TilePawn: 'TilePawn',
+  GameState: 'GameState',
+  Player: 'Player'
 };
 
 /**

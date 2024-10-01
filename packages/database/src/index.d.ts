@@ -38,6 +38,16 @@ export type TileGame = $Result.DefaultSelection<Prisma.$TileGamePayload>
  * 
  */
 export type TilePawn = $Result.DefaultSelection<Prisma.$TilePawnPayload>
+/**
+ * Model GameState
+ * 
+ */
+export type GameState = $Result.DefaultSelection<Prisma.$GameStatePayload>
+/**
+ * Model Player
+ * 
+ */
+export type Player = $Result.DefaultSelection<Prisma.$PlayerPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -210,6 +220,26 @@ export class PrismaClient<
     * ```
     */
   get tilePawn(): Prisma.TilePawnDelegate<ExtArgs>;
+
+  /**
+   * `prisma.gameState`: Exposes CRUD operations for the **GameState** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GameStates
+    * const gameStates = await prisma.gameState.findMany()
+    * ```
+    */
+  get gameState(): Prisma.GameStateDelegate<ExtArgs>;
+
+  /**
+   * `prisma.player`: Exposes CRUD operations for the **Player** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Players
+    * const players = await prisma.player.findMany()
+    * ```
+    */
+  get player(): Prisma.PlayerDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -691,7 +721,9 @@ export namespace Prisma {
     Tile: 'Tile',
     Edge: 'Edge',
     TileGame: 'TileGame',
-    TilePawn: 'TilePawn'
+    TilePawn: 'TilePawn',
+    GameState: 'GameState',
+    Player: 'Player'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -707,7 +739,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "tileMap" | "tile" | "edge" | "tileGame" | "tilePawn"
+      modelProps: "tileMap" | "tile" | "edge" | "tileGame" | "tilePawn" | "gameState" | "player"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1061,6 +1093,146 @@ export namespace Prisma {
           }
         }
       }
+      GameState: {
+        payload: Prisma.$GameStatePayload<ExtArgs>
+        fields: Prisma.GameStateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GameStateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameStatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GameStateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameStatePayload>
+          }
+          findFirst: {
+            args: Prisma.GameStateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameStatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GameStateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameStatePayload>
+          }
+          findMany: {
+            args: Prisma.GameStateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameStatePayload>[]
+          }
+          create: {
+            args: Prisma.GameStateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameStatePayload>
+          }
+          createMany: {
+            args: Prisma.GameStateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GameStateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameStatePayload>[]
+          }
+          delete: {
+            args: Prisma.GameStateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameStatePayload>
+          }
+          update: {
+            args: Prisma.GameStateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameStatePayload>
+          }
+          deleteMany: {
+            args: Prisma.GameStateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GameStateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.GameStateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameStatePayload>
+          }
+          aggregate: {
+            args: Prisma.GameStateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGameState>
+          }
+          groupBy: {
+            args: Prisma.GameStateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GameStateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GameStateCountArgs<ExtArgs>
+            result: $Utils.Optional<GameStateCountAggregateOutputType> | number
+          }
+        }
+      }
+      Player: {
+        payload: Prisma.$PlayerPayload<ExtArgs>
+        fields: Prisma.PlayerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlayerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlayerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerPayload>
+          }
+          findFirst: {
+            args: Prisma.PlayerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlayerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerPayload>
+          }
+          findMany: {
+            args: Prisma.PlayerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerPayload>[]
+          }
+          create: {
+            args: Prisma.PlayerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerPayload>
+          }
+          createMany: {
+            args: Prisma.PlayerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlayerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerPayload>[]
+          }
+          delete: {
+            args: Prisma.PlayerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerPayload>
+          }
+          update: {
+            args: Prisma.PlayerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlayerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlayerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PlayerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerPayload>
+          }
+          aggregate: {
+            args: Prisma.PlayerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlayer>
+          }
+          groupBy: {
+            args: Prisma.PlayerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlayerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlayerCountArgs<ExtArgs>
+            result: $Utils.Optional<PlayerCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1334,6 +1506,68 @@ export namespace Prisma {
    */
   export type TileGameCountOutputTypeCountTilePawnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TilePawnWhereInput
+  }
+
+
+  /**
+   * Count Type GameStateCountOutputType
+   */
+
+  export type GameStateCountOutputType = {
+    players: number
+  }
+
+  export type GameStateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    players?: boolean | GameStateCountOutputTypeCountPlayersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GameStateCountOutputType without action
+   */
+  export type GameStateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameStateCountOutputType
+     */
+    select?: GameStateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GameStateCountOutputType without action
+   */
+  export type GameStateCountOutputTypeCountPlayersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlayerWhereInput
+  }
+
+
+  /**
+   * Count Type PlayerCountOutputType
+   */
+
+  export type PlayerCountOutputType = {
+    gameStates: number
+  }
+
+  export type PlayerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gameStates?: boolean | PlayerCountOutputTypeCountGameStatesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PlayerCountOutputType without action
+   */
+  export type PlayerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerCountOutputType
+     */
+    select?: PlayerCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PlayerCountOutputType without action
+   */
+  export type PlayerCountOutputTypeCountGameStatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameStateWhereInput
   }
 
 
@@ -6184,6 +6418,1846 @@ export namespace Prisma {
 
 
   /**
+   * Model GameState
+   */
+
+  export type AggregateGameState = {
+    _count: GameStateCountAggregateOutputType | null
+    _min: GameStateMinAggregateOutputType | null
+    _max: GameStateMaxAggregateOutputType | null
+  }
+
+  export type GameStateMinAggregateOutputType = {
+    gameId: string | null
+    currentGameState: string | null
+    gameType: string | null
+  }
+
+  export type GameStateMaxAggregateOutputType = {
+    gameId: string | null
+    currentGameState: string | null
+    gameType: string | null
+  }
+
+  export type GameStateCountAggregateOutputType = {
+    gameId: number
+    gameState: number
+    gameConfiguration: number
+    currentGameState: number
+    gameType: number
+    _all: number
+  }
+
+
+  export type GameStateMinAggregateInputType = {
+    gameId?: true
+    currentGameState?: true
+    gameType?: true
+  }
+
+  export type GameStateMaxAggregateInputType = {
+    gameId?: true
+    currentGameState?: true
+    gameType?: true
+  }
+
+  export type GameStateCountAggregateInputType = {
+    gameId?: true
+    gameState?: true
+    gameConfiguration?: true
+    currentGameState?: true
+    gameType?: true
+    _all?: true
+  }
+
+  export type GameStateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameState to aggregate.
+     */
+    where?: GameStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameStates to fetch.
+     */
+    orderBy?: GameStateOrderByWithRelationInput | GameStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GameStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GameStates
+    **/
+    _count?: true | GameStateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GameStateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GameStateMaxAggregateInputType
+  }
+
+  export type GetGameStateAggregateType<T extends GameStateAggregateArgs> = {
+        [P in keyof T & keyof AggregateGameState]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGameState[P]>
+      : GetScalarType<T[P], AggregateGameState[P]>
+  }
+
+
+
+
+  export type GameStateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameStateWhereInput
+    orderBy?: GameStateOrderByWithAggregationInput | GameStateOrderByWithAggregationInput[]
+    by: GameStateScalarFieldEnum[] | GameStateScalarFieldEnum
+    having?: GameStateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GameStateCountAggregateInputType | true
+    _min?: GameStateMinAggregateInputType
+    _max?: GameStateMaxAggregateInputType
+  }
+
+  export type GameStateGroupByOutputType = {
+    gameId: string
+    gameState: JsonValue
+    gameConfiguration: JsonValue
+    currentGameState: string
+    gameType: string
+    _count: GameStateCountAggregateOutputType | null
+    _min: GameStateMinAggregateOutputType | null
+    _max: GameStateMaxAggregateOutputType | null
+  }
+
+  type GetGameStateGroupByPayload<T extends GameStateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GameStateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GameStateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GameStateGroupByOutputType[P]>
+            : GetScalarType<T[P], GameStateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GameStateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    gameId?: boolean
+    gameState?: boolean
+    gameConfiguration?: boolean
+    currentGameState?: boolean
+    gameType?: boolean
+    players?: boolean | GameState$playersArgs<ExtArgs>
+    _count?: boolean | GameStateCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameState"]>
+
+  export type GameStateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    gameId?: boolean
+    gameState?: boolean
+    gameConfiguration?: boolean
+    currentGameState?: boolean
+    gameType?: boolean
+  }, ExtArgs["result"]["gameState"]>
+
+  export type GameStateSelectScalar = {
+    gameId?: boolean
+    gameState?: boolean
+    gameConfiguration?: boolean
+    currentGameState?: boolean
+    gameType?: boolean
+  }
+
+  export type GameStateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    players?: boolean | GameState$playersArgs<ExtArgs>
+    _count?: boolean | GameStateCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GameStateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $GameStatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GameState"
+    objects: {
+      players: Prisma.$PlayerPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      gameId: string
+      gameState: Prisma.JsonValue
+      gameConfiguration: Prisma.JsonValue
+      currentGameState: string
+      gameType: string
+    }, ExtArgs["result"]["gameState"]>
+    composites: {}
+  }
+
+  type GameStateGetPayload<S extends boolean | null | undefined | GameStateDefaultArgs> = $Result.GetResult<Prisma.$GameStatePayload, S>
+
+  type GameStateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<GameStateFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: GameStateCountAggregateInputType | true
+    }
+
+  export interface GameStateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameState'], meta: { name: 'GameState' } }
+    /**
+     * Find zero or one GameState that matches the filter.
+     * @param {GameStateFindUniqueArgs} args - Arguments to find a GameState
+     * @example
+     * // Get one GameState
+     * const gameState = await prisma.gameState.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GameStateFindUniqueArgs>(args: SelectSubset<T, GameStateFindUniqueArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one GameState that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {GameStateFindUniqueOrThrowArgs} args - Arguments to find a GameState
+     * @example
+     * // Get one GameState
+     * const gameState = await prisma.gameState.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GameStateFindUniqueOrThrowArgs>(args: SelectSubset<T, GameStateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first GameState that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameStateFindFirstArgs} args - Arguments to find a GameState
+     * @example
+     * // Get one GameState
+     * const gameState = await prisma.gameState.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GameStateFindFirstArgs>(args?: SelectSubset<T, GameStateFindFirstArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first GameState that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameStateFindFirstOrThrowArgs} args - Arguments to find a GameState
+     * @example
+     * // Get one GameState
+     * const gameState = await prisma.gameState.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GameStateFindFirstOrThrowArgs>(args?: SelectSubset<T, GameStateFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more GameStates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameStateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GameStates
+     * const gameStates = await prisma.gameState.findMany()
+     * 
+     * // Get first 10 GameStates
+     * const gameStates = await prisma.gameState.findMany({ take: 10 })
+     * 
+     * // Only select the `gameId`
+     * const gameStateWithGameIdOnly = await prisma.gameState.findMany({ select: { gameId: true } })
+     * 
+     */
+    findMany<T extends GameStateFindManyArgs>(args?: SelectSubset<T, GameStateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a GameState.
+     * @param {GameStateCreateArgs} args - Arguments to create a GameState.
+     * @example
+     * // Create one GameState
+     * const GameState = await prisma.gameState.create({
+     *   data: {
+     *     // ... data to create a GameState
+     *   }
+     * })
+     * 
+     */
+    create<T extends GameStateCreateArgs>(args: SelectSubset<T, GameStateCreateArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many GameStates.
+     * @param {GameStateCreateManyArgs} args - Arguments to create many GameStates.
+     * @example
+     * // Create many GameStates
+     * const gameState = await prisma.gameState.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GameStateCreateManyArgs>(args?: SelectSubset<T, GameStateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GameStates and returns the data saved in the database.
+     * @param {GameStateCreateManyAndReturnArgs} args - Arguments to create many GameStates.
+     * @example
+     * // Create many GameStates
+     * const gameState = await prisma.gameState.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GameStates and only return the `gameId`
+     * const gameStateWithGameIdOnly = await prisma.gameState.createManyAndReturn({ 
+     *   select: { gameId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GameStateCreateManyAndReturnArgs>(args?: SelectSubset<T, GameStateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a GameState.
+     * @param {GameStateDeleteArgs} args - Arguments to delete one GameState.
+     * @example
+     * // Delete one GameState
+     * const GameState = await prisma.gameState.delete({
+     *   where: {
+     *     // ... filter to delete one GameState
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GameStateDeleteArgs>(args: SelectSubset<T, GameStateDeleteArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one GameState.
+     * @param {GameStateUpdateArgs} args - Arguments to update one GameState.
+     * @example
+     * // Update one GameState
+     * const gameState = await prisma.gameState.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GameStateUpdateArgs>(args: SelectSubset<T, GameStateUpdateArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more GameStates.
+     * @param {GameStateDeleteManyArgs} args - Arguments to filter GameStates to delete.
+     * @example
+     * // Delete a few GameStates
+     * const { count } = await prisma.gameState.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GameStateDeleteManyArgs>(args?: SelectSubset<T, GameStateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameStateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GameStates
+     * const gameState = await prisma.gameState.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GameStateUpdateManyArgs>(args: SelectSubset<T, GameStateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one GameState.
+     * @param {GameStateUpsertArgs} args - Arguments to update or create a GameState.
+     * @example
+     * // Update or create a GameState
+     * const gameState = await prisma.gameState.upsert({
+     *   create: {
+     *     // ... data to create a GameState
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GameState we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GameStateUpsertArgs>(args: SelectSubset<T, GameStateUpsertArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of GameStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameStateCountArgs} args - Arguments to filter GameStates to count.
+     * @example
+     * // Count the number of GameStates
+     * const count = await prisma.gameState.count({
+     *   where: {
+     *     // ... the filter for the GameStates we want to count
+     *   }
+     * })
+    **/
+    count<T extends GameStateCountArgs>(
+      args?: Subset<T, GameStateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GameStateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GameState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameStateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GameStateAggregateArgs>(args: Subset<T, GameStateAggregateArgs>): Prisma.PrismaPromise<GetGameStateAggregateType<T>>
+
+    /**
+     * Group by GameState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameStateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GameStateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GameStateGroupByArgs['orderBy'] }
+        : { orderBy?: GameStateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GameStateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGameStateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GameState model
+   */
+  readonly fields: GameStateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GameState.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GameStateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    players<T extends GameState$playersArgs<ExtArgs> = {}>(args?: Subset<T, GameState$playersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GameState model
+   */ 
+  interface GameStateFieldRefs {
+    readonly gameId: FieldRef<"GameState", 'String'>
+    readonly gameState: FieldRef<"GameState", 'Json'>
+    readonly gameConfiguration: FieldRef<"GameState", 'Json'>
+    readonly currentGameState: FieldRef<"GameState", 'String'>
+    readonly gameType: FieldRef<"GameState", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GameState findUnique
+   */
+  export type GameStateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameState
+     */
+    select?: GameStateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which GameState to fetch.
+     */
+    where: GameStateWhereUniqueInput
+  }
+
+  /**
+   * GameState findUniqueOrThrow
+   */
+  export type GameStateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameState
+     */
+    select?: GameStateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which GameState to fetch.
+     */
+    where: GameStateWhereUniqueInput
+  }
+
+  /**
+   * GameState findFirst
+   */
+  export type GameStateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameState
+     */
+    select?: GameStateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which GameState to fetch.
+     */
+    where?: GameStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameStates to fetch.
+     */
+    orderBy?: GameStateOrderByWithRelationInput | GameStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameStates.
+     */
+    cursor?: GameStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameStates.
+     */
+    distinct?: GameStateScalarFieldEnum | GameStateScalarFieldEnum[]
+  }
+
+  /**
+   * GameState findFirstOrThrow
+   */
+  export type GameStateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameState
+     */
+    select?: GameStateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which GameState to fetch.
+     */
+    where?: GameStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameStates to fetch.
+     */
+    orderBy?: GameStateOrderByWithRelationInput | GameStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameStates.
+     */
+    cursor?: GameStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameStates.
+     */
+    distinct?: GameStateScalarFieldEnum | GameStateScalarFieldEnum[]
+  }
+
+  /**
+   * GameState findMany
+   */
+  export type GameStateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameState
+     */
+    select?: GameStateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which GameStates to fetch.
+     */
+    where?: GameStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameStates to fetch.
+     */
+    orderBy?: GameStateOrderByWithRelationInput | GameStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GameStates.
+     */
+    cursor?: GameStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameStates.
+     */
+    skip?: number
+    distinct?: GameStateScalarFieldEnum | GameStateScalarFieldEnum[]
+  }
+
+  /**
+   * GameState create
+   */
+  export type GameStateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameState
+     */
+    select?: GameStateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameStateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GameState.
+     */
+    data: XOR<GameStateCreateInput, GameStateUncheckedCreateInput>
+  }
+
+  /**
+   * GameState createMany
+   */
+  export type GameStateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GameStates.
+     */
+    data: GameStateCreateManyInput | GameStateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GameState createManyAndReturn
+   */
+  export type GameStateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameState
+     */
+    select?: GameStateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many GameStates.
+     */
+    data: GameStateCreateManyInput | GameStateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GameState update
+   */
+  export type GameStateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameState
+     */
+    select?: GameStateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameStateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GameState.
+     */
+    data: XOR<GameStateUpdateInput, GameStateUncheckedUpdateInput>
+    /**
+     * Choose, which GameState to update.
+     */
+    where: GameStateWhereUniqueInput
+  }
+
+  /**
+   * GameState updateMany
+   */
+  export type GameStateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GameStates.
+     */
+    data: XOR<GameStateUpdateManyMutationInput, GameStateUncheckedUpdateManyInput>
+    /**
+     * Filter which GameStates to update
+     */
+    where?: GameStateWhereInput
+  }
+
+  /**
+   * GameState upsert
+   */
+  export type GameStateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameState
+     */
+    select?: GameStateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameStateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GameState to update in case it exists.
+     */
+    where: GameStateWhereUniqueInput
+    /**
+     * In case the GameState found by the `where` argument doesn't exist, create a new GameState with this data.
+     */
+    create: XOR<GameStateCreateInput, GameStateUncheckedCreateInput>
+    /**
+     * In case the GameState was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GameStateUpdateInput, GameStateUncheckedUpdateInput>
+  }
+
+  /**
+   * GameState delete
+   */
+  export type GameStateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameState
+     */
+    select?: GameStateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameStateInclude<ExtArgs> | null
+    /**
+     * Filter which GameState to delete.
+     */
+    where: GameStateWhereUniqueInput
+  }
+
+  /**
+   * GameState deleteMany
+   */
+  export type GameStateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameStates to delete
+     */
+    where?: GameStateWhereInput
+  }
+
+  /**
+   * GameState.players
+   */
+  export type GameState$playersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerInclude<ExtArgs> | null
+    where?: PlayerWhereInput
+    orderBy?: PlayerOrderByWithRelationInput | PlayerOrderByWithRelationInput[]
+    cursor?: PlayerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlayerScalarFieldEnum | PlayerScalarFieldEnum[]
+  }
+
+  /**
+   * GameState without action
+   */
+  export type GameStateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameState
+     */
+    select?: GameStateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameStateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Player
+   */
+
+  export type AggregatePlayer = {
+    _count: PlayerCountAggregateOutputType | null
+    _min: PlayerMinAggregateOutputType | null
+    _max: PlayerMaxAggregateOutputType | null
+  }
+
+  export type PlayerMinAggregateOutputType = {
+    playerId: string | null
+  }
+
+  export type PlayerMaxAggregateOutputType = {
+    playerId: string | null
+  }
+
+  export type PlayerCountAggregateOutputType = {
+    playerId: number
+    _all: number
+  }
+
+
+  export type PlayerMinAggregateInputType = {
+    playerId?: true
+  }
+
+  export type PlayerMaxAggregateInputType = {
+    playerId?: true
+  }
+
+  export type PlayerCountAggregateInputType = {
+    playerId?: true
+    _all?: true
+  }
+
+  export type PlayerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Player to aggregate.
+     */
+    where?: PlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Players to fetch.
+     */
+    orderBy?: PlayerOrderByWithRelationInput | PlayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Players from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Players.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Players
+    **/
+    _count?: true | PlayerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlayerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlayerMaxAggregateInputType
+  }
+
+  export type GetPlayerAggregateType<T extends PlayerAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlayer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlayer[P]>
+      : GetScalarType<T[P], AggregatePlayer[P]>
+  }
+
+
+
+
+  export type PlayerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlayerWhereInput
+    orderBy?: PlayerOrderByWithAggregationInput | PlayerOrderByWithAggregationInput[]
+    by: PlayerScalarFieldEnum[] | PlayerScalarFieldEnum
+    having?: PlayerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlayerCountAggregateInputType | true
+    _min?: PlayerMinAggregateInputType
+    _max?: PlayerMaxAggregateInputType
+  }
+
+  export type PlayerGroupByOutputType = {
+    playerId: string
+    _count: PlayerCountAggregateOutputType | null
+    _min: PlayerMinAggregateOutputType | null
+    _max: PlayerMaxAggregateOutputType | null
+  }
+
+  type GetPlayerGroupByPayload<T extends PlayerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlayerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlayerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlayerGroupByOutputType[P]>
+            : GetScalarType<T[P], PlayerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlayerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    playerId?: boolean
+    gameStates?: boolean | Player$gameStatesArgs<ExtArgs>
+    _count?: boolean | PlayerCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["player"]>
+
+  export type PlayerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    playerId?: boolean
+  }, ExtArgs["result"]["player"]>
+
+  export type PlayerSelectScalar = {
+    playerId?: boolean
+  }
+
+  export type PlayerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gameStates?: boolean | Player$gameStatesArgs<ExtArgs>
+    _count?: boolean | PlayerCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PlayerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $PlayerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Player"
+    objects: {
+      gameStates: Prisma.$GameStatePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      playerId: string
+    }, ExtArgs["result"]["player"]>
+    composites: {}
+  }
+
+  type PlayerGetPayload<S extends boolean | null | undefined | PlayerDefaultArgs> = $Result.GetResult<Prisma.$PlayerPayload, S>
+
+  type PlayerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PlayerFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PlayerCountAggregateInputType | true
+    }
+
+  export interface PlayerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Player'], meta: { name: 'Player' } }
+    /**
+     * Find zero or one Player that matches the filter.
+     * @param {PlayerFindUniqueArgs} args - Arguments to find a Player
+     * @example
+     * // Get one Player
+     * const player = await prisma.player.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlayerFindUniqueArgs>(args: SelectSubset<T, PlayerFindUniqueArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Player that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PlayerFindUniqueOrThrowArgs} args - Arguments to find a Player
+     * @example
+     * // Get one Player
+     * const player = await prisma.player.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlayerFindUniqueOrThrowArgs>(args: SelectSubset<T, PlayerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Player that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerFindFirstArgs} args - Arguments to find a Player
+     * @example
+     * // Get one Player
+     * const player = await prisma.player.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlayerFindFirstArgs>(args?: SelectSubset<T, PlayerFindFirstArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Player that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerFindFirstOrThrowArgs} args - Arguments to find a Player
+     * @example
+     * // Get one Player
+     * const player = await prisma.player.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlayerFindFirstOrThrowArgs>(args?: SelectSubset<T, PlayerFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Players that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Players
+     * const players = await prisma.player.findMany()
+     * 
+     * // Get first 10 Players
+     * const players = await prisma.player.findMany({ take: 10 })
+     * 
+     * // Only select the `playerId`
+     * const playerWithPlayerIdOnly = await prisma.player.findMany({ select: { playerId: true } })
+     * 
+     */
+    findMany<T extends PlayerFindManyArgs>(args?: SelectSubset<T, PlayerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Player.
+     * @param {PlayerCreateArgs} args - Arguments to create a Player.
+     * @example
+     * // Create one Player
+     * const Player = await prisma.player.create({
+     *   data: {
+     *     // ... data to create a Player
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlayerCreateArgs>(args: SelectSubset<T, PlayerCreateArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Players.
+     * @param {PlayerCreateManyArgs} args - Arguments to create many Players.
+     * @example
+     * // Create many Players
+     * const player = await prisma.player.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlayerCreateManyArgs>(args?: SelectSubset<T, PlayerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Players and returns the data saved in the database.
+     * @param {PlayerCreateManyAndReturnArgs} args - Arguments to create many Players.
+     * @example
+     * // Create many Players
+     * const player = await prisma.player.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Players and only return the `playerId`
+     * const playerWithPlayerIdOnly = await prisma.player.createManyAndReturn({ 
+     *   select: { playerId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlayerCreateManyAndReturnArgs>(args?: SelectSubset<T, PlayerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Player.
+     * @param {PlayerDeleteArgs} args - Arguments to delete one Player.
+     * @example
+     * // Delete one Player
+     * const Player = await prisma.player.delete({
+     *   where: {
+     *     // ... filter to delete one Player
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlayerDeleteArgs>(args: SelectSubset<T, PlayerDeleteArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Player.
+     * @param {PlayerUpdateArgs} args - Arguments to update one Player.
+     * @example
+     * // Update one Player
+     * const player = await prisma.player.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlayerUpdateArgs>(args: SelectSubset<T, PlayerUpdateArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Players.
+     * @param {PlayerDeleteManyArgs} args - Arguments to filter Players to delete.
+     * @example
+     * // Delete a few Players
+     * const { count } = await prisma.player.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlayerDeleteManyArgs>(args?: SelectSubset<T, PlayerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Players.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Players
+     * const player = await prisma.player.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlayerUpdateManyArgs>(args: SelectSubset<T, PlayerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Player.
+     * @param {PlayerUpsertArgs} args - Arguments to update or create a Player.
+     * @example
+     * // Update or create a Player
+     * const player = await prisma.player.upsert({
+     *   create: {
+     *     // ... data to create a Player
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Player we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlayerUpsertArgs>(args: SelectSubset<T, PlayerUpsertArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Players.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerCountArgs} args - Arguments to filter Players to count.
+     * @example
+     * // Count the number of Players
+     * const count = await prisma.player.count({
+     *   where: {
+     *     // ... the filter for the Players we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlayerCountArgs>(
+      args?: Subset<T, PlayerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlayerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Player.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlayerAggregateArgs>(args: Subset<T, PlayerAggregateArgs>): Prisma.PrismaPromise<GetPlayerAggregateType<T>>
+
+    /**
+     * Group by Player.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlayerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlayerGroupByArgs['orderBy'] }
+        : { orderBy?: PlayerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlayerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlayerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Player model
+   */
+  readonly fields: PlayerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Player.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlayerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    gameStates<T extends Player$gameStatesArgs<ExtArgs> = {}>(args?: Subset<T, Player$gameStatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Player model
+   */ 
+  interface PlayerFieldRefs {
+    readonly playerId: FieldRef<"Player", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Player findUnique
+   */
+  export type PlayerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerInclude<ExtArgs> | null
+    /**
+     * Filter, which Player to fetch.
+     */
+    where: PlayerWhereUniqueInput
+  }
+
+  /**
+   * Player findUniqueOrThrow
+   */
+  export type PlayerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerInclude<ExtArgs> | null
+    /**
+     * Filter, which Player to fetch.
+     */
+    where: PlayerWhereUniqueInput
+  }
+
+  /**
+   * Player findFirst
+   */
+  export type PlayerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerInclude<ExtArgs> | null
+    /**
+     * Filter, which Player to fetch.
+     */
+    where?: PlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Players to fetch.
+     */
+    orderBy?: PlayerOrderByWithRelationInput | PlayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Players.
+     */
+    cursor?: PlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Players from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Players.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Players.
+     */
+    distinct?: PlayerScalarFieldEnum | PlayerScalarFieldEnum[]
+  }
+
+  /**
+   * Player findFirstOrThrow
+   */
+  export type PlayerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerInclude<ExtArgs> | null
+    /**
+     * Filter, which Player to fetch.
+     */
+    where?: PlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Players to fetch.
+     */
+    orderBy?: PlayerOrderByWithRelationInput | PlayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Players.
+     */
+    cursor?: PlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Players from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Players.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Players.
+     */
+    distinct?: PlayerScalarFieldEnum | PlayerScalarFieldEnum[]
+  }
+
+  /**
+   * Player findMany
+   */
+  export type PlayerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerInclude<ExtArgs> | null
+    /**
+     * Filter, which Players to fetch.
+     */
+    where?: PlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Players to fetch.
+     */
+    orderBy?: PlayerOrderByWithRelationInput | PlayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Players.
+     */
+    cursor?: PlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Players from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Players.
+     */
+    skip?: number
+    distinct?: PlayerScalarFieldEnum | PlayerScalarFieldEnum[]
+  }
+
+  /**
+   * Player create
+   */
+  export type PlayerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Player.
+     */
+    data?: XOR<PlayerCreateInput, PlayerUncheckedCreateInput>
+  }
+
+  /**
+   * Player createMany
+   */
+  export type PlayerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Players.
+     */
+    data: PlayerCreateManyInput | PlayerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Player createManyAndReturn
+   */
+  export type PlayerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Players.
+     */
+    data: PlayerCreateManyInput | PlayerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Player update
+   */
+  export type PlayerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Player.
+     */
+    data: XOR<PlayerUpdateInput, PlayerUncheckedUpdateInput>
+    /**
+     * Choose, which Player to update.
+     */
+    where: PlayerWhereUniqueInput
+  }
+
+  /**
+   * Player updateMany
+   */
+  export type PlayerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Players.
+     */
+    data: XOR<PlayerUpdateManyMutationInput, PlayerUncheckedUpdateManyInput>
+    /**
+     * Filter which Players to update
+     */
+    where?: PlayerWhereInput
+  }
+
+  /**
+   * Player upsert
+   */
+  export type PlayerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Player to update in case it exists.
+     */
+    where: PlayerWhereUniqueInput
+    /**
+     * In case the Player found by the `where` argument doesn't exist, create a new Player with this data.
+     */
+    create: XOR<PlayerCreateInput, PlayerUncheckedCreateInput>
+    /**
+     * In case the Player was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlayerUpdateInput, PlayerUncheckedUpdateInput>
+  }
+
+  /**
+   * Player delete
+   */
+  export type PlayerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerInclude<ExtArgs> | null
+    /**
+     * Filter which Player to delete.
+     */
+    where: PlayerWhereUniqueInput
+  }
+
+  /**
+   * Player deleteMany
+   */
+  export type PlayerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Players to delete
+     */
+    where?: PlayerWhereInput
+  }
+
+  /**
+   * Player.gameStates
+   */
+  export type Player$gameStatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameState
+     */
+    select?: GameStateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameStateInclude<ExtArgs> | null
+    where?: GameStateWhereInput
+    orderBy?: GameStateOrderByWithRelationInput | GameStateOrderByWithRelationInput[]
+    cursor?: GameStateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GameStateScalarFieldEnum | GameStateScalarFieldEnum[]
+  }
+
+  /**
+   * Player without action
+   */
+  export type PlayerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6251,6 +8325,24 @@ export namespace Prisma {
   export type TilePawnScalarFieldEnum = (typeof TilePawnScalarFieldEnum)[keyof typeof TilePawnScalarFieldEnum]
 
 
+  export const GameStateScalarFieldEnum: {
+    gameId: 'gameId',
+    gameState: 'gameState',
+    gameConfiguration: 'gameConfiguration',
+    currentGameState: 'currentGameState',
+    gameType: 'gameType'
+  };
+
+  export type GameStateScalarFieldEnum = (typeof GameStateScalarFieldEnum)[keyof typeof GameStateScalarFieldEnum]
+
+
+  export const PlayerScalarFieldEnum: {
+    playerId: 'playerId'
+  };
+
+  export type PlayerScalarFieldEnum = (typeof PlayerScalarFieldEnum)[keyof typeof PlayerScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -6259,12 +8351,28 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -6311,6 +8419,13 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
 
 
@@ -6624,6 +8739,96 @@ export namespace Prisma {
     color?: StringWithAggregatesFilter<"TilePawn"> | string
   }
 
+  export type GameStateWhereInput = {
+    AND?: GameStateWhereInput | GameStateWhereInput[]
+    OR?: GameStateWhereInput[]
+    NOT?: GameStateWhereInput | GameStateWhereInput[]
+    gameId?: StringFilter<"GameState"> | string
+    gameState?: JsonFilter<"GameState">
+    gameConfiguration?: JsonFilter<"GameState">
+    currentGameState?: StringFilter<"GameState"> | string
+    gameType?: StringFilter<"GameState"> | string
+    players?: PlayerListRelationFilter
+  }
+
+  export type GameStateOrderByWithRelationInput = {
+    gameId?: SortOrder
+    gameState?: SortOrder
+    gameConfiguration?: SortOrder
+    currentGameState?: SortOrder
+    gameType?: SortOrder
+    players?: PlayerOrderByRelationAggregateInput
+  }
+
+  export type GameStateWhereUniqueInput = Prisma.AtLeast<{
+    gameId?: string
+    AND?: GameStateWhereInput | GameStateWhereInput[]
+    OR?: GameStateWhereInput[]
+    NOT?: GameStateWhereInput | GameStateWhereInput[]
+    gameState?: JsonFilter<"GameState">
+    gameConfiguration?: JsonFilter<"GameState">
+    currentGameState?: StringFilter<"GameState"> | string
+    gameType?: StringFilter<"GameState"> | string
+    players?: PlayerListRelationFilter
+  }, "gameId">
+
+  export type GameStateOrderByWithAggregationInput = {
+    gameId?: SortOrder
+    gameState?: SortOrder
+    gameConfiguration?: SortOrder
+    currentGameState?: SortOrder
+    gameType?: SortOrder
+    _count?: GameStateCountOrderByAggregateInput
+    _max?: GameStateMaxOrderByAggregateInput
+    _min?: GameStateMinOrderByAggregateInput
+  }
+
+  export type GameStateScalarWhereWithAggregatesInput = {
+    AND?: GameStateScalarWhereWithAggregatesInput | GameStateScalarWhereWithAggregatesInput[]
+    OR?: GameStateScalarWhereWithAggregatesInput[]
+    NOT?: GameStateScalarWhereWithAggregatesInput | GameStateScalarWhereWithAggregatesInput[]
+    gameId?: StringWithAggregatesFilter<"GameState"> | string
+    gameState?: JsonWithAggregatesFilter<"GameState">
+    gameConfiguration?: JsonWithAggregatesFilter<"GameState">
+    currentGameState?: StringWithAggregatesFilter<"GameState"> | string
+    gameType?: StringWithAggregatesFilter<"GameState"> | string
+  }
+
+  export type PlayerWhereInput = {
+    AND?: PlayerWhereInput | PlayerWhereInput[]
+    OR?: PlayerWhereInput[]
+    NOT?: PlayerWhereInput | PlayerWhereInput[]
+    playerId?: StringFilter<"Player"> | string
+    gameStates?: GameStateListRelationFilter
+  }
+
+  export type PlayerOrderByWithRelationInput = {
+    playerId?: SortOrder
+    gameStates?: GameStateOrderByRelationAggregateInput
+  }
+
+  export type PlayerWhereUniqueInput = Prisma.AtLeast<{
+    playerId?: string
+    AND?: PlayerWhereInput | PlayerWhereInput[]
+    OR?: PlayerWhereInput[]
+    NOT?: PlayerWhereInput | PlayerWhereInput[]
+    gameStates?: GameStateListRelationFilter
+  }, "playerId">
+
+  export type PlayerOrderByWithAggregationInput = {
+    playerId?: SortOrder
+    _count?: PlayerCountOrderByAggregateInput
+    _max?: PlayerMaxOrderByAggregateInput
+    _min?: PlayerMinOrderByAggregateInput
+  }
+
+  export type PlayerScalarWhereWithAggregatesInput = {
+    AND?: PlayerScalarWhereWithAggregatesInput | PlayerScalarWhereWithAggregatesInput[]
+    OR?: PlayerScalarWhereWithAggregatesInput[]
+    NOT?: PlayerScalarWhereWithAggregatesInput | PlayerScalarWhereWithAggregatesInput[]
+    playerId?: StringWithAggregatesFilter<"Player"> | string
+  }
+
   export type TileMapCreateInput = {
     tileMapId?: string
     createdAt?: Date | string
@@ -6915,6 +9120,98 @@ export namespace Prisma {
     color?: StringFieldUpdateOperationsInput | string
   }
 
+  export type GameStateCreateInput = {
+    gameId?: string
+    gameState: JsonNullValueInput | InputJsonValue
+    gameConfiguration: JsonNullValueInput | InputJsonValue
+    currentGameState: string
+    gameType: string
+    players?: PlayerCreateNestedManyWithoutGameStatesInput
+  }
+
+  export type GameStateUncheckedCreateInput = {
+    gameId?: string
+    gameState: JsonNullValueInput | InputJsonValue
+    gameConfiguration: JsonNullValueInput | InputJsonValue
+    currentGameState: string
+    gameType: string
+    players?: PlayerUncheckedCreateNestedManyWithoutGameStatesInput
+  }
+
+  export type GameStateUpdateInput = {
+    gameId?: StringFieldUpdateOperationsInput | string
+    gameState?: JsonNullValueInput | InputJsonValue
+    gameConfiguration?: JsonNullValueInput | InputJsonValue
+    currentGameState?: StringFieldUpdateOperationsInput | string
+    gameType?: StringFieldUpdateOperationsInput | string
+    players?: PlayerUpdateManyWithoutGameStatesNestedInput
+  }
+
+  export type GameStateUncheckedUpdateInput = {
+    gameId?: StringFieldUpdateOperationsInput | string
+    gameState?: JsonNullValueInput | InputJsonValue
+    gameConfiguration?: JsonNullValueInput | InputJsonValue
+    currentGameState?: StringFieldUpdateOperationsInput | string
+    gameType?: StringFieldUpdateOperationsInput | string
+    players?: PlayerUncheckedUpdateManyWithoutGameStatesNestedInput
+  }
+
+  export type GameStateCreateManyInput = {
+    gameId?: string
+    gameState: JsonNullValueInput | InputJsonValue
+    gameConfiguration: JsonNullValueInput | InputJsonValue
+    currentGameState: string
+    gameType: string
+  }
+
+  export type GameStateUpdateManyMutationInput = {
+    gameId?: StringFieldUpdateOperationsInput | string
+    gameState?: JsonNullValueInput | InputJsonValue
+    gameConfiguration?: JsonNullValueInput | InputJsonValue
+    currentGameState?: StringFieldUpdateOperationsInput | string
+    gameType?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GameStateUncheckedUpdateManyInput = {
+    gameId?: StringFieldUpdateOperationsInput | string
+    gameState?: JsonNullValueInput | InputJsonValue
+    gameConfiguration?: JsonNullValueInput | InputJsonValue
+    currentGameState?: StringFieldUpdateOperationsInput | string
+    gameType?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayerCreateInput = {
+    playerId?: string
+    gameStates?: GameStateCreateNestedManyWithoutPlayersInput
+  }
+
+  export type PlayerUncheckedCreateInput = {
+    playerId?: string
+    gameStates?: GameStateUncheckedCreateNestedManyWithoutPlayersInput
+  }
+
+  export type PlayerUpdateInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+    gameStates?: GameStateUpdateManyWithoutPlayersNestedInput
+  }
+
+  export type PlayerUncheckedUpdateInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+    gameStates?: GameStateUncheckedUpdateManyWithoutPlayersNestedInput
+  }
+
+  export type PlayerCreateManyInput = {
+    playerId?: string
+  }
+
+  export type PlayerUpdateManyMutationInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayerUncheckedUpdateManyInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -7180,6 +9477,105 @@ export namespace Prisma {
     onTileId?: SortOrder
     tileGameId?: SortOrder
     color?: SortOrder
+  }
+  export type JsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type PlayerListRelationFilter = {
+    every?: PlayerWhereInput
+    some?: PlayerWhereInput
+    none?: PlayerWhereInput
+  }
+
+  export type PlayerOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GameStateCountOrderByAggregateInput = {
+    gameId?: SortOrder
+    gameState?: SortOrder
+    gameConfiguration?: SortOrder
+    currentGameState?: SortOrder
+    gameType?: SortOrder
+  }
+
+  export type GameStateMaxOrderByAggregateInput = {
+    gameId?: SortOrder
+    currentGameState?: SortOrder
+    gameType?: SortOrder
+  }
+
+  export type GameStateMinOrderByAggregateInput = {
+    gameId?: SortOrder
+    currentGameState?: SortOrder
+    gameType?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type GameStateListRelationFilter = {
+    every?: GameStateWhereInput
+    some?: GameStateWhereInput
+    none?: GameStateWhereInput
+  }
+
+  export type GameStateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlayerCountOrderByAggregateInput = {
+    playerId?: SortOrder
+  }
+
+  export type PlayerMaxOrderByAggregateInput = {
+    playerId?: SortOrder
+  }
+
+  export type PlayerMinOrderByAggregateInput = {
+    playerId?: SortOrder
   }
 
   export type TileCreateNestedManyWithoutTileMapInput = {
@@ -7534,6 +9930,82 @@ export namespace Prisma {
     update?: XOR<XOR<TileGameUpdateToOneWithWhereWithoutTilePawnInput, TileGameUpdateWithoutTilePawnInput>, TileGameUncheckedUpdateWithoutTilePawnInput>
   }
 
+  export type PlayerCreateNestedManyWithoutGameStatesInput = {
+    create?: XOR<PlayerCreateWithoutGameStatesInput, PlayerUncheckedCreateWithoutGameStatesInput> | PlayerCreateWithoutGameStatesInput[] | PlayerUncheckedCreateWithoutGameStatesInput[]
+    connectOrCreate?: PlayerCreateOrConnectWithoutGameStatesInput | PlayerCreateOrConnectWithoutGameStatesInput[]
+    connect?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
+  }
+
+  export type PlayerUncheckedCreateNestedManyWithoutGameStatesInput = {
+    create?: XOR<PlayerCreateWithoutGameStatesInput, PlayerUncheckedCreateWithoutGameStatesInput> | PlayerCreateWithoutGameStatesInput[] | PlayerUncheckedCreateWithoutGameStatesInput[]
+    connectOrCreate?: PlayerCreateOrConnectWithoutGameStatesInput | PlayerCreateOrConnectWithoutGameStatesInput[]
+    connect?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
+  }
+
+  export type PlayerUpdateManyWithoutGameStatesNestedInput = {
+    create?: XOR<PlayerCreateWithoutGameStatesInput, PlayerUncheckedCreateWithoutGameStatesInput> | PlayerCreateWithoutGameStatesInput[] | PlayerUncheckedCreateWithoutGameStatesInput[]
+    connectOrCreate?: PlayerCreateOrConnectWithoutGameStatesInput | PlayerCreateOrConnectWithoutGameStatesInput[]
+    upsert?: PlayerUpsertWithWhereUniqueWithoutGameStatesInput | PlayerUpsertWithWhereUniqueWithoutGameStatesInput[]
+    set?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
+    disconnect?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
+    delete?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
+    connect?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
+    update?: PlayerUpdateWithWhereUniqueWithoutGameStatesInput | PlayerUpdateWithWhereUniqueWithoutGameStatesInput[]
+    updateMany?: PlayerUpdateManyWithWhereWithoutGameStatesInput | PlayerUpdateManyWithWhereWithoutGameStatesInput[]
+    deleteMany?: PlayerScalarWhereInput | PlayerScalarWhereInput[]
+  }
+
+  export type PlayerUncheckedUpdateManyWithoutGameStatesNestedInput = {
+    create?: XOR<PlayerCreateWithoutGameStatesInput, PlayerUncheckedCreateWithoutGameStatesInput> | PlayerCreateWithoutGameStatesInput[] | PlayerUncheckedCreateWithoutGameStatesInput[]
+    connectOrCreate?: PlayerCreateOrConnectWithoutGameStatesInput | PlayerCreateOrConnectWithoutGameStatesInput[]
+    upsert?: PlayerUpsertWithWhereUniqueWithoutGameStatesInput | PlayerUpsertWithWhereUniqueWithoutGameStatesInput[]
+    set?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
+    disconnect?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
+    delete?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
+    connect?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
+    update?: PlayerUpdateWithWhereUniqueWithoutGameStatesInput | PlayerUpdateWithWhereUniqueWithoutGameStatesInput[]
+    updateMany?: PlayerUpdateManyWithWhereWithoutGameStatesInput | PlayerUpdateManyWithWhereWithoutGameStatesInput[]
+    deleteMany?: PlayerScalarWhereInput | PlayerScalarWhereInput[]
+  }
+
+  export type GameStateCreateNestedManyWithoutPlayersInput = {
+    create?: XOR<GameStateCreateWithoutPlayersInput, GameStateUncheckedCreateWithoutPlayersInput> | GameStateCreateWithoutPlayersInput[] | GameStateUncheckedCreateWithoutPlayersInput[]
+    connectOrCreate?: GameStateCreateOrConnectWithoutPlayersInput | GameStateCreateOrConnectWithoutPlayersInput[]
+    connect?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
+  }
+
+  export type GameStateUncheckedCreateNestedManyWithoutPlayersInput = {
+    create?: XOR<GameStateCreateWithoutPlayersInput, GameStateUncheckedCreateWithoutPlayersInput> | GameStateCreateWithoutPlayersInput[] | GameStateUncheckedCreateWithoutPlayersInput[]
+    connectOrCreate?: GameStateCreateOrConnectWithoutPlayersInput | GameStateCreateOrConnectWithoutPlayersInput[]
+    connect?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
+  }
+
+  export type GameStateUpdateManyWithoutPlayersNestedInput = {
+    create?: XOR<GameStateCreateWithoutPlayersInput, GameStateUncheckedCreateWithoutPlayersInput> | GameStateCreateWithoutPlayersInput[] | GameStateUncheckedCreateWithoutPlayersInput[]
+    connectOrCreate?: GameStateCreateOrConnectWithoutPlayersInput | GameStateCreateOrConnectWithoutPlayersInput[]
+    upsert?: GameStateUpsertWithWhereUniqueWithoutPlayersInput | GameStateUpsertWithWhereUniqueWithoutPlayersInput[]
+    set?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
+    disconnect?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
+    delete?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
+    connect?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
+    update?: GameStateUpdateWithWhereUniqueWithoutPlayersInput | GameStateUpdateWithWhereUniqueWithoutPlayersInput[]
+    updateMany?: GameStateUpdateManyWithWhereWithoutPlayersInput | GameStateUpdateManyWithWhereWithoutPlayersInput[]
+    deleteMany?: GameStateScalarWhereInput | GameStateScalarWhereInput[]
+  }
+
+  export type GameStateUncheckedUpdateManyWithoutPlayersNestedInput = {
+    create?: XOR<GameStateCreateWithoutPlayersInput, GameStateUncheckedCreateWithoutPlayersInput> | GameStateCreateWithoutPlayersInput[] | GameStateUncheckedCreateWithoutPlayersInput[]
+    connectOrCreate?: GameStateCreateOrConnectWithoutPlayersInput | GameStateCreateOrConnectWithoutPlayersInput[]
+    upsert?: GameStateUpsertWithWhereUniqueWithoutPlayersInput | GameStateUpsertWithWhereUniqueWithoutPlayersInput[]
+    set?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
+    disconnect?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
+    delete?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
+    connect?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
+    update?: GameStateUpdateWithWhereUniqueWithoutPlayersInput | GameStateUpdateWithWhereUniqueWithoutPlayersInput[]
+    updateMany?: GameStateUpdateManyWithWhereWithoutPlayersInput | GameStateUpdateManyWithWhereWithoutPlayersInput[]
+    deleteMany?: GameStateScalarWhereInput | GameStateScalarWhereInput[]
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -7626,6 +10098,28 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+  export type NestedJsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type TileCreateWithoutTileMapInput = {
@@ -8239,6 +10733,90 @@ export namespace Prisma {
     state?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PlayerCreateWithoutGameStatesInput = {
+    playerId?: string
+  }
+
+  export type PlayerUncheckedCreateWithoutGameStatesInput = {
+    playerId?: string
+  }
+
+  export type PlayerCreateOrConnectWithoutGameStatesInput = {
+    where: PlayerWhereUniqueInput
+    create: XOR<PlayerCreateWithoutGameStatesInput, PlayerUncheckedCreateWithoutGameStatesInput>
+  }
+
+  export type PlayerUpsertWithWhereUniqueWithoutGameStatesInput = {
+    where: PlayerWhereUniqueInput
+    update: XOR<PlayerUpdateWithoutGameStatesInput, PlayerUncheckedUpdateWithoutGameStatesInput>
+    create: XOR<PlayerCreateWithoutGameStatesInput, PlayerUncheckedCreateWithoutGameStatesInput>
+  }
+
+  export type PlayerUpdateWithWhereUniqueWithoutGameStatesInput = {
+    where: PlayerWhereUniqueInput
+    data: XOR<PlayerUpdateWithoutGameStatesInput, PlayerUncheckedUpdateWithoutGameStatesInput>
+  }
+
+  export type PlayerUpdateManyWithWhereWithoutGameStatesInput = {
+    where: PlayerScalarWhereInput
+    data: XOR<PlayerUpdateManyMutationInput, PlayerUncheckedUpdateManyWithoutGameStatesInput>
+  }
+
+  export type PlayerScalarWhereInput = {
+    AND?: PlayerScalarWhereInput | PlayerScalarWhereInput[]
+    OR?: PlayerScalarWhereInput[]
+    NOT?: PlayerScalarWhereInput | PlayerScalarWhereInput[]
+    playerId?: StringFilter<"Player"> | string
+  }
+
+  export type GameStateCreateWithoutPlayersInput = {
+    gameId?: string
+    gameState: JsonNullValueInput | InputJsonValue
+    gameConfiguration: JsonNullValueInput | InputJsonValue
+    currentGameState: string
+    gameType: string
+  }
+
+  export type GameStateUncheckedCreateWithoutPlayersInput = {
+    gameId?: string
+    gameState: JsonNullValueInput | InputJsonValue
+    gameConfiguration: JsonNullValueInput | InputJsonValue
+    currentGameState: string
+    gameType: string
+  }
+
+  export type GameStateCreateOrConnectWithoutPlayersInput = {
+    where: GameStateWhereUniqueInput
+    create: XOR<GameStateCreateWithoutPlayersInput, GameStateUncheckedCreateWithoutPlayersInput>
+  }
+
+  export type GameStateUpsertWithWhereUniqueWithoutPlayersInput = {
+    where: GameStateWhereUniqueInput
+    update: XOR<GameStateUpdateWithoutPlayersInput, GameStateUncheckedUpdateWithoutPlayersInput>
+    create: XOR<GameStateCreateWithoutPlayersInput, GameStateUncheckedCreateWithoutPlayersInput>
+  }
+
+  export type GameStateUpdateWithWhereUniqueWithoutPlayersInput = {
+    where: GameStateWhereUniqueInput
+    data: XOR<GameStateUpdateWithoutPlayersInput, GameStateUncheckedUpdateWithoutPlayersInput>
+  }
+
+  export type GameStateUpdateManyWithWhereWithoutPlayersInput = {
+    where: GameStateScalarWhereInput
+    data: XOR<GameStateUpdateManyMutationInput, GameStateUncheckedUpdateManyWithoutPlayersInput>
+  }
+
+  export type GameStateScalarWhereInput = {
+    AND?: GameStateScalarWhereInput | GameStateScalarWhereInput[]
+    OR?: GameStateScalarWhereInput[]
+    NOT?: GameStateScalarWhereInput | GameStateScalarWhereInput[]
+    gameId?: StringFilter<"GameState"> | string
+    gameState?: JsonFilter<"GameState">
+    gameConfiguration?: JsonFilter<"GameState">
+    currentGameState?: StringFilter<"GameState"> | string
+    gameType?: StringFilter<"GameState"> | string
+  }
+
   export type TileCreateManyTileMapInput = {
     tileId?: string
     createdAt?: Date | string
@@ -8419,6 +10997,42 @@ export namespace Prisma {
     color?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PlayerUpdateWithoutGameStatesInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayerUncheckedUpdateWithoutGameStatesInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayerUncheckedUpdateManyWithoutGameStatesInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GameStateUpdateWithoutPlayersInput = {
+    gameId?: StringFieldUpdateOperationsInput | string
+    gameState?: JsonNullValueInput | InputJsonValue
+    gameConfiguration?: JsonNullValueInput | InputJsonValue
+    currentGameState?: StringFieldUpdateOperationsInput | string
+    gameType?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GameStateUncheckedUpdateWithoutPlayersInput = {
+    gameId?: StringFieldUpdateOperationsInput | string
+    gameState?: JsonNullValueInput | InputJsonValue
+    gameConfiguration?: JsonNullValueInput | InputJsonValue
+    currentGameState?: StringFieldUpdateOperationsInput | string
+    gameType?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GameStateUncheckedUpdateManyWithoutPlayersInput = {
+    gameId?: StringFieldUpdateOperationsInput | string
+    gameState?: JsonNullValueInput | InputJsonValue
+    gameConfiguration?: JsonNullValueInput | InputJsonValue
+    currentGameState?: StringFieldUpdateOperationsInput | string
+    gameType?: StringFieldUpdateOperationsInput | string
+  }
+
 
 
   /**
@@ -8436,6 +11050,14 @@ export namespace Prisma {
      * @deprecated Use TileGameCountOutputTypeDefaultArgs instead
      */
     export type TileGameCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TileGameCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use GameStateCountOutputTypeDefaultArgs instead
+     */
+    export type GameStateCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GameStateCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PlayerCountOutputTypeDefaultArgs instead
+     */
+    export type PlayerCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlayerCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use TileMapDefaultArgs instead
      */
@@ -8456,6 +11078,14 @@ export namespace Prisma {
      * @deprecated Use TilePawnDefaultArgs instead
      */
     export type TilePawnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TilePawnDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use GameStateDefaultArgs instead
+     */
+    export type GameStateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GameStateDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PlayerDefaultArgs instead
+     */
+    export type PlayerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlayerDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

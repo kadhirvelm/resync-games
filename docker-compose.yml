@@ -31,6 +31,12 @@ services:
       - ./:/home/tiles-tbd:rw
     working_dir: /home/tiles-tbd/packages/api
     command: bash -c "corepack enable && yarn && cd ../../ && yarn dev api"
+  games:
+    image: node:22.5
+    volumes:
+      - ./:/home/tiles-tbd:rw
+    working_dir: /home/tiles-tbd/packages/games
+    command: bash -c "corepack enable && yarn && cd ../../ && yarn dev games"
   backend:
     image: node:22.5
     ports:

@@ -10,8 +10,6 @@ export interface GameState {
   gameId: GameId;
   gameState: object;
   gameType: GameType;
-  players: {
-    [player: PlayerId]: Record<string, never>;
-  };
+  players: PlayerId[];
   version: string;
 }

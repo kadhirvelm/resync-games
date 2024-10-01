@@ -2820,6 +2820,7 @@ __metadata:
     "@nestjs/websockets": "npm:^10.4.1"
     "@tiles-tbd/api": "workspace:^"
     "@tiles-tbd/database": "workspace:^"
+    "@tiles-tbd/games": "workspace:^"
     "@types/express": "npm:^4.17.21"
     "@types/fs-extra": "npm:^11.0.4"
     "@types/jest": "npm:^29.5.12"
@@ -2889,6 +2890,15 @@ __metadata:
     typescript: "npm:^5.5.4"
     typescript-plugin-css-modules: "npm:^5.1.0"
     uuid: "npm:^10.0.0"
+  languageName: unknown
+  linkType: soft
+
+"@tiles-tbd/games@workspace:^, @tiles-tbd/games@workspace:packages/games":
+  version: 0.0.0-use.local
+  resolution: "@tiles-tbd/games@workspace:packages/games"
+  dependencies:
+    eslint: "npm:^9.8.0"
+    typescript: "npm:^5.5.4"
   languageName: unknown
   linkType: soft
 
