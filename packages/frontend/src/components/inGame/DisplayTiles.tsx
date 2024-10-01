@@ -69,6 +69,7 @@ export class MagicMazeScene extends BaseScene {
   }
 
   createAndRenderPawns() {
+    // TODO: Clean up this gross mess
     const pawnsIndexed = selectPawnIndex(this.store.getState());
     const allPawnIds: Set<string> = new Set();
     for (const pawns of Object.values(pawnsIndexed)) {
@@ -107,6 +108,7 @@ export class MagicMazeScene extends BaseScene {
   }
 
   movePawns() {
+    // TODO: Clean up this gross mess
     const pawnsIndexed = selectPawnIndex(this.store.getState());
     const numPawns = Array.from(Object.values(pawnsIndexed)).length;
     const sqDimension = Math.ceil(Math.sqrt(numPawns));
