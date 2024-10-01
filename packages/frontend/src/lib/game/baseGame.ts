@@ -5,20 +5,21 @@ export class BaseGame {
   private game: Game;
 
   constructor(
-    private parent: HTMLCanvasElement,
+    private parent: HTMLElement,
     private scenes: BaseScene[],
-    private resolution: {
+    resolution?: {
       height: number;
       width: number;
     }
   ) {
     this.game = new Game({
-      backgroundColor: "#000",
-      height: this.resolution.height,
+      backgroundColor: "#FFFFFF",
+      // Set the height to be the same as the window height
+      height: resolution?.height ?? window.innerHeight,
       parent: this.parent,
       scene: this.scenes,
       type: Phaser.AUTO,
-      width: this.resolution.width
+      width: resolution?.width ?? window.innerWidth
     });
   }
 

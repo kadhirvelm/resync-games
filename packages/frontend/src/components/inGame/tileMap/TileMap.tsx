@@ -6,7 +6,7 @@ import {
   TileGameId
 } from "@tiles-tbd/api";
 import React from "react";
-import { DisplayTiles } from "../DisplayTiles";
+import { DisplayTiles, DynamicMagicMazeGame } from "../DisplayTiles";
 import { SocketStatus } from "../SocketStatus";
 import { PawnMovement } from "./PawnMovement";
 import { SelectPawn } from "./SelectPawn";
@@ -25,7 +25,8 @@ export const TileMap = ({
   return (
     <>
       <Flex direction="row" style={{ padding: "10px" }}>
-        <DisplayTiles tiles={tileMap.tiles} />
+        <DynamicMagicMazeGame />
+        {/* <DisplayTiles tiles={tileMap.tiles} /> */}
       </Flex>
       <GoHome />
       <SelectPawn />

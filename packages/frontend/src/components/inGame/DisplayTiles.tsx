@@ -3,6 +3,9 @@ import { Tile } from "@tiles-tbd/api";
 import { selectPawnIndex } from "@/stores/tiles/selectors/selectPawnState";
 import { useTileSelector } from "@/stores/tiles/tilesStore";
 import { useImageCache } from "./utils/imageCache";
+import { BaseScene } from "@/lib/game/baseScene";
+import { BaseGame } from "@/lib/game/baseGame";
+import dynamic from "next/dynamic";
 
 const COLORS = {
   blue: "#2e86c1",
@@ -10,6 +13,36 @@ const COLORS = {
   red: "#cb4335",
   yellow: "#f1c40f"
 };
+
+export class MagicMazeScene extends BaseScene {
+  constructor() {
+    super("MagicMazeScene");
+  }
+
+  preload() {
+    console.log("this got called");
+    this.load.setBaseURL("http://localhost:3000");
+    this.load.image("tile", "images/tile.png");
+  }
+
+  create() {
+    this.add.image(400, 300, "tile");
+  }
+
+  update() {
+    return;
+  }
+
+  shutdown() {
+    return;
+  }
+}
+
+export class MagicMazeGame extends BaseGame {
+  constructor(parent: HTMLElement) {
+    super(parent, [new MagicMazeScene()]);
+  }
+}
 
 const Canvas = ({
   width,
@@ -167,3 +200,25 @@ export const DisplayTiles = ({
     </div>
   );
 };
+
+export const DisplayMagicMazeGame = () => {
+  const parentElement = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (parentElement.current) {
+      const game = new MagicMazeGame(parentElement.current);
+      return () => {
+        game.destroy();
+      };
+    }
+  });
+
+  return <div ref={parentElement} />;
+};
+
+export const DynamicMagicMazeGame = dynamic(
+  () => Promise.resolve(DisplayMagicMazeGame),
+  {
+    ssr: false
+  }
+);
