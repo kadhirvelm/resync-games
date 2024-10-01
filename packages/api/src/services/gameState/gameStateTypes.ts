@@ -10,6 +10,6 @@ export interface GameState {
   gameId: GameId;
   gameState: object;
   gameType: GameType;
-  players: PlayerId[];
+  playerIds: PlayerId[];
   version: string;
 }

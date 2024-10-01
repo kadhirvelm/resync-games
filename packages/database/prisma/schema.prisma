@@ -75,6 +75,7 @@ model GameState {
   gameConfiguration Json     @map("game_configuration")
   currentGameState  String   @map("current_game_state")
   gameType          String   @map("game_type")
+  version           String   @map("version")
   players           Player[]
 }
 
