@@ -1,31 +1,22 @@
 "use client";
 
 import { useTileSocket } from "@/socket/useTileSocket";
-import {
-  CompleteTileMap as ICompleteTileMap,
-  TileGameId
-} from "@tiles-tbd/api";
+import { TileGameId } from "@tiles-tbd/api";
 import React from "react";
-import { DisplayTiles } from "../DisplayTiles";
+import { DynamicMagicMazeGame } from "../DisplayTiles";
 import { SocketStatus } from "../SocketStatus";
 import { PawnMovement } from "./PawnMovement";
 import { SelectPawn } from "./SelectPawn";
 import { Flex } from "@/lib/radix/Flex";
 import { GoHome } from "./GoHome";
 
-export const TileMap = ({
-  tileMap,
-  tileGameId
-}: {
-  tileGameId: TileGameId;
-  tileMap: ICompleteTileMap;
-}) => {
+export const TileMap = ({ tileGameId }: { tileGameId: TileGameId }) => {
   const { connectionStatus } = useTileSocket(tileGameId);
 
   return (
     <>
       <Flex direction="row" style={{ padding: "10px" }}>
-        <DisplayTiles tiles={tileMap.tiles} />
+        <DynamicMagicMazeGame />
       </Flex>
       <GoHome />
       <SelectPawn />

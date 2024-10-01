@@ -17,6 +17,7 @@
     "clsx": "^2.1.1",
     "lodash-es": "^4.17.21",
     "next": "14.2.5",
+    "phaser": "v3.85.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.1.2",

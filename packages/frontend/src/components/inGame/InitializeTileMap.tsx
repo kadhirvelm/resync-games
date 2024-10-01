@@ -13,6 +13,7 @@ import {
 import { indexTileMap } from "./utils/indexTileMap";
 import { TileMap } from "./tileMap/TileMap";
 import { ClientGate } from "@/lib/ClientGate";
+import { setMap } from "@/stores/tiles/tileMap";
 
 const DEFAULT_GAME_ID = "DEFAULT_GAME_ID" as TileGameId;
 
@@ -25,23 +26,21 @@ export const InitializeTileMap = ({
 }) => {
   const { outboundEdges, tilesIndexed } = indexTileMap(tileMap);
 
-  const createInitialPawns = (dispatch: Dispatch<UnknownAction>) => {
+  const createInitialStore = (dispatch: Dispatch<UnknownAction>) => {
     dispatch(
       initialize({ outboundEdges, pawns: game?.pawns ?? [], tilesIndexed })
     );
     dispatch(setGame(game));
+    dispatch(setMap(tileMap));
   };
 
   return (
     <ClientGate>
       <ReduxGate
         createStore={initializeTileStore}
-        initializeStore={createInitialPawns}
+        initializeStore={createInitialStore}
       >
-        <TileMap
-          tileGameId={game?.tileGameId ?? DEFAULT_GAME_ID}
-          tileMap={tileMap}
-        />
+        <TileMap tileGameId={game?.tileGameId ?? DEFAULT_GAME_ID} />
       </ReduxGate>
     </ClientGate>
   );
