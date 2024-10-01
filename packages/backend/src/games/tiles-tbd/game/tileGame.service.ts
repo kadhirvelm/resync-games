@@ -5,9 +5,9 @@ import {
   TileGameId
 } from "@tiles-tbd/api";
 import * as _ from "lodash";
-import { PrismaService } from "src/database/prisma.service";
-import { TileMapService } from "src/map/tileMap.service";
-import { SocketGateway } from "src/socket/socket.gateway";
+import { PrismaService } from "src/games/tiles-tbd/database/prisma.service";
+import { TileMapService } from "src/games/tiles-tbd/map/tileMap.service";
+import { TileSocketGateway } from "../socket/tileSocket.gateway";
 import { TILE_GAME_PAWN_COLORS } from "./tileGame.constants";
 
 @Injectable()
@@ -15,7 +15,7 @@ export class TileGameService {
   public constructor(
     private prismaService: PrismaService,
     private tileMapService: TileMapService,
-    private socketGateway: SocketGateway
+    private socketGateway: TileSocketGateway
   ) {}
 
   public getAvailableGames = async () => {
