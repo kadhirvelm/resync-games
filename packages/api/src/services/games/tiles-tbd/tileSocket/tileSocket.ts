@@ -1,5 +1,5 @@
-import { HandleMessage, SocketDefinition } from "../genericTypes/socket";
-import { IdentifySocket, NewPawnState } from "./tileSocket/types";
+import { HandleMessage, SocketDefinition } from "../../../../genericTypes";
+import { IdentifySocket, NewPawnState } from "./types";
 
 export interface TileFromClientToServer extends HandleMessage {
   identify: IdentifySocket;
