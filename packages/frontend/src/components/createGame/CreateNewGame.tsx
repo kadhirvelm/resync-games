@@ -4,7 +4,11 @@ import { Select } from "@/lib/radix/Select";
 import { TextField } from "@/lib/radix/TextField";
 import { ClientServiceCallers } from "@/services/serviceCallers";
 import { Slider, Text } from "@radix-ui/themes";
-import { CreateTileGameRequest, isServiceError, TileMap } from "@tiles-tbd/api";
+import {
+  CreateTileGameRequest,
+  isServiceError,
+  TileMap
+} from "@resync-games/api";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from "./CreateNewGame.module.scss";
@@ -42,7 +46,7 @@ export function CreateNewGame({ tileMaps }: { tileMaps: TileMap[] }) {
   const generateTileMap = async () => {
     setIsCreatingMap(true);
     const maybeTileMapIdResponse =
-      await ClientServiceCallers.tileMap.generateTileMap({
+      await ClientServiceCallers.snatchTheSnackMaps.generateTileMap({
         generatorName: "magicMazeSimple"
       });
     setIsCreatingMap(false);
@@ -67,7 +71,7 @@ export function CreateNewGame({ tileMaps }: { tileMaps: TileMap[] }) {
       return;
     }
 
-    router.push(`/tile-game/${maybeNewGame.game.tileGameId}`);
+    router.push(`/snatch-the-snack/${maybeNewGame.game.tileGameId}`);
   };
 
   const onNumberOfPawnsChange = ([numberOfPawns]: [number]) =>

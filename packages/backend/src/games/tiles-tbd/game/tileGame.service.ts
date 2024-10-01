@@ -3,12 +3,12 @@ import {
   CreateTileGameRequest,
   MovePawnRequest,
   TileGameId
-} from "@tiles-tbd/api";
+} from "@resync-games/api";
 import * as _ from "lodash";
-import { PrismaService } from "src/games/tiles-tbd/database/prisma.service";
-import { TileMapService } from "src/games/tiles-tbd/map/tileMap.service";
 import { TileSocketGateway } from "../socket/tileSocket.gateway";
 import { TILE_GAME_PAWN_COLORS } from "./tileGame.constants";
+import { TileMapService } from "../map/tileMap.service";
+import { PrismaService } from "../database/prisma.service";
 
 @Injectable()
 export class TileGameService {

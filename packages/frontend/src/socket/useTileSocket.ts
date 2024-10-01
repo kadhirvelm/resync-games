@@ -1,7 +1,7 @@
 "use client";
 
 import { getSocketEmitter, registerSocketHandler } from "@/services/socket";
-import { TileClientSocketDefinition, TileGameId } from "@tiles-tbd/api";
+import { TileClientSocketDefinition, TileGameId } from "@resync-games/api";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 import { v4 } from "uuid";

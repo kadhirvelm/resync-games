@@ -1,4 +1,4 @@
-import { CompleteTileMap } from "@tiles-tbd/api";
+import { CompleteTileMap } from "@resync-games/api";
 
 export function indexTileMap(tileMap: CompleteTileMap) {
   const tilesIndexed = tileMap.tiles.reduce(

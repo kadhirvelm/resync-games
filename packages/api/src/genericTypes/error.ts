@@ -25,4 +25,11 @@ export interface ServiceError {
  */
 export const isServiceError = <T>(
   response: T | ServiceError
-): response is ServiceError => (response as ServiceError).type === "error";
+): response is ServiceError => {
+  const isError = (response as ServiceError).type === "error";
+  if (isError) {
+    console.error(response);
+  }
+
+  return isError;
+};

@@ -1,6 +1,10 @@
 import { HandleMessage, SocketDefinition } from "../../../../genericTypes";
 import { IdentifySocket, NewPawnState } from "./types";
 
+/**
+ * TO BE DEPRECATED
+ */
+
 export interface TileFromClientToServer extends HandleMessage {
   identify: IdentifySocket;
 }

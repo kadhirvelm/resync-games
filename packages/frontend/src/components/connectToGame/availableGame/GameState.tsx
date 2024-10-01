@@ -1,5 +1,5 @@
 import { Flex } from "@/lib/radix/Flex";
-import { TileGameState } from "@tiles-tbd/api";
+import { TileGameState } from "@resync-games/api";
 import { capitalize } from "lodash-es";
 import { Text } from "@radix-ui/themes";
 import styles from "./GameState.module.scss";

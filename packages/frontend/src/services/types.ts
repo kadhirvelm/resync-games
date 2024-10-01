@@ -3,7 +3,7 @@ import {
   RemoveExtendsString,
   Service,
   ServiceError
-} from "@tiles-tbd/api";
+} from "@resync-games/api";
 
 /**
  * Used to call on the backend services from the browser for a specific service.

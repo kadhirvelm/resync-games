@@ -1,5 +1,5 @@
 {
-  "name": "tiles-tbd",
+  "name": "resync-games",
   "packageManager": "yarn@4.3.1",
   "private": true,
   "workspaces": [
@@ -10,10 +10,10 @@
   },
   "scripts": {
     "ci": "turbo run ci",
-    "dev": "turbo run dev --filter=@tiles-tbd/${0}",
-    "docker": "open /Applications/Docker.app && docker-compose -p tiles-tbd -f docker-compose.yml up -d",
-    "deploy": "sudo -E docker-compose -p tiles-tbd -f docker-compose.yml up -d",
-    "migrate": "turbo run db:migrate --filter=@tiles-tbd/database"
+    "dev": "turbo run dev --filter=@resync-games/${0}",
+    "docker": "open /Applications/Docker.app && docker-compose -p resync-games -f docker-compose.yml up -d",
+    "deploy": "sudo -E docker-compose -p resync-games -f docker-compose.yml up -d",
+    "migrate": "turbo run db:migrate --filter=@resync-games/database"
   },
   "monorepo": true,
   "devDependencies": {

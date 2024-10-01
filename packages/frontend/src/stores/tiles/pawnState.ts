@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Edge, PawnId, Tile, TilePawn } from "@tiles-tbd/api";
+import { Edge, PawnId, Tile, TilePawn } from "@resync-games/api";
 import { keyBy } from "lodash-es";
 
 export interface PawnState {

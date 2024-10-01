@@ -1,5 +1,5 @@
 import { Post } from "@nestjs/common";
-import { RemoveExtendsString, Service } from "@tiles-tbd/api";
+import { RemoveExtendsString, Service } from "@resync-games/api";
 
 /**
  * Used to declare the interface for the expected backend implementation service.
