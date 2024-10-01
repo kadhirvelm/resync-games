@@ -40,10 +40,7 @@ export const InitializeTileMap = ({
         createStore={initializeTileStore}
         initializeStore={createInitialStore}
       >
-        <TileMap
-          tileGameId={game?.tileGameId ?? DEFAULT_GAME_ID}
-          tileMap={tileMap}
-        />
+        <TileMap tileGameId={game?.tileGameId ?? DEFAULT_GAME_ID} />
       </ReduxGate>
     </ClientGate>
   );
