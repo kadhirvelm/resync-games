@@ -6431,12 +6431,14 @@ export namespace Prisma {
     gameId: string | null
     currentGameState: string | null
     gameType: string | null
+    version: string | null
   }
 
   export type GameStateMaxAggregateOutputType = {
     gameId: string | null
     currentGameState: string | null
     gameType: string | null
+    version: string | null
   }
 
   export type GameStateCountAggregateOutputType = {
@@ -6445,6 +6447,7 @@ export namespace Prisma {
     gameConfiguration: number
     currentGameState: number
     gameType: number
+    version: number
     _all: number
   }
 
@@ -6453,12 +6456,14 @@ export namespace Prisma {
     gameId?: true
     currentGameState?: true
     gameType?: true
+    version?: true
   }
 
   export type GameStateMaxAggregateInputType = {
     gameId?: true
     currentGameState?: true
     gameType?: true
+    version?: true
   }
 
   export type GameStateCountAggregateInputType = {
@@ -6467,6 +6472,7 @@ export namespace Prisma {
     gameConfiguration?: true
     currentGameState?: true
     gameType?: true
+    version?: true
     _all?: true
   }
 
@@ -6548,6 +6554,7 @@ export namespace Prisma {
     gameConfiguration: JsonValue
     currentGameState: string
     gameType: string
+    version: string
     _count: GameStateCountAggregateOutputType | null
     _min: GameStateMinAggregateOutputType | null
     _max: GameStateMaxAggregateOutputType | null
@@ -6573,6 +6580,7 @@ export namespace Prisma {
     gameConfiguration?: boolean
     currentGameState?: boolean
     gameType?: boolean
+    version?: boolean
     players?: boolean | GameState$playersArgs<ExtArgs>
     _count?: boolean | GameStateCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameState"]>
@@ -6583,6 +6591,7 @@ export namespace Prisma {
     gameConfiguration?: boolean
     currentGameState?: boolean
     gameType?: boolean
+    version?: boolean
   }, ExtArgs["result"]["gameState"]>
 
   export type GameStateSelectScalar = {
@@ -6591,6 +6600,7 @@ export namespace Prisma {
     gameConfiguration?: boolean
     currentGameState?: boolean
     gameType?: boolean
+    version?: boolean
   }
 
   export type GameStateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6610,6 +6620,7 @@ export namespace Prisma {
       gameConfiguration: Prisma.JsonValue
       currentGameState: string
       gameType: string
+      version: string
     }, ExtArgs["result"]["gameState"]>
     composites: {}
   }
@@ -7009,6 +7020,7 @@ export namespace Prisma {
     readonly gameConfiguration: FieldRef<"GameState", 'Json'>
     readonly currentGameState: FieldRef<"GameState", 'String'>
     readonly gameType: FieldRef<"GameState", 'String'>
+    readonly version: FieldRef<"GameState", 'String'>
   }
     
 
@@ -8330,7 +8342,8 @@ export namespace Prisma {
     gameState: 'gameState',
     gameConfiguration: 'gameConfiguration',
     currentGameState: 'currentGameState',
-    gameType: 'gameType'
+    gameType: 'gameType',
+    version: 'version'
   };
 
   export type GameStateScalarFieldEnum = (typeof GameStateScalarFieldEnum)[keyof typeof GameStateScalarFieldEnum]
@@ -8748,6 +8761,7 @@ export namespace Prisma {
     gameConfiguration?: JsonFilter<"GameState">
     currentGameState?: StringFilter<"GameState"> | string
     gameType?: StringFilter<"GameState"> | string
+    version?: StringFilter<"GameState"> | string
     players?: PlayerListRelationFilter
   }
 
@@ -8757,6 +8771,7 @@ export namespace Prisma {
     gameConfiguration?: SortOrder
     currentGameState?: SortOrder
     gameType?: SortOrder
+    version?: SortOrder
     players?: PlayerOrderByRelationAggregateInput
   }
 
@@ -8769,6 +8784,7 @@ export namespace Prisma {
     gameConfiguration?: JsonFilter<"GameState">
     currentGameState?: StringFilter<"GameState"> | string
     gameType?: StringFilter<"GameState"> | string
+    version?: StringFilter<"GameState"> | string
     players?: PlayerListRelationFilter
   }, "gameId">
 
@@ -8778,6 +8794,7 @@ export namespace Prisma {
     gameConfiguration?: SortOrder
     currentGameState?: SortOrder
     gameType?: SortOrder
+    version?: SortOrder
     _count?: GameStateCountOrderByAggregateInput
     _max?: GameStateMaxOrderByAggregateInput
     _min?: GameStateMinOrderByAggregateInput
@@ -8792,6 +8809,7 @@ export namespace Prisma {
     gameConfiguration?: JsonWithAggregatesFilter<"GameState">
     currentGameState?: StringWithAggregatesFilter<"GameState"> | string
     gameType?: StringWithAggregatesFilter<"GameState"> | string
+    version?: StringWithAggregatesFilter<"GameState"> | string
   }
 
   export type PlayerWhereInput = {
@@ -9126,6 +9144,7 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: string
     gameType: string
+    version: string
     players?: PlayerCreateNestedManyWithoutGameStatesInput
   }
 
@@ -9135,6 +9154,7 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: string
     gameType: string
+    version: string
     players?: PlayerUncheckedCreateNestedManyWithoutGameStatesInput
   }
 
@@ -9144,6 +9164,7 @@ export namespace Prisma {
     gameConfiguration?: JsonNullValueInput | InputJsonValue
     currentGameState?: StringFieldUpdateOperationsInput | string
     gameType?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
     players?: PlayerUpdateManyWithoutGameStatesNestedInput
   }
 
@@ -9153,6 +9174,7 @@ export namespace Prisma {
     gameConfiguration?: JsonNullValueInput | InputJsonValue
     currentGameState?: StringFieldUpdateOperationsInput | string
     gameType?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
     players?: PlayerUncheckedUpdateManyWithoutGameStatesNestedInput
   }
 
@@ -9162,6 +9184,7 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: string
     gameType: string
+    version: string
   }
 
   export type GameStateUpdateManyMutationInput = {
@@ -9170,6 +9193,7 @@ export namespace Prisma {
     gameConfiguration?: JsonNullValueInput | InputJsonValue
     currentGameState?: StringFieldUpdateOperationsInput | string
     gameType?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
   }
 
   export type GameStateUncheckedUpdateManyInput = {
@@ -9178,6 +9202,7 @@ export namespace Prisma {
     gameConfiguration?: JsonNullValueInput | InputJsonValue
     currentGameState?: StringFieldUpdateOperationsInput | string
     gameType?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlayerCreateInput = {
@@ -9517,18 +9542,21 @@ export namespace Prisma {
     gameConfiguration?: SortOrder
     currentGameState?: SortOrder
     gameType?: SortOrder
+    version?: SortOrder
   }
 
   export type GameStateMaxOrderByAggregateInput = {
     gameId?: SortOrder
     currentGameState?: SortOrder
     gameType?: SortOrder
+    version?: SortOrder
   }
 
   export type GameStateMinOrderByAggregateInput = {
     gameId?: SortOrder
     currentGameState?: SortOrder
     gameType?: SortOrder
+    version?: SortOrder
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -10775,6 +10803,7 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: string
     gameType: string
+    version: string
   }
 
   export type GameStateUncheckedCreateWithoutPlayersInput = {
@@ -10783,6 +10812,7 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: string
     gameType: string
+    version: string
   }
 
   export type GameStateCreateOrConnectWithoutPlayersInput = {
@@ -10815,6 +10845,7 @@ export namespace Prisma {
     gameConfiguration?: JsonFilter<"GameState">
     currentGameState?: StringFilter<"GameState"> | string
     gameType?: StringFilter<"GameState"> | string
+    version?: StringFilter<"GameState"> | string
   }
 
   export type TileCreateManyTileMapInput = {
@@ -11015,6 +11046,7 @@ export namespace Prisma {
     gameConfiguration?: JsonNullValueInput | InputJsonValue
     currentGameState?: StringFieldUpdateOperationsInput | string
     gameType?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
   }
 
   export type GameStateUncheckedUpdateWithoutPlayersInput = {
@@ -11023,6 +11055,7 @@ export namespace Prisma {
     gameConfiguration?: JsonNullValueInput | InputJsonValue
     currentGameState?: StringFieldUpdateOperationsInput | string
     gameType?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
   }
 
   export type GameStateUncheckedUpdateManyWithoutPlayersInput = {
@@ -11031,6 +11064,7 @@ export namespace Prisma {
     gameConfiguration?: JsonNullValueInput | InputJsonValue
     currentGameState?: StringFieldUpdateOperationsInput | string
     gameType?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
   }
 
 

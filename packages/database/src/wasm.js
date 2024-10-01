@@ -163,7 +163,8 @@ exports.Prisma.GameStateScalarFieldEnum = {
   gameState: 'gameState',
   gameConfiguration: 'gameConfiguration',
   currentGameState: 'currentGameState',
-  gameType: 'gameType'
+  gameType: 'gameType',
+  version: 'version'
 };
 
 exports.Prisma.PlayerScalarFieldEnum = {

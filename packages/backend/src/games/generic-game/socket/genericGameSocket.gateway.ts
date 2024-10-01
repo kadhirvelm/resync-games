@@ -24,7 +24,7 @@ import { SocketGateway } from "src/genericTypes/socket.gateway";
     origin: "*"
   }
 })
-export class GameSocketGateway
+export class GenericGameSocketGateway
   extends SocketGateway
   implements SocketGatewayHandleMessage<GameStateFromClientToServer>
 {
