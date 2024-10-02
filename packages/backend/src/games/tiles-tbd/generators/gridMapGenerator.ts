@@ -12,7 +12,7 @@ import {
   Edge,
   CompleteTileMap,
   TileMap
-} from "@tiles-tbd/api";
+} from "@resync-games/api";
 import { BaseTileMapGenerator } from "./baseGenerator";
 
 type Directions = "N" | "S" | "E" | "W";

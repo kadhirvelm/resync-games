@@ -1,5 +1,5 @@
 import { useTileDispatch, useTileSelector } from "@/stores/tiles/tilesStore";
-import { TilePawn } from "@tiles-tbd/api";
+import { TilePawn } from "@resync-games/api";
 import { Text } from "@radix-ui/themes";
 import styles from "./SelectPawn.module.scss";
 import { setSelectedPawn } from "@/stores/tiles/pawnState";

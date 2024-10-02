@@ -1,7 +1,7 @@
 import { Flex } from "@/lib/radix/Flex";
 import { ServiceCallers } from "@/services/serviceCallers";
 import { Code, Text } from "@radix-ui/themes";
-import { isServiceError, TileMap, TileMapId } from "@tiles-tbd/api";
+import { isServiceError, TileMap, TileMapId } from "@resync-games/api";
 import { keyBy } from "lodash-es";
 import { AvailableGame } from "./availableGame/AvailableGame";
 import { NavigateToCreate } from "./availableGame/NavigateToCreate";

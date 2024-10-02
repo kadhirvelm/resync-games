@@ -8,7 +8,7 @@ import {
   CaretUpIcon
 } from "@radix-ui/react-icons";
 import { IconButton } from "@radix-ui/themes";
-import { Edge, isServiceError } from "@tiles-tbd/api";
+import { Edge, isServiceError } from "@resync-games/api";
 import styles from "./PawnMovement.module.scss";
 import clsx from "clsx";
 

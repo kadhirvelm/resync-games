@@ -2,6 +2,10 @@ import { Service, ServiceDefinition } from "../../../../genericTypes/service";
 import { PawnId, TileGame, TileGameId, TileGameWithPawns } from "./types";
 import { CompleteTileMap, TileId, TileMap, TileMapId } from "../tileMap/types";
 
+/**
+ * TO BE DEPRECATED
+ */
+
 export interface GetAvailableTileGamesResponse {
   tileGames: TileGame[];
   tileMaps: TileMap[];

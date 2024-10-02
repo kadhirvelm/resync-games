@@ -6,7 +6,7 @@ import {
   HttpStatus,
   Logger
 } from "@nestjs/common";
-import { ServiceError } from "@tiles-tbd/api";
+import { ServiceError } from "@resync-games/api";
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {

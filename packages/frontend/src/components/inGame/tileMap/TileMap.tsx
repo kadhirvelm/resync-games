@@ -1,7 +1,7 @@
 "use client";
 
 import { useTileSocket } from "@/socket/useTileSocket";
-import { TileGameId } from "@tiles-tbd/api";
+import { TileGameId } from "@resync-games/api";
 import React from "react";
 import { DynamicMagicMazeGame } from "../DisplayTiles";
 import { SocketStatus } from "../SocketStatus";

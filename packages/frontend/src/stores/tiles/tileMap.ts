@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CompleteTileMap } from "@tiles-tbd/api";
+import { CompleteTileMap } from "@resync-games/api";
 
 const initialState: {
   map: CompleteTileMap | undefined;

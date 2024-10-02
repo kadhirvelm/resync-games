@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TileGame } from "@tiles-tbd/api";
+import { TileGame } from "@resync-games/api";
 
 export interface TileGameState {
   game: TileGame | undefined;

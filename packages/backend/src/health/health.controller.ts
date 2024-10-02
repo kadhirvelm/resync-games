@@ -1,4 +1,4 @@
-import { HealthServiceApi, HealthServiceDefinition } from "@tiles-tbd/api";
+import { HealthServiceApi, HealthServiceDefinition } from "@resync-games/api";
 import {
   getDecorator,
   ServiceControllerInterface

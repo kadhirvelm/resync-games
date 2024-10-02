@@ -1,14 +1,14 @@
 import { Injectable } from "@nestjs/common";
-import { CompleteTileMap, TileMap, TileMapId } from "@tiles-tbd/api";
-import { PrismaService } from "src/games/tiles-tbd/database/prisma.service";
-import { BaseTileMapGenerator } from "src/games/tiles-tbd/generators/baseGenerator";
-import { MagicMazeLikeMapGenerator as MagicMazeSimpleTileMapGenerator } from "src/games/tiles-tbd/generators/gridMapGenerator";
+import { CompleteTileMap, TileMap, TileMapId } from "@resync-games/api";
+import { PrismaService } from "../database/prisma.service";
+import { BaseTileMapGenerator } from "../generators/baseGenerator";
+import { MagicMazeLikeMapGenerator } from "../generators/gridMapGenerator";
 
 const AVAILABLE_TILE_MAP_GENERATORS: Record<
   string,
   () => BaseTileMapGenerator
 > = {
-  magicMazeSimple: () => new MagicMazeSimpleTileMapGenerator()
+  magicMazeSimple: () => new MagicMazeLikeMapGenerator()
 };
 
 @Injectable()

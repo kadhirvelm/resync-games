@@ -9,7 +9,7 @@ import {
   TileGameServiceDefinition,
   MovePawnRequest,
   MovePawnResponse
-} from "@tiles-tbd/api";
+} from "@resync-games/api";
 import {
   ServiceControllerInterface,
   getDecorator

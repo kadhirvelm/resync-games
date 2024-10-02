@@ -11,14 +11,14 @@ import {
   TileMap,
   TileMapId,
   TilePawn
-} from "@tiles-tbd/api";
+} from "@resync-games/api";
 import {
   TileMap as PrismaTileMap,
   Tile as PrismaTile,
   Edge as PrismaEdge,
   TileGame as PrismaTileGame,
   TilePawn as PrismaTilePawn
-} from "@tiles-tbd/database";
+} from "@resync-games/database";
 
 @Injectable()
 export class ConverterService {

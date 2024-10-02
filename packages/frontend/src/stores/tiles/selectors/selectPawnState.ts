@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { TileId, TilePawn } from "@tiles-tbd/api";
+import { TileId, TilePawn } from "@resync-games/api";
 import { TileStore } from "../tilesStore";
 
 export const selectPawnIndex = createSelector(

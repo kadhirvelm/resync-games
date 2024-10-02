@@ -10,7 +10,7 @@ import {
   TileFromClientToServer,
   TileGameId,
   TileServerSocketDefinition
-} from "@tiles-tbd/api";
+} from "@resync-games/api";
 import { Server, Socket } from "socket.io";
 import {
   getSocketDecorator,

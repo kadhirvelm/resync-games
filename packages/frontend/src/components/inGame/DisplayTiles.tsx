@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import { Tile } from "@tiles-tbd/api";
 import { selectPawnIndex } from "@/stores/tiles/selectors/selectPawnState";
 import { TileAppStore, useTileAppStore } from "@/stores/tiles/tilesStore";
 import { BaseScene } from "@/lib/game/baseScene";
 import { BaseGame } from "@/lib/game/baseGame";
 import dynamic from "next/dynamic";
+import { Tile } from "@resync-games/api";
 
 const COLORS = {
   blue: "#2e86c1",

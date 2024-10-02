@@ -9,7 +9,7 @@ import {
   CompleteTileMap as ICompleteTileMap,
   TileGameId,
   TileGameWithPawns
-} from "@tiles-tbd/api";
+} from "@resync-games/api";
 import { indexTileMap } from "./utils/indexTileMap";
 import { TileMap } from "./tileMap/TileMap";
 import { ClientGate } from "@/lib/ClientGate";
