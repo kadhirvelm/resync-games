@@ -10,7 +10,10 @@ import {
 } from "@resync-games/api";
 import { GameStatePrismaService } from "./database/gameStatePrisma.service";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
-import { GAME_BACKEND_REGISTRY, IGameServer } from "@resync-games/games";
+import {
+  IGameServer,
+  GAME_BACKEND_REGISTRY
+} from "@resync-games/games/dist/backend";
 
 @Injectable()
 export class GameStateService {
