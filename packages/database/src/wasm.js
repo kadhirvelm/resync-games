@@ -164,7 +164,8 @@ exports.Prisma.GameStateScalarFieldEnum = {
   gameConfiguration: 'gameConfiguration',
   currentGameState: 'currentGameState',
   gameType: 'gameType',
-  version: 'version'
+  version: 'version',
+  lastUpdatedAt: 'lastUpdatedAt'
 };
 
 exports.Prisma.PlayersInGameScalarFieldEnum = {

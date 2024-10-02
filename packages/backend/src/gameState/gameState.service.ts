@@ -1,3 +1,4 @@
+import cuid from "@bugsnag/cuid";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import {
   AvailableGames,
@@ -8,14 +9,13 @@ import {
   UpdateGameResponse
 } from "@resync-games/api";
 import { PrismaService } from "src/games/tiles-tbd/database/prisma.service";
-import { GameStateSocketGateway } from "./gameState.socket";
-import cuid from "@bugsnag/cuid";
+import { GamesInFlightService } from "./utils/gamesInFlight.service";
 
 @Injectable()
 export class GameStateService {
   public constructor(
     private prismaService: PrismaService,
-    private socketGateway: GameStateSocketGateway
+    private gamesInFlightService: GamesInFlightService
   ) {}
 
   public createGame = async (
@@ -55,8 +55,26 @@ export class GameStateService {
   };
 
   public getAvailableGames = async (): Promise<AvailableGames> => {
+    const allGames = await this.prismaService.client.gameState.findMany({
+      include: {
+        PlayersInGame: {
+          include: {
+            player: true
+          }
+        }
+      },
+      where: {
+        currentGameState: "waiting"
+      }
+    });
+
     return {
-      games: []
+      games: allGames.map((g) =>
+        this.prismaService.converterService.convertGameState(
+          g,
+          g.PlayersInGame.map((p) => p.player)
+        )
+      )
     };
   };
 
@@ -97,15 +115,30 @@ export class GameStateService {
   public updateGame = async (
     updateGameRequest: UpdateGame
   ): Promise<UpdateGameResponse> => {
-    // TODO: implement updating the actual game state
-    const newGameState = {} as GameState;
+    const currentGameState = await this.gamesInFlightService.getInFlightGame(
+      updateGameRequest.gameId
+    );
 
-    // TODO: implement a debounced mechanism to update the stored game state in the database
+    // TODO: differentiate between outdated clients vs. outdated states for rejections
+    if (
+      currentGameState.lastUpdatedAt !== updateGameRequest.lastUpdateAt ||
+      currentGameState.version !== updateGameRequest.version
+    ) {
+      return {
+        didAcceptChange: false,
+        newGameState: currentGameState
+      };
+    }
 
-    this.socketGateway.updateGameState(newGameState, updateGameRequest.gameId);
+    const newGameState: GameState = {
+      ...currentGameState,
+      gameState: updateGameRequest.newGameState,
+      lastUpdatedAt: new Date().toISOString()
+    };
+    this.gamesInFlightService.updateInFlightGame(newGameState);
 
     return {
-      didAcceptChange: false,
+      didAcceptChange: true,
       newGameState
     };
   };

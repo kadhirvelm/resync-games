@@ -12,8 +12,8 @@ export interface GameStateFromClientToServer extends HandleMessage {
 }
 
 export interface GameStateFromServerToClient extends HandleMessage {
+  emitUpdatedGameState: GameState;
   identify: IdentifyPlayerSocket;
-  updateGameState: GameState;
 }
 
 export const GameStateClientSocketDefinition: SocketDefinition<
@@ -21,8 +21,8 @@ export const GameStateClientSocketDefinition: SocketDefinition<
   GameStateFromServerToClient
 > = {
   receiveMessage: {
-    identify: "identify",
-    updateGameState: "updateGameState"
+    emitUpdatedGameState: "emitUpdatedGameState",
+    identify: "identify"
   },
   sendMessage: {
     identify: "identify"
@@ -37,7 +37,7 @@ export const GameStateServerSocketDefinition: SocketDefinition<
     identify: "identify"
   },
   sendMessage: {
-    identify: "identify",
-    updateGameState: "updateGameState"
+    emitUpdatedGameState: "emitUpdatedGameState",
+    identify: "identify"
   }
 };

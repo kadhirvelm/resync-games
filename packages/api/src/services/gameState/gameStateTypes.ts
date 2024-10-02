@@ -15,6 +15,7 @@ export interface GameState {
   gameId: GameId;
   gameState: object;
   gameType: GameType;
+  lastUpdatedAt: string;
   players: Player[];
   version: string;
 }

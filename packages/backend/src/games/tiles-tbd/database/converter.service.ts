@@ -84,6 +84,7 @@ export class ConverterService {
       gameId: gameState.gameId as GameId,
       gameState: gameState.gameState as object,
       gameType: gameState.gameType as GameType,
+      lastUpdatedAt: gameState.lastUpdatedAt.toISOString(),
       players: players.map((p) => this.convertPlayer(p))
     };
   };
