@@ -82,6 +82,7 @@ model GameState {
   currentGameState  CurrentGameState @map("current_game_state")
   gameType          String           @map("game_type")
   version           String           @map("version")
+  lastUpdatedAt     DateTime         @default(now()) @map("last_update_timestamp")
 
   PlayersInGame PlayersInGame[]
 }

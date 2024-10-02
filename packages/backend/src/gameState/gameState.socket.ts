@@ -49,8 +49,7 @@ export class GameStateSocketGateway
   }
 
   public updateGameState = (updatedGameState: GameState, gameId: GameId) => {
-    // TODO: modify the game state requested
-    this.getServerEmitter(gameId).updateGameState(updatedGameState);
+    this.getServerEmitter(gameId).emitUpdatedGameState(updatedGameState);
   };
 
   private getSocketEmitter = (client: Socket) => {
