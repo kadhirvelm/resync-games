@@ -1,6 +1,6 @@
 /* Abstract base class for all map generators */
 
-import { CompleteTileMap } from "@tiles-tbd/api";
+import { CompleteTileMap } from "@resync-games/api";
 
 export abstract class BaseTileMapGenerator {
   // Generate a map

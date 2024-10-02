@@ -1,5 +1,5 @@
 {
-  "name": "@tiles-tbd/backend",
+  "name": "@resync-games/backend",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -13,15 +13,16 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@bugsnag/cuid": "^3.1.1",
     "@nestjs/common": "^10.3.10",
     "@nestjs/config": "^3.2.3",
     "@nestjs/core": "^10.3.10",
     "@nestjs/platform-express": "^10.3.10",
     "@nestjs/platform-socket.io": "^10.4.1",
     "@nestjs/websockets": "^10.4.1",
-    "@tiles-tbd/api": "workspace:^",
-    "@tiles-tbd/database": "workspace:^",
-    "@tiles-tbd/games": "workspace:^",
+    "@resync-games/api": "workspace:^",
+    "@resync-games/database": "workspace:^",
+    "@resync-games/games": "workspace:^",
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",

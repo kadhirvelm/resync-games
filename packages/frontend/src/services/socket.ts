@@ -3,7 +3,7 @@ import {
   RemoveExtendsString,
   SocketDefinition,
   SocketEmitter
-} from "@tiles-tbd/api";
+} from "@resync-games/api";
 import { Socket } from "socket.io-client";
 
 /**

@@ -3,7 +3,7 @@
 import { Flex } from "@/lib/radix/Flex";
 import { NavigationButton } from "@/lib/tiles-components/NavigationButton";
 import { Text } from "@radix-ui/themes";
-import { TileGame, TileMap, TileMapId } from "@tiles-tbd/api";
+import { TileGame, TileMap, TileMapId } from "@resync-games/api";
 import styles from "./AvailableGame.module.scss";
 import { GameState } from "./GameState";
 
@@ -38,7 +38,7 @@ export const AvailableGame = ({
         <Flex>
           <NavigationButton
             disabled={game.state !== "waiting"}
-            href={`/tile-game/${game.tileGameId}`}
+            href={`/snatch-the-snack/${game.tileGameId}`}
             variant="outline"
           >
             Join game

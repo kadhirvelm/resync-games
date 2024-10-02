@@ -7,7 +7,7 @@ import {
   GetTileMapResponse,
   TileMapServiceApi,
   TileMapServiceDefinition
-} from "@tiles-tbd/api";
+} from "@resync-games/api";
 import {
   getDecorator,
   ServiceControllerInterface

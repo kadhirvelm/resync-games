@@ -1,6 +1,6 @@
 import { InitializeTileMap } from "@/components/inGame/InitializeTileMap";
 import { ServiceCallers } from "@/services/serviceCallers";
-import { isServiceError, TileMapId } from "@tiles-tbd/api";
+import { isServiceError, TileMapId } from "@resync-games/api";
 import { redirect } from "next/navigation";
 
 export default async function Page({
@@ -10,9 +10,11 @@ export default async function Page({
 }) {
   const { tileMapId } = params;
 
-  const maybeLoadedTileMap = await ServiceCallers.tileMap.getTileMap({
-    tileMapId: tileMapId
-  });
+  const maybeLoadedTileMap = await ServiceCallers.snatchTheSnackMaps.getTileMap(
+    {
+      tileMapId: tileMapId
+    }
+  );
   if (isServiceError(maybeLoadedTileMap)) {
     redirect("/");
   }

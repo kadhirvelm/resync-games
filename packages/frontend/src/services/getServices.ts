@@ -4,7 +4,7 @@ import {
   AvailableServices,
   ServiceDefinition,
   ServiceError
-} from "@tiles-tbd/api";
+} from "@resync-games/api";
 import { AvailableServiceCaller, ServiceCaller } from "./types";
 
 function makeFetchRequest<ReturnValue>(

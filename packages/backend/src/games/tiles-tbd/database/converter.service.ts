@@ -1,8 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import {
+  CurrentGameState,
   Edge,
   EdgeId,
+  GameId,
+  GameState,
+  GameType,
   PawnId,
+  Player,
+  PlayerId,
   Tile,
   TileGame,
   TileGameId,
@@ -11,14 +17,16 @@ import {
   TileMap,
   TileMapId,
   TilePawn
-} from "@tiles-tbd/api";
+} from "@resync-games/api";
 import {
   TileMap as PrismaTileMap,
   Tile as PrismaTile,
   Edge as PrismaEdge,
   TileGame as PrismaTileGame,
-  TilePawn as PrismaTilePawn
-} from "@tiles-tbd/database";
+  TilePawn as PrismaTilePawn,
+  GameState as PrismaGameState,
+  Player as PrismaPlayer
+} from "@resync-games/database";
 
 @Injectable()
 export class ConverterService {
@@ -62,6 +70,28 @@ export class ConverterService {
       color: tilePawn.color,
       onTileId: tilePawn.onTileId as TileId,
       tilePawnId: tilePawn.tilePawnId as PawnId
+    };
+  };
+
+  public convertGameState = (
+    gameState: PrismaGameState,
+    players: PrismaPlayer[]
+  ): GameState => {
+    return {
+      ...gameState,
+      currentGameState: gameState.currentGameState as CurrentGameState,
+      gameConfiguration: gameState.gameConfiguration as object,
+      gameId: gameState.gameId as GameId,
+      gameState: gameState.gameState as object,
+      gameType: gameState.gameType as GameType,
+      players: players.map((p) => this.convertPlayer(p))
+    };
+  };
+
+  public convertPlayer = (player: PrismaPlayer): Player => {
+    return {
+      ...player,
+      playerId: player.playerId as PlayerId
     };
   };
 }

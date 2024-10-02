@@ -1,12 +1,11 @@
 import { ServiceCallers } from "@/services/serviceCallers";
 import { Button, Flex, Text } from "@radix-ui/themes";
-import { isServiceError } from "@tiles-tbd/api";
+import { isServiceError } from "@resync-games/api";
 import Link from "next/link";
 
 export default async function AvailableMaps() {
-  const maybeAvailableTileMaps = await ServiceCallers.tileMap.getAllTileMaps(
-    {}
-  );
+  const maybeAvailableTileMaps =
+    await ServiceCallers.snatchTheSnackMaps.getAllTileMaps({});
   if (isServiceError(maybeAvailableTileMaps)) {
     return <div>Error loading tile maps!</div>;
   }

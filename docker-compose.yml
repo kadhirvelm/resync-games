@@ -18,18 +18,18 @@ services:
   yarn-container:
     image: node:22.5
     volumes:
-      - ./:/home/tiles-tbd:rw
-    working_dir: /home/tiles-tbd
+      - ./:/home/resync-games:rw
+    working_dir: /home/resync-games
     tty: true
     stop_grace_period: 1s
     environment:
-      - DATABASE_HOST_URL=postgresql://postgres:${POSTGRES_PASSWORD}@host.docker.internal:5432/tiles-tbd?schema=public
+      - DATABASE_HOST_URL=postgresql://postgres:${POSTGRES_PASSWORD}@${LOCAL_HOST}:5432/resync-games?schema=public
     command: tail -f /dev/null
   api:
     image: node:22.5
     volumes:
-      - ./:/home/tiles-tbd:rw
-    working_dir: /home/tiles-tbd/packages/api
+      - ./:/home/resync-games:rw
+    working_dir: /home/resync-games/packages/api
     command: bash -c "corepack enable && yarn && cd ../../ && yarn dev api"
   games:
     image: node:22.5
@@ -42,20 +42,20 @@ services:
     ports:
       - '8080:8080'
     volumes:
-      - ./:/home/tiles-tbd:rw
-    working_dir: /home/tiles-tbd/packages/backend
+      - ./:/home/resync-games:rw
+    working_dir: /home/resync-games/packages/backend
     environment:
       - PORT=8080
-      - DATABASE_HOST_URL=postgresql://postgres@${LOCAL_HOST}:5432/tiles-tbd?schema=public
+      - DATABASE_HOST_URL=postgresql://postgres:${POSTGRES_PASSWORD}@${LOCAL_HOST}:5432/resync-games?schema=public
     command: bash -c "corepack enable && yarn && cd ../../ && yarn migrate && yarn dev backend"
   frontend:
     image: node:22.5-slim
     ports:
       - '3000:3000'
     volumes:
-      - ./:/home/tiles-tbd:rw
+      - ./:/home/resync-games:rw
     environment:
       - NEXT_PUBLIC_API_URL=http://${LOCAL_HOST}:8080
       - NEXT_PUBLIC_API_CLIENT_URL=http://${PUBLIC_URL}:8080
-    working_dir: /home/tiles-tbd/packages/frontend
+    working_dir: /home/resync-games/packages/frontend
     command: bash -c "corepack enable && yarn && cd ../../ && yarn dev frontend"

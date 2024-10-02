@@ -6,7 +6,7 @@ import {
   RemoveExtendsString,
   SocketEmitter,
   TileFromServerToClient
-} from "@tiles-tbd/api";
+} from "@resync-games/api";
 import { useCallback } from "react";
 
 /**

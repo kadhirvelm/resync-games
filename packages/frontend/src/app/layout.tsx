@@ -6,8 +6,8 @@ import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 
 export const metadata: Metadata = {
-  description: "tbd",
-  title: "Tiles tbd"
+  description: "Games that bring people together",
+  title: "Resync games"
 };
 
 const font = Dosis({

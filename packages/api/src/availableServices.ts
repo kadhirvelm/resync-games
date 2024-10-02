@@ -1,18 +1,16 @@
 import { ServiceDefinition } from "./genericTypes/service";
-import { HealthServiceApi, HealthServiceDefinition } from "./services/health";
 import {
   TileGameServiceApi,
-  TileGameServiceDefinition
-} from "./services/games/tiles-tbd/tileGame/tileGame";
-import {
   TileMapServiceApi,
+  TileGameServiceDefinition,
   TileMapServiceDefinition
-} from "./services/games/tiles-tbd/tileMap/tileMap";
+} from "./services/games/snatch-the-snack";
+import { HealthServiceApi, HealthServiceDefinition } from "./services/health";
 
 export type AvailableServices = {
   health: HealthServiceApi;
+  snatchTheSnackMaps: TileMapServiceApi;
   tileGame: TileGameServiceApi;
-  tileMap: TileMapServiceApi;
 };
 
 export type AvailbleServicesDefinition = {
@@ -21,6 +19,6 @@ export type AvailbleServicesDefinition = {
 
 export const AVAILABLE_SERVICES: AvailbleServicesDefinition = {
   health: HealthServiceDefinition,
-  tileGame: TileGameServiceDefinition,
-  tileMap: TileMapServiceDefinition
+  snatchTheSnackMaps: TileMapServiceDefinition,
+  tileGame: TileGameServiceDefinition
 };

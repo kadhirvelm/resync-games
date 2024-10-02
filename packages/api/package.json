@@ -1,5 +1,5 @@
 {
-  "name": "@tiles-tbd/api",
+  "name": "@resync-games/api",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",

@@ -492,6 +492,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@bugsnag/cuid@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@bugsnag/cuid@npm:3.1.1"
+  checksum: 10c0/ca236c95400b2871db350ba37df72aa82388f74a4163761070bf516dc4d388ac4654ddcef111f33fd5a63808ef05ec86e4142160a0569cc7f31ad9f5b367a12f
+  languageName: node
+  linkType: hard
+
 "@colors/colors@npm:1.5.0":
   version: 1.5.0
   resolution: "@colors/colors@npm:1.5.0"
@@ -2714,6 +2721,104 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@resync-games/api@workspace:^, @resync-games/api@workspace:packages/api":
+  version: 0.0.0-use.local
+  resolution: "@resync-games/api@workspace:packages/api"
+  dependencies:
+    eslint: "npm:^9.8.0"
+    typescript: "npm:^5.5.4"
+  languageName: unknown
+  linkType: soft
+
+"@resync-games/backend@workspace:packages/backend":
+  version: 0.0.0-use.local
+  resolution: "@resync-games/backend@workspace:packages/backend"
+  dependencies:
+    "@bugsnag/cuid": "npm:^3.1.1"
+    "@jest/globals": "npm:^29.7.0"
+    "@nestjs/cli": "npm:^10.4.2"
+    "@nestjs/common": "npm:^10.3.10"
+    "@nestjs/config": "npm:^3.2.3"
+    "@nestjs/core": "npm:^10.3.10"
+    "@nestjs/platform-express": "npm:^10.3.10"
+    "@nestjs/platform-socket.io": "npm:^10.4.1"
+    "@nestjs/schematics": "npm:^10.1.3"
+    "@nestjs/testing": "npm:^10.3.10"
+    "@nestjs/websockets": "npm:^10.4.1"
+    "@resync-games/api": "workspace:^"
+    "@resync-games/database": "workspace:^"
+    "@types/express": "npm:^4.17.21"
+    "@types/fs-extra": "npm:^11.0.4"
+    "@types/jest": "npm:^29.5.12"
+    "@types/lodash": "npm:^4.17.7"
+    "@types/node": "npm:^22.0.0"
+    "@types/supertest": "npm:^2.0.16"
+    "@types/uuid": "npm:^10"
+    eslint: "npm:^9.8.0"
+    jest: "npm:^29.7.0"
+    lodash: "npm:^4.17.21"
+    nodemon: "npm:^3.1.4"
+    reflect-metadata: "npm:^0.2.2"
+    rxjs: "npm:^7.8.1"
+    sharp: "npm:^0.33.4"
+    socket.io: "npm:^4.7.5"
+    source-map-support: "npm:^0.5.21"
+    supertest: "npm:^7.0.0"
+    ts-jest: "npm:^29.2.3"
+    ts-loader: "npm:^9.5.1"
+    ts-node: "npm:^10.9.2"
+    tsconfig-paths: "npm:^4.2.0"
+    typescript: "npm:^5.5.4"
+    uuid: "npm:^10.0.0"
+    webpack: "npm:^5.93.0"
+  languageName: unknown
+  linkType: soft
+
+"@resync-games/database@workspace:^, @resync-games/database@workspace:packages/database":
+  version: 0.0.0-use.local
+  resolution: "@resync-games/database@workspace:packages/database"
+  dependencies:
+    "@prisma/client": "npm:5.17.0"
+    "@yarnpkg/pnpify": "npm:^4.1.1"
+    prisma: "npm:5.17.0"
+  languageName: unknown
+  linkType: soft
+
+"@resync-games/frontend@workspace:packages/frontend":
+  version: 0.0.0-use.local
+  resolution: "@resync-games/frontend@workspace:packages/frontend"
+  dependencies:
+    "@jest/globals": "npm:^29.7.0"
+    "@radix-ui/react-icons": "npm:^1.3.0"
+    "@radix-ui/themes": "npm:^3.1.3"
+    "@reduxjs/toolkit": "npm:^2.2.7"
+    "@resync-games/api": "workspace:^"
+    "@testing-library/jest-dom": "npm:^6.4.8"
+    "@types/jest": "npm:^29.5.12"
+    "@types/lodash-es": "npm:^4"
+    "@types/node": "npm:^22.0.0"
+    "@types/react": "npm:^18.3.3"
+    "@types/react-dom": "npm:^18.3.0"
+    "@types/uuid": "npm:^10"
+    clsx: "npm:^2.1.1"
+    eslint: "npm:^9.8.0"
+    jest: "npm:^29.7.0"
+    jest-environment-jsdom: "npm:^29.7.0"
+    lodash-es: "npm:^4.17.21"
+    next: "npm:14.2.5"
+    phaser: "npm:v3.85.2"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
+    react-redux: "npm:^9.1.2"
+    sass: "npm:^1.77.8"
+    socket.io-client: "npm:^4.7.5"
+    styled-components: "npm:^6.1.12"
+    typescript: "npm:^5.5.4"
+    typescript-plugin-css-modules: "npm:^5.1.0"
+    uuid: "npm:^10.0.0"
+  languageName: unknown
+  linkType: soft
+
 "@sinclair/typebox@npm:^0.27.8":
   version: 0.27.8
   resolution: "@sinclair/typebox@npm:0.27.8"
@@ -2795,6 +2900,7 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
 "@tiles-tbd/api@workspace:^, @tiles-tbd/api@workspace:packages/api":
   version: 0.0.0-use.local
   resolution: "@tiles-tbd/api@workspace:packages/api"
@@ -2903,6 +3009,8 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+=======
+>>>>>>> main
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -10241,6 +10349,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"resync-games@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "resync-games@workspace:."
+  dependencies:
+    "@eslint/compat": "npm:^1.1.1"
+    "@eslint/js": "npm:^9.8.0"
+    "@next/eslint-plugin-next": "npm:^14.2.5"
+    "@types/eslint": "npm:^9.6.0"
+    "@types/eslint__js": "npm:^8.42.3"
+    "@types/node": "npm:^22.0.0"
+    "@typescript-eslint/parser": "npm:^8.0.0"
+    "@yarnpkg/pnpify": "npm:^4.1.0"
+    eslint: "npm:^9.8.0"
+    eslint-config-prettier: "npm:^9.1.0"
+    eslint-plugin-prettier: "npm:^5.2.1"
+    eslint-plugin-react: "npm:^7.35.0"
+    eslint-plugin-react-hooks: "npm:^4.6.2"
+    eslint-plugin-sort-keys-fix: "npm:^1.1.2"
+    eslint-plugin-typescript-sort-keys: "npm:^3.2.0"
+    prettier: "npm:^3.3.3"
+    turbo: "npm:2.0.10"
+    typescript: "npm:^5.5.4"
+    typescript-eslint: "npm:^7.18.0"
+  languageName: unknown
+  linkType: soft
+
 "retry@npm:^0.12.0":
   version: 0.12.0
   resolution: "retry@npm:0.12.0"
@@ -11194,32 +11328,6 @@ __metadata:
   checksum: 10c0/4b09f3774099de0d4df26d95c5821a62faee32c7e96fb1f4ebd54a2d7c11c57fe88b0a0d49cf375de5fee5ae6bf4eb56dbbf29d07366864e2ee805349970d3cc
   languageName: node
   linkType: hard
-
-"tiles-tbd@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "tiles-tbd@workspace:."
-  dependencies:
-    "@eslint/compat": "npm:^1.1.1"
-    "@eslint/js": "npm:^9.8.0"
-    "@next/eslint-plugin-next": "npm:^14.2.5"
-    "@types/eslint": "npm:^9.6.0"
-    "@types/eslint__js": "npm:^8.42.3"
-    "@types/node": "npm:^22.0.0"
-    "@typescript-eslint/parser": "npm:^8.0.0"
-    "@yarnpkg/pnpify": "npm:^4.1.0"
-    eslint: "npm:^9.8.0"
-    eslint-config-prettier: "npm:^9.1.0"
-    eslint-plugin-prettier: "npm:^5.2.1"
-    eslint-plugin-react: "npm:^7.35.0"
-    eslint-plugin-react-hooks: "npm:^4.6.2"
-    eslint-plugin-sort-keys-fix: "npm:^1.1.2"
-    eslint-plugin-typescript-sort-keys: "npm:^3.2.0"
-    prettier: "npm:^3.3.3"
-    turbo: "npm:2.0.10"
-    typescript: "npm:^5.5.4"
-    typescript-eslint: "npm:^7.18.0"
-  languageName: unknown
-  linkType: soft
 
 "tinylogic@npm:^2.0.0":
   version: 2.0.0

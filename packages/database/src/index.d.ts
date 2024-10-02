@@ -44,10 +44,33 @@ export type TilePawn = $Result.DefaultSelection<Prisma.$TilePawnPayload>
  */
 export type GameState = $Result.DefaultSelection<Prisma.$GameStatePayload>
 /**
+ * Model PlayersInGame
+ * 
+ */
+export type PlayersInGame = $Result.DefaultSelection<Prisma.$PlayersInGamePayload>
+/**
  * Model Player
  * 
  */
 export type Player = $Result.DefaultSelection<Prisma.$PlayerPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const CurrentGameState: {
+  waiting: 'waiting',
+  playing: 'playing',
+  finished: 'finished'
+};
+
+export type CurrentGameState = (typeof CurrentGameState)[keyof typeof CurrentGameState]
+
+}
+
+export type CurrentGameState = $Enums.CurrentGameState
+
+export const CurrentGameState: typeof $Enums.CurrentGameState
 
 /**
  * ##  Prisma Client ʲˢ
@@ -230,6 +253,16 @@ export class PrismaClient<
     * ```
     */
   get gameState(): Prisma.GameStateDelegate<ExtArgs>;
+
+  /**
+   * `prisma.playersInGame`: Exposes CRUD operations for the **PlayersInGame** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlayersInGames
+    * const playersInGames = await prisma.playersInGame.findMany()
+    * ```
+    */
+  get playersInGame(): Prisma.PlayersInGameDelegate<ExtArgs>;
 
   /**
    * `prisma.player`: Exposes CRUD operations for the **Player** model.
@@ -723,6 +756,7 @@ export namespace Prisma {
     TileGame: 'TileGame',
     TilePawn: 'TilePawn',
     GameState: 'GameState',
+    PlayersInGame: 'PlayersInGame',
     Player: 'Player'
   };
 
@@ -739,7 +773,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "tileMap" | "tile" | "edge" | "tileGame" | "tilePawn" | "gameState" | "player"
+      modelProps: "tileMap" | "tile" | "edge" | "tileGame" | "tilePawn" | "gameState" | "playersInGame" | "player"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1163,6 +1197,76 @@ export namespace Prisma {
           }
         }
       }
+      PlayersInGame: {
+        payload: Prisma.$PlayersInGamePayload<ExtArgs>
+        fields: Prisma.PlayersInGameFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlayersInGameFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayersInGamePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlayersInGameFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayersInGamePayload>
+          }
+          findFirst: {
+            args: Prisma.PlayersInGameFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayersInGamePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlayersInGameFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayersInGamePayload>
+          }
+          findMany: {
+            args: Prisma.PlayersInGameFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayersInGamePayload>[]
+          }
+          create: {
+            args: Prisma.PlayersInGameCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayersInGamePayload>
+          }
+          createMany: {
+            args: Prisma.PlayersInGameCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlayersInGameCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayersInGamePayload>[]
+          }
+          delete: {
+            args: Prisma.PlayersInGameDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayersInGamePayload>
+          }
+          update: {
+            args: Prisma.PlayersInGameUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayersInGamePayload>
+          }
+          deleteMany: {
+            args: Prisma.PlayersInGameDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlayersInGameUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PlayersInGameUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayersInGamePayload>
+          }
+          aggregate: {
+            args: Prisma.PlayersInGameAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlayersInGame>
+          }
+          groupBy: {
+            args: Prisma.PlayersInGameGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlayersInGameGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlayersInGameCountArgs<ExtArgs>
+            result: $Utils.Optional<PlayersInGameCountAggregateOutputType> | number
+          }
+        }
+      }
       Player: {
         payload: Prisma.$PlayerPayload<ExtArgs>
         fields: Prisma.PlayerFieldRefs
@@ -1514,11 +1618,11 @@ export namespace Prisma {
    */
 
   export type GameStateCountOutputType = {
-    players: number
+    PlayersInGame: number
   }
 
   export type GameStateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    players?: boolean | GameStateCountOutputTypeCountPlayersArgs
+    PlayersInGame?: boolean | GameStateCountOutputTypeCountPlayersInGameArgs
   }
 
   // Custom InputTypes
@@ -1535,8 +1639,8 @@ export namespace Prisma {
   /**
    * GameStateCountOutputType without action
    */
-  export type GameStateCountOutputTypeCountPlayersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PlayerWhereInput
+  export type GameStateCountOutputTypeCountPlayersInGameArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlayersInGameWhereInput
   }
 
 
@@ -1545,11 +1649,11 @@ export namespace Prisma {
    */
 
   export type PlayerCountOutputType = {
-    gameStates: number
+    PlayersInGame: number
   }
 
   export type PlayerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    gameStates?: boolean | PlayerCountOutputTypeCountGameStatesArgs
+    PlayersInGame?: boolean | PlayerCountOutputTypeCountPlayersInGameArgs
   }
 
   // Custom InputTypes
@@ -1566,8 +1670,8 @@ export namespace Prisma {
   /**
    * PlayerCountOutputType without action
    */
-  export type PlayerCountOutputTypeCountGameStatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: GameStateWhereInput
+  export type PlayerCountOutputTypeCountPlayersInGameArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlayersInGameWhereInput
   }
 
 
@@ -6429,14 +6533,14 @@ export namespace Prisma {
 
   export type GameStateMinAggregateOutputType = {
     gameId: string | null
-    currentGameState: string | null
+    currentGameState: $Enums.CurrentGameState | null
     gameType: string | null
     version: string | null
   }
 
   export type GameStateMaxAggregateOutputType = {
     gameId: string | null
-    currentGameState: string | null
+    currentGameState: $Enums.CurrentGameState | null
     gameType: string | null
     version: string | null
   }
@@ -6552,7 +6656,7 @@ export namespace Prisma {
     gameId: string
     gameState: JsonValue
     gameConfiguration: JsonValue
-    currentGameState: string
+    currentGameState: $Enums.CurrentGameState
     gameType: string
     version: string
     _count: GameStateCountAggregateOutputType | null
@@ -6581,7 +6685,7 @@ export namespace Prisma {
     currentGameState?: boolean
     gameType?: boolean
     version?: boolean
-    players?: boolean | GameState$playersArgs<ExtArgs>
+    PlayersInGame?: boolean | GameState$PlayersInGameArgs<ExtArgs>
     _count?: boolean | GameStateCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameState"]>
 
@@ -6604,7 +6708,7 @@ export namespace Prisma {
   }
 
   export type GameStateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    players?: boolean | GameState$playersArgs<ExtArgs>
+    PlayersInGame?: boolean | GameState$PlayersInGameArgs<ExtArgs>
     _count?: boolean | GameStateCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GameStateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6612,13 +6716,13 @@ export namespace Prisma {
   export type $GameStatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "GameState"
     objects: {
-      players: Prisma.$PlayerPayload<ExtArgs>[]
+      PlayersInGame: Prisma.$PlayersInGamePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       gameId: string
       gameState: Prisma.JsonValue
       gameConfiguration: Prisma.JsonValue
-      currentGameState: string
+      currentGameState: $Enums.CurrentGameState
       gameType: string
       version: string
     }, ExtArgs["result"]["gameState"]>
@@ -6985,7 +7089,7 @@ export namespace Prisma {
    */
   export interface Prisma__GameStateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    players<T extends GameState$playersArgs<ExtArgs> = {}>(args?: Subset<T, GameState$playersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findMany"> | Null>
+    PlayersInGame<T extends GameState$PlayersInGameArgs<ExtArgs> = {}>(args?: Subset<T, GameState$PlayersInGameArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7018,7 +7122,7 @@ export namespace Prisma {
     readonly gameId: FieldRef<"GameState", 'String'>
     readonly gameState: FieldRef<"GameState", 'Json'>
     readonly gameConfiguration: FieldRef<"GameState", 'Json'>
-    readonly currentGameState: FieldRef<"GameState", 'String'>
+    readonly currentGameState: FieldRef<"GameState", 'CurrentGameState'>
     readonly gameType: FieldRef<"GameState", 'String'>
     readonly version: FieldRef<"GameState", 'String'>
   }
@@ -7335,23 +7439,23 @@ export namespace Prisma {
   }
 
   /**
-   * GameState.players
+   * GameState.PlayersInGame
    */
-  export type GameState$playersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type GameState$PlayersInGameArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Player
+     * Select specific fields to fetch from the PlayersInGame
      */
-    select?: PlayerSelect<ExtArgs> | null
+    select?: PlayersInGameSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PlayerInclude<ExtArgs> | null
-    where?: PlayerWhereInput
-    orderBy?: PlayerOrderByWithRelationInput | PlayerOrderByWithRelationInput[]
-    cursor?: PlayerWhereUniqueInput
+    include?: PlayersInGameInclude<ExtArgs> | null
+    where?: PlayersInGameWhereInput
+    orderBy?: PlayersInGameOrderByWithRelationInput | PlayersInGameOrderByWithRelationInput[]
+    cursor?: PlayersInGameWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: PlayerScalarFieldEnum | PlayerScalarFieldEnum[]
+    distinct?: PlayersInGameScalarFieldEnum | PlayersInGameScalarFieldEnum[]
   }
 
   /**
@@ -7370,6 +7474,921 @@ export namespace Prisma {
 
 
   /**
+   * Model PlayersInGame
+   */
+
+  export type AggregatePlayersInGame = {
+    _count: PlayersInGameCountAggregateOutputType | null
+    _min: PlayersInGameMinAggregateOutputType | null
+    _max: PlayersInGameMaxAggregateOutputType | null
+  }
+
+  export type PlayersInGameMinAggregateOutputType = {
+    playersInGameIdentifier: string | null
+    gameId: string | null
+    playerId: string | null
+  }
+
+  export type PlayersInGameMaxAggregateOutputType = {
+    playersInGameIdentifier: string | null
+    gameId: string | null
+    playerId: string | null
+  }
+
+  export type PlayersInGameCountAggregateOutputType = {
+    playersInGameIdentifier: number
+    gameId: number
+    playerId: number
+    _all: number
+  }
+
+
+  export type PlayersInGameMinAggregateInputType = {
+    playersInGameIdentifier?: true
+    gameId?: true
+    playerId?: true
+  }
+
+  export type PlayersInGameMaxAggregateInputType = {
+    playersInGameIdentifier?: true
+    gameId?: true
+    playerId?: true
+  }
+
+  export type PlayersInGameCountAggregateInputType = {
+    playersInGameIdentifier?: true
+    gameId?: true
+    playerId?: true
+    _all?: true
+  }
+
+  export type PlayersInGameAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlayersInGame to aggregate.
+     */
+    where?: PlayersInGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayersInGames to fetch.
+     */
+    orderBy?: PlayersInGameOrderByWithRelationInput | PlayersInGameOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlayersInGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayersInGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayersInGames.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlayersInGames
+    **/
+    _count?: true | PlayersInGameCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlayersInGameMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlayersInGameMaxAggregateInputType
+  }
+
+  export type GetPlayersInGameAggregateType<T extends PlayersInGameAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlayersInGame]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlayersInGame[P]>
+      : GetScalarType<T[P], AggregatePlayersInGame[P]>
+  }
+
+
+
+
+  export type PlayersInGameGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlayersInGameWhereInput
+    orderBy?: PlayersInGameOrderByWithAggregationInput | PlayersInGameOrderByWithAggregationInput[]
+    by: PlayersInGameScalarFieldEnum[] | PlayersInGameScalarFieldEnum
+    having?: PlayersInGameScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlayersInGameCountAggregateInputType | true
+    _min?: PlayersInGameMinAggregateInputType
+    _max?: PlayersInGameMaxAggregateInputType
+  }
+
+  export type PlayersInGameGroupByOutputType = {
+    playersInGameIdentifier: string
+    gameId: string
+    playerId: string
+    _count: PlayersInGameCountAggregateOutputType | null
+    _min: PlayersInGameMinAggregateOutputType | null
+    _max: PlayersInGameMaxAggregateOutputType | null
+  }
+
+  type GetPlayersInGameGroupByPayload<T extends PlayersInGameGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlayersInGameGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlayersInGameGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlayersInGameGroupByOutputType[P]>
+            : GetScalarType<T[P], PlayersInGameGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlayersInGameSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    playersInGameIdentifier?: boolean
+    gameId?: boolean
+    playerId?: boolean
+    game?: boolean | GameStateDefaultArgs<ExtArgs>
+    player?: boolean | PlayerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["playersInGame"]>
+
+  export type PlayersInGameSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    playersInGameIdentifier?: boolean
+    gameId?: boolean
+    playerId?: boolean
+    game?: boolean | GameStateDefaultArgs<ExtArgs>
+    player?: boolean | PlayerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["playersInGame"]>
+
+  export type PlayersInGameSelectScalar = {
+    playersInGameIdentifier?: boolean
+    gameId?: boolean
+    playerId?: boolean
+  }
+
+  export type PlayersInGameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    game?: boolean | GameStateDefaultArgs<ExtArgs>
+    player?: boolean | PlayerDefaultArgs<ExtArgs>
+  }
+  export type PlayersInGameIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    game?: boolean | GameStateDefaultArgs<ExtArgs>
+    player?: boolean | PlayerDefaultArgs<ExtArgs>
+  }
+
+  export type $PlayersInGamePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PlayersInGame"
+    objects: {
+      game: Prisma.$GameStatePayload<ExtArgs>
+      player: Prisma.$PlayerPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      playersInGameIdentifier: string
+      gameId: string
+      playerId: string
+    }, ExtArgs["result"]["playersInGame"]>
+    composites: {}
+  }
+
+  type PlayersInGameGetPayload<S extends boolean | null | undefined | PlayersInGameDefaultArgs> = $Result.GetResult<Prisma.$PlayersInGamePayload, S>
+
+  type PlayersInGameCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PlayersInGameFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PlayersInGameCountAggregateInputType | true
+    }
+
+  export interface PlayersInGameDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlayersInGame'], meta: { name: 'PlayersInGame' } }
+    /**
+     * Find zero or one PlayersInGame that matches the filter.
+     * @param {PlayersInGameFindUniqueArgs} args - Arguments to find a PlayersInGame
+     * @example
+     * // Get one PlayersInGame
+     * const playersInGame = await prisma.playersInGame.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlayersInGameFindUniqueArgs>(args: SelectSubset<T, PlayersInGameFindUniqueArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PlayersInGame that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PlayersInGameFindUniqueOrThrowArgs} args - Arguments to find a PlayersInGame
+     * @example
+     * // Get one PlayersInGame
+     * const playersInGame = await prisma.playersInGame.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlayersInGameFindUniqueOrThrowArgs>(args: SelectSubset<T, PlayersInGameFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PlayersInGame that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayersInGameFindFirstArgs} args - Arguments to find a PlayersInGame
+     * @example
+     * // Get one PlayersInGame
+     * const playersInGame = await prisma.playersInGame.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlayersInGameFindFirstArgs>(args?: SelectSubset<T, PlayersInGameFindFirstArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PlayersInGame that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayersInGameFindFirstOrThrowArgs} args - Arguments to find a PlayersInGame
+     * @example
+     * // Get one PlayersInGame
+     * const playersInGame = await prisma.playersInGame.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlayersInGameFindFirstOrThrowArgs>(args?: SelectSubset<T, PlayersInGameFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PlayersInGames that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayersInGameFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlayersInGames
+     * const playersInGames = await prisma.playersInGame.findMany()
+     * 
+     * // Get first 10 PlayersInGames
+     * const playersInGames = await prisma.playersInGame.findMany({ take: 10 })
+     * 
+     * // Only select the `playersInGameIdentifier`
+     * const playersInGameWithPlayersInGameIdentifierOnly = await prisma.playersInGame.findMany({ select: { playersInGameIdentifier: true } })
+     * 
+     */
+    findMany<T extends PlayersInGameFindManyArgs>(args?: SelectSubset<T, PlayersInGameFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PlayersInGame.
+     * @param {PlayersInGameCreateArgs} args - Arguments to create a PlayersInGame.
+     * @example
+     * // Create one PlayersInGame
+     * const PlayersInGame = await prisma.playersInGame.create({
+     *   data: {
+     *     // ... data to create a PlayersInGame
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlayersInGameCreateArgs>(args: SelectSubset<T, PlayersInGameCreateArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PlayersInGames.
+     * @param {PlayersInGameCreateManyArgs} args - Arguments to create many PlayersInGames.
+     * @example
+     * // Create many PlayersInGames
+     * const playersInGame = await prisma.playersInGame.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlayersInGameCreateManyArgs>(args?: SelectSubset<T, PlayersInGameCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PlayersInGames and returns the data saved in the database.
+     * @param {PlayersInGameCreateManyAndReturnArgs} args - Arguments to create many PlayersInGames.
+     * @example
+     * // Create many PlayersInGames
+     * const playersInGame = await prisma.playersInGame.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PlayersInGames and only return the `playersInGameIdentifier`
+     * const playersInGameWithPlayersInGameIdentifierOnly = await prisma.playersInGame.createManyAndReturn({ 
+     *   select: { playersInGameIdentifier: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlayersInGameCreateManyAndReturnArgs>(args?: SelectSubset<T, PlayersInGameCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PlayersInGame.
+     * @param {PlayersInGameDeleteArgs} args - Arguments to delete one PlayersInGame.
+     * @example
+     * // Delete one PlayersInGame
+     * const PlayersInGame = await prisma.playersInGame.delete({
+     *   where: {
+     *     // ... filter to delete one PlayersInGame
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlayersInGameDeleteArgs>(args: SelectSubset<T, PlayersInGameDeleteArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PlayersInGame.
+     * @param {PlayersInGameUpdateArgs} args - Arguments to update one PlayersInGame.
+     * @example
+     * // Update one PlayersInGame
+     * const playersInGame = await prisma.playersInGame.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlayersInGameUpdateArgs>(args: SelectSubset<T, PlayersInGameUpdateArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PlayersInGames.
+     * @param {PlayersInGameDeleteManyArgs} args - Arguments to filter PlayersInGames to delete.
+     * @example
+     * // Delete a few PlayersInGames
+     * const { count } = await prisma.playersInGame.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlayersInGameDeleteManyArgs>(args?: SelectSubset<T, PlayersInGameDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlayersInGames.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayersInGameUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlayersInGames
+     * const playersInGame = await prisma.playersInGame.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlayersInGameUpdateManyArgs>(args: SelectSubset<T, PlayersInGameUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PlayersInGame.
+     * @param {PlayersInGameUpsertArgs} args - Arguments to update or create a PlayersInGame.
+     * @example
+     * // Update or create a PlayersInGame
+     * const playersInGame = await prisma.playersInGame.upsert({
+     *   create: {
+     *     // ... data to create a PlayersInGame
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlayersInGame we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlayersInGameUpsertArgs>(args: SelectSubset<T, PlayersInGameUpsertArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PlayersInGames.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayersInGameCountArgs} args - Arguments to filter PlayersInGames to count.
+     * @example
+     * // Count the number of PlayersInGames
+     * const count = await prisma.playersInGame.count({
+     *   where: {
+     *     // ... the filter for the PlayersInGames we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlayersInGameCountArgs>(
+      args?: Subset<T, PlayersInGameCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlayersInGameCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlayersInGame.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayersInGameAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlayersInGameAggregateArgs>(args: Subset<T, PlayersInGameAggregateArgs>): Prisma.PrismaPromise<GetPlayersInGameAggregateType<T>>
+
+    /**
+     * Group by PlayersInGame.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayersInGameGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlayersInGameGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlayersInGameGroupByArgs['orderBy'] }
+        : { orderBy?: PlayersInGameGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlayersInGameGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlayersInGameGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PlayersInGame model
+   */
+  readonly fields: PlayersInGameFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlayersInGame.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlayersInGameClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    game<T extends GameStateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameStateDefaultArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    player<T extends PlayerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlayerDefaultArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PlayersInGame model
+   */ 
+  interface PlayersInGameFieldRefs {
+    readonly playersInGameIdentifier: FieldRef<"PlayersInGame", 'String'>
+    readonly gameId: FieldRef<"PlayersInGame", 'String'>
+    readonly playerId: FieldRef<"PlayersInGame", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PlayersInGame findUnique
+   */
+  export type PlayersInGameFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayersInGame
+     */
+    select?: PlayersInGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayersInGameInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayersInGame to fetch.
+     */
+    where: PlayersInGameWhereUniqueInput
+  }
+
+  /**
+   * PlayersInGame findUniqueOrThrow
+   */
+  export type PlayersInGameFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayersInGame
+     */
+    select?: PlayersInGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayersInGameInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayersInGame to fetch.
+     */
+    where: PlayersInGameWhereUniqueInput
+  }
+
+  /**
+   * PlayersInGame findFirst
+   */
+  export type PlayersInGameFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayersInGame
+     */
+    select?: PlayersInGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayersInGameInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayersInGame to fetch.
+     */
+    where?: PlayersInGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayersInGames to fetch.
+     */
+    orderBy?: PlayersInGameOrderByWithRelationInput | PlayersInGameOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlayersInGames.
+     */
+    cursor?: PlayersInGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayersInGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayersInGames.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlayersInGames.
+     */
+    distinct?: PlayersInGameScalarFieldEnum | PlayersInGameScalarFieldEnum[]
+  }
+
+  /**
+   * PlayersInGame findFirstOrThrow
+   */
+  export type PlayersInGameFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayersInGame
+     */
+    select?: PlayersInGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayersInGameInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayersInGame to fetch.
+     */
+    where?: PlayersInGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayersInGames to fetch.
+     */
+    orderBy?: PlayersInGameOrderByWithRelationInput | PlayersInGameOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlayersInGames.
+     */
+    cursor?: PlayersInGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayersInGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayersInGames.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlayersInGames.
+     */
+    distinct?: PlayersInGameScalarFieldEnum | PlayersInGameScalarFieldEnum[]
+  }
+
+  /**
+   * PlayersInGame findMany
+   */
+  export type PlayersInGameFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayersInGame
+     */
+    select?: PlayersInGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayersInGameInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayersInGames to fetch.
+     */
+    where?: PlayersInGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayersInGames to fetch.
+     */
+    orderBy?: PlayersInGameOrderByWithRelationInput | PlayersInGameOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlayersInGames.
+     */
+    cursor?: PlayersInGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayersInGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayersInGames.
+     */
+    skip?: number
+    distinct?: PlayersInGameScalarFieldEnum | PlayersInGameScalarFieldEnum[]
+  }
+
+  /**
+   * PlayersInGame create
+   */
+  export type PlayersInGameCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayersInGame
+     */
+    select?: PlayersInGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayersInGameInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PlayersInGame.
+     */
+    data: XOR<PlayersInGameCreateInput, PlayersInGameUncheckedCreateInput>
+  }
+
+  /**
+   * PlayersInGame createMany
+   */
+  export type PlayersInGameCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PlayersInGames.
+     */
+    data: PlayersInGameCreateManyInput | PlayersInGameCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PlayersInGame createManyAndReturn
+   */
+  export type PlayersInGameCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayersInGame
+     */
+    select?: PlayersInGameSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PlayersInGames.
+     */
+    data: PlayersInGameCreateManyInput | PlayersInGameCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayersInGameIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlayersInGame update
+   */
+  export type PlayersInGameUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayersInGame
+     */
+    select?: PlayersInGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayersInGameInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PlayersInGame.
+     */
+    data: XOR<PlayersInGameUpdateInput, PlayersInGameUncheckedUpdateInput>
+    /**
+     * Choose, which PlayersInGame to update.
+     */
+    where: PlayersInGameWhereUniqueInput
+  }
+
+  /**
+   * PlayersInGame updateMany
+   */
+  export type PlayersInGameUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PlayersInGames.
+     */
+    data: XOR<PlayersInGameUpdateManyMutationInput, PlayersInGameUncheckedUpdateManyInput>
+    /**
+     * Filter which PlayersInGames to update
+     */
+    where?: PlayersInGameWhereInput
+  }
+
+  /**
+   * PlayersInGame upsert
+   */
+  export type PlayersInGameUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayersInGame
+     */
+    select?: PlayersInGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayersInGameInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PlayersInGame to update in case it exists.
+     */
+    where: PlayersInGameWhereUniqueInput
+    /**
+     * In case the PlayersInGame found by the `where` argument doesn't exist, create a new PlayersInGame with this data.
+     */
+    create: XOR<PlayersInGameCreateInput, PlayersInGameUncheckedCreateInput>
+    /**
+     * In case the PlayersInGame was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlayersInGameUpdateInput, PlayersInGameUncheckedUpdateInput>
+  }
+
+  /**
+   * PlayersInGame delete
+   */
+  export type PlayersInGameDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayersInGame
+     */
+    select?: PlayersInGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayersInGameInclude<ExtArgs> | null
+    /**
+     * Filter which PlayersInGame to delete.
+     */
+    where: PlayersInGameWhereUniqueInput
+  }
+
+  /**
+   * PlayersInGame deleteMany
+   */
+  export type PlayersInGameDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlayersInGames to delete
+     */
+    where?: PlayersInGameWhereInput
+  }
+
+  /**
+   * PlayersInGame without action
+   */
+  export type PlayersInGameDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayersInGame
+     */
+    select?: PlayersInGameSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayersInGameInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Player
    */
 
@@ -7381,28 +8400,34 @@ export namespace Prisma {
 
   export type PlayerMinAggregateOutputType = {
     playerId: string | null
+    displayName: string | null
   }
 
   export type PlayerMaxAggregateOutputType = {
     playerId: string | null
+    displayName: string | null
   }
 
   export type PlayerCountAggregateOutputType = {
     playerId: number
+    displayName: number
     _all: number
   }
 
 
   export type PlayerMinAggregateInputType = {
     playerId?: true
+    displayName?: true
   }
 
   export type PlayerMaxAggregateInputType = {
     playerId?: true
+    displayName?: true
   }
 
   export type PlayerCountAggregateInputType = {
     playerId?: true
+    displayName?: true
     _all?: true
   }
 
@@ -7480,6 +8505,7 @@ export namespace Prisma {
 
   export type PlayerGroupByOutputType = {
     playerId: string
+    displayName: string
     _count: PlayerCountAggregateOutputType | null
     _min: PlayerMinAggregateOutputType | null
     _max: PlayerMaxAggregateOutputType | null
@@ -7501,20 +8527,23 @@ export namespace Prisma {
 
   export type PlayerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     playerId?: boolean
-    gameStates?: boolean | Player$gameStatesArgs<ExtArgs>
+    displayName?: boolean
+    PlayersInGame?: boolean | Player$PlayersInGameArgs<ExtArgs>
     _count?: boolean | PlayerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["player"]>
 
   export type PlayerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     playerId?: boolean
+    displayName?: boolean
   }, ExtArgs["result"]["player"]>
 
   export type PlayerSelectScalar = {
     playerId?: boolean
+    displayName?: boolean
   }
 
   export type PlayerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    gameStates?: boolean | Player$gameStatesArgs<ExtArgs>
+    PlayersInGame?: boolean | Player$PlayersInGameArgs<ExtArgs>
     _count?: boolean | PlayerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PlayerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -7522,10 +8551,11 @@ export namespace Prisma {
   export type $PlayerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Player"
     objects: {
-      gameStates: Prisma.$GameStatePayload<ExtArgs>[]
+      PlayersInGame: Prisma.$PlayersInGamePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       playerId: string
+      displayName: string
     }, ExtArgs["result"]["player"]>
     composites: {}
   }
@@ -7890,7 +8920,7 @@ export namespace Prisma {
    */
   export interface Prisma__PlayerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    gameStates<T extends Player$gameStatesArgs<ExtArgs> = {}>(args?: Subset<T, Player$gameStatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findMany"> | Null>
+    PlayersInGame<T extends Player$PlayersInGameArgs<ExtArgs> = {}>(args?: Subset<T, Player$PlayersInGameArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7921,6 +8951,7 @@ export namespace Prisma {
    */ 
   interface PlayerFieldRefs {
     readonly playerId: FieldRef<"Player", 'String'>
+    readonly displayName: FieldRef<"Player", 'String'>
   }
     
 
@@ -8115,7 +9146,7 @@ export namespace Prisma {
     /**
      * The data needed to create a Player.
      */
-    data?: XOR<PlayerCreateInput, PlayerUncheckedCreateInput>
+    data: XOR<PlayerCreateInput, PlayerUncheckedCreateInput>
   }
 
   /**
@@ -8235,23 +9266,23 @@ export namespace Prisma {
   }
 
   /**
-   * Player.gameStates
+   * Player.PlayersInGame
    */
-  export type Player$gameStatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Player$PlayersInGameArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the GameState
+     * Select specific fields to fetch from the PlayersInGame
      */
-    select?: GameStateSelect<ExtArgs> | null
+    select?: PlayersInGameSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: GameStateInclude<ExtArgs> | null
-    where?: GameStateWhereInput
-    orderBy?: GameStateOrderByWithRelationInput | GameStateOrderByWithRelationInput[]
-    cursor?: GameStateWhereUniqueInput
+    include?: PlayersInGameInclude<ExtArgs> | null
+    where?: PlayersInGameWhereInput
+    orderBy?: PlayersInGameOrderByWithRelationInput | PlayersInGameOrderByWithRelationInput[]
+    cursor?: PlayersInGameWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: GameStateScalarFieldEnum | GameStateScalarFieldEnum[]
+    distinct?: PlayersInGameScalarFieldEnum | PlayersInGameScalarFieldEnum[]
   }
 
   /**
@@ -8349,8 +9380,18 @@ export namespace Prisma {
   export type GameStateScalarFieldEnum = (typeof GameStateScalarFieldEnum)[keyof typeof GameStateScalarFieldEnum]
 
 
-  export const PlayerScalarFieldEnum: {
+  export const PlayersInGameScalarFieldEnum: {
+    playersInGameIdentifier: 'playersInGameIdentifier',
+    gameId: 'gameId',
     playerId: 'playerId'
+  };
+
+  export type PlayersInGameScalarFieldEnum = (typeof PlayersInGameScalarFieldEnum)[keyof typeof PlayersInGameScalarFieldEnum]
+
+
+  export const PlayerScalarFieldEnum: {
+    playerId: 'playerId',
+    displayName: 'displayName'
   };
 
   export type PlayerScalarFieldEnum = (typeof PlayerScalarFieldEnum)[keyof typeof PlayerScalarFieldEnum]
@@ -8439,6 +9480,20 @@ export namespace Prisma {
    * Reference to a field of type 'Json'
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'CurrentGameState'
+   */
+  export type EnumCurrentGameStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CurrentGameState'>
+    
+
+
+  /**
+   * Reference to a field of type 'CurrentGameState[]'
+   */
+  export type ListEnumCurrentGameStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CurrentGameState[]'>
     
 
 
@@ -8759,10 +9814,10 @@ export namespace Prisma {
     gameId?: StringFilter<"GameState"> | string
     gameState?: JsonFilter<"GameState">
     gameConfiguration?: JsonFilter<"GameState">
-    currentGameState?: StringFilter<"GameState"> | string
+    currentGameState?: EnumCurrentGameStateFilter<"GameState"> | $Enums.CurrentGameState
     gameType?: StringFilter<"GameState"> | string
     version?: StringFilter<"GameState"> | string
-    players?: PlayerListRelationFilter
+    PlayersInGame?: PlayersInGameListRelationFilter
   }
 
   export type GameStateOrderByWithRelationInput = {
@@ -8772,7 +9827,7 @@ export namespace Prisma {
     currentGameState?: SortOrder
     gameType?: SortOrder
     version?: SortOrder
-    players?: PlayerOrderByRelationAggregateInput
+    PlayersInGame?: PlayersInGameOrderByRelationAggregateInput
   }
 
   export type GameStateWhereUniqueInput = Prisma.AtLeast<{
@@ -8782,10 +9837,10 @@ export namespace Prisma {
     NOT?: GameStateWhereInput | GameStateWhereInput[]
     gameState?: JsonFilter<"GameState">
     gameConfiguration?: JsonFilter<"GameState">
-    currentGameState?: StringFilter<"GameState"> | string
+    currentGameState?: EnumCurrentGameStateFilter<"GameState"> | $Enums.CurrentGameState
     gameType?: StringFilter<"GameState"> | string
     version?: StringFilter<"GameState"> | string
-    players?: PlayerListRelationFilter
+    PlayersInGame?: PlayersInGameListRelationFilter
   }, "gameId">
 
   export type GameStateOrderByWithAggregationInput = {
@@ -8807,9 +9862,57 @@ export namespace Prisma {
     gameId?: StringWithAggregatesFilter<"GameState"> | string
     gameState?: JsonWithAggregatesFilter<"GameState">
     gameConfiguration?: JsonWithAggregatesFilter<"GameState">
-    currentGameState?: StringWithAggregatesFilter<"GameState"> | string
+    currentGameState?: EnumCurrentGameStateWithAggregatesFilter<"GameState"> | $Enums.CurrentGameState
     gameType?: StringWithAggregatesFilter<"GameState"> | string
     version?: StringWithAggregatesFilter<"GameState"> | string
+  }
+
+  export type PlayersInGameWhereInput = {
+    AND?: PlayersInGameWhereInput | PlayersInGameWhereInput[]
+    OR?: PlayersInGameWhereInput[]
+    NOT?: PlayersInGameWhereInput | PlayersInGameWhereInput[]
+    playersInGameIdentifier?: StringFilter<"PlayersInGame"> | string
+    gameId?: StringFilter<"PlayersInGame"> | string
+    playerId?: StringFilter<"PlayersInGame"> | string
+    game?: XOR<GameStateRelationFilter, GameStateWhereInput>
+    player?: XOR<PlayerRelationFilter, PlayerWhereInput>
+  }
+
+  export type PlayersInGameOrderByWithRelationInput = {
+    playersInGameIdentifier?: SortOrder
+    gameId?: SortOrder
+    playerId?: SortOrder
+    game?: GameStateOrderByWithRelationInput
+    player?: PlayerOrderByWithRelationInput
+  }
+
+  export type PlayersInGameWhereUniqueInput = Prisma.AtLeast<{
+    playersInGameIdentifier?: string
+    AND?: PlayersInGameWhereInput | PlayersInGameWhereInput[]
+    OR?: PlayersInGameWhereInput[]
+    NOT?: PlayersInGameWhereInput | PlayersInGameWhereInput[]
+    gameId?: StringFilter<"PlayersInGame"> | string
+    playerId?: StringFilter<"PlayersInGame"> | string
+    game?: XOR<GameStateRelationFilter, GameStateWhereInput>
+    player?: XOR<PlayerRelationFilter, PlayerWhereInput>
+  }, "playersInGameIdentifier">
+
+  export type PlayersInGameOrderByWithAggregationInput = {
+    playersInGameIdentifier?: SortOrder
+    gameId?: SortOrder
+    playerId?: SortOrder
+    _count?: PlayersInGameCountOrderByAggregateInput
+    _max?: PlayersInGameMaxOrderByAggregateInput
+    _min?: PlayersInGameMinOrderByAggregateInput
+  }
+
+  export type PlayersInGameScalarWhereWithAggregatesInput = {
+    AND?: PlayersInGameScalarWhereWithAggregatesInput | PlayersInGameScalarWhereWithAggregatesInput[]
+    OR?: PlayersInGameScalarWhereWithAggregatesInput[]
+    NOT?: PlayersInGameScalarWhereWithAggregatesInput | PlayersInGameScalarWhereWithAggregatesInput[]
+    playersInGameIdentifier?: StringWithAggregatesFilter<"PlayersInGame"> | string
+    gameId?: StringWithAggregatesFilter<"PlayersInGame"> | string
+    playerId?: StringWithAggregatesFilter<"PlayersInGame"> | string
   }
 
   export type PlayerWhereInput = {
@@ -8817,12 +9920,14 @@ export namespace Prisma {
     OR?: PlayerWhereInput[]
     NOT?: PlayerWhereInput | PlayerWhereInput[]
     playerId?: StringFilter<"Player"> | string
-    gameStates?: GameStateListRelationFilter
+    displayName?: StringFilter<"Player"> | string
+    PlayersInGame?: PlayersInGameListRelationFilter
   }
 
   export type PlayerOrderByWithRelationInput = {
     playerId?: SortOrder
-    gameStates?: GameStateOrderByRelationAggregateInput
+    displayName?: SortOrder
+    PlayersInGame?: PlayersInGameOrderByRelationAggregateInput
   }
 
   export type PlayerWhereUniqueInput = Prisma.AtLeast<{
@@ -8830,11 +9935,13 @@ export namespace Prisma {
     AND?: PlayerWhereInput | PlayerWhereInput[]
     OR?: PlayerWhereInput[]
     NOT?: PlayerWhereInput | PlayerWhereInput[]
-    gameStates?: GameStateListRelationFilter
+    displayName?: StringFilter<"Player"> | string
+    PlayersInGame?: PlayersInGameListRelationFilter
   }, "playerId">
 
   export type PlayerOrderByWithAggregationInput = {
     playerId?: SortOrder
+    displayName?: SortOrder
     _count?: PlayerCountOrderByAggregateInput
     _max?: PlayerMaxOrderByAggregateInput
     _min?: PlayerMinOrderByAggregateInput
@@ -8845,6 +9952,7 @@ export namespace Prisma {
     OR?: PlayerScalarWhereWithAggregatesInput[]
     NOT?: PlayerScalarWhereWithAggregatesInput | PlayerScalarWhereWithAggregatesInput[]
     playerId?: StringWithAggregatesFilter<"Player"> | string
+    displayName?: StringWithAggregatesFilter<"Player"> | string
   }
 
   export type TileMapCreateInput = {
@@ -9142,47 +10250,47 @@ export namespace Prisma {
     gameId?: string
     gameState: JsonNullValueInput | InputJsonValue
     gameConfiguration: JsonNullValueInput | InputJsonValue
-    currentGameState: string
+    currentGameState: $Enums.CurrentGameState
     gameType: string
     version: string
-    players?: PlayerCreateNestedManyWithoutGameStatesInput
+    PlayersInGame?: PlayersInGameCreateNestedManyWithoutGameInput
   }
 
   export type GameStateUncheckedCreateInput = {
     gameId?: string
     gameState: JsonNullValueInput | InputJsonValue
     gameConfiguration: JsonNullValueInput | InputJsonValue
-    currentGameState: string
+    currentGameState: $Enums.CurrentGameState
     gameType: string
     version: string
-    players?: PlayerUncheckedCreateNestedManyWithoutGameStatesInput
+    PlayersInGame?: PlayersInGameUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GameStateUpdateInput = {
     gameId?: StringFieldUpdateOperationsInput | string
     gameState?: JsonNullValueInput | InputJsonValue
     gameConfiguration?: JsonNullValueInput | InputJsonValue
-    currentGameState?: StringFieldUpdateOperationsInput | string
+    currentGameState?: EnumCurrentGameStateFieldUpdateOperationsInput | $Enums.CurrentGameState
     gameType?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
-    players?: PlayerUpdateManyWithoutGameStatesNestedInput
+    PlayersInGame?: PlayersInGameUpdateManyWithoutGameNestedInput
   }
 
   export type GameStateUncheckedUpdateInput = {
     gameId?: StringFieldUpdateOperationsInput | string
     gameState?: JsonNullValueInput | InputJsonValue
     gameConfiguration?: JsonNullValueInput | InputJsonValue
-    currentGameState?: StringFieldUpdateOperationsInput | string
+    currentGameState?: EnumCurrentGameStateFieldUpdateOperationsInput | $Enums.CurrentGameState
     gameType?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
-    players?: PlayerUncheckedUpdateManyWithoutGameStatesNestedInput
+    PlayersInGame?: PlayersInGameUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type GameStateCreateManyInput = {
     gameId?: string
     gameState: JsonNullValueInput | InputJsonValue
     gameConfiguration: JsonNullValueInput | InputJsonValue
-    currentGameState: string
+    currentGameState: $Enums.CurrentGameState
     gameType: string
     version: string
   }
@@ -9191,7 +10299,7 @@ export namespace Prisma {
     gameId?: StringFieldUpdateOperationsInput | string
     gameState?: JsonNullValueInput | InputJsonValue
     gameConfiguration?: JsonNullValueInput | InputJsonValue
-    currentGameState?: StringFieldUpdateOperationsInput | string
+    currentGameState?: EnumCurrentGameStateFieldUpdateOperationsInput | $Enums.CurrentGameState
     gameType?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
   }
@@ -9200,41 +10308,88 @@ export namespace Prisma {
     gameId?: StringFieldUpdateOperationsInput | string
     gameState?: JsonNullValueInput | InputJsonValue
     gameConfiguration?: JsonNullValueInput | InputJsonValue
-    currentGameState?: StringFieldUpdateOperationsInput | string
+    currentGameState?: EnumCurrentGameStateFieldUpdateOperationsInput | $Enums.CurrentGameState
     gameType?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PlayersInGameCreateInput = {
+    playersInGameIdentifier?: string
+    game: GameStateCreateNestedOneWithoutPlayersInGameInput
+    player: PlayerCreateNestedOneWithoutPlayersInGameInput
+  }
+
+  export type PlayersInGameUncheckedCreateInput = {
+    playersInGameIdentifier?: string
+    gameId: string
+    playerId: string
+  }
+
+  export type PlayersInGameUpdateInput = {
+    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
+    game?: GameStateUpdateOneRequiredWithoutPlayersInGameNestedInput
+    player?: PlayerUpdateOneRequiredWithoutPlayersInGameNestedInput
+  }
+
+  export type PlayersInGameUncheckedUpdateInput = {
+    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
+    gameId?: StringFieldUpdateOperationsInput | string
+    playerId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayersInGameCreateManyInput = {
+    playersInGameIdentifier?: string
+    gameId: string
+    playerId: string
+  }
+
+  export type PlayersInGameUpdateManyMutationInput = {
+    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayersInGameUncheckedUpdateManyInput = {
+    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
+    gameId?: StringFieldUpdateOperationsInput | string
+    playerId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type PlayerCreateInput = {
     playerId?: string
-    gameStates?: GameStateCreateNestedManyWithoutPlayersInput
+    displayName: string
+    PlayersInGame?: PlayersInGameCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateInput = {
     playerId?: string
-    gameStates?: GameStateUncheckedCreateNestedManyWithoutPlayersInput
+    displayName: string
+    PlayersInGame?: PlayersInGameUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUpdateInput = {
     playerId?: StringFieldUpdateOperationsInput | string
-    gameStates?: GameStateUpdateManyWithoutPlayersNestedInput
+    displayName?: StringFieldUpdateOperationsInput | string
+    PlayersInGame?: PlayersInGameUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateInput = {
     playerId?: StringFieldUpdateOperationsInput | string
-    gameStates?: GameStateUncheckedUpdateManyWithoutPlayersNestedInput
+    displayName?: StringFieldUpdateOperationsInput | string
+    PlayersInGame?: PlayersInGameUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerCreateManyInput = {
     playerId?: string
+    displayName: string
   }
 
   export type PlayerUpdateManyMutationInput = {
     playerId?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlayerUncheckedUpdateManyInput = {
     playerId?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -9526,13 +10681,20 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type PlayerListRelationFilter = {
-    every?: PlayerWhereInput
-    some?: PlayerWhereInput
-    none?: PlayerWhereInput
+  export type EnumCurrentGameStateFilter<$PrismaModel = never> = {
+    equals?: $Enums.CurrentGameState | EnumCurrentGameStateFieldRefInput<$PrismaModel>
+    in?: $Enums.CurrentGameState[] | ListEnumCurrentGameStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CurrentGameState[] | ListEnumCurrentGameStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumCurrentGameStateFilter<$PrismaModel> | $Enums.CurrentGameState
   }
 
-  export type PlayerOrderByRelationAggregateInput = {
+  export type PlayersInGameListRelationFilter = {
+    every?: PlayersInGameWhereInput
+    some?: PlayersInGameWhereInput
+    none?: PlayersInGameWhereInput
+  }
+
+  export type PlayersInGameOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9584,26 +10746,57 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
-  export type GameStateListRelationFilter = {
-    every?: GameStateWhereInput
-    some?: GameStateWhereInput
-    none?: GameStateWhereInput
+  export type EnumCurrentGameStateWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CurrentGameState | EnumCurrentGameStateFieldRefInput<$PrismaModel>
+    in?: $Enums.CurrentGameState[] | ListEnumCurrentGameStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CurrentGameState[] | ListEnumCurrentGameStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumCurrentGameStateWithAggregatesFilter<$PrismaModel> | $Enums.CurrentGameState
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCurrentGameStateFilter<$PrismaModel>
+    _max?: NestedEnumCurrentGameStateFilter<$PrismaModel>
   }
 
-  export type GameStateOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type GameStateRelationFilter = {
+    is?: GameStateWhereInput
+    isNot?: GameStateWhereInput
+  }
+
+  export type PlayerRelationFilter = {
+    is?: PlayerWhereInput
+    isNot?: PlayerWhereInput
+  }
+
+  export type PlayersInGameCountOrderByAggregateInput = {
+    playersInGameIdentifier?: SortOrder
+    gameId?: SortOrder
+    playerId?: SortOrder
+  }
+
+  export type PlayersInGameMaxOrderByAggregateInput = {
+    playersInGameIdentifier?: SortOrder
+    gameId?: SortOrder
+    playerId?: SortOrder
+  }
+
+  export type PlayersInGameMinOrderByAggregateInput = {
+    playersInGameIdentifier?: SortOrder
+    gameId?: SortOrder
+    playerId?: SortOrder
   }
 
   export type PlayerCountOrderByAggregateInput = {
     playerId?: SortOrder
+    displayName?: SortOrder
   }
 
   export type PlayerMaxOrderByAggregateInput = {
     playerId?: SortOrder
+    displayName?: SortOrder
   }
 
   export type PlayerMinOrderByAggregateInput = {
     playerId?: SortOrder
+    displayName?: SortOrder
   }
 
   export type TileCreateNestedManyWithoutTileMapInput = {
@@ -9958,80 +11151,120 @@ export namespace Prisma {
     update?: XOR<XOR<TileGameUpdateToOneWithWhereWithoutTilePawnInput, TileGameUpdateWithoutTilePawnInput>, TileGameUncheckedUpdateWithoutTilePawnInput>
   }
 
-  export type PlayerCreateNestedManyWithoutGameStatesInput = {
-    create?: XOR<PlayerCreateWithoutGameStatesInput, PlayerUncheckedCreateWithoutGameStatesInput> | PlayerCreateWithoutGameStatesInput[] | PlayerUncheckedCreateWithoutGameStatesInput[]
-    connectOrCreate?: PlayerCreateOrConnectWithoutGameStatesInput | PlayerCreateOrConnectWithoutGameStatesInput[]
-    connect?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
+  export type PlayersInGameCreateNestedManyWithoutGameInput = {
+    create?: XOR<PlayersInGameCreateWithoutGameInput, PlayersInGameUncheckedCreateWithoutGameInput> | PlayersInGameCreateWithoutGameInput[] | PlayersInGameUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: PlayersInGameCreateOrConnectWithoutGameInput | PlayersInGameCreateOrConnectWithoutGameInput[]
+    createMany?: PlayersInGameCreateManyGameInputEnvelope
+    connect?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
   }
 
-  export type PlayerUncheckedCreateNestedManyWithoutGameStatesInput = {
-    create?: XOR<PlayerCreateWithoutGameStatesInput, PlayerUncheckedCreateWithoutGameStatesInput> | PlayerCreateWithoutGameStatesInput[] | PlayerUncheckedCreateWithoutGameStatesInput[]
-    connectOrCreate?: PlayerCreateOrConnectWithoutGameStatesInput | PlayerCreateOrConnectWithoutGameStatesInput[]
-    connect?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
+  export type PlayersInGameUncheckedCreateNestedManyWithoutGameInput = {
+    create?: XOR<PlayersInGameCreateWithoutGameInput, PlayersInGameUncheckedCreateWithoutGameInput> | PlayersInGameCreateWithoutGameInput[] | PlayersInGameUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: PlayersInGameCreateOrConnectWithoutGameInput | PlayersInGameCreateOrConnectWithoutGameInput[]
+    createMany?: PlayersInGameCreateManyGameInputEnvelope
+    connect?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
   }
 
-  export type PlayerUpdateManyWithoutGameStatesNestedInput = {
-    create?: XOR<PlayerCreateWithoutGameStatesInput, PlayerUncheckedCreateWithoutGameStatesInput> | PlayerCreateWithoutGameStatesInput[] | PlayerUncheckedCreateWithoutGameStatesInput[]
-    connectOrCreate?: PlayerCreateOrConnectWithoutGameStatesInput | PlayerCreateOrConnectWithoutGameStatesInput[]
-    upsert?: PlayerUpsertWithWhereUniqueWithoutGameStatesInput | PlayerUpsertWithWhereUniqueWithoutGameStatesInput[]
-    set?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
-    disconnect?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
-    delete?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
-    connect?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
-    update?: PlayerUpdateWithWhereUniqueWithoutGameStatesInput | PlayerUpdateWithWhereUniqueWithoutGameStatesInput[]
-    updateMany?: PlayerUpdateManyWithWhereWithoutGameStatesInput | PlayerUpdateManyWithWhereWithoutGameStatesInput[]
-    deleteMany?: PlayerScalarWhereInput | PlayerScalarWhereInput[]
+  export type EnumCurrentGameStateFieldUpdateOperationsInput = {
+    set?: $Enums.CurrentGameState
   }
 
-  export type PlayerUncheckedUpdateManyWithoutGameStatesNestedInput = {
-    create?: XOR<PlayerCreateWithoutGameStatesInput, PlayerUncheckedCreateWithoutGameStatesInput> | PlayerCreateWithoutGameStatesInput[] | PlayerUncheckedCreateWithoutGameStatesInput[]
-    connectOrCreate?: PlayerCreateOrConnectWithoutGameStatesInput | PlayerCreateOrConnectWithoutGameStatesInput[]
-    upsert?: PlayerUpsertWithWhereUniqueWithoutGameStatesInput | PlayerUpsertWithWhereUniqueWithoutGameStatesInput[]
-    set?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
-    disconnect?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
-    delete?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
-    connect?: PlayerWhereUniqueInput | PlayerWhereUniqueInput[]
-    update?: PlayerUpdateWithWhereUniqueWithoutGameStatesInput | PlayerUpdateWithWhereUniqueWithoutGameStatesInput[]
-    updateMany?: PlayerUpdateManyWithWhereWithoutGameStatesInput | PlayerUpdateManyWithWhereWithoutGameStatesInput[]
-    deleteMany?: PlayerScalarWhereInput | PlayerScalarWhereInput[]
+  export type PlayersInGameUpdateManyWithoutGameNestedInput = {
+    create?: XOR<PlayersInGameCreateWithoutGameInput, PlayersInGameUncheckedCreateWithoutGameInput> | PlayersInGameCreateWithoutGameInput[] | PlayersInGameUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: PlayersInGameCreateOrConnectWithoutGameInput | PlayersInGameCreateOrConnectWithoutGameInput[]
+    upsert?: PlayersInGameUpsertWithWhereUniqueWithoutGameInput | PlayersInGameUpsertWithWhereUniqueWithoutGameInput[]
+    createMany?: PlayersInGameCreateManyGameInputEnvelope
+    set?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    disconnect?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    delete?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    connect?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    update?: PlayersInGameUpdateWithWhereUniqueWithoutGameInput | PlayersInGameUpdateWithWhereUniqueWithoutGameInput[]
+    updateMany?: PlayersInGameUpdateManyWithWhereWithoutGameInput | PlayersInGameUpdateManyWithWhereWithoutGameInput[]
+    deleteMany?: PlayersInGameScalarWhereInput | PlayersInGameScalarWhereInput[]
   }
 
-  export type GameStateCreateNestedManyWithoutPlayersInput = {
-    create?: XOR<GameStateCreateWithoutPlayersInput, GameStateUncheckedCreateWithoutPlayersInput> | GameStateCreateWithoutPlayersInput[] | GameStateUncheckedCreateWithoutPlayersInput[]
-    connectOrCreate?: GameStateCreateOrConnectWithoutPlayersInput | GameStateCreateOrConnectWithoutPlayersInput[]
-    connect?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
+  export type PlayersInGameUncheckedUpdateManyWithoutGameNestedInput = {
+    create?: XOR<PlayersInGameCreateWithoutGameInput, PlayersInGameUncheckedCreateWithoutGameInput> | PlayersInGameCreateWithoutGameInput[] | PlayersInGameUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: PlayersInGameCreateOrConnectWithoutGameInput | PlayersInGameCreateOrConnectWithoutGameInput[]
+    upsert?: PlayersInGameUpsertWithWhereUniqueWithoutGameInput | PlayersInGameUpsertWithWhereUniqueWithoutGameInput[]
+    createMany?: PlayersInGameCreateManyGameInputEnvelope
+    set?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    disconnect?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    delete?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    connect?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    update?: PlayersInGameUpdateWithWhereUniqueWithoutGameInput | PlayersInGameUpdateWithWhereUniqueWithoutGameInput[]
+    updateMany?: PlayersInGameUpdateManyWithWhereWithoutGameInput | PlayersInGameUpdateManyWithWhereWithoutGameInput[]
+    deleteMany?: PlayersInGameScalarWhereInput | PlayersInGameScalarWhereInput[]
   }
 
-  export type GameStateUncheckedCreateNestedManyWithoutPlayersInput = {
-    create?: XOR<GameStateCreateWithoutPlayersInput, GameStateUncheckedCreateWithoutPlayersInput> | GameStateCreateWithoutPlayersInput[] | GameStateUncheckedCreateWithoutPlayersInput[]
-    connectOrCreate?: GameStateCreateOrConnectWithoutPlayersInput | GameStateCreateOrConnectWithoutPlayersInput[]
-    connect?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
+  export type GameStateCreateNestedOneWithoutPlayersInGameInput = {
+    create?: XOR<GameStateCreateWithoutPlayersInGameInput, GameStateUncheckedCreateWithoutPlayersInGameInput>
+    connectOrCreate?: GameStateCreateOrConnectWithoutPlayersInGameInput
+    connect?: GameStateWhereUniqueInput
   }
 
-  export type GameStateUpdateManyWithoutPlayersNestedInput = {
-    create?: XOR<GameStateCreateWithoutPlayersInput, GameStateUncheckedCreateWithoutPlayersInput> | GameStateCreateWithoutPlayersInput[] | GameStateUncheckedCreateWithoutPlayersInput[]
-    connectOrCreate?: GameStateCreateOrConnectWithoutPlayersInput | GameStateCreateOrConnectWithoutPlayersInput[]
-    upsert?: GameStateUpsertWithWhereUniqueWithoutPlayersInput | GameStateUpsertWithWhereUniqueWithoutPlayersInput[]
-    set?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
-    disconnect?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
-    delete?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
-    connect?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
-    update?: GameStateUpdateWithWhereUniqueWithoutPlayersInput | GameStateUpdateWithWhereUniqueWithoutPlayersInput[]
-    updateMany?: GameStateUpdateManyWithWhereWithoutPlayersInput | GameStateUpdateManyWithWhereWithoutPlayersInput[]
-    deleteMany?: GameStateScalarWhereInput | GameStateScalarWhereInput[]
+  export type PlayerCreateNestedOneWithoutPlayersInGameInput = {
+    create?: XOR<PlayerCreateWithoutPlayersInGameInput, PlayerUncheckedCreateWithoutPlayersInGameInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutPlayersInGameInput
+    connect?: PlayerWhereUniqueInput
   }
 
-  export type GameStateUncheckedUpdateManyWithoutPlayersNestedInput = {
-    create?: XOR<GameStateCreateWithoutPlayersInput, GameStateUncheckedCreateWithoutPlayersInput> | GameStateCreateWithoutPlayersInput[] | GameStateUncheckedCreateWithoutPlayersInput[]
-    connectOrCreate?: GameStateCreateOrConnectWithoutPlayersInput | GameStateCreateOrConnectWithoutPlayersInput[]
-    upsert?: GameStateUpsertWithWhereUniqueWithoutPlayersInput | GameStateUpsertWithWhereUniqueWithoutPlayersInput[]
-    set?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
-    disconnect?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
-    delete?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
-    connect?: GameStateWhereUniqueInput | GameStateWhereUniqueInput[]
-    update?: GameStateUpdateWithWhereUniqueWithoutPlayersInput | GameStateUpdateWithWhereUniqueWithoutPlayersInput[]
-    updateMany?: GameStateUpdateManyWithWhereWithoutPlayersInput | GameStateUpdateManyWithWhereWithoutPlayersInput[]
-    deleteMany?: GameStateScalarWhereInput | GameStateScalarWhereInput[]
+  export type GameStateUpdateOneRequiredWithoutPlayersInGameNestedInput = {
+    create?: XOR<GameStateCreateWithoutPlayersInGameInput, GameStateUncheckedCreateWithoutPlayersInGameInput>
+    connectOrCreate?: GameStateCreateOrConnectWithoutPlayersInGameInput
+    upsert?: GameStateUpsertWithoutPlayersInGameInput
+    connect?: GameStateWhereUniqueInput
+    update?: XOR<XOR<GameStateUpdateToOneWithWhereWithoutPlayersInGameInput, GameStateUpdateWithoutPlayersInGameInput>, GameStateUncheckedUpdateWithoutPlayersInGameInput>
+  }
+
+  export type PlayerUpdateOneRequiredWithoutPlayersInGameNestedInput = {
+    create?: XOR<PlayerCreateWithoutPlayersInGameInput, PlayerUncheckedCreateWithoutPlayersInGameInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutPlayersInGameInput
+    upsert?: PlayerUpsertWithoutPlayersInGameInput
+    connect?: PlayerWhereUniqueInput
+    update?: XOR<XOR<PlayerUpdateToOneWithWhereWithoutPlayersInGameInput, PlayerUpdateWithoutPlayersInGameInput>, PlayerUncheckedUpdateWithoutPlayersInGameInput>
+  }
+
+  export type PlayersInGameCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<PlayersInGameCreateWithoutPlayerInput, PlayersInGameUncheckedCreateWithoutPlayerInput> | PlayersInGameCreateWithoutPlayerInput[] | PlayersInGameUncheckedCreateWithoutPlayerInput[]
+    connectOrCreate?: PlayersInGameCreateOrConnectWithoutPlayerInput | PlayersInGameCreateOrConnectWithoutPlayerInput[]
+    createMany?: PlayersInGameCreateManyPlayerInputEnvelope
+    connect?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+  }
+
+  export type PlayersInGameUncheckedCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<PlayersInGameCreateWithoutPlayerInput, PlayersInGameUncheckedCreateWithoutPlayerInput> | PlayersInGameCreateWithoutPlayerInput[] | PlayersInGameUncheckedCreateWithoutPlayerInput[]
+    connectOrCreate?: PlayersInGameCreateOrConnectWithoutPlayerInput | PlayersInGameCreateOrConnectWithoutPlayerInput[]
+    createMany?: PlayersInGameCreateManyPlayerInputEnvelope
+    connect?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+  }
+
+  export type PlayersInGameUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<PlayersInGameCreateWithoutPlayerInput, PlayersInGameUncheckedCreateWithoutPlayerInput> | PlayersInGameCreateWithoutPlayerInput[] | PlayersInGameUncheckedCreateWithoutPlayerInput[]
+    connectOrCreate?: PlayersInGameCreateOrConnectWithoutPlayerInput | PlayersInGameCreateOrConnectWithoutPlayerInput[]
+    upsert?: PlayersInGameUpsertWithWhereUniqueWithoutPlayerInput | PlayersInGameUpsertWithWhereUniqueWithoutPlayerInput[]
+    createMany?: PlayersInGameCreateManyPlayerInputEnvelope
+    set?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    disconnect?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    delete?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    connect?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    update?: PlayersInGameUpdateWithWhereUniqueWithoutPlayerInput | PlayersInGameUpdateWithWhereUniqueWithoutPlayerInput[]
+    updateMany?: PlayersInGameUpdateManyWithWhereWithoutPlayerInput | PlayersInGameUpdateManyWithWhereWithoutPlayerInput[]
+    deleteMany?: PlayersInGameScalarWhereInput | PlayersInGameScalarWhereInput[]
+  }
+
+  export type PlayersInGameUncheckedUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<PlayersInGameCreateWithoutPlayerInput, PlayersInGameUncheckedCreateWithoutPlayerInput> | PlayersInGameCreateWithoutPlayerInput[] | PlayersInGameUncheckedCreateWithoutPlayerInput[]
+    connectOrCreate?: PlayersInGameCreateOrConnectWithoutPlayerInput | PlayersInGameCreateOrConnectWithoutPlayerInput[]
+    upsert?: PlayersInGameUpsertWithWhereUniqueWithoutPlayerInput | PlayersInGameUpsertWithWhereUniqueWithoutPlayerInput[]
+    createMany?: PlayersInGameCreateManyPlayerInputEnvelope
+    set?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    disconnect?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    delete?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    connect?: PlayersInGameWhereUniqueInput | PlayersInGameWhereUniqueInput[]
+    update?: PlayersInGameUpdateWithWhereUniqueWithoutPlayerInput | PlayersInGameUpdateWithWhereUniqueWithoutPlayerInput[]
+    updateMany?: PlayersInGameUpdateManyWithWhereWithoutPlayerInput | PlayersInGameUpdateManyWithWhereWithoutPlayerInput[]
+    deleteMany?: PlayersInGameScalarWhereInput | PlayersInGameScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -10127,6 +11360,13 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
   }
+
+  export type NestedEnumCurrentGameStateFilter<$PrismaModel = never> = {
+    equals?: $Enums.CurrentGameState | EnumCurrentGameStateFieldRefInput<$PrismaModel>
+    in?: $Enums.CurrentGameState[] | ListEnumCurrentGameStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CurrentGameState[] | ListEnumCurrentGameStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumCurrentGameStateFilter<$PrismaModel> | $Enums.CurrentGameState
+  }
   export type NestedJsonFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -10148,6 +11388,16 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedEnumCurrentGameStateWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CurrentGameState | EnumCurrentGameStateFieldRefInput<$PrismaModel>
+    in?: $Enums.CurrentGameState[] | ListEnumCurrentGameStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CurrentGameState[] | ListEnumCurrentGameStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumCurrentGameStateWithAggregatesFilter<$PrismaModel> | $Enums.CurrentGameState
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCurrentGameStateFilter<$PrismaModel>
+    _max?: NestedEnumCurrentGameStateFilter<$PrismaModel>
   }
 
   export type TileCreateWithoutTileMapInput = {
@@ -10761,91 +12011,173 @@ export namespace Prisma {
     state?: StringFieldUpdateOperationsInput | string
   }
 
-  export type PlayerCreateWithoutGameStatesInput = {
-    playerId?: string
+  export type PlayersInGameCreateWithoutGameInput = {
+    playersInGameIdentifier?: string
+    player: PlayerCreateNestedOneWithoutPlayersInGameInput
   }
 
-  export type PlayerUncheckedCreateWithoutGameStatesInput = {
-    playerId?: string
+  export type PlayersInGameUncheckedCreateWithoutGameInput = {
+    playersInGameIdentifier?: string
+    playerId: string
   }
 
-  export type PlayerCreateOrConnectWithoutGameStatesInput = {
-    where: PlayerWhereUniqueInput
-    create: XOR<PlayerCreateWithoutGameStatesInput, PlayerUncheckedCreateWithoutGameStatesInput>
+  export type PlayersInGameCreateOrConnectWithoutGameInput = {
+    where: PlayersInGameWhereUniqueInput
+    create: XOR<PlayersInGameCreateWithoutGameInput, PlayersInGameUncheckedCreateWithoutGameInput>
   }
 
-  export type PlayerUpsertWithWhereUniqueWithoutGameStatesInput = {
-    where: PlayerWhereUniqueInput
-    update: XOR<PlayerUpdateWithoutGameStatesInput, PlayerUncheckedUpdateWithoutGameStatesInput>
-    create: XOR<PlayerCreateWithoutGameStatesInput, PlayerUncheckedCreateWithoutGameStatesInput>
+  export type PlayersInGameCreateManyGameInputEnvelope = {
+    data: PlayersInGameCreateManyGameInput | PlayersInGameCreateManyGameInput[]
+    skipDuplicates?: boolean
   }
 
-  export type PlayerUpdateWithWhereUniqueWithoutGameStatesInput = {
-    where: PlayerWhereUniqueInput
-    data: XOR<PlayerUpdateWithoutGameStatesInput, PlayerUncheckedUpdateWithoutGameStatesInput>
+  export type PlayersInGameUpsertWithWhereUniqueWithoutGameInput = {
+    where: PlayersInGameWhereUniqueInput
+    update: XOR<PlayersInGameUpdateWithoutGameInput, PlayersInGameUncheckedUpdateWithoutGameInput>
+    create: XOR<PlayersInGameCreateWithoutGameInput, PlayersInGameUncheckedCreateWithoutGameInput>
   }
 
-  export type PlayerUpdateManyWithWhereWithoutGameStatesInput = {
-    where: PlayerScalarWhereInput
-    data: XOR<PlayerUpdateManyMutationInput, PlayerUncheckedUpdateManyWithoutGameStatesInput>
+  export type PlayersInGameUpdateWithWhereUniqueWithoutGameInput = {
+    where: PlayersInGameWhereUniqueInput
+    data: XOR<PlayersInGameUpdateWithoutGameInput, PlayersInGameUncheckedUpdateWithoutGameInput>
   }
 
-  export type PlayerScalarWhereInput = {
-    AND?: PlayerScalarWhereInput | PlayerScalarWhereInput[]
-    OR?: PlayerScalarWhereInput[]
-    NOT?: PlayerScalarWhereInput | PlayerScalarWhereInput[]
-    playerId?: StringFilter<"Player"> | string
+  export type PlayersInGameUpdateManyWithWhereWithoutGameInput = {
+    where: PlayersInGameScalarWhereInput
+    data: XOR<PlayersInGameUpdateManyMutationInput, PlayersInGameUncheckedUpdateManyWithoutGameInput>
   }
 
-  export type GameStateCreateWithoutPlayersInput = {
+  export type PlayersInGameScalarWhereInput = {
+    AND?: PlayersInGameScalarWhereInput | PlayersInGameScalarWhereInput[]
+    OR?: PlayersInGameScalarWhereInput[]
+    NOT?: PlayersInGameScalarWhereInput | PlayersInGameScalarWhereInput[]
+    playersInGameIdentifier?: StringFilter<"PlayersInGame"> | string
+    gameId?: StringFilter<"PlayersInGame"> | string
+    playerId?: StringFilter<"PlayersInGame"> | string
+  }
+
+  export type GameStateCreateWithoutPlayersInGameInput = {
     gameId?: string
     gameState: JsonNullValueInput | InputJsonValue
     gameConfiguration: JsonNullValueInput | InputJsonValue
-    currentGameState: string
+    currentGameState: $Enums.CurrentGameState
     gameType: string
     version: string
   }
 
-  export type GameStateUncheckedCreateWithoutPlayersInput = {
+  export type GameStateUncheckedCreateWithoutPlayersInGameInput = {
     gameId?: string
     gameState: JsonNullValueInput | InputJsonValue
     gameConfiguration: JsonNullValueInput | InputJsonValue
-    currentGameState: string
+    currentGameState: $Enums.CurrentGameState
     gameType: string
     version: string
   }
 
-  export type GameStateCreateOrConnectWithoutPlayersInput = {
+  export type GameStateCreateOrConnectWithoutPlayersInGameInput = {
     where: GameStateWhereUniqueInput
-    create: XOR<GameStateCreateWithoutPlayersInput, GameStateUncheckedCreateWithoutPlayersInput>
+    create: XOR<GameStateCreateWithoutPlayersInGameInput, GameStateUncheckedCreateWithoutPlayersInGameInput>
   }
 
-  export type GameStateUpsertWithWhereUniqueWithoutPlayersInput = {
-    where: GameStateWhereUniqueInput
-    update: XOR<GameStateUpdateWithoutPlayersInput, GameStateUncheckedUpdateWithoutPlayersInput>
-    create: XOR<GameStateCreateWithoutPlayersInput, GameStateUncheckedCreateWithoutPlayersInput>
+  export type PlayerCreateWithoutPlayersInGameInput = {
+    playerId?: string
+    displayName: string
   }
 
-  export type GameStateUpdateWithWhereUniqueWithoutPlayersInput = {
-    where: GameStateWhereUniqueInput
-    data: XOR<GameStateUpdateWithoutPlayersInput, GameStateUncheckedUpdateWithoutPlayersInput>
+  export type PlayerUncheckedCreateWithoutPlayersInGameInput = {
+    playerId?: string
+    displayName: string
   }
 
-  export type GameStateUpdateManyWithWhereWithoutPlayersInput = {
-    where: GameStateScalarWhereInput
-    data: XOR<GameStateUpdateManyMutationInput, GameStateUncheckedUpdateManyWithoutPlayersInput>
+  export type PlayerCreateOrConnectWithoutPlayersInGameInput = {
+    where: PlayerWhereUniqueInput
+    create: XOR<PlayerCreateWithoutPlayersInGameInput, PlayerUncheckedCreateWithoutPlayersInGameInput>
   }
 
-  export type GameStateScalarWhereInput = {
-    AND?: GameStateScalarWhereInput | GameStateScalarWhereInput[]
-    OR?: GameStateScalarWhereInput[]
-    NOT?: GameStateScalarWhereInput | GameStateScalarWhereInput[]
-    gameId?: StringFilter<"GameState"> | string
-    gameState?: JsonFilter<"GameState">
-    gameConfiguration?: JsonFilter<"GameState">
-    currentGameState?: StringFilter<"GameState"> | string
-    gameType?: StringFilter<"GameState"> | string
-    version?: StringFilter<"GameState"> | string
+  export type GameStateUpsertWithoutPlayersInGameInput = {
+    update: XOR<GameStateUpdateWithoutPlayersInGameInput, GameStateUncheckedUpdateWithoutPlayersInGameInput>
+    create: XOR<GameStateCreateWithoutPlayersInGameInput, GameStateUncheckedCreateWithoutPlayersInGameInput>
+    where?: GameStateWhereInput
+  }
+
+  export type GameStateUpdateToOneWithWhereWithoutPlayersInGameInput = {
+    where?: GameStateWhereInput
+    data: XOR<GameStateUpdateWithoutPlayersInGameInput, GameStateUncheckedUpdateWithoutPlayersInGameInput>
+  }
+
+  export type GameStateUpdateWithoutPlayersInGameInput = {
+    gameId?: StringFieldUpdateOperationsInput | string
+    gameState?: JsonNullValueInput | InputJsonValue
+    gameConfiguration?: JsonNullValueInput | InputJsonValue
+    currentGameState?: EnumCurrentGameStateFieldUpdateOperationsInput | $Enums.CurrentGameState
+    gameType?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GameStateUncheckedUpdateWithoutPlayersInGameInput = {
+    gameId?: StringFieldUpdateOperationsInput | string
+    gameState?: JsonNullValueInput | InputJsonValue
+    gameConfiguration?: JsonNullValueInput | InputJsonValue
+    currentGameState?: EnumCurrentGameStateFieldUpdateOperationsInput | $Enums.CurrentGameState
+    gameType?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayerUpsertWithoutPlayersInGameInput = {
+    update: XOR<PlayerUpdateWithoutPlayersInGameInput, PlayerUncheckedUpdateWithoutPlayersInGameInput>
+    create: XOR<PlayerCreateWithoutPlayersInGameInput, PlayerUncheckedCreateWithoutPlayersInGameInput>
+    where?: PlayerWhereInput
+  }
+
+  export type PlayerUpdateToOneWithWhereWithoutPlayersInGameInput = {
+    where?: PlayerWhereInput
+    data: XOR<PlayerUpdateWithoutPlayersInGameInput, PlayerUncheckedUpdateWithoutPlayersInGameInput>
+  }
+
+  export type PlayerUpdateWithoutPlayersInGameInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayerUncheckedUpdateWithoutPlayersInGameInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayersInGameCreateWithoutPlayerInput = {
+    playersInGameIdentifier?: string
+    game: GameStateCreateNestedOneWithoutPlayersInGameInput
+  }
+
+  export type PlayersInGameUncheckedCreateWithoutPlayerInput = {
+    playersInGameIdentifier?: string
+    gameId: string
+  }
+
+  export type PlayersInGameCreateOrConnectWithoutPlayerInput = {
+    where: PlayersInGameWhereUniqueInput
+    create: XOR<PlayersInGameCreateWithoutPlayerInput, PlayersInGameUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type PlayersInGameCreateManyPlayerInputEnvelope = {
+    data: PlayersInGameCreateManyPlayerInput | PlayersInGameCreateManyPlayerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PlayersInGameUpsertWithWhereUniqueWithoutPlayerInput = {
+    where: PlayersInGameWhereUniqueInput
+    update: XOR<PlayersInGameUpdateWithoutPlayerInput, PlayersInGameUncheckedUpdateWithoutPlayerInput>
+    create: XOR<PlayersInGameCreateWithoutPlayerInput, PlayersInGameUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type PlayersInGameUpdateWithWhereUniqueWithoutPlayerInput = {
+    where: PlayersInGameWhereUniqueInput
+    data: XOR<PlayersInGameUpdateWithoutPlayerInput, PlayersInGameUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type PlayersInGameUpdateManyWithWhereWithoutPlayerInput = {
+    where: PlayersInGameScalarWhereInput
+    data: XOR<PlayersInGameUpdateManyMutationInput, PlayersInGameUncheckedUpdateManyWithoutPlayerInput>
   }
 
   export type TileCreateManyTileMapInput = {
@@ -11028,43 +12360,44 @@ export namespace Prisma {
     color?: StringFieldUpdateOperationsInput | string
   }
 
-  export type PlayerUpdateWithoutGameStatesInput = {
+  export type PlayersInGameCreateManyGameInput = {
+    playersInGameIdentifier?: string
+    playerId: string
+  }
+
+  export type PlayersInGameUpdateWithoutGameInput = {
+    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
+    player?: PlayerUpdateOneRequiredWithoutPlayersInGameNestedInput
+  }
+
+  export type PlayersInGameUncheckedUpdateWithoutGameInput = {
+    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type PlayerUncheckedUpdateWithoutGameStatesInput = {
+  export type PlayersInGameUncheckedUpdateManyWithoutGameInput = {
+    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type PlayerUncheckedUpdateManyWithoutGameStatesInput = {
-    playerId?: StringFieldUpdateOperationsInput | string
+  export type PlayersInGameCreateManyPlayerInput = {
+    playersInGameIdentifier?: string
+    gameId: string
   }
 
-  export type GameStateUpdateWithoutPlayersInput = {
-    gameId?: StringFieldUpdateOperationsInput | string
-    gameState?: JsonNullValueInput | InputJsonValue
-    gameConfiguration?: JsonNullValueInput | InputJsonValue
-    currentGameState?: StringFieldUpdateOperationsInput | string
-    gameType?: StringFieldUpdateOperationsInput | string
-    version?: StringFieldUpdateOperationsInput | string
+  export type PlayersInGameUpdateWithoutPlayerInput = {
+    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
+    game?: GameStateUpdateOneRequiredWithoutPlayersInGameNestedInput
   }
 
-  export type GameStateUncheckedUpdateWithoutPlayersInput = {
+  export type PlayersInGameUncheckedUpdateWithoutPlayerInput = {
+    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
     gameId?: StringFieldUpdateOperationsInput | string
-    gameState?: JsonNullValueInput | InputJsonValue
-    gameConfiguration?: JsonNullValueInput | InputJsonValue
-    currentGameState?: StringFieldUpdateOperationsInput | string
-    gameType?: StringFieldUpdateOperationsInput | string
-    version?: StringFieldUpdateOperationsInput | string
   }
 
-  export type GameStateUncheckedUpdateManyWithoutPlayersInput = {
+  export type PlayersInGameUncheckedUpdateManyWithoutPlayerInput = {
+    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
     gameId?: StringFieldUpdateOperationsInput | string
-    gameState?: JsonNullValueInput | InputJsonValue
-    gameConfiguration?: JsonNullValueInput | InputJsonValue
-    currentGameState?: StringFieldUpdateOperationsInput | string
-    gameType?: StringFieldUpdateOperationsInput | string
-    version?: StringFieldUpdateOperationsInput | string
   }
 
 
@@ -11116,6 +12449,10 @@ export namespace Prisma {
      * @deprecated Use GameStateDefaultArgs instead
      */
     export type GameStateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GameStateDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PlayersInGameDefaultArgs instead
+     */
+    export type PlayersInGameArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlayersInGameDefaultArgs<ExtArgs>
     /**
      * @deprecated Use PlayerDefaultArgs instead
      */
