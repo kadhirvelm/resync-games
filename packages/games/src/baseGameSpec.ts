@@ -1,18 +1,11 @@
-type BaseServerGameInstance = {
-  gameId: string;
-  // Static game map data that will not be updated.
-  gameMap: object;
-  gameName: string;
-  // State of the game that will be constantly updated.
-  gameState: object;
-};
+import { GameState } from "./gameStateTypes";
 
 /**
- * All backend logic is described here.
+ * All backendo logic is described here.
  */
-interface IGameServer {
+export interface IGameServer {
   // Given an input payload, create a game instance. This includes generation of maps and creating the initial game state.
-  createGame(input: object): BaseGameInstance;
+  createGame(input: object): GameState;
   // Additional routes that we want to support for this specific game.
   getAvailableRoutes(): Record<string, (...args: unknown[]) => unknown>;
   // Can be used to execute additional logic every time the game state is updated and modify the new state
@@ -21,7 +14,7 @@ interface IGameServer {
 }
 
 // Additional state to be maintained within the client but does not have to be sent to the server.
-interface ClientGameState {
+export interface ClientGameState {
   getState(): object;
   setState(state: object): void;
   subscribe(callback: (state: object) => void): void;
@@ -30,7 +23,7 @@ interface ClientGameState {
 /**
  * A wrapper around Phaser.Game that will be used to manage the game state on the client side.
  */
-interface IGameClient {
+export interface IGameClient {
   // Any other top-level configuration logic like resolution, physics etc.
   config: object;
   scenes: IGameScene[];
@@ -39,12 +32,12 @@ interface IGameClient {
 /**
  * A wrapper around Phaser.Scene that will be used to manage the game state on the client side.
  */
-interface IGameScene {
+export interface IGameScene {
   onClientStateChange(newState: object): void;
   // Callbacks to be called when the game state changes to enable updating the scene in response to the game state.
   onServerStateChange(newState: object): void;
   // An object that can be used to communicate with the server with the predefined routes.
-  server: ServerInterface<IGameServer>;
+  server: any; //ServerInterface<IGameServer>;
   // Any other Phaser-related logic.
   // ...
 }

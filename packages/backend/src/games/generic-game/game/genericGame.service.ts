@@ -1,123 +1,50 @@
 import { Injectable } from "@nestjs/common";
 import {
-  CreateTileGameRequest,
-  MovePawnRequest,
-  TileGameId
+  AvailableGames,
+  CreateGameRequest,
+  GameId,
+  GameState,
+  GameType,
+  PlayerId
 } from "@tiles-tbd/api";
 import * as _ from "lodash";
 import { PrismaService } from "src/games/tiles-tbd/database/prisma.service";
-import { TileMapService } from "src/games/tiles-tbd/map/tileMap.service";
 import { GenericGameSocketGateway } from "../socket/genericGameSocket.gateway";
 
 @Injectable()
 export class GenericGameService {
   public constructor(
     private prismaService: PrismaService,
-    private tileMapService: TileMapService,
     private socketGateway: GenericGameSocketGateway
   ) {}
 
-  public getAvailableGames = async () => {
-    const allGames = await this.prismaService.client.tileGame.findMany({
-      include: { tileMap: true }
-    });
-    const allMaps = _.uniqBy(
-      allGames.flatMap((game) => game.tileMap),
-      (map) => map.tileMapId
-    );
-
-    return {
-      tileGames: allGames.map(
-        this.prismaService.converterService.convertTileGame
-      ),
-      tileMaps: allMaps.map(this.prismaService.converterService.convertMap)
-    };
-  };
-
-  public getTileGame = async (gameId: TileGameId) => {
-    const game = await this.prismaService.client.tileGame.findUnique({
-      include: { TilePawn: true },
-      where: { tileGameId: gameId }
-    });
-
-    const tileGame = this.prismaService.converterService.convertTileGame(game);
-    const pawns = game.TilePawn.flatMap((pawn) =>
-      this.prismaService.converterService.convertTilePawn(pawn)
-    );
-
-    const tileMap = await this.tileMapService.getTileMap(tileGame.tileMapId);
-
-    return {
-      game: {
-        ...tileGame,
-        pawns
-      },
-      tileMap
-    };
-  };
-
-  public createGame = async (initializeGameRequest: CreateTileGameRequest) => {
-    const tileMap = await this.tileMapService.getTileMap(
-      initializeGameRequest.tileMapId
-    );
-
-    const pawns = _.range(initializeGameRequest.numberOfPawns).map((index) => ({
-      color: TILE_GAME_PAWN_COLORS[index],
-      onTileId: tileMap.tileMap.startingTileId
-    }));
-
-    const newGame = await this.prismaService.client.tileGame.create({
-      data: {
-        TilePawn: {
-          create: pawns
-        },
-        name: initializeGameRequest.name,
-        state: "waiting",
-        tileMapId: initializeGameRequest.tileMapId
+  public getAvailableGames = async (): Promise<AvailableGames> => {
+    const allGames = await this.prismaService.client.gameState.findMany({
+      select: {
+        gameId: true,
+        gameType: true,
+        players: {
+          select: {
+            playerId: true
+          }
+        }
       }
     });
 
     return {
-      game: this.prismaService.converterService.convertTileGame(newGame)
+      games: allGames.map((game) => ({
+        gameId: game.gameId as GameId,
+        gameType: game.gameType as GameType,
+        playerIds: game.players.map((player) => player.playerId as PlayerId)
+      }))
     };
   };
 
-  public movePawn = async (movePawnRequest: MovePawnRequest) => {
-    const newPawnState = await this.prismaService.client.tilePawn.update({
-      data: {
-        onTileId: movePawnRequest.toTileId,
-        tileGameId: movePawnRequest.gameId
-      },
-      where: {
-        onTileId: movePawnRequest.fromTileId,
-        tilePawnId: movePawnRequest.tilePawnId
-      }
-    });
-
-    const didMove = newPawnState.onTileId === movePawnRequest.toTileId;
-    if (!didMove) {
-      return {
-        didMove: false
-      };
-    }
-
-    const pawns = await this.prismaService.client.tilePawn.findMany({
-      where: {
-        tileGameId: movePawnRequest.gameId
-      }
-    });
-
-    this.socketGateway.updatePawnState(
-      {
-        pawnState: pawns.map(
-          this.prismaService.converterService.convertTilePawn
-        )
-      },
-      movePawnRequest.gameId
-    );
-
-    return {
-      didMove: true
-    };
+  public createGame = async (
+    initializeGameRequest: CreateGameRequest
+  ): Promise<GameState> => {
+    // TODO: Call the createGame method of the respective game implementation to get the initial game state.
+    // Then commit it to the DB and return.
+    return {} as GameState;
   };
 }

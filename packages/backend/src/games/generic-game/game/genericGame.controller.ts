@@ -1,50 +1,32 @@
 import { Body, Controller } from "@nestjs/common";
 import {
-  GetAvailableTileGamesResponse,
-  GetTileGameRequest,
-  GetTileGameResponse,
-  CreateTileGameRequest,
   CreateTileGameResponse,
-  TileGameServiceApi,
   TileGameServiceDefinition,
-  MovePawnRequest,
-  MovePawnResponse
+  GameStateApi,
+  AvailableGames,
+  CreateGameRequest
 } from "@tiles-tbd/api";
 import {
   ServiceControllerInterface,
   getDecorator
 } from "src/genericTypes/controller";
-import { TileGameService } from "./tileGame.service";
+import { GenericGameService } from "./genericGame.service";
 
 @Controller(TileGameServiceDefinition.controller)
 export class GenericGameController
-  implements ServiceControllerInterface<TileGameServiceApi>
+  implements ServiceControllerInterface<GameStateApi>
 {
-  constructor(private readonly tileGameService: TileGameService) {}
-
-  @getDecorator(TileGameServiceDefinition.endpoints.getTileGame)
-  public async getTileGame(
-    @Body() request: GetTileGameRequest
-  ): Promise<GetTileGameResponse> {
-    return this.tileGameService.getTileGame(request.gameId);
-  }
+  constructor(private readonly genericGameService: GenericGameService) {}
 
   @getDecorator(TileGameServiceDefinition.endpoints.getAvailableGames)
-  public async getAvailableGames(): Promise<GetAvailableTileGamesResponse> {
-    return this.tileGameService.getAvailableGames();
+  public async getAvailableGames(): Promise<AvailableGames> {
+    return this.genericGameService.getAvailableGames();
   }
 
   @getDecorator(TileGameServiceDefinition.endpoints.createGame)
   public async createGame(
-    @Body() request: CreateTileGameRequest
+    @Body() request: CreateGameRequest
   ): Promise<CreateTileGameResponse> {
-    return this.tileGameService.createGame(request);
-  }
-
-  @getDecorator(TileGameServiceDefinition.endpoints.movePawn)
-  public async movePawn(
-    @Body() request: MovePawnRequest
-  ): Promise<MovePawnResponse> {
-    return this.tileGameService.movePawn(request);
+    return this.genericGameService.createGame(request);
   }
 }

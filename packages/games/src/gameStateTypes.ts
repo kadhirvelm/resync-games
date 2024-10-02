@@ -1,5 +1,7 @@
+import { ImplementedGameType } from ".";
+
 export type GameId = string & { __brand: "game-id" };
-export type GameType = string & { __brand: "game-type" };
+export type GameType = ImplementedGameType;
 export type PlayerId = string & { __brand: "player-id" };
 
 export type CurrentGameState = "waiting" | "playing" | "finished";

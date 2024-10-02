@@ -1,13 +1,13 @@
 import { Service, ServiceDefinition } from "../../genericTypes/service";
-import { GameId, GameType, PlayerId, GameState } from "./gameStateTypes";
+import { GameId, GameType, PlayerId, GameState } from "@tiles-tbd/games";
 
-export interface GetGameState {
+export interface GetGameStateRequest {
   gameId: GameId;
   gameType: GameType;
   playerId: PlayerId; // TODO: should be in the header
 }
 
-export interface CreateGame {
+export interface CreateGameRequest {
   gameConfiguration: object;
   gameName: string;
   gameType: GameType;
@@ -39,7 +39,7 @@ export interface UpdateGameResponse {
 
 export interface GameStateApi extends Service {
   createGame: {
-    payload: CreateGame;
+    payload: CreateGameRequest;
     response: GameState;
   };
   getAvailableGames: {
@@ -47,7 +47,7 @@ export interface GameStateApi extends Service {
     response: AvailableGames;
   };
   getGameState: {
-    payload: GetGameState;
+    payload: GetGameStateRequest;
     response: GameState;
   };
   updateGame: {
