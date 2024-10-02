@@ -2725,6 +2725,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@resync-games/api@workspace:packages/api"
   dependencies:
+    "@resync-games/games": "workspace:^"
     eslint: "npm:^9.8.0"
     typescript: "npm:^5.5.4"
   languageName: unknown
@@ -2747,6 +2748,7 @@ __metadata:
     "@nestjs/websockets": "npm:^10.4.1"
     "@resync-games/api": "workspace:^"
     "@resync-games/database": "workspace:^"
+    "@resync-games/games": "workspace:^"
     "@types/express": "npm:^4.17.21"
     "@types/fs-extra": "npm:^11.0.4"
     "@types/jest": "npm:^29.5.12"
@@ -2816,6 +2818,15 @@ __metadata:
     typescript: "npm:^5.5.4"
     typescript-plugin-css-modules: "npm:^5.1.0"
     uuid: "npm:^10.0.0"
+  languageName: unknown
+  linkType: soft
+
+"@resync-games/games@workspace:^, @resync-games/games@workspace:packages/games":
+  version: 0.0.0-use.local
+  resolution: "@resync-games/games@workspace:packages/games"
+  dependencies:
+    eslint: "npm:^9.8.0"
+    typescript: "npm:^5.5.4"
   languageName: unknown
   linkType: soft
 
@@ -2900,117 +2911,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-<<<<<<< HEAD
-"@tiles-tbd/api@workspace:^, @tiles-tbd/api@workspace:packages/api":
-  version: 0.0.0-use.local
-  resolution: "@tiles-tbd/api@workspace:packages/api"
-  dependencies:
-    "@tiles-tbd/games": "workspace:^"
-    eslint: "npm:^9.8.0"
-    typescript: "npm:^5.5.4"
-  languageName: unknown
-  linkType: soft
-
-"@tiles-tbd/backend@workspace:packages/backend":
-  version: 0.0.0-use.local
-  resolution: "@tiles-tbd/backend@workspace:packages/backend"
-  dependencies:
-    "@jest/globals": "npm:^29.7.0"
-    "@nestjs/cli": "npm:^10.4.2"
-    "@nestjs/common": "npm:^10.3.10"
-    "@nestjs/config": "npm:^3.2.3"
-    "@nestjs/core": "npm:^10.3.10"
-    "@nestjs/platform-express": "npm:^10.3.10"
-    "@nestjs/platform-socket.io": "npm:^10.4.1"
-    "@nestjs/schematics": "npm:^10.1.3"
-    "@nestjs/testing": "npm:^10.3.10"
-    "@nestjs/websockets": "npm:^10.4.1"
-    "@tiles-tbd/api": "workspace:^"
-    "@tiles-tbd/database": "workspace:^"
-    "@tiles-tbd/games": "workspace:^"
-    "@types/express": "npm:^4.17.21"
-    "@types/fs-extra": "npm:^11.0.4"
-    "@types/jest": "npm:^29.5.12"
-    "@types/lodash": "npm:^4.17.7"
-    "@types/node": "npm:^22.0.0"
-    "@types/supertest": "npm:^2.0.16"
-    "@types/uuid": "npm:^10"
-    eslint: "npm:^9.8.0"
-    jest: "npm:^29.7.0"
-    lodash: "npm:^4.17.21"
-    nodemon: "npm:^3.1.4"
-    reflect-metadata: "npm:^0.2.2"
-    rxjs: "npm:^7.8.1"
-    sharp: "npm:^0.33.4"
-    socket.io: "npm:^4.7.5"
-    source-map-support: "npm:^0.5.21"
-    supertest: "npm:^7.0.0"
-    ts-jest: "npm:^29.2.3"
-    ts-loader: "npm:^9.5.1"
-    ts-node: "npm:^10.9.2"
-    tsconfig-paths: "npm:^4.2.0"
-    typescript: "npm:^5.5.4"
-    uuid: "npm:^10.0.0"
-    webpack: "npm:^5.93.0"
-  languageName: unknown
-  linkType: soft
-
-"@tiles-tbd/database@workspace:^, @tiles-tbd/database@workspace:packages/database":
-  version: 0.0.0-use.local
-  resolution: "@tiles-tbd/database@workspace:packages/database"
-  dependencies:
-    "@prisma/client": "npm:5.17.0"
-    "@yarnpkg/pnpify": "npm:^4.1.1"
-    prisma: "npm:5.17.0"
-  languageName: unknown
-  linkType: soft
-
-"@tiles-tbd/frontend@workspace:packages/frontend":
-  version: 0.0.0-use.local
-  resolution: "@tiles-tbd/frontend@workspace:packages/frontend"
-  dependencies:
-    "@jest/globals": "npm:^29.7.0"
-    "@radix-ui/react-icons": "npm:^1.3.0"
-    "@radix-ui/themes": "npm:^3.1.3"
-    "@reduxjs/toolkit": "npm:^2.2.7"
-    "@testing-library/jest-dom": "npm:^6.4.8"
-    "@tiles-tbd/api": "workspace:^"
-    "@types/jest": "npm:^29.5.12"
-    "@types/lodash-es": "npm:^4"
-    "@types/node": "npm:^22.0.0"
-    "@types/react": "npm:^18.3.3"
-    "@types/react-dom": "npm:^18.3.0"
-    "@types/uuid": "npm:^10"
-    clsx: "npm:^2.1.1"
-    eslint: "npm:^9.8.0"
-    jest: "npm:^29.7.0"
-    jest-environment-jsdom: "npm:^29.7.0"
-    lodash-es: "npm:^4.17.21"
-    next: "npm:14.2.5"
-    phaser: "npm:v3.85.2"
-    react: "npm:^18.3.1"
-    react-dom: "npm:^18.3.1"
-    react-redux: "npm:^9.1.2"
-    sass: "npm:^1.77.8"
-    socket.io-client: "npm:^4.7.5"
-    styled-components: "npm:^6.1.12"
-    typescript: "npm:^5.5.4"
-    typescript-plugin-css-modules: "npm:^5.1.0"
-    uuid: "npm:^10.0.0"
-  languageName: unknown
-  linkType: soft
-
-"@tiles-tbd/games@workspace:^, @tiles-tbd/games@workspace:packages/games":
-  version: 0.0.0-use.local
-  resolution: "@tiles-tbd/games@workspace:packages/games"
-  dependencies:
-    eslint: "npm:^9.8.0"
-    typescript: "npm:^5.5.4"
-  languageName: unknown
-  linkType: soft
-
-=======
->>>>>>> main
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"

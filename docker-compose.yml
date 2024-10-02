@@ -34,8 +34,8 @@ services:
   games:
     image: node:22.5
     volumes:
-      - ./:/home/tiles-tbd:rw
-    working_dir: /home/tiles-tbd/packages/games
+      - ./:/home/resync-games:rw
+    working_dir: /home/resync-games/packages/games
     command: bash -c "corepack enable && yarn && cd ../../ && yarn dev games"
   backend:
     image: node:22.5

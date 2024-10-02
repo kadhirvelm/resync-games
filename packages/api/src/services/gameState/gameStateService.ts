@@ -1,5 +1,5 @@
 import { Service, ServiceDefinition } from "../../genericTypes/service";
-import { GameId, GameType, PlayerId, GameState } from "@tiles-tbd/games";
+import { GameId, GameType, PlayerId, GameState } from "@resync-games/games";
 
 export interface GetGameStateRequest {
   gameId: GameId;
