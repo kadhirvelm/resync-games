@@ -8,13 +8,13 @@ import {
   UpdateGame,
   UpdateGameResponse
 } from "@resync-games/api";
-import { PrismaService } from "src/games/tiles-tbd/database/prisma.service";
+import { GameStatePrismaService } from "./database/gameStatePrisma.service";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
 
 @Injectable()
 export class GameStateService {
   public constructor(
-    private prismaService: PrismaService,
+    private prismaService: GameStatePrismaService,
     private gamesInFlightService: GamesInFlightService
   ) {}
 

@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { GameId, GameState } from "@resync-games/api";
 import * as _ from "lodash";
-import { PrismaService } from "src/games/tiles-tbd/database/prisma.service";
+import { GameStatePrismaService } from "../database/gameStatePrisma.service";
 import { GameStateSocketGateway } from "../gameState.socket";
 
 @Injectable()
@@ -9,7 +9,7 @@ export class GamesInFlightService {
   private gamesInFlightCache: Map<GameId, GameState> = new Map();
 
   public constructor(
-    private prismaService: PrismaService,
+    private prismaService: GameStatePrismaService,
     private socketGateway: GameStateSocketGateway
   ) {}
 
