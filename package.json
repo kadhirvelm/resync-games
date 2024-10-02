@@ -13,7 +13,7 @@
     "dev": "turbo run dev --filter=@resync-games/${0}",
     "docker": "open /Applications/Docker.app && docker-compose -p resync-games -f docker-compose.yml up -d",
     "deploy": "sudo -E docker-compose -p resync-games -f docker-compose.yml up -d",
-    "migrate": "turbo run db:migrate --filter=@resync-games/database"
+    "migrate": "turbo run db:migrate --filter=@resync-games/database --filter=@resync-games/game-state-database"
   },
   "monorepo": true,
   "devDependencies": {

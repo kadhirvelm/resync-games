@@ -2,4 +2,9 @@
 /.yarn/releases/*    binary
 /.yarn/plugins/**/*  binary
 /.pnp.*              binary linguist-generated
+
 packages/database/src/* linguist-generated
+packages/database/src/**/* linguist-generated
+
+packages/game-state-database/src/* linguist-generated
+packages/game-state-database/src/**/* linguist-generated

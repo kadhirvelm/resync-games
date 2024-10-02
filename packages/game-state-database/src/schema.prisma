@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("GAME_STATE_DATABASE_HOST_URL")
+}
+
+enum CurrentGameState {
+  waiting
+  playing
+  finished
+}
+
+model GameState {
+  gameId            String           @id @default(cuid()) @map("game_id")
+  gameState         Json             @map("game_state")
+  gameConfiguration Json             @map("game_configuration")
+  currentGameState  CurrentGameState @map("current_game_state")
+  gameType          String           @map("game_type")
+  version           String           @map("version")
+  lastUpdatedAt     DateTime         @default(now()) @map("last_update_timestamp")
+
+  PlayersInGame PlayersInGame[]
+}
+
+model PlayersInGame {
+  playersInGameIdentifier String @id @default(cuid()) @map("players_in_game_identifier")
+  gameId                  String @map("game_id")
+  playerId                String @map("player_id")
+
+  game   GameState @relation(fields: [gameId], references: [gameId])
+  player Player    @relation(fields: [playerId], references: [playerId])
+}
+
+model Player {
+  playerId    String @id @default(cuid()) @map("player_id")
+  displayName String @map("display_name")
+
+  PlayersInGame PlayersInGame[]
+}
