@@ -13,7 +13,7 @@ const COLORS = {
   yellow: "#f1c40f"
 };
 
-export class MagicMazeScene extends BaseScene {
+class MagicMazeScene extends BaseScene {
   private tileSize: number = 100;
   private tileGap: number = -15;
   private pawnSprites: Record<string, Phaser.GameObjects.GameObject> = {};
@@ -136,26 +136,25 @@ export class MagicMazeScene extends BaseScene {
   }
 }
 
-export class MagicMazeGame extends BaseGame {
-  constructor(
-    parent: HTMLElement,
-    private store: TileAppStore
-  ) {
+class MagicMazeGame extends BaseGame {
+  constructor(parent: HTMLElement, store: TileAppStore) {
     super(parent, [new MagicMazeScene(store)]);
   }
 }
 
-export const DisplayMagicMazeGame = () => {
+const DisplayMagicMazeGame = () => {
   const parentElement = useRef<HTMLDivElement>(null);
   const store = useTileAppStore();
 
   useEffect(() => {
-    if (parentElement.current) {
-      const game = new MagicMazeGame(parentElement.current, store);
-      return () => {
-        game.destroy();
-      };
+    if (parentElement.current == null) {
+      return;
     }
+
+    const game = new MagicMazeGame(parentElement.current, store);
+    return () => {
+      game.destroy();
+    };
   });
 
   return <div ref={parentElement} />;

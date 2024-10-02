@@ -158,9 +158,33 @@ exports.Prisma.TilePawnScalarFieldEnum = {
   color: 'color'
 };
 
+exports.Prisma.GameStateScalarFieldEnum = {
+  gameId: 'gameId',
+  gameState: 'gameState',
+  gameConfiguration: 'gameConfiguration',
+  currentGameState: 'currentGameState',
+  gameType: 'gameType',
+  version: 'version'
+};
+
+exports.Prisma.PlayersInGameScalarFieldEnum = {
+  playersInGameIdentifier: 'playersInGameIdentifier',
+  gameId: 'gameId',
+  playerId: 'playerId'
+};
+
+exports.Prisma.PlayerScalarFieldEnum = {
+  playerId: 'playerId',
+  displayName: 'displayName'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -168,13 +192,26 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.CurrentGameState = exports.$Enums.CurrentGameState = {
+  waiting: 'waiting',
+  playing: 'playing',
+  finished: 'finished'
+};
 
 exports.Prisma.ModelName = {
   TileMap: 'TileMap',
   Tile: 'Tile',
   Edge: 'Edge',
   TileGame: 'TileGame',
-  TilePawn: 'TilePawn'
+  TilePawn: 'TilePawn',
+  GameState: 'GameState',
+  PlayersInGame: 'PlayersInGame',
+  Player: 'Player'
 };
 
 /**

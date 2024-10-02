@@ -30,7 +30,7 @@ export default [
     plugins: {
       "@next/next": nextEslintPlugin,
       react: reactEslint,
-      // @ts-ignore
+      // @ts-expect-error - Typings are incorrect
       "react-hooks": fixupPluginRules(reactHooksPlugin)
     },
     rules: {

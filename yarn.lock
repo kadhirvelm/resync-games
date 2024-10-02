@@ -492,6 +492,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@bugsnag/cuid@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@bugsnag/cuid@npm:3.1.1"
+  checksum: 10c0/ca236c95400b2871db350ba37df72aa82388f74a4163761070bf516dc4d388ac4654ddcef111f33fd5a63808ef05ec86e4142160a0569cc7f31ad9f5b367a12f
+  languageName: node
+  linkType: hard
+
 "@colors/colors@npm:1.5.0":
   version: 1.5.0
   resolution: "@colors/colors@npm:1.5.0"
@@ -2727,6 +2734,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@resync-games/backend@workspace:packages/backend"
   dependencies:
+    "@bugsnag/cuid": "npm:^3.1.1"
     "@jest/globals": "npm:^29.7.0"
     "@nestjs/cli": "npm:^10.4.2"
     "@nestjs/common": "npm:^10.3.10"
