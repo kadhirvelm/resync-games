@@ -1,5 +1,8 @@
-import { CreateGame, GameState } from "@resync-games/api";
+import { CreateGame } from "@resync-games/api";
 
 export interface IGameServer {
-  createGame: (createGameRequest: CreateGame) => GameState;
+  createGame: (createGameRequest: CreateGame) => Promise<{
+    gameState: object;
+    version: string;
+  }>;
 }

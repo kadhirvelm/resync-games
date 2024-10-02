@@ -1,8 +1,18 @@
-import { CreateGame, GameState } from "@resync-games/api";
+import { CreateGame } from "@resync-games/api";
 import { IGameServer } from "./base";
 
 export class PongGameServer implements IGameServer {
-  createGame(createGameRequest: CreateGame): GameState {
-    throw new Error("Method not implemented.");
+  async createGame(
+    createGameRequest: CreateGame
+  ): Promise<{ gameState: object; version: string }> {
+    return {
+      gameState: {
+        score: {
+          Player1: 0,
+          Player2: 0
+        }
+      },
+      version: createGameRequest.version
+    };
   }
 }
