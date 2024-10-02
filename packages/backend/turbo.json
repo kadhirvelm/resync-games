@@ -3,12 +3,14 @@
     "tasks": {
         "build": {
             "env": [
-                "DATABASE_HOST_URL"
+                "DATABASE_HOST_URL",
+                "GAME_STATE_DATABASE_HOST_URL"
             ]
         },
         "dev": {
             "env": [
-                "DATABASE_HOST_URL"
+                "DATABASE_HOST_URL",
+                "GAME_STATE_DATABASE_HOST_URL"
             ]
         }
     }
