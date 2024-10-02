@@ -37,7 +37,7 @@ export interface IGameScene {
   // Callbacks to be called when the game state changes to enable updating the scene in response to the game state.
   onServerStateChange(newState: object): void;
   // An object that can be used to communicate with the server with the predefined routes.
-  server: any; //ServerInterface<IGameServer>;
+  server: unknown; //ServerInterface<IGameServer>;
   // Any other Phaser-related logic.
   // ...
 }

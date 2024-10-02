@@ -7,9 +7,9 @@ import {
   UpdateGame,
   UpdateGameResponse
 } from "@resync-games/api";
-import { PrismaService } from "src/games/resync-games/database/prisma.service";
 import { GameStateSocketGateway } from "./gameState.socket";
 import cuid from "@bugsnag/cuid";
+import { PrismaService } from "src/games/tiles-tbd/database/prisma.service";
 
 @Injectable()
 export class GameStateService {

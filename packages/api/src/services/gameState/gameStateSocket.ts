@@ -1,5 +1,5 @@
+import { GameId, PlayerId, GameState } from "@resync-games/games";
 import { HandleMessage, SocketDefinition } from "../../genericTypes";
-import { GameId, GameState, PlayerId } from "./gameStateTypes";
 
 export interface IdentifyPlayerSocket {
   gameId: GameId;
