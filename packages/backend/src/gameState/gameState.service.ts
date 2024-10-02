@@ -23,6 +23,20 @@ export class GameStateService {
   ): Promise<GameState> => {
     const newGameId = cuid();
 
+    // Check if the player exists in the database and create one with a dummy name for now if not.
+    await this.prismaService.client.player.upsert({
+      create: {
+        displayName: "Anonymous",
+        playerId: createGameRequest.playerId
+      },
+      update: {
+        playerId: createGameRequest.playerId
+      },
+      where: {
+        playerId: createGameRequest.playerId
+      }
+    });
+
     const requestedGame = await this.prismaService.client.gameState.create({
       data: {
         PlayersInGame: {
