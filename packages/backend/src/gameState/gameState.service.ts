@@ -10,6 +10,7 @@ import {
 } from "@resync-games/api";
 import { GameStatePrismaService } from "./database/gameStatePrisma.service";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
+import { IMPLEMENTED_GAMES } from "@resync-games/games";
 
 @Injectable()
 export class GameStateService {
@@ -22,6 +23,17 @@ export class GameStateService {
     createGameRequest: CreateGame
   ): Promise<GameState> => {
     const newGameId = cuid();
+
+    // The game needs to have an associated implementation.
+    if (
+      !(IMPLEMENTED_GAMES as unknown as string[]).includes(
+        createGameRequest.gameType
+      )
+    ) {
+      throw new BadRequestException(
+        `The game type '${createGameRequest.gameType}' is not implemented. Available games: [${IMPLEMENTED_GAMES.join(", ")}]`
+      );
+    }
 
     // Check if the player exists in the database and create one with a dummy name for now if not.
     await this.prismaService.client.player.upsert({

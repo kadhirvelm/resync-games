@@ -32,6 +32,12 @@ services:
       - ./:/home/resync-games:rw
     working_dir: /home/resync-games/packages/api
     command: bash -c "corepack enable && yarn && cd ../../ && yarn dev api"
+  games:
+    image: node:22.5
+    volumes:
+      - ./:/home/resync-games:rw
+    working_dir: /home/resync-games/packages/games
+    command: bash -c "corepack enable && yarn && cd ../../ && yarn dev games"
   backend:
     image: node:22.5
     ports:

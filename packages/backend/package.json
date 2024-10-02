@@ -23,6 +23,7 @@
     "@resync-games/api": "workspace:^",
     "@resync-games/database": "workspace:^",
     "@resync-games/game-state-database": "workspace:^",
+    "@resync-games/games": "workspace:^",
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
