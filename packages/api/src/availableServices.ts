@@ -5,9 +5,11 @@ import {
   TileGameServiceDefinition,
   TileMapServiceDefinition
 } from "./services/games/snatch-the-snack";
+import { GameStateApi, GameStateServiceDefinition } from "./services/gameState";
 import { HealthServiceApi, HealthServiceDefinition } from "./services/health";
 
 export type AvailableServices = {
+  gameState: GameStateApi;
   health: HealthServiceApi;
   snatchTheSnackMaps: TileMapServiceApi;
   tileGame: TileGameServiceApi;
@@ -18,6 +20,7 @@ export type AvailbleServicesDefinition = {
 };
 
 export const AVAILABLE_SERVICES: AvailbleServicesDefinition = {
+  gameState: GameStateServiceDefinition,
   health: HealthServiceDefinition,
   snatchTheSnackMaps: TileMapServiceDefinition,
   tileGame: TileGameServiceDefinition
