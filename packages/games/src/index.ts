@@ -1,3 +1,3 @@
 export * from "./gamesRegistry";
 export * from "./backend";
-export * from "./state";
+export * from "./frontend/state";

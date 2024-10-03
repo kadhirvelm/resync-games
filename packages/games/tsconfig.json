@@ -5,6 +5,7 @@
         "outDir": "./dist",
         "module": "CommonJS",
         "lib": ["dom", "es2021"],
-        "jsx": "react-jsx"
+        "jsx": "react-jsx",
+        "resolveJsonModule": true,
     }
 }

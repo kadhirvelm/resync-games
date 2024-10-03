@@ -1,21 +1,23 @@
-import { InitializeTileMap } from "@/components/inGame/InitializeTileMap";
+import { InitializeGame } from "@/components/inGame/InitializeGame";
 import { ServiceCallers } from "@/services/serviceCallers";
 import { GameId, GameType, isServiceError, PlayerId } from "@resync-games/api";
 import { redirect } from "next/navigation";
 
-export default async function TileGame({
-  params
+export default async function Page({
+  params: { gameSlug, gameId }
 }: {
-  params: { gameId: GameId };
+  params: { gameId: GameId; gameSlug: GameType };
 }) {
   const gameStateAndInfo = await ServiceCallers.gameState.getGameState({
-    gameId: params.gameId,
-    gameType: "snatch-the-snack" as GameType,
+    gameId: gameId,
+    gameType: gameSlug,
     playerId: "player-1" as PlayerId
   });
   if (isServiceError(gameStateAndInfo)) {
     redirect("/");
   }
 
-  return <InitializeTileMap gameStateAndInfo={gameStateAndInfo} />;
+  return (
+    <InitializeGame gameSlug={gameSlug} gameStateAndInfo={gameStateAndInfo} />
+  );
 }

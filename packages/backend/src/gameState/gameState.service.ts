@@ -7,12 +7,11 @@ import {
   UpdateGame,
   UpdateGameResponse
 } from "@resync-games/api";
-import {
-  GAME_BACKEND_REGISTRY,
-  IGameServer
-} from "@resync-games/games/dist/backend";
+import { BACKEND_GAME_REGISTRY } from "@resync-games/games/dist/backend";
+import { IGameServer } from "@resync-games/games/dist/backend/base";
 import { GameStatePrismaService } from "./database/gameStatePrisma.service";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
+import { GAME_REGISTRY } from "@resync-games/games";
 
 @Injectable()
 export class GameStateService {
@@ -26,10 +25,10 @@ export class GameStateService {
   ): Promise<GameState> => {
     // The game needs to have an associated implementation.
     const backend: IGameServer | undefined =
-      GAME_BACKEND_REGISTRY[createGameRequest.gameType];
+      BACKEND_GAME_REGISTRY[createGameRequest.gameType]?.gameServer;
     if (backend === undefined) {
       throw new BadRequestException(
-        `The game type '${createGameRequest.gameType}' is not implemented. Available games: [${Object.keys(GAME_BACKEND_REGISTRY).join(", ")}]`
+        `The game type '${createGameRequest.gameType}' is not implemented. Available games: [${Object.keys(GAME_REGISTRY).join(", ")}]`
       );
     }
 
@@ -146,7 +145,7 @@ export class GameStateService {
 
     // TODO: differentiate between outdated clients vs. outdated states for rejections
     if (
-      currentGameState.lastUpdatedAt !== updateGameRequest.lastUpdateAt ||
+      currentGameState.lastUpdatedAt !== updateGameRequest.lastUpdatedAt ||
       currentGameState.version !== updateGameRequest.version
     ) {
       return {

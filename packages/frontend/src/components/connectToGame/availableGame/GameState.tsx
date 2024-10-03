@@ -1,11 +1,10 @@
 import { Flex } from "@/lib/radix/Flex";
-import { TileGameState } from "@resync-games/api";
 import { capitalize } from "lodash-es";
 import { Text } from "@radix-ui/themes";
 import styles from "./GameState.module.scss";
 import clsx from "clsx";
 
-export const GameState = ({ state }: { state: TileGameState }) => {
+export const GameState = ({ state }: { state: string }) => {
   return (
     <Flex
       className={clsx({

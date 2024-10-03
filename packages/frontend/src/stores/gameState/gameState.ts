@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GameState } from "@resync-games/api";
-import { omit, pick } from "lodash-es";
+import { omit } from "lodash-es";
 
 export interface SnatchTheSnack {
   gameInfo: Omit<GameState, "gameState"> | undefined;
-  gameState: Pick<GameState, "gameState"> | undefined;
+  gameState: GameState["gameState"] | undefined;
 }
 
 const initialState: SnatchTheSnack = {
@@ -18,7 +18,7 @@ const snatchTheSnackState = createSlice({
   reducers: {
     setGame: (state, action: PayloadAction<GameState>) => {
       state.gameInfo = omit(action.payload, "gameState");
-      state.gameState = pick(action.payload, "gameState");
+      state.gameState = action.payload.gameState;
     }
   }
 });

@@ -1,62 +1,61 @@
+import { ClientServiceCallers } from "@/services/serviceCallers";
+import { PlayerId } from "@resync-games/api";
 import {
-  configureStore,
-  createSlice,
-  EnhancedStore,
-  PayloadAction
-} from "@reduxjs/toolkit";
-
-import {
-  IGameStateStore,
   FieldListener,
-  RecursivePartial
-} from "@resync-games/games/dist/state";
+  IGameStateStore
+} from "@resync-games/games/dist/frontend/state";
+import {
+  GameStateStore,
+  initializeTileStore
+} from "./gameState/gameStateStore";
 
 /**
  * Simple wrapper around a Redux store that offers a single dispatch action and a subscribe method
  * for listening to changes on a specific field path in the state.
  */
-export class GameStateReduxStore<GameState extends object>
-  implements IGameStateStore<GameState>
-{
+export class GameStateReduxStore implements IGameStateStore {
   private fieldListeners: { [key: string]: FieldListener[] } = {};
-  private store: EnhancedStore<
-    GameState,
-    PayloadAction<RecursivePartial<GameState>>
-  >;
-  private previousState: GameState;
-  constructor(initialState: GameState) {
-    this.store = createGameStateReduxStore(initialState);
-    this.previousState = initialState;
+  private previousState: GameStateStore;
+
+  constructor(private store: ReturnType<typeof initializeTileStore>) {
+    this.previousState = this.store.getState();
 
     this.store.subscribe(() => {
       this.handleStateChange();
     });
   }
 
-  getReduxStore(): EnhancedStore<
-    GameState,
-    PayloadAction<RecursivePartial<GameState>>
-  > {
-    return this.store;
-  }
+  public updateGameState = (newState: object) => {
+    const currentState = this.store.getState();
+    const { gameInfo, gameState } = currentState.gameState;
 
-  dispatch(stateUpdate: RecursivePartial<GameState>): void {
-    this.store.dispatch({
-      payload: stateUpdate,
-      type: "gameState/updateGameState"
+    if (gameInfo === undefined || gameState === undefined) {
+      throw new Error(
+        "Attempted to update the game state without the redux state being initialized. Something went terribly wrong. Please refresh the page and try again."
+      );
+    }
+
+    ClientServiceCallers.gameState.updateGame({
+      ...gameInfo,
+      newGameState: {
+        ...gameState,
+        ...newState
+      },
+      playerId: "player-1" as PlayerId
     });
-  }
+  };
 
   // Subscribe to a nested field
-  subscribeToField(path: string, listener: FieldListener) {
+  public subscribeToField = (path: string, callback: FieldListener) => {
     if (!this.fieldListeners[path]) {
       this.fieldListeners[path] = [];
     }
-    this.fieldListeners[path].push(listener);
-  }
+
+    this.fieldListeners[path].push(callback);
+  };
 
   // Handle state changes
-  handleStateChange() {
+  private handleStateChange = () => {
     const currentState = this.store.getState();
 
     Object.keys(this.fieldListeners).forEach((path) => {
@@ -74,50 +73,7 @@ export class GameStateReduxStore<GameState extends object>
 
     // Update previous state after handling changes
     this.previousState = currentState;
-  }
-}
-
-/**
- * Helper method to make a Redux store with a single reducer that handles partial updates to the state.
- * @param initialState Create a new Redux store with the given initial state.
- */
-function createGameStateReduxStore<GameState extends object>(
-  initialState: GameState
-): EnhancedStore<GameState, PayloadAction<RecursivePartial<GameState>>> {
-  const gameStateSlice = createSlice({
-    initialState,
-    name: "gameState",
-    reducers: {
-      updateGameState(
-        state,
-        action: PayloadAction<RecursivePartial<GameState>>
-      ): void {
-        deepMerge(state, action.payload);
-      }
-    }
-  });
-
-  return configureStore<GameState, PayloadAction<RecursivePartial<GameState>>>({
-    reducer: gameStateSlice.reducer
-  });
-}
-
-/**
- * Helper method to merge two objects together recursively.
- * @param target The target object to merge into.
- * @param source The source object to merge from.
- * @returns The target object with the source object merged into it.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function deepMerge(target: any, source: any): object {
-  for (const key in source) {
-    if (source[key] instanceof Object && key in target) {
-      target[key] = deepMerge(target[key], source[key]);
-    } else {
-      target[key] = source[key];
-    }
-  }
-  return target;
+  };
 }
 
 // Utility function to get a field by a string path

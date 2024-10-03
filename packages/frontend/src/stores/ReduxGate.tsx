@@ -7,15 +7,17 @@ export function ReduxGate<T extends EnhancedStore>({
   children,
   initializeStore
 }: {
-  children: React.ReactNode;
+  children: (store: T) => React.ReactNode;
   createStore: () => T;
   initializeStore: (dispatch: Dispatch<UnknownAction>) => void;
 }) {
   const storeRef = useRef<T>();
   if (!storeRef.current) {
     storeRef.current = createStore();
-    initializeStore(storeRef.current.dispatch);
+    initializeStore?.(storeRef.current.dispatch);
   }
 
-  return <Provider store={storeRef.current}>{children}</Provider>;
+  return (
+    <Provider store={storeRef.current}>{children(storeRef.current)}</Provider>
+  );
 }
