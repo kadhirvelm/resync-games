@@ -2836,7 +2836,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@resync-games/games@workspace:packages/games"
   dependencies:
-    "@reduxjs/toolkit": "npm:^2.2.7"
     "@resync-games/api": "workspace:^"
     "@types/react": "npm:^18.3.3"
     "@types/react-dom": "npm:^18.3.0"
