@@ -24,13 +24,10 @@ export interface UpdateGame {
   version: string;
 }
 
-export type AvailableGame = Pick<
-  GameState,
-  "gameId" | "gameType" | "players"
->[];
+export type AvailableGame = Pick<GameState, "gameId" | "gameType" | "players">;
 
 export interface AvailableGames {
-  games: AvailableGame;
+  games: AvailableGame[];
 }
 
 export interface UpdateGameResponse {

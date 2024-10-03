@@ -1,4 +1,7 @@
-import { useTileDispatch, useTileSelector } from "@/stores/tiles/tilesStore";
+import {
+  useGameStateDispatch,
+  useGameStateSelector
+} from "@/stores/gameState/gameStateStore";
 import { TilePawn } from "@resync-games/api";
 import { Text } from "@radix-ui/themes";
 import styles from "./SelectPawn.module.scss";
@@ -10,9 +13,9 @@ import clsx from "clsx";
 import { useMemo } from "react";
 
 export const SelectPawn = () => {
-  const dispatch = useTileDispatch();
+  const dispatch = useGameStateDispatch();
 
-  const { selectedPawnId, pawnState } = useTileSelector(
+  const { selectedPawnId, pawnState } = useGameStateSelector(
     (state) => state.pawnState
   );
 

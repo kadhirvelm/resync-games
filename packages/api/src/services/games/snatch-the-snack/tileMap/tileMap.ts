@@ -1,17 +1,5 @@
 import { Service, ServiceDefinition } from "../../../../genericTypes/service";
-import { CompleteTileMap, TileMap, TileMapId } from "./types";
-
-export interface GetTileMapRequest {
-  tileMapId: TileMapId;
-}
-
-export interface GetTileMapResponse {
-  tileMap: CompleteTileMap;
-}
-
-export interface GetAllTileMapsResponse {
-  tileMaps: TileMap[];
-}
+import { TileMapId } from "./types";
 
 export interface GenerateTileMapRequest {
   generatorName: string;
@@ -26,26 +14,11 @@ export interface TileMapServiceApi extends Service {
     payload: GenerateTileMapRequest;
     response: GenerateTileMapResponse;
   };
-  getAllTileMaps: {
-    payload: Record<string, never>;
-    response: GetAllTileMapsResponse;
-  };
-  getAvailableTileMapGenerators: {
-    payload: Record<string, never>;
-    response: string[];
-  };
-  getTileMap: {
-    payload: GetTileMapRequest;
-    response: GetTileMapResponse;
-  };
 }
 
 export const TileMapServiceDefinition: ServiceDefinition<TileMapServiceApi> = {
   controller: "tile-map",
   endpoints: {
-    generateTileMap: "generate-tile-map",
-    getAllTileMaps: "get-all-tile-maps",
-    getAvailableTileMapGenerators: "get-available-tile-map-generators",
-    getTileMap: "get-tile-map"
+    generateTileMap: "generate-tile-map"
   }
 };

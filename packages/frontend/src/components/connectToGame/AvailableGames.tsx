@@ -1,14 +1,13 @@
 import { Flex } from "@/lib/radix/Flex";
 import { ServiceCallers } from "@/services/serviceCallers";
 import { Code, Text } from "@radix-ui/themes";
-import { isServiceError, TileMap, TileMapId } from "@resync-games/api";
-import { keyBy } from "lodash-es";
+import { isServiceError } from "@resync-games/api";
 import { AvailableGame } from "./availableGame/AvailableGame";
 import { NavigateToCreate } from "./availableGame/NavigateToCreate";
 import styles from "./AvailableGames.module.scss";
 
 export default async function AvailableGames() {
-  const maybeAvailableGames = await ServiceCallers.tileGame.getAvailableGames(
+  const maybeAvailableGames = await ServiceCallers.gameState.getAvailableGames(
     {}
   );
   if (isServiceError(maybeAvailableGames)) {
@@ -19,11 +18,6 @@ export default async function AvailableGames() {
       </Flex>
     );
   }
-
-  const mapsIndexed: { [key: TileMapId]: TileMap } = keyBy(
-    maybeAvailableGames.tileMaps,
-    "tileMapId"
-  );
 
   return (
     <Flex className={styles.availableGames} direction="column" gap="4" m="2">
@@ -36,12 +30,8 @@ export default async function AvailableGames() {
         flex="1"
         gap="2"
       >
-        {maybeAvailableGames.tileGames.map((tileGame) => (
-          <AvailableGame
-            game={tileGame}
-            indexedMaps={mapsIndexed}
-            key={tileGame.tileGameId}
-          />
+        {maybeAvailableGames.games.map((availableGame) => (
+          <AvailableGame game={availableGame} key={availableGame.gameId} />
         ))}
       </Flex>
       <Flex justify="end">
