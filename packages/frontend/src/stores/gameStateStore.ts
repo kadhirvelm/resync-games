@@ -5,21 +5,19 @@ import {
   PayloadAction
 } from "@reduxjs/toolkit";
 
-type FieldListener = (newValue: unknown) => void;
-
-type RecursivePartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? RecursivePartial<U>[]
-    : T[P] extends object | undefined
-      ? RecursivePartial<T[P]>
-      : T[P];
-};
+import {
+  IGameStateStore,
+  FieldListener,
+  RecursivePartial
+} from "@resync-games/games/dist/state";
 
 /**
  * Simple wrapper around a Redux store that offers a single dispatch action and a subscribe method
  * for listening to changes on a specific field path in the state.
  */
-export class GameStateReduxStore<GameState extends object> {
+export class GameStateReduxStore<GameState extends object>
+  implements IGameStateStore<GameState>
+{
   private fieldListeners: { [key: string]: FieldListener[] } = {};
   private store: EnhancedStore<
     GameState,
