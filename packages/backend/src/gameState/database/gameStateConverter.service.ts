@@ -11,6 +11,7 @@ import {
   GameState as PrismaGameState,
   Player as PrismaPlayer
 } from "@resync-games/game-state-database";
+import _ from "lodash";
 
 @Injectable()
 export class GameStateConverterService {
@@ -19,7 +20,7 @@ export class GameStateConverterService {
     players: PrismaPlayer[]
   ): GameState => {
     return {
-      ...gameState,
+      ..._.omit(gameState, "PlayersInGame"),
       currentGameState: gameState.currentGameState as CurrentGameState,
       gameConfiguration: gameState.gameConfiguration as object,
       gameId: gameState.gameId as GameId,

@@ -1,3 +1,2 @@
-export * from "./base";
-export * from "./pong/pong";
-export * from "./registry";
+export * from "./backendRegistry";
+export * from "./snatch-the-snack/snatchTheSnack";

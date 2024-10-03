@@ -1,39 +1,36 @@
-import {
-  useGameStateDispatch,
-  useGameStateSelector
-} from "@/stores/gameState/gameStateStore";
-import { TilePawn } from "@resync-games/api";
-import { Text } from "@radix-ui/themes";
-import styles from "./SelectPawn.module.scss";
-import { setSelectedPawn } from "@/stores/tiles/pawnState";
-import { capitalize } from "lodash-es";
 import { Flex } from "@/lib/radix/Flex";
+import { useGameStateSelector } from "@/stores/gameState/gameStateStore";
 import { Crosshair1Icon } from "@radix-ui/react-icons";
+import { Text } from "@radix-ui/themes";
+import { SnatchTheSnackGame, SnatchTheSnackPawn } from "@resync-games/games";
 import clsx from "clsx";
+import { capitalize } from "lodash-es";
 import { useMemo } from "react";
+import styles from "./SelectPawn.module.scss";
 
 export const SelectPawn = () => {
-  const dispatch = useGameStateDispatch();
+  // const dispatch = useGameStateDispatch();
 
-  const { selectedPawnId, pawnState } = useGameStateSelector(
-    (state) => state.pawnState
+  const gameState = useGameStateSelector(
+    (state) => state.gameState.gameState as SnatchTheSnackGame
   );
 
-  const availablePawns = Object.values(pawnState);
+  const availablePawns = Object.values(gameState.pawns);
   const sortedAvailablePawns = useMemo(() => {
     return availablePawns
       .slice()
       .sort((a, b) => a.color.localeCompare(b.color));
   }, [availablePawns]);
 
-  const renderSinglePawn = (pawn: TilePawn) => {
-    const isSelected = selectedPawnId === pawn.tilePawnId;
+  const renderSinglePawn = (pawn: SnatchTheSnackPawn) => {
+    const isSelected = false;
 
-    const selectPawn = () =>
-      dispatch(setSelectedPawn(isSelected ? undefined : pawn.tilePawnId));
+    const selectPawn = () => {
+      console.log("Attempted to select ", pawn);
+    };
 
     return (
-      <Flex align="center" gap="2" key={pawn.tilePawnId} onClick={selectPawn}>
+      <Flex align="center" gap="2" key={pawn.color} onClick={selectPawn}>
         <Flex
           align="center"
           className={clsx(styles.pawnSelector, {

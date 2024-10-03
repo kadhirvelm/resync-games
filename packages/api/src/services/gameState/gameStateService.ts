@@ -17,10 +17,9 @@ export interface CreateGame {
 
 export interface UpdateGame {
   gameId: GameId;
-  lastUpdateAt: string;
+  lastUpdatedAt: string;
   newGameState: object;
   playerId: PlayerId; // TODO: should be in the header
-  timestamp: string;
   version: string;
 }
 
