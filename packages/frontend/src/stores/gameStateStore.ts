@@ -9,7 +9,7 @@ import {
  * Simple wrapper around a Redux store that offers a single dispatch action and a subscribe method
  * for listening to changes on a specific field path in the state.
  */
-export class GameStateStore<GameState extends object> {
+export class GameStateReduxStore<GameState extends object> {
   private store: EnhancedStore<GameState, PayloadAction<Partial<GameState>>>;
   constructor(initialState: GameState) {
     this.store = createGameStateReduxStore(initialState);
