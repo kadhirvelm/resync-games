@@ -2746,7 +2746,6 @@ __metadata:
     "@nestjs/testing": "npm:^10.3.10"
     "@nestjs/websockets": "npm:^10.4.1"
     "@resync-games/api": "workspace:^"
-    "@resync-games/database": "workspace:^"
     "@resync-games/game-state-database": "workspace:^"
     "@resync-games/games": "workspace:^"
     "@types/express": "npm:^4.17.21"
@@ -2773,16 +2772,6 @@ __metadata:
     typescript: "npm:^5.5.4"
     uuid: "npm:^10.0.0"
     webpack: "npm:^5.93.0"
-  languageName: unknown
-  linkType: soft
-
-"@resync-games/database@workspace:^, @resync-games/database@workspace:packages/database":
-  version: 0.0.0-use.local
-  resolution: "@resync-games/database@workspace:packages/database"
-  dependencies:
-    "@prisma/client": "npm:5.17.0"
-    "@yarnpkg/pnpify": "npm:^4.1.1"
-    prisma: "npm:5.17.0"
   languageName: unknown
   linkType: soft
 

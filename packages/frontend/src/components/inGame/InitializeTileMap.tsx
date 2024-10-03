@@ -1,37 +1,20 @@
 "use client";
 
-import { ReduxGate } from "@/stores/ReduxGate";
-import { initialize } from "@/stores/tiles/pawnState";
-import { setGame } from "@/stores/tiles/tileGameState";
-import { initializeTileStore } from "@/stores/tiles/tilesStore";
-import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import {
-  CompleteTileMap as ICompleteTileMap,
-  TileGameId,
-  TileGameWithPawns
-} from "@resync-games/api";
-import { indexTileMap } from "./utils/indexTileMap";
-import { TileMap } from "./tileMap/TileMap";
 import { ClientGate } from "@/lib/ClientGate";
-import { setMap } from "@/stores/tiles/tileMap";
-
-const DEFAULT_GAME_ID = "DEFAULT_GAME_ID" as TileGameId;
+import { ReduxGate } from "@/stores/ReduxGate";
+import { setGame } from "@/stores/gameState/gameState";
+import { initializeTileStore } from "@/stores/gameState/gameStateStore";
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
+import { GameState } from "@resync-games/api";
+import { TileMap } from "./tileMap/TileMap";
 
 export const InitializeTileMap = ({
-  tileMap,
-  game
+  gameStateAndInfo
 }: {
-  game?: TileGameWithPawns;
-  tileMap: ICompleteTileMap;
+  gameStateAndInfo: GameState;
 }) => {
-  const { outboundEdges, tilesIndexed } = indexTileMap(tileMap);
-
   const createInitialStore = (dispatch: Dispatch<UnknownAction>) => {
-    dispatch(
-      initialize({ outboundEdges, pawns: game?.pawns ?? [], tilesIndexed })
-    );
-    dispatch(setGame(game));
-    dispatch(setMap(tileMap));
+    dispatch(setGame(gameStateAndInfo));
   };
 
   return (
@@ -40,7 +23,7 @@ export const InitializeTileMap = ({
         createStore={initializeTileStore}
         initializeStore={createInitialStore}
       >
-        <TileMap tileGameId={game?.tileGameId ?? DEFAULT_GAME_ID} />
+        <TileMap gameId={gameStateAndInfo.gameId} />
       </ReduxGate>
     </ClientGate>
   );

@@ -21,7 +21,6 @@
     "@nestjs/platform-socket.io": "^10.4.1",
     "@nestjs/websockets": "^10.4.1",
     "@resync-games/api": "workspace:^",
-    "@resync-games/database": "workspace:^",
     "@resync-games/game-state-database": "workspace:^",
     "@resync-games/games": "workspace:^",
     "lodash": "^4.17.21",

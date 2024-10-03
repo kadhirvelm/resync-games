@@ -2,9 +2,6 @@ import { Body, Controller } from "@nestjs/common";
 import {
   GenerateTileMapRequest,
   GenerateTileMapResponse,
-  GetAllTileMapsResponse,
-  GetTileMapRequest,
-  GetTileMapResponse,
   TileMapServiceApi,
   TileMapServiceDefinition
 } from "@resync-games/api";
@@ -29,28 +26,5 @@ export class TileMapController
         request.generatorName
       )
     };
-  }
-
-  @getDecorator(TileMapServiceDefinition.endpoints.getTileMap)
-  public async getTileMap(
-    @Body() request: GetTileMapRequest
-  ): Promise<GetTileMapResponse> {
-    return {
-      tileMap: await this.tileMapService.getTileMap(request.tileMapId)
-    };
-  }
-
-  @getDecorator(TileMapServiceDefinition.endpoints.getAllTileMaps)
-  public async getAllTileMaps(): Promise<GetAllTileMapsResponse> {
-    return {
-      tileMaps: await this.tileMapService.getAllTileMaps()
-    };
-  }
-
-  @getDecorator(
-    TileMapServiceDefinition.endpoints.getAvailableTileMapGenerators
-  )
-  public getAvailableTileMapGenerators(): string[] {
-    return this.tileMapService.getAvailableTileMapGenerators();
   }
 }

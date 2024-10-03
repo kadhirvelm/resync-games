@@ -1,17 +1,16 @@
 "use client";
 
-import { useTileSocket } from "@/socket/useTileSocket";
-import { TileGameId } from "@resync-games/api";
-import React from "react";
+import { Flex } from "@/lib/radix/Flex";
+import { useGameStateSocket } from "@/socket/useGameStateSocket";
+import { GameId } from "@resync-games/api";
 import { DynamicMagicMazeGame } from "../DisplayTiles";
 import { SocketStatus } from "../SocketStatus";
+import { GoHome } from "./GoHome";
 import { PawnMovement } from "./PawnMovement";
 import { SelectPawn } from "./SelectPawn";
-import { Flex } from "@/lib/radix/Flex";
-import { GoHome } from "./GoHome";
 
-export const TileMap = ({ tileGameId }: { tileGameId: TileGameId }) => {
-  const { connectionStatus } = useTileSocket(tileGameId);
+export const TileMap = ({ gameId }: { gameId: GameId }) => {
+  const { connectionStatus } = useGameStateSocket(gameId);
 
   return (
     <>

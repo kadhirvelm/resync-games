@@ -1,7 +1,5 @@
 export type TileMapId = string & { __brand: "tile-map-id" };
-
 export type TileId = string & { __brand: "tile-id" };
-
 export type EdgeId = string & { __brand: "edge-id" };
 
 export interface Edge {

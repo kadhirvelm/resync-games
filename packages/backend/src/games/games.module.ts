@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
-import { TilesTbdModule } from "./tiles-tbd/tilesTbd.module";
+import { TileMapModule } from "./tiles-tbd/map/tileMap.module";
 
 @Module({
-  imports: [TilesTbdModule]
+  imports: [TileMapModule]
 })
 export class GamesModule {}

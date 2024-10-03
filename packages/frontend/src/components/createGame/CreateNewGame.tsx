@@ -6,7 +6,9 @@ import { ClientServiceCallers } from "@/services/serviceCallers";
 import { Slider, Text } from "@radix-ui/themes";
 import {
   CreateTileGameRequest,
+  GameType,
   isServiceError,
+  PlayerId,
   TileMap
 } from "@resync-games/api";
 import { useRouter } from "next/navigation";
@@ -64,14 +66,24 @@ export function CreateNewGame({ tileMaps }: { tileMaps: TileMap[] }) {
     }
 
     setIsCreatingGame(true);
-    const maybeNewGame =
-      await ClientServiceCallers.tileGame.createGame(newGame);
+    const maybeNewGame = await ClientServiceCallers.gameState.createGame({
+      gameConfiguration: {
+        numberOfPawns: newGame.numberOfPawns,
+        tileMapId: newGame.tileMapId
+      },
+      gameName: newGame.name,
+      gameType: "snatchTheSnack" as GameType,
+      // TODO: enable setting the player
+      playerId: "player1" as PlayerId,
+      version: "1.0.0"
+    });
+
     if (isServiceError(maybeNewGame)) {
       setIsCreatingGame(false);
       return;
     }
 
-    router.push(`/snatch-the-snack/${maybeNewGame.game.tileGameId}`);
+    router.push(`/snatch-the-snack/${maybeNewGame.gameId}`);
   };
 
   const onNumberOfPawnsChange = ([numberOfPawns]: [number]) =>

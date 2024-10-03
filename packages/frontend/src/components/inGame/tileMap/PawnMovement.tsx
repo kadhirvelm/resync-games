@@ -1,6 +1,6 @@
 import { Flex } from "@/lib/radix/Flex";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { useTileSelector } from "@/stores/tiles/tilesStore";
+import { useGameStateSelector } from "@/stores/gameState/gameStateStore";
 import {
   CaretDownIcon,
   CaretLeftIcon,
@@ -27,10 +27,10 @@ const flavorTextToPosition = {
 };
 
 export function PawnMovement() {
-  const { pawnState, outboundEdges, selectedPawnId } = useTileSelector(
+  const { pawnState, outboundEdges, selectedPawnId } = useGameStateSelector(
     (state) => state.pawnState
   );
-  const { game } = useTileSelector((state) => state.tileGame);
+  const { game } = useGameStateSelector((state) => state.tileGame);
 
   const selectedPawn =
     selectedPawnId !== undefined ? pawnState[selectedPawnId] : undefined;
@@ -51,6 +51,11 @@ export function PawnMovement() {
       tilePawnId: selectedPawn.tilePawnId,
       toTileId: edge.toTileId
     });
+
+    // const updateTwo = await ClientServiceCallers.gameState.updateGame({
+    //   gameId: game.gameId
+    // });
+
     if (isServiceError(updatedPawn)) {
       return;
     }

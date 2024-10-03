@@ -1,5 +1,6 @@
 services:
   postgres:
+    container_name: postgres
     image: postgres:15.3
     ports:
       - "5432:5432"
@@ -8,6 +9,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_HOST_AUTH_METHOD=trust
   pgAdmin:
+    container_name: pg_admin
     image: dpage/pgadmin4:8.11
     ports:
       - "2000:80"
@@ -16,6 +18,7 @@ services:
       - PGADMIN_LISTEN_ADDRESS=0.0.0.0
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
   yarn-container:
+    container_name: yarn
     image: node:22.5
     volumes:
       - ./:/home/resync-games:rw
@@ -27,18 +30,21 @@ services:
       - GAME_STATE_DATABASE_HOST_URL=postgresql://postgres:${POSTGRES_PASSWORD}@${LOCAL_HOST}:5432/game-state?schema=public
     command: tail -f /dev/null
   api:
+    container_name: api
     image: node:22.5
     volumes:
       - ./:/home/resync-games:rw
     working_dir: /home/resync-games/packages/api
     command: bash -c "corepack enable && yarn && cd ../../ && yarn dev api"
   games:
+    container_name: games
     image: node:22.5
     volumes:
       - ./:/home/resync-games:rw
     working_dir: /home/resync-games/packages/games
     command: bash -c "corepack enable && yarn && cd ../../ && yarn dev games"
   backend:
+    container_name: backend
     image: node:22.5
     ports:
       - '8080:8080'
@@ -51,6 +57,7 @@ services:
       - GAME_STATE_DATABASE_HOST_URL=postgresql://postgres:${POSTGRES_PASSWORD}@${LOCAL_HOST}:5432/game-state?schema=public
     command: bash -c "corepack enable && yarn && cd ../../ && yarn migrate && yarn dev backend"
   frontend:
+    container_name: frontend
     image: node:22.5-slim
     ports:
       - '3000:3000'

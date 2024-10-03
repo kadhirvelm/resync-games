@@ -1,13 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import { selectPawnIndex } from "@/stores/gameState/selectors/selectPawnState";
-import {
-  StateStore,
-  useGameStateAppStore
-} from "@/stores/gameState/gameStateStore";
-import { BaseScene } from "@/lib/game/baseScene";
-import { BaseGame } from "@/lib/game/baseGame";
-import dynamic from "next/dynamic";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Tile } from "@resync-games/api";
+import { useRef, useEffect } from "react";
+import { BaseGame } from "../baseGame";
+import { BaseScene } from "../baseScene";
 
 const COLORS = {
   blue: "#2e86c1",
@@ -21,13 +16,13 @@ class MagicMazeScene extends BaseScene {
   private tileGap: number = -15;
   private pawnSprites: Record<string, Phaser.GameObjects.GameObject> = {};
 
-  constructor(private store: StateStore) {
+  constructor(private store: unknown) {
     super("MagicMazeScene");
   }
 
   getTiles(): Tile[] {
-    const state = this.store.getState();
-    const tiles = state.tileMap.map?.tiles;
+    // const state = this.store.getState();
+    const tiles = undefined; // state.tileMap.map?.tiles;
     if (!tiles) {
       return [];
     }
@@ -45,9 +40,9 @@ class MagicMazeScene extends BaseScene {
     this.createAndRenderPawns();
 
     // Subscribe to changes
-    this.store.subscribe(() => {
-      this.movePawns();
-    });
+    // this.store.subscribe(() => {
+    //   this.movePawns();
+    // });
     return;
   }
 
@@ -73,10 +68,10 @@ class MagicMazeScene extends BaseScene {
 
   createAndRenderPawns() {
     // TODO: Clean up this gross mess
-    const pawnsIndexed = selectPawnIndex(this.store.getState());
+    const pawnsIndexed = {} as any; // selectPawnIndex(this.store.getState());
     const allPawnIds: Set<string> = new Set();
     for (const pawns of Object.values(pawnsIndexed)) {
-      for (const pawn of pawns) {
+      for (const pawn of pawns as any) {
         allPawnIds.add(pawn.tilePawnId);
       }
     }
@@ -112,7 +107,7 @@ class MagicMazeScene extends BaseScene {
 
   movePawns() {
     // TODO: Clean up this gross mess
-    const pawnsIndexed = selectPawnIndex(this.store.getState());
+    const pawnsIndexed = {} as any; // selectPawnIndex(this.store.getState());
     const numPawns = Array.from(Object.values(pawnsIndexed)).length;
     const sqDimension = Math.ceil(Math.sqrt(numPawns));
     const radius = Math.floor(this.tileSize / (2 * sqDimension));
@@ -140,21 +135,20 @@ class MagicMazeScene extends BaseScene {
 }
 
 class MagicMazeGame extends BaseGame {
-  constructor(parent: HTMLElement, store: StateStore) {
-    super(parent, [new MagicMazeScene(store)]);
+  constructor(parent: HTMLElement, store: unknown) {
+    super(parent, [new MagicMazeScene(store)], { height: 600, width: 800 });
   }
 }
 
-const DisplayMagicMazeGame = () => {
+export const DisplayMagicMazeGame = () => {
   const parentElement = useRef<HTMLDivElement>(null);
-  const store = useGameStateAppStore();
 
   useEffect(() => {
     if (parentElement.current == null) {
       return;
     }
 
-    const game = new MagicMazeGame(parentElement.current, store);
+    const game = new MagicMazeGame(parentElement.current, {});
     return () => {
       game.destroy();
     };
@@ -162,10 +156,3 @@ const DisplayMagicMazeGame = () => {
 
   return <div ref={parentElement} />;
 };
-
-export const DynamicMagicMazeGame = dynamic(
-  () => Promise.resolve(DisplayMagicMazeGame),
-  {
-    ssr: false
-  }
-);

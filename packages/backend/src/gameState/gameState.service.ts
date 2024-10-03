@@ -1,4 +1,3 @@
-import cuid from "@bugsnag/cuid";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import {
   AvailableGames,
@@ -8,12 +7,12 @@ import {
   UpdateGame,
   UpdateGameResponse
 } from "@resync-games/api";
+import {
+  GAME_BACKEND_REGISTRY,
+  IGameServer
+} from "@resync-games/games/dist/backend";
 import { GameStatePrismaService } from "./database/gameStatePrisma.service";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
-import {
-  IGameServer,
-  GAME_BACKEND_REGISTRY
-} from "@resync-games/games/dist/backend";
 
 @Injectable()
 export class GameStateService {
@@ -25,8 +24,6 @@ export class GameStateService {
   public createGame = async (
     createGameRequest: CreateGame
   ): Promise<GameState> => {
-    const newGameId = cuid();
-
     // The game needs to have an associated implementation.
     const backend: IGameServer | undefined =
       GAME_BACKEND_REGISTRY[createGameRequest.gameType];
@@ -61,7 +58,6 @@ export class GameStateService {
         },
         currentGameState: "waiting",
         gameConfiguration: createGameRequest.gameConfiguration,
-        gameId: newGameId,
         // TODO: call on the abstraction to create the default game state for the game here
         gameState,
         gameType: createGameRequest.gameType,
