@@ -1,6 +1,5 @@
 import { Flex } from "@/lib/radix/Flex";
-import { useGameStateSelector } from "@/stores/gameState/gameStateStore";
-import { SnatchTheSnackGame } from "@resync-games/games";
+import { useGameStateSelector } from "@resync-games/redux-store";
 import styles from "./PawnMovement.module.scss";
 
 // const flavorTextToIcon = {
@@ -18,9 +17,7 @@ import styles from "./PawnMovement.module.scss";
 // };
 
 export function PawnMovement() {
-  const { tileMap } = useGameStateSelector(
-    (state) => state.gameState.gameState as SnatchTheSnackGame
-  );
+  const map = useGameStateSelector((state) => state.gameStateSlice.gameState);
   // const gameInfo = useGameStateSelector((state) => state.gameState.gameInfo);
 
   // const selectedPawn =
@@ -56,7 +53,7 @@ export function PawnMovement() {
   //   // console.log({ didMove: updatedPawn.didMove });
   // };
 
-  console.log(tileMap);
+  console.log(map);
 
   return (
     <Flex className={styles.pawnMovementContainer} flex="grow">

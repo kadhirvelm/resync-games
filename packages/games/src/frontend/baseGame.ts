@@ -7,7 +7,7 @@ export class BaseGame {
   constructor(
     private parent: HTMLElement,
     private scenes: BaseScene[],
-    resolution: {
+    resolution?: {
       height: number;
       width: number;
     }
@@ -15,7 +15,7 @@ export class BaseGame {
     this.game = new Game({
       backgroundColor: "#FFFFFF",
       // Set the height to be the same as the window height
-      height: resolution.height,
+      height: resolution?.height,
       parent: this.parent,
       physics: {
         arcade: {
@@ -26,7 +26,7 @@ export class BaseGame {
       },
       scene: this.scenes,
       type: Phaser.AUTO,
-      width: resolution.width
+      width: resolution?.width
     });
   }
 

@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Tile } from "@resync-games/api";
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { BaseGame } from "../baseGame";
 import { BaseScene } from "../baseScene";
-import { IGameStateStore } from "../state";
-import { SnatchTheSnackGame } from "../../backend";
+import { FrontendGameComponentProps } from "../frontendRegistry";
+import { IGameStateHandler } from "@resync-games/redux-store";
+import { SnatchTheSnackGame } from "../../backend/snatch-the-snack/snatchTheSnack";
 
 const COLORS = {
   blue: "#2e86c1",
@@ -18,7 +19,7 @@ class MagicMazeScene extends BaseScene {
   private tileGap: number = -15;
   private pawnSprites: Record<string, Phaser.GameObjects.GameObject> = {};
 
-  constructor(private store: IGameStateStore<SnatchTheSnackGame>) {
+  constructor(private store: IGameStateHandler<SnatchTheSnackGame>) {
     super("MagicMazeScene");
   }
 
@@ -28,6 +29,7 @@ class MagicMazeScene extends BaseScene {
     if (!tiles) {
       return [];
     }
+
     return tiles;
   }
 
@@ -42,9 +44,10 @@ class MagicMazeScene extends BaseScene {
     this.createAndRenderPawns();
 
     // Subscribe to changes
-    // this.store.subscribe(() => {
-    //   this.movePawns();
-    // });
+    this.store.subscribeToAll(() => {
+      this.movePawns();
+    });
+
     return;
   }
 
@@ -137,7 +140,10 @@ class MagicMazeScene extends BaseScene {
 }
 
 class MagicMazeGame extends BaseGame {
-  constructor(store: IGameStateStore<SnatchTheSnackGame>, parent: HTMLElement) {
+  constructor(
+    store: IGameStateHandler<SnatchTheSnackGame>,
+    parent: HTMLElement
+  ) {
     super(parent, [new MagicMazeScene(store)], {
       height: window.innerHeight,
       width: window.innerWidth
@@ -145,7 +151,9 @@ class MagicMazeGame extends BaseGame {
   }
 }
 
-export const DisplayMagicMazeGame = (store: IGameStateStore<object>) => {
+export const DisplayMagicMazeGame = ({
+  gameStateHandler
+}: FrontendGameComponentProps) => {
   const parentElement = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -154,7 +162,7 @@ export const DisplayMagicMazeGame = (store: IGameStateStore<object>) => {
     }
 
     const game = new MagicMazeGame(
-      store as IGameStateStore<SnatchTheSnackGame>,
+      gameStateHandler as IGameStateHandler<SnatchTheSnackGame>,
       parentElement.current
     );
     return () => {

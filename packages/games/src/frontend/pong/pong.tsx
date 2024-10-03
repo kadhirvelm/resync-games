@@ -1,7 +1,8 @@
 import { BaseScene } from "../baseScene";
 import { BaseGame } from "../baseGame";
 import { useEffect, useRef } from "react";
-import { IGameStateStore } from "../state";
+import { FrontendGameComponentProps } from "../frontendRegistry";
+import { IGameStateHandler } from "@resync-games/redux-store";
 /**
  * Simple single-paddle and ball game where the ball bounces around and you accumulate points by hitting the ball with the paddle.
  * The goal is to keep accumulating points. There is no win or lose condition.
@@ -15,7 +16,7 @@ class PongGameScene extends BaseScene {
   private keyboard: Phaser.Input.Keyboard.KeyboardPlugin;
   private isBallColliding: boolean = false; // Flag to track if the ball is colliding
 
-  constructor(private store: IGameStateStore<object>) {
+  constructor(private store: IGameStateHandler<object>) {
     super("PongGameScene");
 
     // Make TS Happy
@@ -115,12 +116,14 @@ class PongGameScene extends BaseScene {
 }
 
 class PongGame extends BaseGame {
-  constructor(store: IGameStateStore<object>, parent: HTMLElement) {
+  constructor(store: IGameStateHandler<object>, parent: HTMLElement) {
     super(parent, [new PongGameScene(store)], { height: 600, width: 800 });
   }
 }
 
-export const PongHomePage = (store: IGameStateStore<object>) => {
+export const PongHomePage = ({
+  gameStateHandler
+}: FrontendGameComponentProps) => {
   const parentElement = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -128,7 +131,7 @@ export const PongHomePage = (store: IGameStateStore<object>) => {
       return;
     }
 
-    const game = new PongGame(store, parentElement.current);
+    const game = new PongGame(gameStateHandler, parentElement.current);
     return () => {
       game.destroy();
     };

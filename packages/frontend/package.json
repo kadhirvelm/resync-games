@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^2.2.7",
     "@resync-games/api": "workspace:^",
     "@resync-games/games": "workspace:^",
+    "@resync-games/redux-store": "workspace:^",
     "clsx": "^2.1.1",
     "lodash-es": "^4.17.21",
     "next": "14.2.5",

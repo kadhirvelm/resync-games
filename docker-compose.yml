@@ -29,20 +29,13 @@ services:
       - DATABASE_HOST_URL=postgresql://postgres:${POSTGRES_PASSWORD}@${LOCAL_HOST}:5432/resync-games?schema=public
       - GAME_STATE_DATABASE_HOST_URL=postgresql://postgres:${POSTGRES_PASSWORD}@${LOCAL_HOST}:5432/game-state?schema=public
     command: tail -f /dev/null
-  api:
-    container_name: api
+  dependencies:
+    container_name: dependencies
     image: node:22.5
     volumes:
       - ./:/home/resync-games:rw
-    working_dir: /home/resync-games/packages/api
-    command: bash -c "corepack enable && yarn && cd ../../ && yarn dev api"
-  games:
-    container_name: games
-    image: node:22.5
-    volumes:
-      - ./:/home/resync-games:rw
-    working_dir: /home/resync-games/packages/games
-    command: bash -c "corepack enable && yarn && cd ../../ && yarn dev games"
+    working_dir: /home/resync-games
+    command: bash -c "corepack enable && yarn && yarn run turbo run dev --filter=@resync-games/frontend^... --filter=@resync-games/backend^..."
   backend:
     container_name: backend
     image: node:22.5
