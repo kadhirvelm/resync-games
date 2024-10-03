@@ -1,0 +1,22 @@
+{
+  "name": "@resync-games/games",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint ."
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@resync-games/api": "workspace:^",
+    "phaser": "v3.85.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^9.8.0",
+    "typescript": "^5.5.4"
+  }
+}

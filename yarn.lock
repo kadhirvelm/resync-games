@@ -2748,6 +2748,7 @@ __metadata:
     "@resync-games/api": "workspace:^"
     "@resync-games/database": "workspace:^"
     "@resync-games/game-state-database": "workspace:^"
+    "@resync-games/games": "workspace:^"
     "@types/express": "npm:^4.17.21"
     "@types/fs-extra": "npm:^11.0.4"
     "@types/jest": "npm:^29.5.12"
@@ -2794,6 +2795,7 @@ __metadata:
     "@radix-ui/themes": "npm:^3.1.3"
     "@reduxjs/toolkit": "npm:^2.2.7"
     "@resync-games/api": "workspace:^"
+    "@resync-games/games": "workspace:^"
     "@testing-library/jest-dom": "npm:^6.4.8"
     "@types/jest": "npm:^29.5.12"
     "@types/lodash-es": "npm:^4"
@@ -2827,6 +2829,21 @@ __metadata:
     "@prisma/client": "npm:5.17.0"
     "@yarnpkg/pnpify": "npm:^4.1.1"
     prisma: "npm:5.17.0"
+  languageName: unknown
+  linkType: soft
+
+"@resync-games/games@workspace:^, @resync-games/games@workspace:packages/games":
+  version: 0.0.0-use.local
+  resolution: "@resync-games/games@workspace:packages/games"
+  dependencies:
+    "@resync-games/api": "workspace:^"
+    "@types/react": "npm:^18.3.3"
+    "@types/react-dom": "npm:^18.3.0"
+    eslint: "npm:^9.8.0"
+    phaser: "npm:v3.85.2"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
+    typescript: "npm:^5.5.4"
   languageName: unknown
   linkType: soft
 

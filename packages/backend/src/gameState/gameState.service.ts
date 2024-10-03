@@ -10,6 +10,10 @@ import {
 } from "@resync-games/api";
 import { GameStatePrismaService } from "./database/gameStatePrisma.service";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
+import {
+  IGameServer,
+  GAME_BACKEND_REGISTRY
+} from "@resync-games/games/dist/backend";
 
 @Injectable()
 export class GameStateService {
@@ -22,6 +26,15 @@ export class GameStateService {
     createGameRequest: CreateGame
   ): Promise<GameState> => {
     const newGameId = cuid();
+
+    // The game needs to have an associated implementation.
+    const backend: IGameServer | undefined =
+      GAME_BACKEND_REGISTRY[createGameRequest.gameType];
+    if (backend === undefined) {
+      throw new BadRequestException(
+        `The game type '${createGameRequest.gameType}' is not implemented. Available games: [${Object.keys(GAME_BACKEND_REGISTRY).join(", ")}]`
+      );
+    }
 
     // Check if the player exists in the database and create one with a dummy name for now if not.
     await this.prismaService.client.player.upsert({
@@ -37,6 +50,8 @@ export class GameStateService {
       }
     });
 
+    const { gameState, version } = await backend.createGame(createGameRequest);
+
     const requestedGame = await this.prismaService.client.gameState.create({
       data: {
         PlayersInGame: {
@@ -48,10 +63,10 @@ export class GameStateService {
         gameConfiguration: createGameRequest.gameConfiguration,
         gameId: newGameId,
         // TODO: call on the abstraction to create the default game state for the game here
-        gameState: {} as object,
+        gameState,
         gameType: createGameRequest.gameType,
         // TODO: call on the abstraction to get the current version
-        version: "1.0.0"
+        version
       },
       include: {
         PlayersInGame: {

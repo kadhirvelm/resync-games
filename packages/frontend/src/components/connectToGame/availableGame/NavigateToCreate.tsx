@@ -4,8 +4,6 @@ import { NavigationButton } from "@/lib/tiles-components/NavigationButton";
 
 export const NavigateToCreate = () => {
   return (
-    <NavigationButton href="/snatch-the-snack/create">
-      Create new game
-    </NavigationButton>
+    <NavigationButton href="/games/create">Create new game</NavigationButton>
   );
 };
