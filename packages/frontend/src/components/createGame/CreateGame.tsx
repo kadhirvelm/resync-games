@@ -7,7 +7,7 @@ import { Text } from "@radix-ui/themes";
 import { GameType, isServiceError, PlayerId } from "@resync-games/api";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import styles from "./createGame.module.scss";
+import styles from "./CreateGame.module.scss";
 
 export default function CreateGame() {
   const router = useRouter();
@@ -32,8 +32,9 @@ export default function CreateGame() {
   // Lazy load the game component only on the client-side
   const DynamicComponent = dynamic(
     () =>
-      import("@resync-games/games").then((module) => {
+      import("@resync-games/games-shared/gamesRegistry").then((module) => {
         const { GAME_REGISTRY } = module;
+
         return () => (
           <Flex direction="column" gap="2">
             {Object.entries(GAME_REGISTRY).map(([slug, { name }]) => (

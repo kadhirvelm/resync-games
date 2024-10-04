@@ -1,4 +1,4 @@
-import { GAME_SLUGS } from "../gamesRegistry";
+import { GAME_SLUGS } from "../shared/gamesRegistry";
 import { IGameServer } from "./base";
 import { PongGameServer } from "./pong/pong";
 import { SnatchTheSnackServer } from "./snatch-the-snack/snatchTheSnack";

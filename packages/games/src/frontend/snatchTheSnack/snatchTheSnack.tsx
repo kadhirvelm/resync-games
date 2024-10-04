@@ -6,6 +6,8 @@ import { BaseScene } from "../baseScene";
 import { FrontendGameComponentProps } from "../frontendRegistry";
 import { IGameStateHandler } from "@resync-games/redux-store";
 import { SnatchTheSnackGame } from "../../backend/snatch-the-snack/snatchTheSnack";
+import { PawnMovement } from "./components/PawnMovement";
+import { SelectPawn } from "./components/SelectPawn";
 
 const COLORS = {
   blue: "#2e86c1",
@@ -170,5 +172,11 @@ export const DisplayMagicMazeGame = ({
     };
   });
 
-  return <div ref={parentElement} />;
+  return (
+    <>
+      <div ref={parentElement} />
+      <PawnMovement />
+      <SelectPawn />
+    </>
+  );
 };

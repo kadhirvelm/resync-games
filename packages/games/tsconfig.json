@@ -1,11 +1,27 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "rootDir": "./src",
-        "outDir": "./dist",
-        "module": "CommonJS",
-        "lib": ["dom", "es2021"],
-        "jsx": "react-jsx",
-        "resolveJsonModule": true,
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "next"
+      },
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "goToDefinition": true,
+          "noUncheckedIndexedAccess": true
+        }
+      }
+    ],
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "lib": ["dom", "dom.iterable", "es2021"],
+    "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "paths": {
+      "@/*": ["../frontend/src/*"],
     }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "../frontend/src/**/*.tsx", "../frontend/src/**/*.ts", "../backend/src/**/*.ts"],
 }

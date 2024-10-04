@@ -7,11 +7,10 @@ import {
   UpdateGame,
   UpdateGameResponse
 } from "@resync-games/api";
-import { BACKEND_GAME_REGISTRY } from "@resync-games/games/dist/backend";
-import { IGameServer } from "@resync-games/games/dist/backend/base";
 import { GameStatePrismaService } from "./database/gameStatePrisma.service";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
-import { GAME_REGISTRY } from "@resync-games/games";
+import { BACKEND_GAME_REGISTRY } from "@resync-games/games/backendRegistry";
+import { IGameServer } from "@resync-games/games/base";
 
 @Injectable()
 export class GameStateService {
@@ -28,7 +27,7 @@ export class GameStateService {
       BACKEND_GAME_REGISTRY[createGameRequest.gameType]?.gameServer;
     if (backend === undefined) {
       throw new BadRequestException(
-        `The game type '${createGameRequest.gameType}' is not implemented. Available games: [${Object.keys(GAME_REGISTRY).join(", ")}]`
+        `The game type '${createGameRequest.gameType}' is not implemented. Available games: [${Object.keys(BACKEND_GAME_REGISTRY).join(", ")}]`
       );
     }
 

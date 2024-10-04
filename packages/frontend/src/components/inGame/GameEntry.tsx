@@ -3,7 +3,7 @@
 import { useGameStateSocket } from "@/socket/useGameStateSocket";
 import { Flex, Text } from "@radix-ui/themes";
 import { GameId, GameType } from "@resync-games/api";
-import { FrontendRegisteredGame } from "@resync-games/games/dist/frontend";
+import { FrontendRegisteredGame } from "@resync-games/games/frontendRegistry";
 import {
   GameStateHandler,
   GameStateReduxStore,
@@ -35,7 +35,7 @@ export const GameEntry = ({
   // Lazy load the game component only on the client-side
   const DynamicComponent = dynamic(
     () =>
-      import("@resync-games/games/dist/frontend").then((module) => {
+      import("@resync-games/games/frontendRegistry").then((module) => {
         const { GAME_REGISTRY } = module;
         const maybeGame = (
           GAME_REGISTRY as Record<string, FrontendRegisteredGame>
