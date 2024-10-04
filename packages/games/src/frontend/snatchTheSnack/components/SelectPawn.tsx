@@ -1,6 +1,6 @@
 import { Flex } from "@/lib/radix/Flex";
 import styles from "./SelectPawn.module.scss";
-// import { useGameStateSelector } from "@resync-games/redux-store";
+// import { useGameStateSelector } from "@/stores";
 
 export const SelectPawn = () => {
   // const dispatch = useGameStateDispatch();

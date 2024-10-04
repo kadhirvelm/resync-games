@@ -1,5 +1,5 @@
 {
-  "name": "@resync-games/game-state-database",
+  "name": "@resync-games/database",
   "scripts": {
     "db:migrate": "prisma migrate deploy",
     "db:create-migration": "prisma migrate dev --create-only",

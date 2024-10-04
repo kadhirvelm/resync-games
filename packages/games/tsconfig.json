@@ -13,7 +13,7 @@
         }
       }
     ],
-    "rootDir": "./src",
+    "rootDir": "../",
     "outDir": "./dist",
     "module": "CommonJS",
     "lib": ["dom", "dom.iterable", "es2021"],

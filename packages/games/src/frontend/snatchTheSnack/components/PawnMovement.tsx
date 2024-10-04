@@ -1,5 +1,5 @@
 import { Flex } from "@/lib/radix/Flex";
-import { useGameStateSelector } from "@resync-games/redux-store";
+import { useGameStateSelector } from "@/stores";
 import styles from "./PawnMovement.module.scss";
 
 // const flavorTextToIcon = {

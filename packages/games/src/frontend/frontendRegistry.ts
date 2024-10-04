@@ -2,7 +2,7 @@ import { GameInfo } from "@resync-games/api";
 import { GAME_SLUGS } from "../shared/gamesRegistry";
 import { PongHomePage } from "./pong/pong";
 import { DisplayMagicMazeGame } from "./snatchTheSnack/snatchTheSnack";
-import { IGameStateHandler } from "@resync-games/redux-store";
+import { IGameStateHandler } from "@/stores";
 
 export type FrontendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: FrontendRegisteredGame;

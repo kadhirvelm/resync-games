@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaClient } from "@resync-games/game-state-database";
+import { PrismaClient } from "@resync-games/database";
 import { GameStateConverterService } from "./gameStateConverter.service";
 
 @Injectable()

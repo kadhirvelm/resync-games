@@ -4,15 +4,15 @@ import { useGameStateSocket } from "@/socket/useGameStateSocket";
 import { Flex, Text } from "@radix-ui/themes";
 import { GameId, GameType } from "@resync-games/api";
 import { FrontendRegisteredGame } from "@resync-games/games/frontendRegistry";
-import {
-  GameStateHandler,
-  GameStateReduxStore,
-  useGameStateSelector
-} from "@resync-games/redux-store";
 import dynamic from "next/dynamic";
 import { GoHome } from "./components/GoHome";
 import { SocketStatus } from "./components/SocketStatus";
 import { useMemo } from "react";
+import {
+  GameStateHandler,
+  GameStateReduxStore,
+  useGameStateSelector
+} from "@/stores";
 
 export const GameEntry = ({
   store,

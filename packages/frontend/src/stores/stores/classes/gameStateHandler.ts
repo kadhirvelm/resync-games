@@ -19,30 +19,38 @@ export type RecursivePartial<T> = {
 
 export type FieldListener = (newVaue: unknown) => void;
 
-export interface IGameStateHandler<GameState extends object = object> {
+export interface IGameStateHandler<
+  GameState extends object = object,
+  LocalGameState extends object = object
+> {
   getGameInfo(): GameInfo;
   getGameState(): GameState;
+  getLocalGameState(): LocalGameState;
   subscribeToAll(callback: FieldListener): void;
   subscribeToField(path: string, callback: FieldListener): void;
   updateGameState(newState: RecursivePartial<GameState>): void;
 }
 
-export type GameStateReduxStore<GameState extends object = object> =
-  EnhancedStore<{
-    gameStateSlice: GameStateReduxSlice<GameState>;
-  }>;
+export type GameStateReduxStore<
+  GameState extends object = object,
+  LocalGameState extends object = object
+> = EnhancedStore<{
+  gameStateSlice: GameStateReduxSlice<GameState, LocalGameState>;
+}>;
 
 /**
  * Simple wrapper around a Redux store that offers a single dispatch action and a subscribe method
  * for listening to changes on a specific field path in the state.
  */
-export class GameStateHandler<GameState extends object>
-  implements IGameStateHandler<GameState>
+export class GameStateHandler<
+  GameState extends object,
+  LocalGameState extends object
+> implements IGameStateHandler<GameState>
 {
   private fieldListeners: { [key: string]: FieldListener[] } = {};
   private previousState: SeparatedGameStateAndInfo<GameState>;
 
-  constructor(private store: GameStateReduxStore<GameState>) {
+  constructor(private store: GameStateReduxStore<GameState, LocalGameState>) {
     this.previousState = this.store.getState().gameStateSlice;
 
     this.store.subscribe(() => {
@@ -70,6 +78,15 @@ export class GameStateHandler<GameState extends object>
     }
 
     return maybeGameInfo;
+  };
+
+  public getLocalGameState = () => {
+    const maybeLocalGameState = this.store.getState().gameStateSlice.localState;
+    if (maybeLocalGameState === undefined) {
+      throw new Error(`Local game state is not initialized.`);
+    }
+
+    return maybeLocalGameState;
   };
 
   // TODO: move some dependencies around so they're more available
