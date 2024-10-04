@@ -6,12 +6,9 @@ TBD
 
 TODOs:
 
-1. Get the create working
-2. Figure out how to overlay the React with the phaser
-3. Update the game code to use the new state configs
-4. Hook in the sockets
-5. Clean up
+1. Figure out how to overlay the React with the phaser
+3. Clean up
 
-6. Add the concept of a player
-7. Make the configuration dynamic
-8. Figure out how to put the react inside the games package
+4. Add the concept of a player
+5. Make the configuration dynamic
+6. Figure out how to put the react inside the games package

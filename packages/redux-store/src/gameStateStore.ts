@@ -1,19 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, useStore } from "react-redux";
-import { reduxLogger } from "../middleware/logger";
-import { SnatchTheSnackStateReducer } from "./gameState";
+import { reduxLogger } from "./stores/middleware/logger";
+import { GameStateReducer } from "./stores/redux/gameStateSlice";
 
-export const initializeTileStore = () => {
+export const initializeGameStateStore = () => {
   return configureStore({
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(reduxLogger),
     reducer: {
-      gameState: SnatchTheSnackStateReducer
+      gameStateSlice: GameStateReducer
     }
   });
 };
 
-export type StateStore = ReturnType<typeof initializeTileStore>;
+export type StateStore = ReturnType<typeof initializeGameStateStore>;
 export type GameStateStore = ReturnType<StateStore["getState"]>;
 export type GameStateDispatch = StateStore["dispatch"];
 

@@ -1,15 +1,18 @@
 "use client";
 
 import { useGameStateSocket } from "@/socket/useGameStateSocket";
-import { GameStateReduxStore } from "@/stores/gameStateStore";
 import { Flex, Text } from "@radix-ui/themes";
 import { GameId, GameType } from "@resync-games/api";
 import { FrontendRegisteredGame } from "@resync-games/games/dist/frontend";
+import {
+  GameStateHandler,
+  GameStateReduxStore,
+  useGameStateSelector
+} from "@resync-games/redux-store";
 import dynamic from "next/dynamic";
-import { SocketStatus } from "./components/SocketStatus";
 import { GoHome } from "./components/GoHome";
-// import { PawnMovement } from "./components/PawnMovement";
-// import { SelectPawn } from "./components/SelectPawn";
+import { SocketStatus } from "./components/SocketStatus";
+import { useMemo } from "react";
 
 export const GameEntry = ({
   store,
@@ -18,9 +21,16 @@ export const GameEntry = ({
 }: {
   gameId: GameId;
   gameSlug: GameType;
-  store: GameStateReduxStore<object>;
+  store: GameStateReduxStore;
 }) => {
   const { connectionStatus } = useGameStateSocket(gameId);
+  const { gameState, gameInfo, localState } = useGameStateSelector(
+    (s) => s.gameStateSlice
+  );
+
+  const gameStateHandler = useMemo(() => {
+    return new GameStateHandler(store);
+  }, [gameId]);
 
   // Lazy load the game component only on the client-side
   const DynamicComponent = dynamic(
@@ -39,20 +49,20 @@ export const GameEntry = ({
           );
         }
 
-        // gameStateAndInfo - separated
-        // onUpdateGameState
-
-        return () => maybeGame.gameEntry(store);
+        return maybeGame.gameEntry;
       }),
     { ssr: false } // Disable server-side rendering
   );
 
   return (
     <>
-      <DynamicComponent />
+      <DynamicComponent
+        gameInfo={gameInfo}
+        gameState={gameState}
+        gameStateHandler={gameStateHandler}
+        localState={localState}
+      />
       <GoHome />
-      {/* <SelectPawn /> */}
-      {/* <PawnMovement /> */}
       <SocketStatus connectionStatus={connectionStatus} />
     </>
   );

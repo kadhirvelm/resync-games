@@ -1,5 +1,3 @@
-import { setGame } from "@/stores/gameState/gameState";
-import { useGameStateDispatch } from "@/stores/gameState/gameStateStore";
 import {
   GameStateAndInfo,
   GameStateFromServerToClient,
@@ -7,6 +5,7 @@ import {
   RemoveExtendsString,
   SocketEmitter
 } from "@resync-games/api";
+import { setGame, useGameStateDispatch } from "@resync-games/redux-store";
 import { useCallback } from "react";
 
 /**

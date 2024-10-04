@@ -20,6 +20,18 @@ export default [
     },
     rules: {
       "@typescript-eslint/no-extraneous-class": 0,
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          args: "all",
+          argsIgnorePattern: "^_",
+          caughtErrors: "all",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+          varsIgnorePattern: "^_"
+        }
+      ],
       "sort-keys-fix/sort-keys-fix": "error",
       "typescript-sort-keys/interface": "error",
       "typescript-sort-keys/string-enum": "error"
