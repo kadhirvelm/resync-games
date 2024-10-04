@@ -17,6 +17,11 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@resync-games/games/*": ["../games/src/backend/*"]
+    },
+  },
+  "include": ["**/*.ts", "../games/src/backend/**/*.ts", "../games/src/shared/**/*.ts"],
 }

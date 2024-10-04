@@ -1,6 +1,6 @@
 "use client";
 
-import { NavigationButton } from "@/lib/tiles-components/NavigationButton";
+import { NavigationButton } from "@/lib/resync-components/NavigationButton";
 
 export const NavigateToCreate = () => {
   return (

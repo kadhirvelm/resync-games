@@ -6,8 +6,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "dev": "nest start --debug --watch",
-    "start": "nest start",
+    "dev": "nest start --entryFile backend/src/main.js --debug --watch",
+    "start": "nest start --entryFile backend/src/main.js",
     "lint": "eslint .",
     "test": "jest",
     "test:watch": "jest --watch"
@@ -22,7 +22,6 @@
     "@nestjs/websockets": "^10.4.1",
     "@resync-games/api": "workspace:^",
     "@resync-games/game-state-database": "workspace:^",
-    "@resync-games/games": "workspace:^",
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",

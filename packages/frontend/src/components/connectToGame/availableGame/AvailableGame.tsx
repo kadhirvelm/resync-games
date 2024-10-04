@@ -1,7 +1,7 @@
 "use client";
 
 import { Flex } from "@/lib/radix/Flex";
-import { NavigationButton } from "@/lib/tiles-components/NavigationButton";
+import { NavigationButton } from "@/lib/resync-components/NavigationButton";
 import { Text } from "@radix-ui/themes";
 import styles from "./AvailableGame.module.scss";
 import { GameState } from "./GameState";

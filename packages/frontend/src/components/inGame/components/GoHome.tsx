@@ -1,4 +1,4 @@
-import { NavigationButton } from "@/lib/tiles-components/NavigationButton";
+import { NavigationButton } from "@/lib/resync-components/NavigationButton";
 import { ExitIcon } from "@radix-ui/react-icons";
 import style from "./GoHome.module.scss";
 

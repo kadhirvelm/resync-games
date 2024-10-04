@@ -1,12 +1,5 @@
 {
-  "name": "@resync-games/games",
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "lint": "eslint ."
-  },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "name": "@resync-games/do-not-use-this-package-directly",
   "dependencies": {
     "@resync-games/api": "workspace:^",
     "@resync-games/redux-store": "workspace:^",
@@ -18,6 +11,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "eslint": "^9.8.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "typescript-plugin-css-modules": "^5.1.0"
   }
 }
