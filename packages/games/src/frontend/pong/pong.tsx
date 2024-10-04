@@ -2,7 +2,8 @@ import { BaseScene } from "../baseScene";
 import { BaseGame } from "../baseGame";
 import { useEffect, useRef } from "react";
 import { FrontendGameComponentProps } from "../frontendRegistry";
-import { IGameStateHandler } from "@resync-games/redux-store";
+import { IGameStateHandler } from "@/stores";
+
 /**
  * Simple single-paddle and ball game where the ball bounces around and you accumulate points by hitting the ball with the paddle.
  * The goal is to keep accumulating points. There is no win or lose condition.

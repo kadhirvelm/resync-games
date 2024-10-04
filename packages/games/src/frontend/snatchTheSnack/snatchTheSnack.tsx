@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { BaseGame } from "../baseGame";
 import { BaseScene } from "../baseScene";
 import { FrontendGameComponentProps } from "../frontendRegistry";
-import { IGameStateHandler } from "@resync-games/redux-store";
+import { IGameStateHandler } from "@/stores";
 import { SnatchTheSnackGame } from "../../backend/snatch-the-snack/snatchTheSnack";
 import { PawnMovement } from "./components/PawnMovement";
 import { SelectPawn } from "./components/SelectPawn";

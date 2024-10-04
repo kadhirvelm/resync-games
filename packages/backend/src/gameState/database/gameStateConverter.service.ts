@@ -10,7 +10,7 @@ import {
 import {
   GameState as PrismaGameState,
   Player as PrismaPlayer
-} from "@resync-games/game-state-database";
+} from "@resync-games/database";
 import _ from "lodash";
 
 @Injectable()

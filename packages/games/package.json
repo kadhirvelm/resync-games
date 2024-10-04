@@ -2,7 +2,6 @@
   "name": "@resync-games/do-not-use-this-package-directly",
   "dependencies": {
     "@resync-games/api": "workspace:^",
-    "@resync-games/redux-store": "workspace:^",
     "phaser": "v3.85.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

@@ -1,16 +1,16 @@
 "use client";
 
 import { ClientGate } from "@/lib/ClientGate";
-import { ReduxGate } from "@/stores/ReduxGate";
+import { ReduxGate } from "@/lib/resync-components/ReduxGate";
 import { GameStateAndInfo, GameType } from "@resync-games/api";
-import {
-  GameStateReduxStore,
-  initializeGameStateStore,
-  setGame
-} from "@resync-games/redux-store";
 import { GameEntry } from "./GameEntry";
 import { UnknownAction } from "@reduxjs/toolkit";
 import { Dispatch } from "react";
+import {
+  setGame,
+  initializeGameStateStore,
+  GameStateReduxStore
+} from "@/stores";
 
 export const InitializeGame = ({
   gameSlug,

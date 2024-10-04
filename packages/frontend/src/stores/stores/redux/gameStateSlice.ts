@@ -3,16 +3,19 @@ import { GameStateAndInfo, GameInfo } from "@resync-games/api";
 import { omit } from "lodash-es";
 import { deepMerge } from "../../utils/deepMerge";
 
-export interface GameStateReduxSlice<GameState extends object = object> {
+export interface GameStateReduxSlice<
+  GameState extends object = object,
+  LocalGameState extends object = object
+> {
   gameInfo: GameInfo | undefined;
   gameState: GameState | undefined;
-  localState: object;
+  localState: LocalGameState | undefined;
 }
 
 const initialState: GameStateReduxSlice = {
   gameInfo: undefined,
   gameState: undefined,
-  localState: {}
+  localState: undefined
 };
 
 const gameStateSlice = createSlice({
