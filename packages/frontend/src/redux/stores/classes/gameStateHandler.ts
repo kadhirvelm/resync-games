@@ -1,20 +1,15 @@
 import { EnhancedStore } from "@reduxjs/toolkit";
-import { GameInfo } from "@resync-games/api";
+import { GameInfo, PlayerId } from "@resync-games/api";
 import { GameStateReduxSlice } from "../redux/gameStateSlice";
 import { deepEqual } from "./utils/deepEqual";
 import { getFieldByPath } from "./utils/getFieldByPath";
+import { RecursivePartial } from "./utils/recursivePartial";
+import { ClientServiceCallers } from "@/services/serviceCallers";
+import { deepMerge } from "@/redux/utils/deepMerge";
 
 type SeparatedGameStateAndInfo<GameState extends object> = {
   gameInfo: GameInfo | undefined;
   gameState: GameState | undefined;
-};
-
-export type RecursivePartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? RecursivePartial<U>[]
-    : T[P] extends object | undefined
-      ? RecursivePartial<T[P]>
-      : T[P];
 };
 
 export type FieldListener = (newVaue: unknown) => void;
@@ -90,7 +85,7 @@ export class GameStateHandler<
   };
 
   // TODO: move some dependencies around so they're more available
-  public updateGameState = (_newState: RecursivePartial<GameState>) => {
+  public updateGameState = (newState: RecursivePartial<GameState>) => {
     const currentState = this.store.getState().gameStateSlice;
     const { gameInfo, gameState } = currentState;
 
@@ -100,15 +95,11 @@ export class GameStateHandler<
       );
     }
 
-    // TODO: move this into the constructor setup so we can pass the callers in
-    // ClientServiceCallers.gameState.updateGame({
-    //   ...gameInfo,
-    //   newGameState: {
-    //     ...gameState,
-    //     ...newState
-    //   },
-    //   playerId: "player-1" as PlayerId
-    // });
+    ClientServiceCallers.gameState.updateGame({
+      ...gameInfo,
+      newGameState: deepMerge(gameState, newState as GameState),
+      playerId: "player-1" as PlayerId
+    });
   };
 
   // Subscribe to a nested field

@@ -10,7 +10,7 @@ import {
   setGame,
   initializeGameStateStore,
   GameStateReduxStore
-} from "@/stores";
+} from "@/redux";
 
 export const InitializeGame = ({
   gameSlug,

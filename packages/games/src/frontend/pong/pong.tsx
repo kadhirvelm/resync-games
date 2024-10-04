@@ -2,7 +2,7 @@ import { BaseScene } from "../baseScene";
 import { BaseGame } from "../baseGame";
 import { useEffect, useRef } from "react";
 import { FrontendGameComponentProps } from "../frontendRegistry";
-import { IGameStateHandler } from "@/stores";
+import { IGameStateHandler } from "@/redux";
 
 /**
  * Simple single-paddle and ball game where the ball bounces around and you accumulate points by hitting the ball with the paddle.
@@ -136,7 +136,7 @@ export const PongHomePage = ({
     return () => {
       game.destroy();
     };
-  });
+  }, []);
 
   return <div ref={parentElement} />;
 };
