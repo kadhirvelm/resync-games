@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import {
   AvailableGames,
   CreateGame,
-  GameState,
+  GameStateAndInfo,
   GetGameState,
   UpdateGame,
   UpdateGameResponse
@@ -22,7 +22,7 @@ export class GameStateService {
 
   public createGame = async (
     createGameRequest: CreateGame
-  ): Promise<GameState> => {
+  ): Promise<GameStateAndInfo> => {
     // The game needs to have an associated implementation.
     const backend: IGameServer | undefined =
       BACKEND_GAME_REGISTRY[createGameRequest.gameType]?.gameServer;
@@ -104,7 +104,7 @@ export class GameStateService {
 
   public getGameState = async (
     getGameStateRequest: GetGameState
-  ): Promise<GameState> => {
+  ): Promise<GameStateAndInfo> => {
     const requestedGame = await this.prismaService.client.gameState.findFirst({
       include: {
         PlayersInGame: {
@@ -154,7 +154,7 @@ export class GameStateService {
       };
     }
 
-    const newGameState: GameState = {
+    const newGameState: GameStateAndInfo = {
       ...currentGameState,
       gameState: updateGameRequest.newGameState,
       lastUpdatedAt: new Date().toISOString()

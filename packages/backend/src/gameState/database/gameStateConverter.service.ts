@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import {
   CurrentGameState,
   GameId,
-  GameState,
+  GameStateAndInfo,
   GameType,
   Player,
   PlayerId
@@ -18,7 +18,7 @@ export class GameStateConverterService {
   public convertGameState = (
     gameState: PrismaGameState,
     players: PrismaPlayer[]
-  ): GameState => {
+  ): GameStateAndInfo => {
     return {
       ..._.omit(gameState, "PlayersInGame"),
       currentGameState: gameState.currentGameState as CurrentGameState,
