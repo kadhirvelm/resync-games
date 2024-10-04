@@ -12,7 +12,7 @@ import { GoHome } from "./components/GoHome";
 // import { SelectPawn } from "./components/SelectPawn";
 
 export const GameEntry = ({
-  store,
+  // store,
   gameId,
   gameSlug
 }: {
@@ -38,8 +38,6 @@ export const GameEntry = ({
             </Flex>
           );
         }
-
-        console.log(store);
 
         // gameStateAndInfo - separated
         // onUpdateGameState
