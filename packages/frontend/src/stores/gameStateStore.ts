@@ -1,5 +1,5 @@
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { GameInfo, PlayerId } from "@resync-games/api";
+import { GameInfo, GameStateAndInfo, PlayerId } from "@resync-games/api";
 import {
   FieldListener,
   IGameStateStore,
@@ -37,6 +37,20 @@ export class GameStateReduxStore<GameState extends object>
 
     this.store.subscribe(() => {
       this.handleStateChange();
+    });
+  }
+
+  static fromGameStateAndInfo<GameState extends object>(
+    initialState: GameStateAndInfo
+  ): GameStateReduxStore<GameState> {
+    // gameInfo is everything but the gameState field
+    const gameInfo: GameInfo & { gameState?: object } = { ...initialState };
+    delete gameInfo.gameState;
+    const gameState = initialState.gameState as GameState;
+
+    return new GameStateReduxStore<GameState>({
+      gameInfo,
+      gameState
     });
   }
 
