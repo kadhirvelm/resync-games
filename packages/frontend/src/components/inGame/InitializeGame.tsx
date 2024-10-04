@@ -5,6 +5,7 @@ import { GameStateAndInfo, GameType } from "@resync-games/api";
 import { GameEntry } from "./GameEntry";
 import { useMemo } from "react";
 import { GameStateReduxStore } from "@/stores/gameStateStore";
+import { ReduxGate } from "@/stores/ReduxGate";
 
 export const InitializeGame = ({
   gameSlug,
@@ -20,11 +21,15 @@ export const InitializeGame = ({
 
   return (
     <ClientGate>
-      <GameEntry
-        gameId={gameStateAndInfo.gameId}
-        gameSlug={gameSlug}
-        store={gameStateStore}
-      />
+      <ReduxGate createStore={() => gameStateStore.getReduxStore()}>
+        {() => (
+          <GameEntry
+            gameId={gameStateAndInfo.gameId}
+            gameSlug={gameSlug}
+            store={gameStateStore}
+          />
+        )}
+      </ReduxGate>
     </ClientGate>
   );
 };

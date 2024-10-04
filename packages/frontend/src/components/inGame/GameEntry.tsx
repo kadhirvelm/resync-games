@@ -8,8 +8,8 @@ import { FrontendRegisteredGame } from "@resync-games/games/dist/frontend";
 import dynamic from "next/dynamic";
 import { SocketStatus } from "./components/SocketStatus";
 import { GoHome } from "./components/GoHome";
-import { PawnMovement } from "./components/PawnMovement";
-import { SelectPawn } from "./components/SelectPawn";
+// import { PawnMovement } from "./components/PawnMovement";
+// import { SelectPawn } from "./components/SelectPawn";
 
 export const GameEntry = ({
   store,
@@ -53,8 +53,8 @@ export const GameEntry = ({
     <>
       <DynamicComponent />
       <GoHome />
-      <SelectPawn />
-      <PawnMovement />
+      {/* <SelectPawn /> */}
+      {/* <PawnMovement /> */}
       <SocketStatus connectionStatus={connectionStatus} />
     </>
   );

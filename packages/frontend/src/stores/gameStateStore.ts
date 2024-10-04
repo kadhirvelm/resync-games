@@ -54,6 +54,10 @@ export class GameStateReduxStore<GameState extends object>
     });
   }
 
+  getReduxStore() {
+    return this.store;
+  }
+
   public updateGameState = (newState: RecursivePartial<GameState>) => {
     const currentState = this.store.getState();
     const { gameInfo, gameState } = currentState;
