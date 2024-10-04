@@ -3,6 +3,8 @@ import { Tile } from "@resync-games/api";
 import { useRef, useEffect } from "react";
 import { BaseGame } from "../baseGame";
 import { BaseScene } from "../baseScene";
+import { IGameStateStore } from "../state";
+import { SnatchTheSnackGame } from "../../backend";
 
 const COLORS = {
   blue: "#2e86c1",
@@ -16,13 +18,13 @@ class MagicMazeScene extends BaseScene {
   private tileGap: number = -15;
   private pawnSprites: Record<string, Phaser.GameObjects.GameObject> = {};
 
-  constructor(private store: unknown) {
+  constructor(private store: IGameStateStore<SnatchTheSnackGame>) {
     super("MagicMazeScene");
   }
 
   getTiles(): Tile[] {
-    // const state = this.store.getState();
-    const tiles = undefined; // state.tileMap.map?.tiles;
+    const state = this.store.getGameState();
+    const tiles = state.tileMap.tiles;
     if (!tiles) {
       return [];
     }
@@ -135,12 +137,15 @@ class MagicMazeScene extends BaseScene {
 }
 
 class MagicMazeGame extends BaseGame {
-  constructor(parent: HTMLElement, store: unknown) {
-    super(parent, [new MagicMazeScene(store)], { height: 600, width: 800 });
+  constructor(store: IGameStateStore<SnatchTheSnackGame>, parent: HTMLElement) {
+    super(parent, [new MagicMazeScene(store)], {
+      height: window.innerHeight,
+      width: window.innerWidth
+    });
   }
 }
 
-export const DisplayMagicMazeGame = () => {
+export const DisplayMagicMazeGame = (store: IGameStateStore<object>) => {
   const parentElement = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -148,7 +153,10 @@ export const DisplayMagicMazeGame = () => {
       return;
     }
 
-    const game = new MagicMazeGame(parentElement.current, {});
+    const game = new MagicMazeGame(
+      store as IGameStateStore<SnatchTheSnackGame>,
+      parentElement.current
+    );
     return () => {
       game.destroy();
     };

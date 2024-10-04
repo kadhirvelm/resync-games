@@ -1,6 +1,7 @@
 import { BaseScene } from "../baseScene";
 import { BaseGame } from "../baseGame";
 import { useEffect, useRef } from "react";
+import { IGameStateStore } from "../state";
 /**
  * Simple single-paddle and ball game where the ball bounces around and you accumulate points by hitting the ball with the paddle.
  * The goal is to keep accumulating points. There is no win or lose condition.
@@ -14,7 +15,7 @@ class PongGameScene extends BaseScene {
   private keyboard: Phaser.Input.Keyboard.KeyboardPlugin;
   private isBallColliding: boolean = false; // Flag to track if the ball is colliding
 
-  constructor() {
+  constructor(private store: IGameStateStore<object>) {
     super("PongGameScene");
 
     // Make TS Happy
@@ -114,12 +115,12 @@ class PongGameScene extends BaseScene {
 }
 
 class PongGame extends BaseGame {
-  constructor(parent: HTMLElement) {
-    super(parent, [new PongGameScene()], { height: 600, width: 800 });
+  constructor(store: IGameStateStore<object>, parent: HTMLElement) {
+    super(parent, [new PongGameScene(store)], { height: 600, width: 800 });
   }
 }
 
-export const PongHomePage = () => {
+export const PongHomePage = (store: IGameStateStore<object>) => {
   const parentElement = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -127,7 +128,7 @@ export const PongHomePage = () => {
       return;
     }
 
-    const game = new PongGame(parentElement.current);
+    const game = new PongGame(store, parentElement.current);
     return () => {
       game.destroy();
     };
