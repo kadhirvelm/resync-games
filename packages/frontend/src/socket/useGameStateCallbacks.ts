@@ -1,7 +1,7 @@
 import { setGame } from "@/stores/gameState/gameState";
 import { useGameStateDispatch } from "@/stores/gameState/gameStateStore";
 import {
-  GameState,
+  GameStateAndInfo,
   GameStateFromServerToClient,
   IdentifyPlayerSocket,
   RemoveExtendsString,
@@ -30,7 +30,7 @@ export function useGameStateCallbacks(
   );
 
   const emitUpdatedGameState = useCallback(
-    (newGameState: GameState) => {
+    (newGameState: GameStateAndInfo) => {
       dispatch(setGame(newGameState));
     },
     [dispatch]

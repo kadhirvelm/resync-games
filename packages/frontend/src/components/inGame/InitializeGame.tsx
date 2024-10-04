@@ -3,7 +3,7 @@
 import { ClientGate } from "@/lib/ClientGate";
 import { initializeTileStore } from "@/stores/gameState/gameStateStore";
 import { ReduxGate } from "@/stores/ReduxGate";
-import { GameState, GameType } from "@resync-games/api";
+import { GameStateAndInfo, GameType } from "@resync-games/api";
 import { GameEntry } from "./GameEntry";
 import { setGame } from "@/stores/gameState/gameState";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
@@ -13,7 +13,7 @@ export const InitializeGame = ({
   gameStateAndInfo
 }: {
   gameSlug: GameType;
-  gameStateAndInfo: GameState;
+  gameStateAndInfo: GameStateAndInfo;
 }) => {
   const setInitialState = (dispatch: Dispatch<UnknownAction>) => {
     dispatch(setGame(gameStateAndInfo));
