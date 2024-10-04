@@ -9,13 +9,16 @@ export interface Player {
   playerId: PlayerId;
 }
 
-export interface GameState {
+export interface GameInfo {
   currentGameState: CurrentGameState;
   gameConfiguration: object;
   gameId: GameId;
-  gameState: object;
   gameType: GameType;
   lastUpdatedAt: string;
   players: Player[];
   version: string;
+}
+
+export interface GameStateAndInfo extends GameInfo {
+  gameState: object;
 }

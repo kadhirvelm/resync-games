@@ -9,7 +9,7 @@ import {
   GameStateFromClientToServer,
   GameStateServerSocketDefinition,
   GameId,
-  GameState
+  GameStateAndInfo
 } from "@resync-games/api";
 import { Server, Socket } from "socket.io";
 import {
@@ -48,7 +48,10 @@ export class GameStateSocketGateway
     });
   }
 
-  public updateGameState = (updatedGameState: GameState, gameId: GameId) => {
+  public updateGameState = (
+    updatedGameState: GameStateAndInfo,
+    gameId: GameId
+  ) => {
     this.getServerEmitter(gameId).emitUpdatedGameState(updatedGameState);
   };
 

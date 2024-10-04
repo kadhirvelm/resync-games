@@ -1,19 +1,21 @@
 import { Injectable } from "@nestjs/common";
-import { GameId, GameState } from "@resync-games/api";
+import { GameId, GameStateAndInfo } from "@resync-games/api";
 import * as _ from "lodash";
 import { GameStatePrismaService } from "../database/gameStatePrisma.service";
 import { GameStateSocketGateway } from "../gameState.socket";
 
 @Injectable()
 export class GamesInFlightService {
-  private gamesInFlightCache: Map<GameId, GameState> = new Map();
+  private gamesInFlightCache: Map<GameId, GameStateAndInfo> = new Map();
 
   public constructor(
     private prismaService: GameStatePrismaService,
     private socketGateway: GameStateSocketGateway
   ) {}
 
-  public getInFlightGame = async (gameId: GameId): Promise<GameState> => {
+  public getInFlightGame = async (
+    gameId: GameId
+  ): Promise<GameStateAndInfo> => {
     if (this.gamesInFlightCache.get(gameId) != null) {
       return this.gamesInFlightCache.get(gameId);
     }
@@ -42,14 +44,14 @@ export class GamesInFlightService {
     return convertedGame;
   };
 
-  public updateInFlightGame = async (newGameState: GameState) => {
+  public updateInFlightGame = async (newGameState: GameStateAndInfo) => {
     this.gamesInFlightCache.set(newGameState.gameId, newGameState);
     this.socketGateway.updateGameState(newGameState, newGameState.gameId);
 
     this.debouncedUpdateInFlightGame(newGameState);
   };
 
-  private updateInFlightGameInDb = async (newGameState: GameState) => {
+  private updateInFlightGameInDb = async (newGameState: GameStateAndInfo) => {
     await this.prismaService.client.gameState.update({
       data: {
         gameState: newGameState.gameState

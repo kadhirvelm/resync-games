@@ -1,5 +1,5 @@
 import { HandleMessage, SocketDefinition } from "../../genericTypes";
-import { GameId, GameState, PlayerId } from "./gameStateTypes";
+import { GameId, GameStateAndInfo, PlayerId } from "./gameStateTypes";
 
 export interface IdentifyPlayerSocket {
   gameId: GameId;
@@ -12,7 +12,7 @@ export interface GameStateFromClientToServer extends HandleMessage {
 }
 
 export interface GameStateFromServerToClient extends HandleMessage {
-  emitUpdatedGameState: GameState;
+  emitUpdatedGameState: GameStateAndInfo;
   identify: IdentifyPlayerSocket;
 }
 

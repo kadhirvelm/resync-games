@@ -1,5 +1,5 @@
 import { Service, ServiceDefinition } from "../../genericTypes/service";
-import { GameId, GameType, PlayerId, GameState } from "./gameStateTypes";
+import { GameId, GameType, PlayerId, GameStateAndInfo } from "./gameStateTypes";
 
 export interface GetGameState {
   gameId: GameId;
@@ -23,7 +23,10 @@ export interface UpdateGame {
   version: string;
 }
 
-export type AvailableGame = Pick<GameState, "gameId" | "gameType" | "players">;
+export type AvailableGame = Pick<
+  GameStateAndInfo,
+  "gameId" | "gameType" | "players"
+>;
 
 export interface AvailableGames {
   games: AvailableGame[];
@@ -31,13 +34,13 @@ export interface AvailableGames {
 
 export interface UpdateGameResponse {
   didAcceptChange: boolean;
-  newGameState: GameState;
+  newGameState: GameStateAndInfo;
 }
 
 export interface GameStateApi extends Service {
   createGame: {
     payload: CreateGame;
-    response: GameState;
+    response: GameStateAndInfo;
   };
   getAvailableGames: {
     payload: Record<string, never>;
@@ -45,7 +48,7 @@ export interface GameStateApi extends Service {
   };
   getGameState: {
     payload: GetGameState;
-    response: GameState;
+    response: GameStateAndInfo;
   };
   updateGame: {
     payload: UpdateGame;
