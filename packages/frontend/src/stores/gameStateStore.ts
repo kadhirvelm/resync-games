@@ -39,6 +39,9 @@ export class GameStateReduxStore<GameState extends object>
       this.handleStateChange();
     });
   }
+  getState(): GameState {
+    throw new Error("Method not implemented.");
+  }
 
   static fromGameStateAndInfo<GameState extends object>(
     initialState: GameStateAndInfo
@@ -56,6 +59,14 @@ export class GameStateReduxStore<GameState extends object>
 
   getReduxStore() {
     return this.store;
+  }
+
+  getGameState(): GameState {
+    return this.store.getState().gameState;
+  }
+
+  getGameInfo(): GameInfo {
+    return this.store.getState().gameInfo;
   }
 
   public updateGameState = (newState: RecursivePartial<GameState>) => {

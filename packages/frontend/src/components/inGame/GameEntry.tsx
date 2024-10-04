@@ -12,7 +12,7 @@ import { GoHome } from "./components/GoHome";
 // import { SelectPawn } from "./components/SelectPawn";
 
 export const GameEntry = ({
-  // store,
+  store,
   gameId,
   gameSlug
 }: {
@@ -27,11 +27,11 @@ export const GameEntry = ({
     () =>
       import("@resync-games/games/dist/frontend").then((module) => {
         const { GAME_REGISTRY } = module;
-        const mayeGame = (
+        const maybeGame = (
           GAME_REGISTRY as Record<string, FrontendRegisteredGame>
         )[gameSlug];
 
-        if (mayeGame === undefined) {
+        if (maybeGame === undefined) {
           return () => (
             <Flex>
               <Text>The game you're looking for is not registered.</Text>
@@ -42,7 +42,7 @@ export const GameEntry = ({
         // gameStateAndInfo - separated
         // onUpdateGameState
 
-        return mayeGame.gameEntry;
+        return () => maybeGame.gameEntry(store);
       }),
     { ssr: false } // Disable server-side rendering
   );
