@@ -2,17 +2,12 @@ import { EnhancedStore } from "@reduxjs/toolkit";
 import { GameInfo, PlayerId } from "@resync-games/api";
 import { GameStateReduxSlice } from "../redux/gameStateSlice";
 import { deepEqual } from "./utils/deepEqual";
-import { getFieldByPath } from "./utils/getFieldByPath";
-import { RecursivePartial } from "./utils/recursivePartial";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { deepMerge } from "@/redux/utils/deepMerge";
 
 type SeparatedGameStateAndInfo<GameState extends object> = {
   gameInfo: GameInfo | undefined;
   gameState: GameState | undefined;
 };
-
-export type FieldListener = (newVaue: unknown) => void;
 
 export interface IGameStateHandler<
   GameState extends object = object,
@@ -21,9 +16,8 @@ export interface IGameStateHandler<
   getGameInfo(): GameInfo;
   getGameState(): GameState;
   getLocalGameState(): LocalGameState;
-  subscribeToAll(callback: FieldListener): void;
-  subscribeToField(path: string, callback: FieldListener): void;
-  updateGameState(newState: RecursivePartial<GameState>): void;
+  subscribeToGameStateUpdates(callback: (newValue: GameState) => void): void;
+  updateGameState(newState: GameState): void;
 }
 
 export type GameStateReduxStore<
@@ -42,7 +36,7 @@ export class GameStateHandler<
   LocalGameState extends object
 > implements IGameStateHandler<GameState>
 {
-  private fieldListeners: { [key: string]: FieldListener[] } = {};
+  private gameStateUpdateListeners: ((newValue: GameState) => void)[] = [];
   private previousState: SeparatedGameStateAndInfo<GameState>;
 
   constructor(private store: GameStateReduxStore<GameState, LocalGameState>) {
@@ -85,7 +79,7 @@ export class GameStateHandler<
   };
 
   // TODO: move some dependencies around so they're more available
-  public updateGameState = (newState: RecursivePartial<GameState>) => {
+  public updateGameState = (_newState: GameState) => {
     const currentState = this.store.getState().gameStateSlice;
     const { gameInfo, gameState } = currentState;
 
@@ -97,43 +91,30 @@ export class GameStateHandler<
 
     ClientServiceCallers.gameState.updateGame({
       ...gameInfo,
-      newGameState: deepMerge(gameState, newState as GameState),
+      newGameState: _newState,
       playerId: "player-1" as PlayerId
     });
   };
 
-  // Subscribe to a nested field
-  public subscribeToField = (path: string, callback: FieldListener) => {
-    if (!this.fieldListeners[path]) {
-      this.fieldListeners[path] = [];
-    }
-
-    this.fieldListeners[path].push(callback);
-  };
-
-  public subscribeToAll = (callback: FieldListener) => {
-    this.store.subscribe(() => {
-      const newState = this.store.getState().gameStateSlice;
-      callback(newState);
-    });
-  };
+  public subscribeToGameStateUpdates(
+    callback: (newValue: GameState) => void
+  ): void {
+    this.gameStateUpdateListeners.push(callback);
+  }
 
   // Handle state changes
   private handleStateChange = () => {
     const currentState = this.store.getState().gameStateSlice;
+    const currentGameState = currentState.gameState;
 
-    Object.keys(this.fieldListeners).forEach((path) => {
-      const previousValue = getFieldByPath(this.previousState, path);
-      const newValue = getFieldByPath(currentState, path);
-
-      // Only notify listeners if the field value has changed
-      if (!deepEqual(previousValue, newValue)) {
-        const listeners = this.fieldListeners[path];
-        if (listeners) {
-          listeners.forEach((listener) => listener(newValue));
-        }
+    if (
+      currentGameState &&
+      !deepEqual(this.previousState.gameState, currentGameState)
+    ) {
+      for (const listener of this.gameStateUpdateListeners) {
+        listener(currentGameState);
       }
-    });
+    }
 
     // Update previous state after handling changes
     this.previousState = currentState;

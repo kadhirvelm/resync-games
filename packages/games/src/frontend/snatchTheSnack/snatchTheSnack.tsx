@@ -51,7 +51,7 @@ class MagicMazeScene extends BaseScene {
     this.createAndRenderPawns();
 
     // Subscribe to changes
-    this.store.subscribeToAll(() => {
+    this.store.subscribeToGameStateUpdates(() => {
       this.movePawns();
     });
 

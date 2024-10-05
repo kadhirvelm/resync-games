@@ -143,15 +143,15 @@ export class GameStateService {
     );
 
     // TODO: differentiate between outdated clients vs. outdated states for rejections
-    if (
-      currentGameState.lastUpdatedAt !== updateGameRequest.lastUpdatedAt ||
-      currentGameState.version !== updateGameRequest.version
-    ) {
-      return {
-        didAcceptChange: false,
-        newGameState: currentGameState
-      };
-    }
+    // if (
+    //   currentGameState.lastUpdatedAt !== updateGameRequest.lastUpdatedAt ||
+    //   currentGameState.version !== updateGameRequest.version
+    // ) {
+    //   return {
+    //     didAcceptChange: false,
+    //     newGameState: currentGameState
+    //   };
+    // }
 
     const newGameState: GameStateAndInfo = {
       ...currentGameState,

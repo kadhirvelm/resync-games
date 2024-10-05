@@ -1,16 +1,37 @@
 import { CreateGame } from "@resync-games/api";
 import { IGameServer } from "../base";
 
+export interface PongGameState {
+  ball: {
+    velocityX: number;
+    velocityY: number;
+    x: number;
+    y: number;
+  };
+  paddle: {
+    x: number;
+    y: number;
+  };
+  score: number;
+}
+
 export class PongGameServer implements IGameServer {
   async createGame(
     createGameRequest: CreateGame
-  ): Promise<{ gameState: object; version: string }> {
+  ): Promise<{ gameState: PongGameState; version: string }> {
     return {
       gameState: {
-        score: {
-          Player1: 0,
-          Player2: 0
-        }
+        ball: {
+          velocityX: 150,
+          velocityY: -150,
+          x: 390,
+          y: 290
+        },
+        paddle: {
+          x: 350,
+          y: 550
+        },
+        score: 0
       },
       version: createGameRequest.version
     };
