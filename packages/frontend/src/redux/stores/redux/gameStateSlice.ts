@@ -1,7 +1,7 @@
+import { emitGameStateUpdate } from "@/redux/utils/emitGameStateUpdate";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { GameStateAndInfo, GameInfo } from "@resync-games/api";
+import { GameInfo, GameStateAndInfo } from "@resync-games/api";
 import { omit } from "lodash-es";
-import { deepMerge } from "../../utils/deepMerge";
 
 export interface GameStateReduxSlice<
   GameState extends object = object,
@@ -30,13 +30,13 @@ const gameStateSlice = createSlice({
       state: GameStateReduxSlice<object, object>,
       action: PayloadAction<GameState>
     ) => {
-      state.gameState = deepMerge(state.gameState ?? {}, action.payload);
+      emitGameStateUpdate(state, action.payload);
     },
     updateLocalState: <LocalState extends object = object>(
       state: GameStateReduxSlice<object, object>,
       action: PayloadAction<LocalState>
     ) => {
-      state.localState = deepMerge(state.localState, action.payload);
+      state.localState = { ...state.localState, ...action.payload };
     }
   }
 });

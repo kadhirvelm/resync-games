@@ -1,13 +1,14 @@
 import { CompleteTileMap, CreateGame, TileId } from "@resync-games/api";
 import { IGameServer } from "../base";
 import { completedMap1 } from "./map1";
+import { v4 } from "uuid";
 
 export type PawnId = string & { __brand: "pawn-id" };
 
 export interface SnatchTheSnackPawn {
   color: string;
-  id: string;
   onTile: TileId;
+  pawnId: PawnId;
 }
 
 export interface SnatchTheSnackGame {
@@ -16,6 +17,8 @@ export interface SnatchTheSnackGame {
   };
   tileMap: CompleteTileMap;
 }
+
+const colors = ["red", "blue", "yellow", "green"];
 
 export class SnatchTheSnackServer implements IGameServer {
   async createGame(
@@ -26,16 +29,17 @@ export class SnatchTheSnackServer implements IGameServer {
     return {
       gameState: {
         pawns: Object.fromEntries(
-          allPawns.map((pawnId) => [
-            pawnId,
-            {
-              // TODO: change to a series of colors
-              color: "red",
-              // TODO: change to UUID
-              id: (Math.random() * 1000).toString(),
-              onTile: completedMap1.tileMap.startingTileId
-            }
-          ])
+          allPawns.map((_, index) => {
+            const pawnId = v4() as PawnId;
+            return [
+              pawnId,
+              {
+                color: colors[index] ?? "red",
+                onTile: completedMap1.tileMap.startingTileId,
+                pawnId
+              }
+            ];
+          })
         ),
         tileMap: completedMap1
       },

@@ -1,63 +1,93 @@
 import { Flex } from "@/lib/radix/Flex";
-import { useGameStateSelector } from "@/redux";
 import styles from "./PawnMovement.module.scss";
+import {
+  updateSnatchTheSnackGameState,
+  useGameStateDispatch,
+  useGameStateSelector
+} from "../store/snatchTheSnackRedux";
+import { useMemo } from "react";
+import { indexTileMap } from "./utils/indexTileMap";
+import { Edge } from "@resync-games/api";
+import {
+  CaretDownIcon,
+  CaretLeftIcon,
+  CaretRightIcon,
+  CaretUpIcon
+} from "@radix-ui/react-icons";
+import { IconButton } from "@radix-ui/themes";
+import clsx from "clsx";
 
-// const flavorTextToIcon = {
-//   DOWN: <CaretDownIcon height={50} width={50} />,
-//   LEFT: <CaretLeftIcon height={50} width={50} />,
-//   RIGHT: <CaretRightIcon height={50} width={50} />,
-//   UP: <CaretUpIcon height={50} width={50} />
-// };
+const flavorTextToIcon = {
+  DOWN: <CaretDownIcon height={50} width={50} />,
+  LEFT: <CaretLeftIcon height={50} width={50} />,
+  RIGHT: <CaretRightIcon height={50} width={50} />,
+  UP: <CaretUpIcon height={50} width={50} />
+};
 
-// const flavorTextToPosition = {
-//   DOWN: { bottom: "3px", left: "50%", transform: "translateX(-50%)" },
-//   LEFT: { left: "3px", top: "50%", transform: "translateY(-50%)" },
-//   RIGHT: { right: "3px", top: "50%", transform: "translateY(-50%)" },
-//   UP: { left: "50%", top: "3px", transform: "translateX(-50%)" }
-// };
+const flavorTextToPosition = {
+  DOWN: { bottom: "3px", left: "50%", transform: "translateX(-50%)" },
+  LEFT: { left: "3px", top: "50%", transform: "translateY(-50%)" },
+  RIGHT: { right: "3px", top: "50%", transform: "translateY(-50%)" },
+  UP: { left: "50%", top: "3px", transform: "translateX(-50%)" }
+};
 
 export function PawnMovement() {
-  const map = useGameStateSelector((state) => state.gameStateSlice.gameState);
-  // const gameInfo = useGameStateSelector((state) => state.gameState.gameInfo);
+  const dispatch = useGameStateDispatch();
 
-  // const selectedPawn =
-  //   selectedPawnId !== undefined ? pawnState[selectedPawnId] : undefined;
-  // if (selectedPawn === undefined) {
-  //   return;
-  // }
+  const gameInfo = useGameStateSelector((s) => s.gameStateSlice.gameInfo);
+  const gameState = useGameStateSelector((s) => s.gameStateSlice.gameState);
 
-  // const outboundEdgesForPawn = outboundEdges[selectedPawn.onTileId] ?? [];
+  const tileMap = useGameStateSelector(
+    (s) => s.gameStateSlice.gameState?.tileMap
+  );
+  const pawnState = useGameStateSelector(
+    (s) => s.gameStateSlice.gameState?.pawns
+  );
+  const selectedPawnId = useGameStateSelector(
+    (s) => s.gameStateSlice.localState?.selectedPawn
+  );
 
-  // const onMovePawn = (edge: Edge) => async () => {
-  //   if (gameInfo == null) {
-  //     return;
-  //   }
+  const indexedMap = useMemo(() => {
+    if (tileMap === undefined) {
+      return;
+    }
 
-  //   console.log("Attempting to move ", edge, gameInfo.gameId);
+    return indexTileMap(tileMap);
+  }, [tileMap]);
 
-  //   // const updatedPawn = await ClientServiceCallers.tileGame.movePawn({
-  //   //   fromTileId: selectedPawn.onTileId,
-  //   //   gameId: game.tileGameId,
-  //   //   tilePawnId: selectedPawn.tilePawnId,
-  //   //   toTileId: edge.toTileId
-  //   // });
+  const selectedPawn =
+    selectedPawnId !== undefined ? pawnState?.[selectedPawnId] : undefined;
+  if (
+    gameInfo === undefined ||
+    indexedMap === undefined ||
+    gameState === undefined ||
+    selectedPawn === undefined
+  ) {
+    return;
+  }
 
-  //   // const updateTwo = await ClientServiceCallers.gameState.updateGame({
-  //   //   gameId: game.gameId
-  //   // });
+  const { outboundEdges } = indexedMap;
 
-  //   // if (isServiceError(updatedPawn)) {
-  //   //   return;
-  //   // }
+  const outboundEdgesForPawn = outboundEdges[selectedPawn.onTile] ?? [];
 
-  //   // console.log({ didMove: updatedPawn.didMove });
-  // };
+  const onMovePawn = (edge: Edge) => async () => {
+    if (gameInfo == null) {
+      return;
+    }
 
-  console.log(map);
+    dispatch(
+      updateSnatchTheSnackGameState({
+        pawns: {
+          ...gameState.pawns,
+          [selectedPawn.pawnId]: { ...selectedPawn, onTile: edge.toTileId }
+        }
+      })
+    );
+  };
 
   return (
     <Flex className={styles.pawnMovementContainer} flex="grow">
-      {/* {outboundEdgesForPawn.map((edge) => (
+      {outboundEdgesForPawn.map((edge) => (
         <IconButton
           className={styles.movement}
           key={edge.edgeId}
@@ -80,7 +110,7 @@ export function PawnMovement() {
           [styles.blue ?? ""]: selectedPawn.color === "blue",
           [styles.green ?? ""]: selectedPawn.color === "green"
         })}
-      /> */}
+      />
     </Flex>
   );
 }
