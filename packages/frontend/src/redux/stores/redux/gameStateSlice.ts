@@ -26,14 +26,21 @@ const gameStateSlice = createSlice({
       state.gameInfo = omit(action.payload, "gameState");
       state.gameState = action.payload.gameState;
     },
-    updateGameState: (state, action: PayloadAction<object>) => {
+    updateGameState: <GameState extends object = object>(
+      state: GameStateReduxSlice<object, object>,
+      action: PayloadAction<GameState>
+    ) => {
       state.gameState = deepMerge(state.gameState ?? {}, action.payload);
     },
-    updateLocalState: (state, action: PayloadAction<object>) => {
+    updateLocalState: <LocalState extends object = object>(
+      state: GameStateReduxSlice<object, object>,
+      action: PayloadAction<LocalState>
+    ) => {
       state.localState = deepMerge(state.localState, action.payload);
     }
   }
 });
 
-export const { setGame, updateLocalState } = gameStateSlice.actions;
+export const { setGame, updateGameState, updateLocalState } =
+  gameStateSlice.actions;
 export const GameStateReducer = gameStateSlice.reducer;

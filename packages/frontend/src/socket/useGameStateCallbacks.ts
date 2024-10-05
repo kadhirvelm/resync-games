@@ -1,4 +1,4 @@
-import { setGame, useGameStateDispatch } from "@/stores";
+import { setGame, useGameStateDispatch } from "@/redux";
 import {
   GameStateAndInfo,
   GameStateFromServerToClient,

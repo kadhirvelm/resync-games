@@ -3,6 +3,7 @@ import { GameInfo, PlayerId } from "@resync-games/api";
 import { GameStateReduxSlice } from "../redux/gameStateSlice";
 import { deepEqual } from "./utils/deepEqual";
 import { ClientServiceCallers } from "@/services/serviceCallers";
+import { deepMerge } from "@/redux/utils/deepMerge";
 
 type SeparatedGameStateAndInfo<GameState extends object> = {
   gameInfo: GameInfo | undefined;
@@ -89,13 +90,9 @@ export class GameStateHandler<
       );
     }
 
-    // TODO: move this into the constructor setup so we can pass the callers in
     ClientServiceCallers.gameState.updateGame({
       ...gameInfo,
-      newGameState: {
-        ...gameState,
-        ..._newState
-      },
+      newGameState: deepMerge(gameState, _newState as GameState),
       playerId: "player-1" as PlayerId
     });
   };
