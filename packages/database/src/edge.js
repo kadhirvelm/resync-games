@@ -149,7 +149,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/resync-games/packages/game-state-database/src",
+      "value": "/home/resync-games/packages/database/src",
       "fromEnvVar": null
     },
     "config": {
@@ -163,7 +163,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/resync-games/packages/game-state-database/prisma/schema.prisma",
+    "sourceFilePath": "/home/resync-games/packages/database/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
