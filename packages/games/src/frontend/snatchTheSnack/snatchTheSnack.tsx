@@ -1,13 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  IGameStateHandler,
+  updateLocalState,
+  useGameStateDispatch
+} from "@/redux";
 import { Tile } from "@resync-games/api";
 import { useEffect, useRef } from "react";
+import { SnatchTheSnackGame } from "../../backend/snatch-the-snack/snatchTheSnack";
 import { BaseGame } from "../baseGame";
 import { BaseScene } from "../baseScene";
 import { FrontendGameComponentProps } from "../frontendRegistry";
-import { IGameStateHandler } from "@/stores";
-import { SnatchTheSnackGame } from "../../backend/snatch-the-snack/snatchTheSnack";
 import { PawnMovement } from "./components/PawnMovement";
 import { SelectPawn } from "./components/SelectPawn";
+import { SnatchTheSnackLocalState } from "./store/snatchTheSnackRedux";
 
 const COLORS = {
   blue: "#2e86c1",
@@ -156,7 +161,13 @@ class MagicMazeGame extends BaseGame {
 export const DisplayMagicMazeGame = ({
   gameStateHandler
 }: FrontendGameComponentProps) => {
+  const dispatch = useGameStateDispatch();
+
   const parentElement = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    dispatch(updateLocalState({ selectedPawn: undefined }));
+  }, []);
 
   useEffect(() => {
     if (parentElement.current == null) {
@@ -164,7 +175,10 @@ export const DisplayMagicMazeGame = ({
     }
 
     const game = new MagicMazeGame(
-      gameStateHandler as IGameStateHandler<SnatchTheSnackGame>,
+      gameStateHandler as IGameStateHandler<
+        SnatchTheSnackGame,
+        SnatchTheSnackLocalState
+      >,
       parentElement.current
     );
     return () => {
