@@ -10,8 +10,8 @@ import { SocketStatus } from "./components/SocketStatus";
 import { useMemo } from "react";
 import {
   GameStateHandler,
-  GameStateReduxStore,
-  useGameStateSelector
+  GameStateReduxStore
+  // useGameStateSelector
 } from "@/stores";
 
 export const GameEntry = ({
@@ -24,9 +24,9 @@ export const GameEntry = ({
   store: GameStateReduxStore;
 }) => {
   const { connectionStatus } = useGameStateSocket(gameId);
-  const { gameState, gameInfo, localState } = useGameStateSelector(
-    (s) => s.gameStateSlice
-  );
+  // const { gameState, gameInfo, localState } = useGameStateSelector(
+  //   (s) => s.gameStateSlice
+  // );
 
   const gameStateHandler = useMemo(() => {
     return new GameStateHandler(store);
@@ -57,10 +57,10 @@ export const GameEntry = ({
   return (
     <>
       <DynamicComponent
-        gameInfo={gameInfo}
-        gameState={gameState}
+        gameInfo={undefined}
+        gameState={undefined}
         gameStateHandler={gameStateHandler}
-        localState={localState}
+        localState={undefined}
       />
       <GoHome />
       <SocketStatus connectionStatus={connectionStatus} />

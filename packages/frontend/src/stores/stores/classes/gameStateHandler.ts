@@ -1,7 +1,8 @@
 import { EnhancedStore } from "@reduxjs/toolkit";
-import { GameInfo } from "@resync-games/api";
+import { GameInfo, PlayerId } from "@resync-games/api";
 import { GameStateReduxSlice } from "../redux/gameStateSlice";
 import { deepEqual } from "./utils/deepEqual";
+import { ClientServiceCallers } from "@/services/serviceCallers";
 
 type SeparatedGameStateAndInfo<GameState extends object> = {
   gameInfo: GameInfo | undefined;
@@ -89,14 +90,14 @@ export class GameStateHandler<
     }
 
     // TODO: move this into the constructor setup so we can pass the callers in
-    // ClientServiceCallers.gameState.updateGame({
-    //   ...gameInfo,
-    //   newGameState: {
-    //     ...gameState,
-    //     ...newState
-    //   },
-    //   playerId: "player-1" as PlayerId
-    // });
+    ClientServiceCallers.gameState.updateGame({
+      ...gameInfo,
+      newGameState: {
+        ...gameState,
+        ..._newState
+      },
+      playerId: "player-1" as PlayerId
+    });
   };
 
   public subscribeToGameStateUpdates(
