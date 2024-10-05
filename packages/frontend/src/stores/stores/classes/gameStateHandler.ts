@@ -2,7 +2,6 @@ import { EnhancedStore } from "@reduxjs/toolkit";
 import { GameInfo } from "@resync-games/api";
 import { GameStateReduxSlice } from "../redux/gameStateSlice";
 import { deepEqual } from "./utils/deepEqual";
-import { getFieldByPath } from "./utils/getFieldByPath";
 
 type SeparatedGameStateAndInfo<GameState extends object> = {
   gameInfo: GameInfo | undefined;
@@ -17,8 +16,6 @@ export type RecursivePartial<T> = {
       : T[P];
 };
 
-export type FieldListener = (newVaue: unknown) => void;
-
 export interface IGameStateHandler<
   GameState extends object = object,
   LocalGameState extends object = object
@@ -26,8 +23,7 @@ export interface IGameStateHandler<
   getGameInfo(): GameInfo;
   getGameState(): GameState;
   getLocalGameState(): LocalGameState;
-  subscribeToAll(callback: FieldListener): void;
-  subscribeToField(path: string, callback: FieldListener): void;
+  subscribeToGameStateUpdates(callback: (newValue: GameState) => void): void;
   updateGameState(newState: RecursivePartial<GameState>): void;
 }
 
@@ -47,7 +43,7 @@ export class GameStateHandler<
   LocalGameState extends object
 > implements IGameStateHandler<GameState>
 {
-  private fieldListeners: { [key: string]: FieldListener[] } = {};
+  private gameStateUpdateListeners: ((newValue: GameState) => void)[] = [];
   private previousState: SeparatedGameStateAndInfo<GameState>;
 
   constructor(private store: GameStateReduxStore<GameState, LocalGameState>) {
@@ -111,38 +107,25 @@ export class GameStateHandler<
     // });
   };
 
-  // Subscribe to a nested field
-  public subscribeToField = (path: string, callback: FieldListener) => {
-    if (!this.fieldListeners[path]) {
-      this.fieldListeners[path] = [];
-    }
-
-    this.fieldListeners[path].push(callback);
-  };
-
-  public subscribeToAll = (callback: FieldListener) => {
-    this.store.subscribe(() => {
-      const newState = this.store.getState().gameStateSlice;
-      callback(newState);
-    });
-  };
+  public subscribeToGameStateUpdates(
+    callback: (newValue: GameState) => void
+  ): void {
+    this.gameStateUpdateListeners.push(callback);
+  }
 
   // Handle state changes
   private handleStateChange = () => {
     const currentState = this.store.getState().gameStateSlice;
+    const currentGameState = currentState.gameState;
 
-    Object.keys(this.fieldListeners).forEach((path) => {
-      const previousValue = getFieldByPath(this.previousState, path);
-      const newValue = getFieldByPath(currentState, path);
-
-      // Only notify listeners if the field value has changed
-      if (!deepEqual(previousValue, newValue)) {
-        const listeners = this.fieldListeners[path];
-        if (listeners) {
-          listeners.forEach((listener) => listener(newValue));
-        }
+    if (
+      currentGameState &&
+      !deepEqual(this.previousState.gameState, currentGameState)
+    ) {
+      for (const listener of this.gameStateUpdateListeners) {
+        listener(currentGameState);
       }
-    });
+    }
 
     // Update previous state after handling changes
     this.previousState = currentState;
