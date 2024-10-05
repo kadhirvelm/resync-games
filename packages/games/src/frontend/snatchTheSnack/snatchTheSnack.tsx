@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   IGameStateHandler,
   updateLocalState,
@@ -13,6 +12,7 @@ import { FrontendGameComponentProps } from "../frontendRegistry";
 import { PawnMovement } from "./components/PawnMovement";
 import { SelectPawn } from "./components/SelectPawn";
 import { SnatchTheSnackLocalState } from "./store/snatchTheSnackRedux";
+import { indexPawns } from "./utils/indexPawns";
 
 const COLORS = {
   blue: "#2e86c1",
@@ -23,14 +23,14 @@ const COLORS = {
 
 class MagicMazeScene extends BaseScene {
   private tileSize: number = 100;
-  private tileGap: number = -15;
+  private tileGap: number = -16;
   private pawnSprites: Record<string, Phaser.GameObjects.GameObject> = {};
 
   constructor(private store: IGameStateHandler<SnatchTheSnackGame>) {
     super("MagicMazeScene");
   }
 
-  getTiles(): Tile[] {
+  private getTiles = (): Tile[] => {
     const state = this.store.getGameState();
     const tiles = state.tileMap.tiles;
     if (!tiles) {
@@ -38,15 +38,15 @@ class MagicMazeScene extends BaseScene {
     }
 
     return tiles;
-  }
+  };
 
-  preload() {
+  public preload = () => {
     for (const tile of this.getTiles()) {
       this.load.image(tile.image, `/images/${tile.image}`);
     }
-  }
+  };
 
-  create() {
+  public create = () => {
     this.renderTiles();
     this.createAndRenderPawns();
 
@@ -56,17 +56,9 @@ class MagicMazeScene extends BaseScene {
     });
 
     return;
-  }
+  };
 
-  update() {
-    return;
-  }
-
-  shutdown() {
-    return;
-  }
-
-  renderTiles() {
+  public renderTiles = () => {
     for (const tile of this.getTiles()) {
       const image = this.add.image(
         tile.posX * (this.tileSize + this.tileGap),
@@ -74,20 +66,14 @@ class MagicMazeScene extends BaseScene {
         tile.image
       );
       image.setOrigin(0, 0);
-      image.setDisplaySize(this.tileSize, this.tileSize);
+      image.setDisplaySize(this.tileSize - 1, this.tileSize - 1);
     }
-  }
+  };
 
-  createAndRenderPawns() {
-    // TODO: Clean up this gross mess
-    const pawnsIndexed = {} as any; // selectPawnIndex(this.store.getState());
-    const allPawnIds: Set<string> = new Set();
-    for (const pawns of Object.values(pawnsIndexed)) {
-      for (const pawn of pawns as any) {
-        allPawnIds.add(pawn.tilePawnId);
-      }
-    }
-    const numPawns = allPawnIds.size;
+  public createAndRenderPawns = () => {
+    const pawnsIndexed = indexPawns(this.store.getGameState().pawns);
+
+    const numPawns = Object.values(this.store.getGameState().pawns).length;
 
     const sqDimension = Math.ceil(Math.sqrt(numPawns));
     const radius = Math.floor(this.tileSize / (2 * sqDimension));
@@ -112,17 +98,18 @@ class MagicMazeScene extends BaseScene {
             16
           )
         );
-        this.pawnSprites[pawn.tilePawnId] = pawnSprite;
+        this.pawnSprites[pawn.pawnId] = pawnSprite;
       }
     }
-  }
+  };
 
   movePawns() {
-    // TODO: Clean up this gross mess
-    const pawnsIndexed = {} as any; // selectPawnIndex(this.store.getState());
+    const pawnsIndexed = indexPawns(this.store.getGameState().pawns);
+
     const numPawns = Array.from(Object.values(pawnsIndexed)).length;
     const sqDimension = Math.ceil(Math.sqrt(numPawns));
     const radius = Math.floor(this.tileSize / (2 * sqDimension));
+
     for (const tile of this.getTiles()) {
       const pawnsOnThisTile = pawnsIndexed[tile.tileId] ?? [];
       const posX = tile.posX * (this.tileSize + this.tileGap);
@@ -134,7 +121,8 @@ class MagicMazeScene extends BaseScene {
         const pawnPosX = posX + radius + 2 * radius * (i % sqDimension);
         const pawnPosY =
           posY + radius + 2 * radius * Math.floor(i / sqDimension);
-        const pawnSprite = this.pawnSprites[pawn.tilePawnId];
+        const pawnSprite = this.pawnSprites[pawn.pawnId];
+
         this.tweens.add({
           duration: 50,
           targets: pawnSprite,
@@ -181,10 +169,11 @@ export const DisplayMagicMazeGame = ({
       >,
       parentElement.current
     );
+
     return () => {
       game.destroy();
     };
-  });
+  }, []);
 
   return (
     <>

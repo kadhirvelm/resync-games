@@ -1,8 +1,8 @@
+import { emitGameStateUpdate } from "@/redux/utils/emitGameStateUpdate";
 import { EnhancedStore } from "@reduxjs/toolkit";
-import { GameInfo, PlayerId } from "@resync-games/api";
+import { GameInfo } from "@resync-games/api";
 import { GameStateReduxSlice } from "../redux/gameStateSlice";
 import { deepEqual } from "./utils/deepEqual";
-import { ClientServiceCallers } from "@/services/serviceCallers";
 
 type SeparatedGameStateAndInfo<GameState extends object> = {
   gameInfo: GameInfo | undefined;
@@ -78,22 +78,9 @@ export class GameStateHandler<
     return maybeLocalGameState;
   };
 
-  // TODO: move some dependencies around so they're more available
-  public updateGameState = (_newState: GameState) => {
+  public updateGameState = (newState: Partial<GameState>) => {
     const currentState = this.store.getState().gameStateSlice;
-    const { gameInfo, gameState } = currentState;
-
-    if (gameInfo === undefined || gameState === undefined) {
-      throw new Error(
-        "Attempted to update the game state without the redux state being initialized. Something went terribly wrong. Please refresh the page and try again."
-      );
-    }
-
-    ClientServiceCallers.gameState.updateGame({
-      ...gameInfo,
-      newGameState: _newState,
-      playerId: "player-1" as PlayerId
-    });
+    emitGameStateUpdate(currentState, newState);
   };
 
   public subscribeToGameStateUpdates(
