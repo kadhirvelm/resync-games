@@ -8,14 +8,6 @@ type SeparatedGameStateAndInfo<GameState extends object> = {
   gameState: GameState | undefined;
 };
 
-export type RecursivePartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? RecursivePartial<U>[]
-    : T[P] extends object | undefined
-      ? RecursivePartial<T[P]>
-      : T[P];
-};
-
 export interface IGameStateHandler<
   GameState extends object = object,
   LocalGameState extends object = object
@@ -24,7 +16,7 @@ export interface IGameStateHandler<
   getGameState(): GameState;
   getLocalGameState(): LocalGameState;
   subscribeToGameStateUpdates(callback: (newValue: GameState) => void): void;
-  updateGameState(newState: RecursivePartial<GameState>): void;
+  updateGameState(newState: GameState): void;
 }
 
 export type GameStateReduxStore<
@@ -86,7 +78,7 @@ export class GameStateHandler<
   };
 
   // TODO: move some dependencies around so they're more available
-  public updateGameState = (_newState: RecursivePartial<GameState>) => {
+  public updateGameState = (_newState: GameState) => {
     const currentState = this.store.getState().gameStateSlice;
     const { gameInfo, gameState } = currentState;
 
