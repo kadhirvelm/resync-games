@@ -7,6 +7,7 @@ export type PawnId = string & { __brand: "pawn-id" };
 
 export interface SnatchTheSnackPawn {
   color: string;
+  lastUpdatedAt: string | undefined;
   onTile: TileId;
   pawnId: PawnId;
 }
@@ -35,6 +36,7 @@ export class SnatchTheSnackServer implements IGameServer {
               pawnId,
               {
                 color: colors[index] ?? "red",
+                lastUpdatedAt: undefined,
                 onTile: completedMap1.tileMap.startingTileId,
                 pawnId
               }
