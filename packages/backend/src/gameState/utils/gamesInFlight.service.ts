@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { GameId, GameStateAndInfo, GameType } from "@resync-games/api";
 import * as _ from "lodash";
-import { GameStatePrismaService } from "../database/gameStatePrisma.service";
+import { ResyncGamesPrismaService } from "../../database/resyncGamesPrisma.service";
 import { GameStateSocketGateway } from "../gameState.socket";
 import {
   BACKEND_GAME_REGISTRY,
@@ -16,7 +16,7 @@ export class GamesInFlightService {
   private gamesInFlightCache: Map<GameId, GameStateAndInfo> = new Map();
 
   public constructor(
-    private prismaService: GameStatePrismaService,
+    private prismaService: ResyncGamesPrismaService,
     private socketGateway: GameStateSocketGateway
   ) {}
 
