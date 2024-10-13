@@ -37,6 +37,8 @@ export function PawnMovement() {
   const gameInfo = useGameStateSelector((s) => s.gameStateSlice.gameInfo);
   const gameState = useGameStateSelector((s) => s.gameStateSlice.gameState);
 
+  console.log({ gameState });
+
   const tileMap = useGameStateSelector(
     (s) => s.gameStateSlice.gameState?.tileMap
   );
@@ -79,7 +81,11 @@ export function PawnMovement() {
       updateSnatchTheSnackGameState({
         pawns: {
           ...gameState.pawns,
-          [selectedPawn.pawnId]: { ...selectedPawn, onTile: edge.toTileId }
+          [selectedPawn.pawnId]: {
+            ...selectedPawn,
+            lastUpdatedAt: new Date().toISOString(),
+            onTile: edge.toTileId
+          }
         }
       })
     );

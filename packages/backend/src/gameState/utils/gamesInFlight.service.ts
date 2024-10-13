@@ -1,8 +1,15 @@
-import { Injectable } from "@nestjs/common";
-import { GameId, GameStateAndInfo } from "@resync-games/api";
+import { BadRequestException, Injectable } from "@nestjs/common";
+import { GameId, GameStateAndInfo, GameType } from "@resync-games/api";
 import * as _ from "lodash";
 import { GameStatePrismaService } from "../database/gameStatePrisma.service";
 import { GameStateSocketGateway } from "../gameState.socket";
+import {
+  BACKEND_GAME_REGISTRY,
+  AvailableGameType,
+  BackendRegisteredGame,
+  StateReconcilerMethod
+} from "@resync-games/games/backendRegistry";
+import { reconcileStates, TimestampedState } from "./reconcileStates";
 
 @Injectable()
 export class GamesInFlightService {
@@ -16,8 +23,9 @@ export class GamesInFlightService {
   public getInFlightGame = async (
     gameId: GameId
   ): Promise<GameStateAndInfo> => {
-    if (this.gamesInFlightCache.get(gameId) != null) {
-      return this.gamesInFlightCache.get(gameId);
+    const maybeGame = this.gamesInFlightCache.get(gameId);
+    if (maybeGame != null) {
+      return maybeGame;
     }
 
     const accordingGame = await this.prismaService.client.gameState.findFirst({
@@ -33,6 +41,10 @@ export class GamesInFlightService {
       }
     });
 
+    if (accordingGame == null) {
+      throw new BadRequestException(`Unable to find game with id: ${gameId}`);
+    }
+
     const convertedGame = this.prismaService.converterService.convertGameState(
       accordingGame,
       accordingGame.PlayersInGame.map((p) =>
@@ -44,11 +56,42 @@ export class GamesInFlightService {
     return convertedGame;
   };
 
-  public updateInFlightGame = async (newGameState: GameStateAndInfo) => {
+  public updateInFlightGame = async (
+    previousGameState: GameStateAndInfo,
+    nextGameState: GameStateAndInfo
+  ) => {
+    const reconcilerMethod = this.getGameStateReconcilerMethod(
+      nextGameState.gameType
+    );
+    const { didAcceptChange, newState } = reconcileStates(
+      previousGameState.gameState as TimestampedState,
+      nextGameState.gameState as TimestampedState,
+      reconcilerMethod
+    );
+
+    if (!didAcceptChange) {
+      return { didAcceptChange: false, newGameState: previousGameState };
+    }
+
+    const newGameState: GameStateAndInfo = {
+      ...previousGameState,
+      gameState: newState
+    };
+
     this.gamesInFlightCache.set(newGameState.gameId, newGameState);
     this.socketGateway.updateGameState(newGameState, newGameState.gameId);
 
     this.debouncedUpdateInFlightGame(newGameState);
+
+    return { didAcceptChange: true, newGameState };
+  };
+
+  private getGameStateReconcilerMethod = (
+    gameType: GameType
+  ): StateReconcilerMethod => {
+    const maybeGame: BackendRegisteredGame | undefined =
+      BACKEND_GAME_REGISTRY[gameType as AvailableGameType];
+    return maybeGame?.stateReconcilerMethod ?? "top-level";
   };
 
   private updateInFlightGameInDb = async (newGameState: GameStateAndInfo) => {

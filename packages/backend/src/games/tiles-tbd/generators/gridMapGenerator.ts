@@ -260,6 +260,10 @@ export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
     const openings: { direction: Directions; square: GridTileSquare }[] = [];
     for (let i = 0; i < numOpenings; i++) {
       const opening = _.sample(boundarySquares);
+      if (opening === undefined) {
+        throw new Error("No more openings available");
+      }
+
       openings.push(opening);
       // Remove the squares with the same direction
       boundarySquares = boundarySquares.filter(
@@ -354,7 +358,8 @@ export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
       while (
         prevTile !== undefined &&
         !this.areCompatibleOpeningDirections(
-          prevTile.openings.at(-1),
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          prevTile.openings.at(-1)!,
           newTile.openings[0]
         )
       ) {
@@ -372,6 +377,10 @@ export class MagicMazeLikeMapGenerator extends BaseTileMapGenerator {
     for (let i = 0; i < numTiles - 1; i++) {
       const src = tiles[i].openings.at(-1);
       const dest = tiles[i + 1].openings[0];
+
+      if (src === undefined) {
+        throw new Error("No opening in the source tile");
+      }
 
       edges.push(
         new GridTileSquareEdge(

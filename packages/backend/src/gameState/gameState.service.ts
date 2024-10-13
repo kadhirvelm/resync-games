@@ -9,7 +9,10 @@ import {
 } from "@resync-games/api";
 import { GameStatePrismaService } from "./database/gameStatePrisma.service";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
-import { BACKEND_GAME_REGISTRY } from "@resync-games/games/backendRegistry";
+import {
+  BACKEND_GAME_REGISTRY,
+  AvailableGameType
+} from "@resync-games/games/backendRegistry";
 import { IGameServer } from "@resync-games/games/base";
 
 @Injectable()
@@ -24,7 +27,8 @@ export class GameStateService {
   ): Promise<GameStateAndInfo> => {
     // The game needs to have an associated implementation.
     const backend: IGameServer | undefined =
-      BACKEND_GAME_REGISTRY[createGameRequest.gameType]?.gameServer;
+      BACKEND_GAME_REGISTRY[createGameRequest.gameType as AvailableGameType]
+        ?.gameServer;
     if (backend === undefined) {
       throw new BadRequestException(
         `The game type '${createGameRequest.gameType}' is not implemented. Available games: [${Object.keys(BACKEND_GAME_REGISTRY).join(", ")}]`
@@ -142,26 +146,20 @@ export class GameStateService {
       updateGameRequest.gameId
     );
 
-    // TODO: differentiate between outdated clients vs. outdated states for rejections
-    // if (
-    //   currentGameState.lastUpdatedAt !== updateGameRequest.lastUpdatedAt ||
-    //   currentGameState.version !== updateGameRequest.version
-    // ) {
-    //   return {
-    //     didAcceptChange: false,
-    //     newGameState: currentGameState
-    //   };
-    // }
-
-    const newGameState: GameStateAndInfo = {
+    const nextGameState: GameStateAndInfo = {
       ...currentGameState,
       gameState: updateGameRequest.newGameState,
       lastUpdatedAt: new Date().toISOString()
     };
-    this.gamesInFlightService.updateInFlightGame(newGameState);
+
+    const { didAcceptChange, newGameState } =
+      await this.gamesInFlightService.updateInFlightGame(
+        currentGameState,
+        nextGameState
+      );
 
     return {
-      didAcceptChange: true,
+      didAcceptChange,
       newGameState
     };
   };

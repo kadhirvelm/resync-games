@@ -1,5 +1,5 @@
 export type GameId = string & { __brand: "game-id" };
-export type GameType = string & { __brand: "game-type" };
+export type GameType = string & { __brand: "game-type" }; // Equivalent of (typeof GAME_SLUGS)[number]
 export type PlayerId = string & { __brand: "player-id" };
 
 export type CurrentGameState = "waiting" | "playing" | "finished";
