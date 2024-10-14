@@ -14,7 +14,7 @@ import {
 import _ from "lodash";
 
 @Injectable()
-export class GameStateConverterService {
+export class ResyncGamesConverterService {
   public convertGameState = (
     gameState: PrismaGameState,
     players: PrismaPlayer[]

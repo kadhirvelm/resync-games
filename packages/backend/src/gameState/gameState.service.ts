@@ -7,7 +7,7 @@ import {
   UpdateGame,
   UpdateGameResponse
 } from "@resync-games/api";
-import { GameStatePrismaService } from "./database/gameStatePrisma.service";
+import { ResyncGamesPrismaService } from "../database/resyncGamesPrisma.service";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
 import {
   BACKEND_GAME_REGISTRY,
@@ -18,7 +18,7 @@ import { IGameServer } from "@resync-games/games/base";
 @Injectable()
 export class GameStateService {
   public constructor(
-    private prismaService: GameStatePrismaService,
+    private prismaService: ResyncGamesPrismaService,
     private gamesInFlightService: GamesInFlightService
   ) {}
 

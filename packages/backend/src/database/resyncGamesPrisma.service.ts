@@ -1,12 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaClient } from "@resync-games/database";
-import { GameStateConverterService } from "./gameStateConverter.service";
+import { ResyncGamesConverterService } from "./resyncGamesPrismaConverter.service";
 
 @Injectable()
-export class GameStatePrismaService {
+export class ResyncGamesPrismaService {
   public client: PrismaClient;
 
-  constructor(public converterService: GameStateConverterService) {
+  constructor(public converterService: ResyncGamesConverterService) {
     this.client = new PrismaClient({ log: ["query"] });
   }
 }

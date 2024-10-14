@@ -1,5 +1,6 @@
 import { Service, ServiceDefinition } from "../../genericTypes/service";
-import { GameId, GameType, PlayerId, GameStateAndInfo } from "./gameStateTypes";
+import { PlayerId } from "../user";
+import { GameId, GameType, GameStateAndInfo } from "./gameStateTypes";
 
 export interface GetGameState {
   gameId: GameId;
