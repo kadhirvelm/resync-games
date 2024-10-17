@@ -8,15 +8,17 @@ import {
   PawnId,
   SnatchTheSnackGame
 } from "../../../backend/snatch-the-snack/snatchTheSnack";
+import { Player } from "@resync-games/api";
 
 export interface SnatchTheSnackLocalState {
   selectedPawn: PawnId | undefined;
 }
 
 export const updateSnatchTheSnackGameState = (
-  newGameState: RecursivePartial<SnatchTheSnackGame>
+  newGameState: RecursivePartial<SnatchTheSnackGame>,
+  player: Player
 ) => {
-  return updateGameState(newGameState);
+  return updateGameState({ gameState: newGameState, player });
 };
 
 export const updateSnatchTheSnackLocalState = (

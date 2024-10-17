@@ -1,23 +1,20 @@
-import { InitializeGame } from "@/components/inGame/InitializeGame";
-import { ServiceCallers } from "@/services/serviceCallers";
-import { GameId, GameType, isServiceError, PlayerId } from "@resync-games/api";
-import { redirect } from "next/navigation";
+"use client";
 
-export default async function Page({
+import { GetGameState } from "@/components/inGame/GetGameState";
+import { PlayerContextProvider } from "@/components/player/PlayerContext";
+import { ClientGate } from "@/lib/ClientGate";
+import { GameId, GameType } from "@resync-games/api";
+
+export default function Page({
   params: { gameSlug, gameId }
 }: {
   params: { gameId: GameId; gameSlug: GameType };
 }) {
-  const gameStateAndInfo = await ServiceCallers.gameState.getGameState({
-    gameId: gameId,
-    gameType: gameSlug,
-    playerId: "player-1" as PlayerId
-  });
-  if (isServiceError(gameStateAndInfo)) {
-    redirect("/");
-  }
-
   return (
-    <InitializeGame gameSlug={gameSlug} gameStateAndInfo={gameStateAndInfo} />
+    <ClientGate>
+      <PlayerContextProvider>
+        <GetGameState gameId={gameId} gameSlug={gameSlug} />
+      </PlayerContextProvider>
+    </ClientGate>
   );
 }

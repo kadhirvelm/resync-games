@@ -1,9 +1,9 @@
+import { Theme } from "@radix-ui/themes";
+import "@radix-ui/themes/styles.css";
 import clsx from "clsx";
 import type { Metadata } from "next";
 import { Dosis } from "next/font/google";
 import styles from "./layout.module.scss";
-import "@radix-ui/themes/styles.css";
-import { Theme } from "@radix-ui/themes";
 
 export const metadata: Metadata = {
   description: "Games that bring people together",

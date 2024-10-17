@@ -1,12 +1,9 @@
 "use client";
 
+import { PlayerContext } from "@/components/player/PlayerContext";
 import { getSocketEmitter, registerSocketHandler } from "@/services/socket";
-import {
-  GameId,
-  GameStateClientSocketDefinition,
-  PlayerId
-} from "@resync-games/api";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { GameId, GameStateClientSocketDefinition } from "@resync-games/api";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 import { v4 } from "uuid";
 import { useGameStateCallbacks } from "./useGameStateCallbacks";
@@ -16,6 +13,8 @@ import { useGameStateCallbacks } from "./useGameStateCallbacks";
  * are connected.
  */
 export function useGameStateSocket(gameId: GameId) {
+  const player = useContext(PlayerContext);
+
   const [connectionStatus, setConnectionStatus] = useState(false);
   const socketIdentifier = useMemo(() => v4(), []);
 
@@ -33,7 +32,7 @@ export function useGameStateSocket(gameId: GameId) {
   const connect = useCallback(() => {
     socketEmitter.identify({
       gameId,
-      playerId: "player-1" as PlayerId,
+      playerId: player.playerId,
       socketId: socketIdentifier
     });
   }, [socketEmitter, socketIdentifier, gameId]);

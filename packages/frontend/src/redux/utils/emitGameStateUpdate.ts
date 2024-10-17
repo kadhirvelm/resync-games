@@ -1,10 +1,11 @@
 import { ClientServiceCallers } from "@/services/serviceCallers";
+import { Player } from "@resync-games/api";
 import { GameStateReduxSlice } from "../stores/redux/gameStateSlice";
-import { PlayerId } from "@resync-games/api";
 
 export function emitGameStateUpdate(
   currentGameState: GameStateReduxSlice<object, object>,
-  newState: Partial<object>
+  newState: Partial<object>,
+  player: Player
 ) {
   const { gameInfo, gameState } = currentGameState;
   if (gameInfo === undefined || gameState === undefined) {
@@ -19,6 +20,6 @@ export function emitGameStateUpdate(
       ...gameState,
       ...newState
     },
-    playerId: "player-1" as PlayerId
+    playerId: player.playerId
   });
 }

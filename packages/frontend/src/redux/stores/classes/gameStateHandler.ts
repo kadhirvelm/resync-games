@@ -1,6 +1,6 @@
 import { emitGameStateUpdate } from "@/redux/utils/emitGameStateUpdate";
 import { EnhancedStore } from "@reduxjs/toolkit";
-import { GameInfo } from "@resync-games/api";
+import { GameInfo, Player } from "@resync-games/api";
 import { GameStateReduxSlice } from "../redux/gameStateSlice";
 import { deepEqual } from "./utils/deepEqual";
 
@@ -39,7 +39,10 @@ export class GameStateHandler<
   private gameStateUpdateListeners: ((newValue: GameState) => void)[] = [];
   private previousState: SeparatedGameStateAndInfo<GameState>;
 
-  constructor(private store: GameStateReduxStore<GameState, LocalGameState>) {
+  constructor(
+    private store: GameStateReduxStore<GameState, LocalGameState>,
+    private player: Player
+  ) {
     this.previousState = this.store.getState().gameStateSlice;
 
     this.store.subscribe(() => {
@@ -80,7 +83,7 @@ export class GameStateHandler<
 
   public updateGameState = (newState: Partial<GameState>) => {
     const currentState = this.store.getState().gameStateSlice;
-    emitGameStateUpdate(currentState, newState);
+    emitGameStateUpdate(currentState, newState, this.player);
   };
 
   public subscribeToGameStateUpdates(
