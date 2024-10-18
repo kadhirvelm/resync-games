@@ -5,14 +5,14 @@ import { GameId, GameType, GameStateAndInfo } from "./gameStateTypes";
 export interface GetGameState {
   gameId: GameId;
   gameType: GameType;
-  playerId: PlayerId; // TODO: should be in the header
+  playerId: PlayerId;
 }
 
 export interface CreateGame {
   gameConfiguration: object;
   gameName: string;
   gameType: GameType;
-  playerId: PlayerId; // TODO: should be in the header
+  playerId: PlayerId;
   version: string;
 }
 
@@ -20,7 +20,7 @@ export interface UpdateGame {
   gameId: GameId;
   lastUpdatedAt: string;
   newGameState: object;
-  playerId: PlayerId; // TODO: should be in the header
+  playerId: PlayerId;
   version: string;
 }
 

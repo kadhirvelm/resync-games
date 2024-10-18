@@ -6,9 +6,10 @@ import { Flex, Text } from "@radix-ui/themes";
 import { GameId, GameType } from "@resync-games/api";
 import { FrontendRegisteredGame } from "@resync-games/games/frontendRegistry";
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { GoHome } from "./components/GoHome";
 import { SocketStatus } from "./components/SocketStatus";
+import { PlayerContext } from "../player/PlayerContext";
 
 export const GameEntry = ({
   store,
@@ -19,10 +20,11 @@ export const GameEntry = ({
   gameSlug: GameType;
   store: GameStateReduxStore;
 }) => {
+  const player = useContext(PlayerContext);
   const { connectionStatus } = useGameStateSocket(gameId);
 
   const gameStateHandler = useMemo(() => {
-    return new GameStateHandler(store);
+    return new GameStateHandler(store, player);
   }, [gameId]);
 
   // Lazy load the game component only on the client-side

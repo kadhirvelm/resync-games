@@ -5,7 +5,7 @@ import {
   useGameStateDispatch,
   useGameStateSelector
 } from "../store/snatchTheSnackRedux";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { indexTileMap } from "./utils/indexTileMap";
 import { Edge } from "@resync-games/api";
 import {
@@ -16,6 +16,7 @@ import {
 } from "@radix-ui/react-icons";
 import { IconButton } from "@radix-ui/themes";
 import clsx from "clsx";
+import { PlayerContext } from "@/components/player/PlayerContext";
 
 const flavorTextToIcon = {
   DOWN: <CaretDownIcon height={50} width={50} />,
@@ -33,11 +34,10 @@ const flavorTextToPosition = {
 
 export function PawnMovement() {
   const dispatch = useGameStateDispatch();
+  const player = useContext(PlayerContext);
 
   const gameInfo = useGameStateSelector((s) => s.gameStateSlice.gameInfo);
   const gameState = useGameStateSelector((s) => s.gameStateSlice.gameState);
-
-  console.log({ gameState });
 
   const tileMap = useGameStateSelector(
     (s) => s.gameStateSlice.gameState?.tileMap
@@ -78,16 +78,19 @@ export function PawnMovement() {
     }
 
     dispatch(
-      updateSnatchTheSnackGameState({
-        pawns: {
-          ...gameState.pawns,
-          [selectedPawn.pawnId]: {
-            ...selectedPawn,
-            lastUpdatedAt: new Date().toISOString(),
-            onTile: edge.toTileId
+      updateSnatchTheSnackGameState(
+        {
+          pawns: {
+            ...gameState.pawns,
+            [selectedPawn.pawnId]: {
+              ...selectedPawn,
+              lastUpdatedAt: new Date().toISOString(),
+              onTile: edge.toTileId
+            }
           }
-        }
-      })
+        },
+        player
+      )
     );
   };
 

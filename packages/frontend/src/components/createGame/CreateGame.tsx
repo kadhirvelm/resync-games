@@ -4,20 +4,23 @@ import { Button } from "@/lib/radix/Button";
 import { Flex } from "@/lib/radix/Flex";
 import { ClientServiceCallers } from "@/services/serviceCallers";
 import { Text } from "@radix-ui/themes";
-import { GameType, isServiceError, PlayerId } from "@resync-games/api";
+import { GameType, isServiceError } from "@resync-games/api";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { PlayerContext } from "../player/PlayerContext";
 import styles from "./CreateGame.module.scss";
 
 export default function CreateGame() {
   const router = useRouter();
+  const player = useContext(PlayerContext);
 
   const onCreateGame = async (gameSlug: GameType) => {
     const newGame = await ClientServiceCallers.gameState.createGame({
       gameConfiguration: {},
       gameName: `Example game ${new Date().toDateString()}-${new Date().toTimeString()}`,
       gameType: gameSlug,
-      playerId: "player-1" as PlayerId,
+      playerId: player.playerId,
       version: "1.0.0."
     });
 
@@ -55,7 +58,7 @@ export default function CreateGame() {
   return (
     <Flex className={styles.formBoxContainer} direction="column" gap="2">
       <Flex className={styles.formBox} direction="column" gap="5">
-        <Text>Pick game to create</Text>
+        <Text>Hi, {player.displayName}! Pick game to create</Text>
         <DynamicComponent />
       </Flex>
     </Flex>
