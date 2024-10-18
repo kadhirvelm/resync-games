@@ -44,8 +44,8 @@ export const GetGameState = ({
     >
       {(store) => (
         <InitializeGame
+          gameId={gameStateAndInfo.gameId}
           gameSlug={gameSlug}
-          gameStateAndInfo={gameStateAndInfo}
           store={store}
         />
       )}

@@ -2,11 +2,14 @@
 
 import { AvailableGames } from "@/components/connectToGame/AvailableGames";
 import { PlayerContextProvider } from "@/components/player/PlayerContext";
+import { ClientGate } from "@/lib/ClientGate";
 
 export default function Home() {
   return (
-    <PlayerContextProvider>
-      <AvailableGames />
-    </PlayerContextProvider>
+    <ClientGate>
+      <PlayerContextProvider>
+        <AvailableGames />
+      </PlayerContextProvider>
+    </ClientGate>
   );
 }
