@@ -130,7 +130,6 @@ exports.Prisma.GameStateScalarFieldEnum = {
 };
 
 exports.Prisma.PlayersInGameScalarFieldEnum = {
-  playersInGameIdentifier: 'playersInGameIdentifier',
   gameId: 'gameId',
   playerId: 'playerId'
 };

@@ -35,7 +35,7 @@ export function useGameStateSocket(gameId: GameId) {
       playerId: player.playerId,
       socketId: socketIdentifier
     });
-  }, [socketEmitter, socketIdentifier, gameId]);
+  }, [socketEmitter, socketIdentifier, gameId, player.playerId]);
 
   const disconnect = useCallback(() => {
     setConnectionStatus(false);

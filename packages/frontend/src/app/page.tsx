@@ -1,10 +1,12 @@
-import AvailableGames from "@/components/connectToGame/AvailableGames";
-import { Suspense } from "react";
+"use client";
 
-export default async function Home() {
+import { AvailableGames } from "@/components/connectToGame/AvailableGames";
+import { PlayerContextProvider } from "@/components/player/PlayerContext";
+
+export default function Home() {
   return (
-    <Suspense fallback={"Loading games..."}>
+    <PlayerContextProvider>
       <AvailableGames />
-    </Suspense>
+    </PlayerContextProvider>
   );
 }

@@ -7,7 +7,6 @@ import { FrontendRegisteredGame } from "@resync-games/games/frontendRegistry";
 import dynamic from "next/dynamic";
 import { useContext, useMemo } from "react";
 import { PlayerContext } from "../player/PlayerContext";
-import { GoHome } from "./components/GoHome";
 
 export const GameEntry = ({
   store,
@@ -49,7 +48,6 @@ export const GameEntry = ({
   return (
     <>
       <DynamicComponent gameStateHandler={gameStateHandler} />
-      <GoHome />
     </>
   );
 };
