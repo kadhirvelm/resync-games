@@ -33,6 +33,18 @@ export interface AvailableGames {
   games: AvailableGame[];
 }
 
+export interface JoinGame {
+  gameId: GameId;
+  gameType: GameType;
+  playerId: PlayerId;
+}
+
+export interface LeaveGame {
+  gameId: GameId;
+  gameType: GameType;
+  playerId: PlayerId;
+}
+
 export interface UpdateGameResponse {
   didAcceptChange: boolean;
   newGameState: GameStateAndInfo;
@@ -51,6 +63,14 @@ export interface GameStateApi extends Service {
     payload: GetGameState;
     response: GameStateAndInfo;
   };
+  joinGame: {
+    payload: JoinGame;
+    response: GameStateAndInfo;
+  };
+  leaveGame: {
+    payload: LeaveGame;
+    response: Record<string, never>;
+  };
   updateGame: {
     payload: UpdateGame;
     response: UpdateGameResponse;
@@ -64,6 +84,8 @@ export const GameStateServiceDefinition: ServiceDefinition<GameStateApi> = {
     createGame: "create-game",
     getAvailableGames: "get-available-games",
     getGameState: "get-game-state",
+    joinGame: "join-game",
+    leaveGame: "leave-game",
     updateGame: "update-game"
   }
 };
