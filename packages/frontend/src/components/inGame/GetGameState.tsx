@@ -1,15 +1,13 @@
-import { Flex } from "@/lib/radix/Flex";
+import { useNetworkCall } from "@/lib/hooks/useNetworkCall";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import {
-  GameId,
-  GameStateAndInfo,
-  GameType,
-  isServiceError
-} from "@resync-games/api";
-import { useContext, useEffect, useState } from "react";
+import { GameId, GameType } from "@resync-games/api";
+import { useRouter } from "next/navigation";
+import { Dispatch, useContext } from "react";
 import { PlayerContext } from "../player/PlayerContext";
 import { InitializeGame } from "./InitializeGame";
-import { useRouter } from "next/navigation";
+import { ReduxGate } from "@/lib/resync-components/ReduxGate";
+import { setGame, initializeGameStateStore } from "@/redux";
+import { UnknownAction } from "@reduxjs/toolkit";
 
 export const GetGameState = ({
   gameId,
@@ -18,35 +16,39 @@ export const GetGameState = ({
   gameId: GameId;
   gameSlug: GameType;
 }) => {
-  const player = useContext(PlayerContext);
   const router = useRouter();
+  const player = useContext(PlayerContext);
 
-  const [gameStateAndInfo, setGameStateAndInfo] =
-    useState<GameStateAndInfo | null>(null);
-
-  const fetchGameState = async () => {
-    const gameStateAndInfo = await ClientServiceCallers.gameState.getGameState({
-      gameId: gameId,
-      gameType: gameSlug,
-      playerId: player.playerId
-    });
-    if (isServiceError(gameStateAndInfo)) {
-      router.push("/");
-      return;
-    }
-
-    setGameStateAndInfo(gameStateAndInfo);
-  };
-
-  useEffect(() => {
-    fetchGameState();
-  }, []);
+  const { result: gameStateAndInfo } = useNetworkCall(
+    () =>
+      ClientServiceCallers.gameState.getGameState({
+        gameId: gameId,
+        gameType: gameSlug,
+        playerId: player.playerId
+      }),
+    () => router.push("/")
+  );
 
   if (gameStateAndInfo == null) {
-    return <Flex>Loading game...</Flex>;
+    return;
   }
 
+  const setInitialState = (dispatch: Dispatch<UnknownAction>) => {
+    dispatch(setGame(gameStateAndInfo));
+  };
+
   return (
-    <InitializeGame gameSlug={gameSlug} gameStateAndInfo={gameStateAndInfo} />
+    <ReduxGate
+      createStore={initializeGameStateStore}
+      initializeStore={setInitialState}
+    >
+      {(store) => (
+        <InitializeGame
+          gameId={gameStateAndInfo.gameId}
+          gameSlug={gameSlug}
+          store={store}
+        />
+      )}
+    </ReduxGate>
   );
 };

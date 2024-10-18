@@ -27,12 +27,14 @@ model GameState {
 }
 
 model PlayersInGame {
-  playersInGameIdentifier String @id @default(cuid()) @map("players_in_game_identifier")
-  gameId                  String @map("game_id")
-  playerId                String @map("player_id")
+  gameId   String @map("game_id")
+  playerId String @map("player_id")
 
   game   GameState @relation(fields: [gameId], references: [gameId])
   player Player    @relation(fields: [playerId], references: [playerId])
+
+  @@id([gameId, playerId])
+  @@unique([gameId, playerId])
 }
 
 model Player {

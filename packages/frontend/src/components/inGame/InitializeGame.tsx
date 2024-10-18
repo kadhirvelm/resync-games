@@ -1,45 +1,43 @@
 "use client";
 
-import { ClientGate } from "@/lib/ClientGate";
-import { ReduxGate } from "@/lib/resync-components/ReduxGate";
-import {
-  GameStateReduxStore,
-  initializeGameStateStore,
-  setGame
-} from "@/redux";
-import { UnknownAction } from "@reduxjs/toolkit";
-import { GameStateAndInfo, GameType } from "@resync-games/api";
-import { Dispatch } from "react";
-import { PlayerContextProvider } from "../player/PlayerContext";
+import { GameStateReduxStore, useGameStateSelector } from "@/redux";
+import { useGameStateSocket } from "@/socket/useGameStateSocket";
+import { GameId, GameType } from "@resync-games/api";
 import { GameEntry } from "./GameEntry";
+import { GameLobby } from "./GameLobby";
+import { SocketStatus } from "./components/SocketStatus";
 
 export const InitializeGame = ({
+  gameId,
   gameSlug,
-  gameStateAndInfo
+  store
 }: {
+  gameId: GameId;
   gameSlug: GameType;
-  gameStateAndInfo: GameStateAndInfo;
+  store: GameStateReduxStore;
 }) => {
-  const setInitialState = (dispatch: Dispatch<UnknownAction>) => {
-    dispatch(setGame(gameStateAndInfo));
+  // This line has to be rendered inside of the ReduxGate so it can dispatch its updates accordingly
+  const { connectionStatus } = useGameStateSocket(gameId);
+  const currentGameState = useGameStateSelector(
+    (s) => s.gameStateSlice.gameInfo?.currentGameState
+  );
+
+  const renderCurrentGameState = () => {
+    if (currentGameState === undefined) {
+      return;
+    }
+
+    if (currentGameState === "waiting") {
+      return <GameLobby />;
+    }
+
+    return <GameEntry gameId={gameId} gameSlug={gameSlug} store={store} />;
   };
 
   return (
-    <ClientGate>
-      <PlayerContextProvider>
-        <ReduxGate
-          createStore={initializeGameStateStore}
-          initializeStore={setInitialState}
-        >
-          {(store) => (
-            <GameEntry
-              gameId={gameStateAndInfo.gameId}
-              gameSlug={gameSlug}
-              store={store as GameStateReduxStore}
-            />
-          )}
-        </ReduxGate>
-      </PlayerContextProvider>
-    </ClientGate>
+    <>
+      {renderCurrentGameState()}
+      <SocketStatus connectionStatus={connectionStatus} />
+    </>
   );
 };

@@ -1,22 +1,18 @@
+import { useNetworkCall } from "@/lib/hooks/useNetworkCall";
 import { Flex } from "@/lib/radix/Flex";
-import { ServiceCallers } from "@/services/serviceCallers";
-import { Code, Text } from "@radix-ui/themes";
-import { isServiceError } from "@resync-games/api";
+import { ClientServiceCallers } from "@/services/serviceCallers";
+import { Text } from "@radix-ui/themes";
 import { AvailableGame } from "./availableGame/AvailableGame";
 import { NavigateToCreate } from "./availableGame/NavigateToCreate";
 import styles from "./AvailableGames.module.scss";
 
-export default async function AvailableGames() {
-  const maybeAvailableGames = await ServiceCallers.gameState.getAvailableGames(
-    {}
+export function AvailableGames() {
+  const { result: availableGames } = useNetworkCall(() =>
+    ClientServiceCallers.gameState.getAvailableGames({})
   );
-  if (isServiceError(maybeAvailableGames)) {
-    return (
-      <Flex className={styles.availableGames} direction="column" gap="2">
-        <Text>There was an issue loading games.</Text>
-        <Code>{maybeAvailableGames.message}</Code>
-      </Flex>
-    );
+
+  if (availableGames == null) {
+    return;
   }
 
   return (
@@ -30,7 +26,7 @@ export default async function AvailableGames() {
         flex="1"
         gap="2"
       >
-        {maybeAvailableGames.games.map((availableGame) => (
+        {availableGames.games.map((availableGame) => (
           <AvailableGame game={availableGame} key={availableGame.gameId} />
         ))}
       </Flex>

@@ -1,8 +1,9 @@
 "use client";
 
+import { useNetworkCall } from "@/lib/hooks/useNetworkCall";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { isServiceError, Player } from "@resync-games/api";
-import { createContext, useEffect, useMemo, useState } from "react";
+import { Player } from "@resync-games/api";
+import { createContext, useMemo } from "react";
 import { getBrowserIdentifier } from "./browserIdentifier";
 import { SetPlayer } from "./SetPlayer";
 
@@ -18,26 +19,14 @@ export const PlayerContextProvider = ({
 }) => {
   const browserIdentifier = useMemo(() => getBrowserIdentifier(), []);
 
-  const [player, setPlayer] = useState<Player | null>(null);
-
-  const checkForPlayer = async () => {
-    const player = await ClientServiceCallers.user.me({
+  const { result: player, setResult } = useNetworkCall(() =>
+    ClientServiceCallers.user.me({
       playerId: browserIdentifier
-    });
-
-    if (isServiceError(player)) {
-      return;
-    }
-
-    setPlayer(player);
-  };
-
-  useEffect(() => {
-    checkForPlayer();
-  }, []);
+    })
+  );
 
   if (player == null) {
-    return <SetPlayer onSetPlayer={setPlayer} />;
+    return <SetPlayer onSetPlayer={setResult} />;
   }
 
   return (

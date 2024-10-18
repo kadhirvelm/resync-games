@@ -1,5 +1,6 @@
 import { Body, Controller } from "@nestjs/common";
 import {
+  ChangeGameState,
   CreateGame,
   GameStateApi,
   GameStateServiceDefinition,
@@ -19,6 +20,11 @@ export class GameStateController
   implements ServiceControllerInterface<GameStateApi>
 {
   constructor(private readonly gameStateService: GameStateService) {}
+
+  @getDecorator(GameStateServiceDefinition.endpoints.changeGameState)
+  public async changeGameState(@Body() request: ChangeGameState) {
+    return this.gameStateService.changeGameState(request);
+  }
 
   @getDecorator(GameStateServiceDefinition.endpoints.createGame)
   public async createGame(@Body() request: CreateGame) {

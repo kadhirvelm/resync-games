@@ -2104,19 +2104,16 @@ export namespace Prisma {
   }
 
   export type PlayersInGameMinAggregateOutputType = {
-    playersInGameIdentifier: string | null
     gameId: string | null
     playerId: string | null
   }
 
   export type PlayersInGameMaxAggregateOutputType = {
-    playersInGameIdentifier: string | null
     gameId: string | null
     playerId: string | null
   }
 
   export type PlayersInGameCountAggregateOutputType = {
-    playersInGameIdentifier: number
     gameId: number
     playerId: number
     _all: number
@@ -2124,19 +2121,16 @@ export namespace Prisma {
 
 
   export type PlayersInGameMinAggregateInputType = {
-    playersInGameIdentifier?: true
     gameId?: true
     playerId?: true
   }
 
   export type PlayersInGameMaxAggregateInputType = {
-    playersInGameIdentifier?: true
     gameId?: true
     playerId?: true
   }
 
   export type PlayersInGameCountAggregateInputType = {
-    playersInGameIdentifier?: true
     gameId?: true
     playerId?: true
     _all?: true
@@ -2215,7 +2209,6 @@ export namespace Prisma {
   }
 
   export type PlayersInGameGroupByOutputType = {
-    playersInGameIdentifier: string
     gameId: string
     playerId: string
     _count: PlayersInGameCountAggregateOutputType | null
@@ -2238,7 +2231,6 @@ export namespace Prisma {
 
 
   export type PlayersInGameSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    playersInGameIdentifier?: boolean
     gameId?: boolean
     playerId?: boolean
     game?: boolean | GameStateDefaultArgs<ExtArgs>
@@ -2246,7 +2238,6 @@ export namespace Prisma {
   }, ExtArgs["result"]["playersInGame"]>
 
   export type PlayersInGameSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    playersInGameIdentifier?: boolean
     gameId?: boolean
     playerId?: boolean
     game?: boolean | GameStateDefaultArgs<ExtArgs>
@@ -2254,7 +2245,6 @@ export namespace Prisma {
   }, ExtArgs["result"]["playersInGame"]>
 
   export type PlayersInGameSelectScalar = {
-    playersInGameIdentifier?: boolean
     gameId?: boolean
     playerId?: boolean
   }
@@ -2275,7 +2265,6 @@ export namespace Prisma {
       player: Prisma.$PlayerPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      playersInGameIdentifier: string
       gameId: string
       playerId: string
     }, ExtArgs["result"]["playersInGame"]>
@@ -2361,8 +2350,8 @@ export namespace Prisma {
      * // Get first 10 PlayersInGames
      * const playersInGames = await prisma.playersInGame.findMany({ take: 10 })
      * 
-     * // Only select the `playersInGameIdentifier`
-     * const playersInGameWithPlayersInGameIdentifierOnly = await prisma.playersInGame.findMany({ select: { playersInGameIdentifier: true } })
+     * // Only select the `gameId`
+     * const playersInGameWithGameIdOnly = await prisma.playersInGame.findMany({ select: { gameId: true } })
      * 
      */
     findMany<T extends PlayersInGameFindManyArgs>(args?: SelectSubset<T, PlayersInGameFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findMany">>
@@ -2406,9 +2395,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many PlayersInGames and only return the `playersInGameIdentifier`
-     * const playersInGameWithPlayersInGameIdentifierOnly = await prisma.playersInGame.createManyAndReturn({ 
-     *   select: { playersInGameIdentifier: true },
+     * // Create many PlayersInGames and only return the `gameId`
+     * const playersInGameWithGameIdOnly = await prisma.playersInGame.createManyAndReturn({ 
+     *   select: { gameId: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -2673,7 +2662,6 @@ export namespace Prisma {
    * Fields of the PlayersInGame model
    */ 
   interface PlayersInGameFieldRefs {
-    readonly playersInGameIdentifier: FieldRef<"PlayersInGame", 'String'>
     readonly gameId: FieldRef<"PlayersInGame", 'String'>
     readonly playerId: FieldRef<"PlayersInGame", 'String'>
   }
@@ -3948,7 +3936,6 @@ export namespace Prisma {
 
 
   export const PlayersInGameScalarFieldEnum: {
-    playersInGameIdentifier: 'playersInGameIdentifier',
     gameId: 'gameId',
     playerId: 'playerId'
   };
@@ -4136,7 +4123,6 @@ export namespace Prisma {
     AND?: PlayersInGameWhereInput | PlayersInGameWhereInput[]
     OR?: PlayersInGameWhereInput[]
     NOT?: PlayersInGameWhereInput | PlayersInGameWhereInput[]
-    playersInGameIdentifier?: StringFilter<"PlayersInGame"> | string
     gameId?: StringFilter<"PlayersInGame"> | string
     playerId?: StringFilter<"PlayersInGame"> | string
     game?: XOR<GameStateRelationFilter, GameStateWhereInput>
@@ -4144,7 +4130,6 @@ export namespace Prisma {
   }
 
   export type PlayersInGameOrderByWithRelationInput = {
-    playersInGameIdentifier?: SortOrder
     gameId?: SortOrder
     playerId?: SortOrder
     game?: GameStateOrderByWithRelationInput
@@ -4152,7 +4137,7 @@ export namespace Prisma {
   }
 
   export type PlayersInGameWhereUniqueInput = Prisma.AtLeast<{
-    playersInGameIdentifier?: string
+    gameId_playerId?: PlayersInGameGameIdPlayerIdCompoundUniqueInput
     AND?: PlayersInGameWhereInput | PlayersInGameWhereInput[]
     OR?: PlayersInGameWhereInput[]
     NOT?: PlayersInGameWhereInput | PlayersInGameWhereInput[]
@@ -4160,10 +4145,9 @@ export namespace Prisma {
     playerId?: StringFilter<"PlayersInGame"> | string
     game?: XOR<GameStateRelationFilter, GameStateWhereInput>
     player?: XOR<PlayerRelationFilter, PlayerWhereInput>
-  }, "playersInGameIdentifier">
+  }, "gameId_playerId" | "gameId_playerId">
 
   export type PlayersInGameOrderByWithAggregationInput = {
-    playersInGameIdentifier?: SortOrder
     gameId?: SortOrder
     playerId?: SortOrder
     _count?: PlayersInGameCountOrderByAggregateInput
@@ -4175,7 +4159,6 @@ export namespace Prisma {
     AND?: PlayersInGameScalarWhereWithAggregatesInput | PlayersInGameScalarWhereWithAggregatesInput[]
     OR?: PlayersInGameScalarWhereWithAggregatesInput[]
     NOT?: PlayersInGameScalarWhereWithAggregatesInput | PlayersInGameScalarWhereWithAggregatesInput[]
-    playersInGameIdentifier?: StringWithAggregatesFilter<"PlayersInGame"> | string
     gameId?: StringWithAggregatesFilter<"PlayersInGame"> | string
     playerId?: StringWithAggregatesFilter<"PlayersInGame"> | string
   }
@@ -4295,41 +4278,35 @@ export namespace Prisma {
   }
 
   export type PlayersInGameCreateInput = {
-    playersInGameIdentifier?: string
     game: GameStateCreateNestedOneWithoutPlayersInGameInput
     player: PlayerCreateNestedOneWithoutPlayersInGameInput
   }
 
   export type PlayersInGameUncheckedCreateInput = {
-    playersInGameIdentifier?: string
     gameId: string
     playerId: string
   }
 
   export type PlayersInGameUpdateInput = {
-    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
     game?: GameStateUpdateOneRequiredWithoutPlayersInGameNestedInput
     player?: PlayerUpdateOneRequiredWithoutPlayersInGameNestedInput
   }
 
   export type PlayersInGameUncheckedUpdateInput = {
-    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
     gameId?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlayersInGameCreateManyInput = {
-    playersInGameIdentifier?: string
     gameId: string
     playerId: string
   }
 
   export type PlayersInGameUpdateManyMutationInput = {
-    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
+
   }
 
   export type PlayersInGameUncheckedUpdateManyInput = {
-    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
     gameId?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
   }
@@ -4541,20 +4518,22 @@ export namespace Prisma {
     isNot?: PlayerWhereInput
   }
 
+  export type PlayersInGameGameIdPlayerIdCompoundUniqueInput = {
+    gameId: string
+    playerId: string
+  }
+
   export type PlayersInGameCountOrderByAggregateInput = {
-    playersInGameIdentifier?: SortOrder
     gameId?: SortOrder
     playerId?: SortOrder
   }
 
   export type PlayersInGameMaxOrderByAggregateInput = {
-    playersInGameIdentifier?: SortOrder
     gameId?: SortOrder
     playerId?: SortOrder
   }
 
   export type PlayersInGameMinOrderByAggregateInput = {
-    playersInGameIdentifier?: SortOrder
     gameId?: SortOrder
     playerId?: SortOrder
   }
@@ -4805,12 +4784,10 @@ export namespace Prisma {
   }
 
   export type PlayersInGameCreateWithoutGameInput = {
-    playersInGameIdentifier?: string
     player: PlayerCreateNestedOneWithoutPlayersInGameInput
   }
 
   export type PlayersInGameUncheckedCreateWithoutGameInput = {
-    playersInGameIdentifier?: string
     playerId: string
   }
 
@@ -4844,7 +4821,6 @@ export namespace Prisma {
     AND?: PlayersInGameScalarWhereInput | PlayersInGameScalarWhereInput[]
     OR?: PlayersInGameScalarWhereInput[]
     NOT?: PlayersInGameScalarWhereInput | PlayersInGameScalarWhereInput[]
-    playersInGameIdentifier?: StringFilter<"PlayersInGame"> | string
     gameId?: StringFilter<"PlayersInGame"> | string
     playerId?: StringFilter<"PlayersInGame"> | string
   }
@@ -4942,12 +4918,10 @@ export namespace Prisma {
   }
 
   export type PlayersInGameCreateWithoutPlayerInput = {
-    playersInGameIdentifier?: string
     game: GameStateCreateNestedOneWithoutPlayersInGameInput
   }
 
   export type PlayersInGameUncheckedCreateWithoutPlayerInput = {
-    playersInGameIdentifier?: string
     gameId: string
   }
 
@@ -4978,42 +4952,34 @@ export namespace Prisma {
   }
 
   export type PlayersInGameCreateManyGameInput = {
-    playersInGameIdentifier?: string
     playerId: string
   }
 
   export type PlayersInGameUpdateWithoutGameInput = {
-    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
     player?: PlayerUpdateOneRequiredWithoutPlayersInGameNestedInput
   }
 
   export type PlayersInGameUncheckedUpdateWithoutGameInput = {
-    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlayersInGameUncheckedUpdateManyWithoutGameInput = {
-    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlayersInGameCreateManyPlayerInput = {
-    playersInGameIdentifier?: string
     gameId: string
   }
 
   export type PlayersInGameUpdateWithoutPlayerInput = {
-    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
     game?: GameStateUpdateOneRequiredWithoutPlayersInGameNestedInput
   }
 
   export type PlayersInGameUncheckedUpdateWithoutPlayerInput = {
-    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
     gameId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlayersInGameUncheckedUpdateManyWithoutPlayerInput = {
-    playersInGameIdentifier?: StringFieldUpdateOperationsInput | string
     gameId?: StringFieldUpdateOperationsInput | string
   }
 
