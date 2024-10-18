@@ -1,6 +1,11 @@
 import { Service, ServiceDefinition } from "../../genericTypes/service";
 import { PlayerId } from "../user";
-import { GameId, GameType, GameStateAndInfo } from "./gameStateTypes";
+import {
+  GameId,
+  GameType,
+  GameStateAndInfo,
+  CurrentGameState
+} from "./gameStateTypes";
 
 export interface GetGameState {
   gameId: GameId;
@@ -33,6 +38,13 @@ export interface AvailableGames {
   games: AvailableGame[];
 }
 
+export interface ChangeGameState {
+  currentGameState: CurrentGameState;
+  gameId: GameId;
+  gameType: GameType;
+  playerId: PlayerId;
+}
+
 export interface JoinGame {
   gameId: GameId;
   gameType: GameType;
@@ -51,6 +63,10 @@ export interface UpdateGameResponse {
 }
 
 export interface GameStateApi extends Service {
+  changeGameState: {
+    payload: ChangeGameState;
+    response: GameStateAndInfo;
+  };
   createGame: {
     payload: CreateGame;
     response: GameStateAndInfo;
@@ -81,6 +97,7 @@ export interface GameStateApi extends Service {
 export const GameStateServiceDefinition: ServiceDefinition<GameStateApi> = {
   controller: "game-state",
   endpoints: {
+    changeGameState: "change-game-state",
     createGame: "create-game",
     getAvailableGames: "get-available-games",
     getGameState: "get-game-state",

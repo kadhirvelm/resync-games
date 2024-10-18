@@ -1,15 +1,13 @@
 "use client";
 
 import { GameStateHandler, GameStateReduxStore } from "@/redux";
-import { useGameStateSocket } from "@/socket/useGameStateSocket";
 import { Flex, Text } from "@radix-ui/themes";
 import { GameId, GameType } from "@resync-games/api";
 import { FrontendRegisteredGame } from "@resync-games/games/frontendRegistry";
 import dynamic from "next/dynamic";
 import { useContext, useMemo } from "react";
-import { GoHome } from "./components/GoHome";
-import { SocketStatus } from "./components/SocketStatus";
 import { PlayerContext } from "../player/PlayerContext";
+import { GoHome } from "./components/GoHome";
 
 export const GameEntry = ({
   store,
@@ -21,7 +19,6 @@ export const GameEntry = ({
   store: GameStateReduxStore;
 }) => {
   const player = useContext(PlayerContext);
-  const { connectionStatus } = useGameStateSocket(gameId);
 
   const gameStateHandler = useMemo(() => {
     return new GameStateHandler(store, player);
@@ -53,7 +50,6 @@ export const GameEntry = ({
     <>
       <DynamicComponent gameStateHandler={gameStateHandler} />
       <GoHome />
-      <SocketStatus connectionStatus={connectionStatus} />
     </>
   );
 };
