@@ -41,7 +41,7 @@ export class GameStateService {
       );
     }
 
-    const newGameState = await this.prismaService.client.gameState.update({
+    const newGameStateRaw = await this.prismaService.client.gameState.update({
       data: {
         currentGameState: changeGameState.currentGameState
       },
@@ -57,10 +57,14 @@ export class GameStateService {
       }
     });
 
-    return this.prismaService.converterService.convertGameState(
-      newGameState,
-      newGameState.PlayersInGame.map((p) => p.player)
+    const newGameState = this.prismaService.converterService.convertGameState(
+      newGameStateRaw,
+      newGameStateRaw.PlayersInGame.map((p) => p.player)
     );
+
+    await this.gamesInFlightService.updateGameInfo(newGameState);
+
+    return newGameState;
   };
 
   public createGame = async (
