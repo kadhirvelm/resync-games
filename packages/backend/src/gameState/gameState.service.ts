@@ -4,6 +4,8 @@ import {
   CreateGame,
   GameStateAndInfo,
   GetGameState,
+  JoinGame,
+  LeaveGame,
   UpdateGame,
   UpdateGameResponse
 } from "@resync-games/api";
@@ -123,6 +125,106 @@ export class GameStateService {
       requestedGame,
       requestedGame.PlayersInGame.map((p) => p.player)
     );
+  };
+
+  public joinGame = async (
+    joinGameRequest: JoinGame
+  ): Promise<GameStateAndInfo> => {
+    const requestedGame = await this.prismaService.client.gameState.findFirst({
+      include: {
+        PlayersInGame: {
+          include: {
+            player: true
+          }
+        }
+      },
+      where: {
+        currentGameState: "waiting",
+        gameId: joinGameRequest.gameId,
+        gameType: joinGameRequest.gameType
+      }
+    });
+
+    if (requestedGame == null) {
+      throw new BadRequestException(
+        "The requested game could not be found. Please check your request and try again."
+      );
+    }
+
+    const playerAlreadyInGame = requestedGame.PlayersInGame.some(
+      (p) => p.playerId === joinGameRequest.playerId
+    );
+    if (playerAlreadyInGame) {
+      throw new BadRequestException(
+        "The requested player is already in the game. Please check your request and try again."
+      );
+    }
+
+    const updatedGame = await this.prismaService.client.gameState.update({
+      data: {
+        PlayersInGame: {
+          create: {
+            playerId: joinGameRequest.playerId
+          }
+        }
+      },
+      include: {
+        PlayersInGame: {
+          include: {
+            player: true
+          }
+        }
+      },
+      where: {
+        gameId: joinGameRequest.gameId
+      }
+    });
+
+    return this.prismaService.converterService.convertGameState(
+      updatedGame,
+      updatedGame.PlayersInGame.map((p) => p.player)
+    );
+  };
+
+  public leaveGame = async (leaveGame: LeaveGame) => {
+    const requestedGame = await this.prismaService.client.gameState.findFirst({
+      include: {
+        PlayersInGame: {
+          include: {
+            player: true
+          }
+        }
+      },
+      where: {
+        gameId: leaveGame.gameId,
+        gameType: leaveGame.gameType
+      }
+    });
+
+    if (requestedGame == null) {
+      throw new BadRequestException(
+        "The requested game could not be found. Please check your request and try again."
+      );
+    }
+
+    const playerInGame = requestedGame.PlayersInGame.find(
+      (p) => p.playerId === leaveGame.playerId
+    );
+    if (playerInGame == null) {
+      throw new BadRequestException(
+        "The requested player is not in the game. Please check your request and try again."
+      );
+    }
+
+    await this.prismaService.client.playersInGame.delete({
+      where: {
+        gameId: leaveGame.gameId,
+        playerId: leaveGame.playerId,
+        playersInGameIdentifier: playerInGame.playersInGameIdentifier
+      }
+    });
+
+    return {};
   };
 
   public updateGame = async (

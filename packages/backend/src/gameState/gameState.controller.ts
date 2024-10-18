@@ -4,6 +4,8 @@ import {
   GameStateApi,
   GameStateServiceDefinition,
   GetGameState,
+  JoinGame,
+  LeaveGame,
   UpdateGame
 } from "@resync-games/api";
 import {
@@ -31,6 +33,16 @@ export class GameStateController
   @getDecorator(GameStateServiceDefinition.endpoints.getGameState)
   public async getGameState(@Body() request: GetGameState) {
     return this.gameStateService.getGameState(request);
+  }
+
+  @getDecorator(GameStateServiceDefinition.endpoints.joinGame)
+  public async joinGame(@Body() request: JoinGame) {
+    return this.gameStateService.joinGame(request);
+  }
+
+  @getDecorator(GameStateServiceDefinition.endpoints.leaveGame)
+  public async leaveGame(@Body() request: LeaveGame) {
+    return this.gameStateService.leaveGame(request);
   }
 
   @getDecorator(GameStateServiceDefinition.endpoints.updateGame)

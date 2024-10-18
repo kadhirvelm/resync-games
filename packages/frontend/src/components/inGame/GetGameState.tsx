@@ -1,3 +1,4 @@
+import { Flex } from "@/lib/radix/Flex";
 import { ClientServiceCallers } from "@/services/serviceCallers";
 import {
   GameId,
@@ -5,11 +6,10 @@ import {
   GameType,
   isServiceError
 } from "@resync-games/api";
-import { redirect } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { PlayerContext } from "../player/PlayerContext";
 import { InitializeGame } from "./InitializeGame";
-import { Flex } from "@/lib/radix/Flex";
+import { useRouter } from "next/navigation";
 
 export const GetGameState = ({
   gameId,
@@ -19,6 +19,7 @@ export const GetGameState = ({
   gameSlug: GameType;
 }) => {
   const player = useContext(PlayerContext);
+  const router = useRouter();
 
   const [gameStateAndInfo, setGameStateAndInfo] =
     useState<GameStateAndInfo | null>(null);
@@ -30,7 +31,8 @@ export const GetGameState = ({
       playerId: player.playerId
     });
     if (isServiceError(gameStateAndInfo)) {
-      redirect("/");
+      router.push("/");
+      return;
     }
 
     setGameStateAndInfo(gameStateAndInfo);
