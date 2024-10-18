@@ -30,6 +30,7 @@ export function useGameStateCallbacks(
 
   const emitUpdatedGameState = useCallback(
     (newGameState: GameStateAndInfo) => {
+      console.log("Received new game state", newGameState);
       dispatch(setGame(newGameState));
     },
     [dispatch]

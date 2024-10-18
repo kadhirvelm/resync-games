@@ -56,6 +56,18 @@ export class GamesInFlightService {
     return convertedGame;
   };
 
+  public updateGameInfo = async (newGameStateAndInfo: GameStateAndInfo) => {
+    this.gamesInFlightCache.set(
+      newGameStateAndInfo.gameId,
+      newGameStateAndInfo
+    );
+
+    this.socketGateway.updateGameState(
+      newGameStateAndInfo,
+      newGameStateAndInfo.gameId
+    );
+  };
+
   public updateInFlightGame = async (
     previousGameState: GameStateAndInfo,
     nextGameState: GameStateAndInfo

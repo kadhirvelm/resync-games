@@ -85,7 +85,7 @@ export interface GameStateApi extends Service {
   };
   leaveGame: {
     payload: LeaveGame;
-    response: Record<string, never>;
+    response: GameStateAndInfo;
   };
   updateGame: {
     payload: UpdateGame;
