@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^2.2.7",
     "@resync-games/api": "workspace:^",
     "clsx": "^2.1.1",
+    "create-hash": "^1.2.0",
     "lodash-es": "^4.17.21",
     "next": "14.2.5",
     "phaser": "v3.85.2",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@testing-library/jest-dom": "^6.4.8",
+    "@types/create-hash": "^1",
     "@types/jest": "^29.5.12",
     "@types/lodash-es": "^4",
     "@types/node": "^22.0.0",
