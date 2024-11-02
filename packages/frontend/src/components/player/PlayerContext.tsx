@@ -6,6 +6,8 @@ import { Player } from "@resync-games/api";
 import { createContext, useMemo } from "react";
 import { getBrowserIdentifier } from "./browserIdentifier";
 import { SetPlayer } from "./SetPlayer";
+import { Flex } from "@/lib/radix/Flex";
+import styles from "./PlayerContext.module.scss";
 
 export const PlayerContext = createContext<Player>({
   displayName: "",
@@ -30,6 +32,11 @@ export const PlayerContextProvider = ({
   }
 
   return (
-    <PlayerContext.Provider value={player}>{children}</PlayerContext.Provider>
+    <PlayerContext.Provider value={player}>
+      {children}
+      <Flex className={styles.playerContainer}>
+        <SetPlayer existingPlayer={player} onSetPlayer={setResult} />
+      </Flex>
+    </PlayerContext.Provider>
   );
 };

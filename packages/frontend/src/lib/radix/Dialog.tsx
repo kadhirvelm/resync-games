@@ -4,6 +4,7 @@ import { Button } from "./Button";
 
 export const Dialog = ({
   trigger,
+  defaultOpen,
   title,
   confirmText,
   onConfirm,
@@ -13,6 +14,7 @@ export const Dialog = ({
 }: {
   children: React.ReactNode;
   confirmText?: string;
+  defaultOpen?: boolean;
   description?: string;
   onConfirm: () => void;
   open?: boolean;
@@ -20,7 +22,7 @@ export const Dialog = ({
   trigger?: React.ReactNode;
 }) => {
   return (
-    <RadixDialog.Root open={open}>
+    <RadixDialog.Root defaultOpen={defaultOpen} open={open}>
       {trigger !== undefined && (
         <RadixDialog.Trigger>{trigger}</RadixDialog.Trigger>
       )}
