@@ -42,6 +42,8 @@ export class UserService {
       }
     });
 
+    // TODO: identify if the user was in a game or not, then send out an update to that game's room
+
     return this.prismaModule.converterService.convertPlayer(updatedUser);
   }
 

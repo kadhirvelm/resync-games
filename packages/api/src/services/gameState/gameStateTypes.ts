@@ -5,13 +5,17 @@ export type GameType = string & { __brand: "game-type" }; // Equivalent of (type
 
 export type CurrentGameState = "waiting" | "playing" | "finished";
 
+export interface PlayerInGame extends Player {
+  team?: number;
+}
+
 export interface GameInfo {
   currentGameState: CurrentGameState;
   gameConfiguration: object;
   gameId: GameId;
   gameType: GameType;
   lastUpdatedAt: string;
-  players: Player[];
+  players: PlayerInGame[];
   version: string;
 }
 

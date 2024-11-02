@@ -49,7 +49,8 @@ export class GamesInFlightService {
       accordingGame,
       accordingGame.PlayersInGame.map((p) =>
         this.prismaService.converterService.convertPlayer(p.player)
-      )
+      ),
+      accordingGame.PlayersInGame
     );
     this.gamesInFlightCache.set(gameId, convertedGame);
 

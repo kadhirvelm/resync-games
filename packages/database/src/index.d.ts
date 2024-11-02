@@ -2099,40 +2099,64 @@ export namespace Prisma {
 
   export type AggregatePlayersInGame = {
     _count: PlayersInGameCountAggregateOutputType | null
+    _avg: PlayersInGameAvgAggregateOutputType | null
+    _sum: PlayersInGameSumAggregateOutputType | null
     _min: PlayersInGameMinAggregateOutputType | null
     _max: PlayersInGameMaxAggregateOutputType | null
+  }
+
+  export type PlayersInGameAvgAggregateOutputType = {
+    team: number | null
+  }
+
+  export type PlayersInGameSumAggregateOutputType = {
+    team: number | null
   }
 
   export type PlayersInGameMinAggregateOutputType = {
     gameId: string | null
     playerId: string | null
+    team: number | null
   }
 
   export type PlayersInGameMaxAggregateOutputType = {
     gameId: string | null
     playerId: string | null
+    team: number | null
   }
 
   export type PlayersInGameCountAggregateOutputType = {
     gameId: number
     playerId: number
+    team: number
     _all: number
   }
 
 
+  export type PlayersInGameAvgAggregateInputType = {
+    team?: true
+  }
+
+  export type PlayersInGameSumAggregateInputType = {
+    team?: true
+  }
+
   export type PlayersInGameMinAggregateInputType = {
     gameId?: true
     playerId?: true
+    team?: true
   }
 
   export type PlayersInGameMaxAggregateInputType = {
     gameId?: true
     playerId?: true
+    team?: true
   }
 
   export type PlayersInGameCountAggregateInputType = {
     gameId?: true
     playerId?: true
+    team?: true
     _all?: true
   }
 
@@ -2174,6 +2198,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: PlayersInGameAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PlayersInGameSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: PlayersInGameMinAggregateInputType
@@ -2204,6 +2240,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: PlayersInGameCountAggregateInputType | true
+    _avg?: PlayersInGameAvgAggregateInputType
+    _sum?: PlayersInGameSumAggregateInputType
     _min?: PlayersInGameMinAggregateInputType
     _max?: PlayersInGameMaxAggregateInputType
   }
@@ -2211,7 +2249,10 @@ export namespace Prisma {
   export type PlayersInGameGroupByOutputType = {
     gameId: string
     playerId: string
+    team: number | null
     _count: PlayersInGameCountAggregateOutputType | null
+    _avg: PlayersInGameAvgAggregateOutputType | null
+    _sum: PlayersInGameSumAggregateOutputType | null
     _min: PlayersInGameMinAggregateOutputType | null
     _max: PlayersInGameMaxAggregateOutputType | null
   }
@@ -2233,6 +2274,7 @@ export namespace Prisma {
   export type PlayersInGameSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     gameId?: boolean
     playerId?: boolean
+    team?: boolean
     game?: boolean | GameStateDefaultArgs<ExtArgs>
     player?: boolean | PlayerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["playersInGame"]>
@@ -2240,6 +2282,7 @@ export namespace Prisma {
   export type PlayersInGameSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     gameId?: boolean
     playerId?: boolean
+    team?: boolean
     game?: boolean | GameStateDefaultArgs<ExtArgs>
     player?: boolean | PlayerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["playersInGame"]>
@@ -2247,6 +2290,7 @@ export namespace Prisma {
   export type PlayersInGameSelectScalar = {
     gameId?: boolean
     playerId?: boolean
+    team?: boolean
   }
 
   export type PlayersInGameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2267,6 +2311,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       gameId: string
       playerId: string
+      team: number | null
     }, ExtArgs["result"]["playersInGame"]>
     composites: {}
   }
@@ -2664,6 +2709,7 @@ export namespace Prisma {
   interface PlayersInGameFieldRefs {
     readonly gameId: FieldRef<"PlayersInGame", 'String'>
     readonly playerId: FieldRef<"PlayersInGame", 'String'>
+    readonly team: FieldRef<"PlayersInGame", 'Int'>
   }
     
 
@@ -3937,7 +3983,8 @@ export namespace Prisma {
 
   export const PlayersInGameScalarFieldEnum: {
     gameId: 'gameId',
-    playerId: 'playerId'
+    playerId: 'playerId',
+    team: 'team'
   };
 
   export type PlayersInGameScalarFieldEnum = (typeof PlayersInGameScalarFieldEnum)[keyof typeof PlayersInGameScalarFieldEnum]
@@ -3981,6 +4028,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -4048,6 +4103,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -4125,6 +4194,7 @@ export namespace Prisma {
     NOT?: PlayersInGameWhereInput | PlayersInGameWhereInput[]
     gameId?: StringFilter<"PlayersInGame"> | string
     playerId?: StringFilter<"PlayersInGame"> | string
+    team?: IntNullableFilter<"PlayersInGame"> | number | null
     game?: XOR<GameStateRelationFilter, GameStateWhereInput>
     player?: XOR<PlayerRelationFilter, PlayerWhereInput>
   }
@@ -4132,6 +4202,7 @@ export namespace Prisma {
   export type PlayersInGameOrderByWithRelationInput = {
     gameId?: SortOrder
     playerId?: SortOrder
+    team?: SortOrderInput | SortOrder
     game?: GameStateOrderByWithRelationInput
     player?: PlayerOrderByWithRelationInput
   }
@@ -4143,6 +4214,7 @@ export namespace Prisma {
     NOT?: PlayersInGameWhereInput | PlayersInGameWhereInput[]
     gameId?: StringFilter<"PlayersInGame"> | string
     playerId?: StringFilter<"PlayersInGame"> | string
+    team?: IntNullableFilter<"PlayersInGame"> | number | null
     game?: XOR<GameStateRelationFilter, GameStateWhereInput>
     player?: XOR<PlayerRelationFilter, PlayerWhereInput>
   }, "gameId_playerId" | "gameId_playerId">
@@ -4150,9 +4222,12 @@ export namespace Prisma {
   export type PlayersInGameOrderByWithAggregationInput = {
     gameId?: SortOrder
     playerId?: SortOrder
+    team?: SortOrderInput | SortOrder
     _count?: PlayersInGameCountOrderByAggregateInput
+    _avg?: PlayersInGameAvgOrderByAggregateInput
     _max?: PlayersInGameMaxOrderByAggregateInput
     _min?: PlayersInGameMinOrderByAggregateInput
+    _sum?: PlayersInGameSumOrderByAggregateInput
   }
 
   export type PlayersInGameScalarWhereWithAggregatesInput = {
@@ -4161,6 +4236,7 @@ export namespace Prisma {
     NOT?: PlayersInGameScalarWhereWithAggregatesInput | PlayersInGameScalarWhereWithAggregatesInput[]
     gameId?: StringWithAggregatesFilter<"PlayersInGame"> | string
     playerId?: StringWithAggregatesFilter<"PlayersInGame"> | string
+    team?: IntNullableWithAggregatesFilter<"PlayersInGame"> | number | null
   }
 
   export type PlayerWhereInput = {
@@ -4278,6 +4354,7 @@ export namespace Prisma {
   }
 
   export type PlayersInGameCreateInput = {
+    team?: number | null
     game: GameStateCreateNestedOneWithoutPlayersInGameInput
     player: PlayerCreateNestedOneWithoutPlayersInGameInput
   }
@@ -4285,9 +4362,11 @@ export namespace Prisma {
   export type PlayersInGameUncheckedCreateInput = {
     gameId: string
     playerId: string
+    team?: number | null
   }
 
   export type PlayersInGameUpdateInput = {
+    team?: NullableIntFieldUpdateOperationsInput | number | null
     game?: GameStateUpdateOneRequiredWithoutPlayersInGameNestedInput
     player?: PlayerUpdateOneRequiredWithoutPlayersInGameNestedInput
   }
@@ -4295,20 +4374,23 @@ export namespace Prisma {
   export type PlayersInGameUncheckedUpdateInput = {
     gameId?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
+    team?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type PlayersInGameCreateManyInput = {
     gameId: string
     playerId: string
+    team?: number | null
   }
 
   export type PlayersInGameUpdateManyMutationInput = {
-
+    team?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type PlayersInGameUncheckedUpdateManyInput = {
     gameId?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
+    team?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type PlayerCreateInput = {
@@ -4508,6 +4590,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type GameStateRelationFilter = {
     is?: GameStateWhereInput
     isNot?: GameStateWhereInput
@@ -4518,6 +4611,11 @@ export namespace Prisma {
     isNot?: PlayerWhereInput
   }
 
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type PlayersInGameGameIdPlayerIdCompoundUniqueInput = {
     gameId: string
     playerId: string
@@ -4526,16 +4624,43 @@ export namespace Prisma {
   export type PlayersInGameCountOrderByAggregateInput = {
     gameId?: SortOrder
     playerId?: SortOrder
+    team?: SortOrder
+  }
+
+  export type PlayersInGameAvgOrderByAggregateInput = {
+    team?: SortOrder
   }
 
   export type PlayersInGameMaxOrderByAggregateInput = {
     gameId?: SortOrder
     playerId?: SortOrder
+    team?: SortOrder
   }
 
   export type PlayersInGameMinOrderByAggregateInput = {
     gameId?: SortOrder
     playerId?: SortOrder
+    team?: SortOrder
+  }
+
+  export type PlayersInGameSumOrderByAggregateInput = {
+    team?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type PlayerCountOrderByAggregateInput = {
@@ -4617,6 +4742,14 @@ export namespace Prisma {
     create?: XOR<PlayerCreateWithoutPlayersInGameInput, PlayerUncheckedCreateWithoutPlayersInGameInput>
     connectOrCreate?: PlayerCreateOrConnectWithoutPlayersInGameInput
     connect?: PlayerWhereUniqueInput
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type GameStateUpdateOneRequiredWithoutPlayersInGameNestedInput = {
@@ -4783,12 +4916,52 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type PlayersInGameCreateWithoutGameInput = {
+    team?: number | null
     player: PlayerCreateNestedOneWithoutPlayersInGameInput
   }
 
   export type PlayersInGameUncheckedCreateWithoutGameInput = {
     playerId: string
+    team?: number | null
   }
 
   export type PlayersInGameCreateOrConnectWithoutGameInput = {
@@ -4823,6 +4996,7 @@ export namespace Prisma {
     NOT?: PlayersInGameScalarWhereInput | PlayersInGameScalarWhereInput[]
     gameId?: StringFilter<"PlayersInGame"> | string
     playerId?: StringFilter<"PlayersInGame"> | string
+    team?: IntNullableFilter<"PlayersInGame"> | number | null
   }
 
   export type GameStateCreateWithoutPlayersInGameInput = {
@@ -4918,11 +5092,13 @@ export namespace Prisma {
   }
 
   export type PlayersInGameCreateWithoutPlayerInput = {
+    team?: number | null
     game: GameStateCreateNestedOneWithoutPlayersInGameInput
   }
 
   export type PlayersInGameUncheckedCreateWithoutPlayerInput = {
     gameId: string
+    team?: number | null
   }
 
   export type PlayersInGameCreateOrConnectWithoutPlayerInput = {
@@ -4953,34 +5129,42 @@ export namespace Prisma {
 
   export type PlayersInGameCreateManyGameInput = {
     playerId: string
+    team?: number | null
   }
 
   export type PlayersInGameUpdateWithoutGameInput = {
+    team?: NullableIntFieldUpdateOperationsInput | number | null
     player?: PlayerUpdateOneRequiredWithoutPlayersInGameNestedInput
   }
 
   export type PlayersInGameUncheckedUpdateWithoutGameInput = {
     playerId?: StringFieldUpdateOperationsInput | string
+    team?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type PlayersInGameUncheckedUpdateManyWithoutGameInput = {
     playerId?: StringFieldUpdateOperationsInput | string
+    team?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type PlayersInGameCreateManyPlayerInput = {
     gameId: string
+    team?: number | null
   }
 
   export type PlayersInGameUpdateWithoutPlayerInput = {
+    team?: NullableIntFieldUpdateOperationsInput | number | null
     game?: GameStateUpdateOneRequiredWithoutPlayersInGameNestedInput
   }
 
   export type PlayersInGameUncheckedUpdateWithoutPlayerInput = {
     gameId?: StringFieldUpdateOperationsInput | string
+    team?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type PlayersInGameUncheckedUpdateManyWithoutPlayerInput = {
     gameId?: StringFieldUpdateOperationsInput | string
+    team?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
 
