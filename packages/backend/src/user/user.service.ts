@@ -1,6 +1,6 @@
 import { ResyncGamesPrismaService } from "@/database/resyncGamesPrisma.service";
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { PlayerId } from "@resync-games/api";
+import { Player, PlayerId } from "@resync-games/api";
 
 @Injectable()
 export class UserService {
@@ -18,6 +18,31 @@ export class UserService {
     }
 
     return this.prismaModule.converterService.convertPlayer(maybeUser);
+  }
+
+  public async update(newPlayerDetails: Player) {
+    const maybeUser = await this.prismaModule.client.player.findFirst({
+      where: {
+        playerId: newPlayerDetails.playerId
+      }
+    });
+
+    if (maybeUser == null) {
+      throw new BadRequestException(
+        `User with playerId ${newPlayerDetails.playerId} not found`
+      );
+    }
+
+    const updatedUser = await this.prismaModule.client.player.update({
+      data: {
+        displayName: newPlayerDetails.displayName
+      },
+      where: {
+        playerId: newPlayerDetails.playerId
+      }
+    });
+
+    return this.prismaModule.converterService.convertPlayer(updatedUser);
   }
 
   public async registerUser(playerId: PlayerId, displayName: string) {

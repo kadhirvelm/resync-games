@@ -20,12 +20,17 @@ export interface UserServiceApi extends Service {
     payload: Player;
     response: Player;
   };
+  update: {
+    payload: Player;
+    response: Player;
+  };
 }
 
 export const UserServiceDefinition: ServiceDefinition<UserServiceApi> = {
   controller: "user",
   endpoints: {
     me: "me",
-    register: "register"
+    register: "register",
+    update: "update"
   }
 };
