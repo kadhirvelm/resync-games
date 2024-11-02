@@ -26,4 +26,9 @@ export class UserController
   public register(@Body() body: Player) {
     return this.userService.registerUser(body.playerId, body.displayName);
   }
+
+  @getDecorator(UserServiceDefinition.endpoints.update)
+  public update(@Body() body: Player) {
+    return this.userService.update(body);
+  }
 }
