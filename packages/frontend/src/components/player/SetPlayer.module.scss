@@ -1,0 +1,12 @@
+@import "@/styles/variables.scss";
+
+.trigger {
+    border: 1px solid $black;
+    cursor: pointer;
+    border-radius: 3px;
+    background: $white;
+
+    &:hover {
+        background: rgba($muted-font, 0.25);
+    }
+}

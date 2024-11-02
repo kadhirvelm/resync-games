@@ -3,18 +3,22 @@ import { TextField as RadixComponent, Spinner } from "@radix-ui/themes";
 import React from "react";
 
 export interface TextFieldProps {
+  className?: string;
   icon?: keyof typeof icons;
   isLoading?: boolean;
   onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  style?: React.CSSProperties;
   value: string;
 }
 
 export const TextField = ({
+  className,
   icon,
   isLoading,
   placeholder,
   value,
+  style,
   onChange
 }: TextFieldProps) => {
   const maybeIcon = () => {
@@ -41,9 +45,11 @@ export const TextField = ({
 
   return (
     <RadixComponent.Root
+      className={className}
       disabled={isLoading}
       onChange={onInputChange}
       placeholder={placeholder}
+      style={style}
       value={value}
     >
       {maybeIcon()}
