@@ -4,12 +4,14 @@ import {
   GameId,
   GameStateAndInfo,
   GameType,
-  Player,
-  PlayerId
+  PlayerId,
+  PlayerInGame
 } from "@resync-games/api";
 import {
+  PlayersInGame,
   GameState as PrismaGameState,
-  Player as PrismaPlayer
+  Player as PrismaPlayer,
+  PlayersInGame as PrismaPlayerInGame
 } from "@resync-games/database";
 import _ from "lodash";
 
@@ -17,8 +19,11 @@ import _ from "lodash";
 export class ResyncGamesConverterService {
   public convertGameState = (
     gameState: PrismaGameState,
-    players: PrismaPlayer[]
+    players: PrismaPlayer[],
+    playersInGame: PlayersInGame[]
   ): GameStateAndInfo => {
+    const indexedPlayersInGame = _.keyBy(playersInGame, "playerId");
+
     return {
       ..._.omit(gameState, "PlayersInGame"),
       currentGameState: gameState.currentGameState as CurrentGameState,
@@ -27,14 +32,20 @@ export class ResyncGamesConverterService {
       gameState: gameState.gameState as object,
       gameType: gameState.gameType as GameType,
       lastUpdatedAt: gameState.lastUpdatedAt.toISOString(),
-      players: players.map((p) => this.convertPlayer(p))
+      players: players.map((p) =>
+        this.convertPlayer(p, indexedPlayersInGame[p.playerId])
+      )
     };
   };
 
-  public convertPlayer = (player: PrismaPlayer): Player => {
+  public convertPlayer = (
+    player: PrismaPlayer,
+    playerInGame?: PrismaPlayerInGame
+  ): PlayerInGame => {
     return {
       ...player,
-      playerId: player.playerId as PlayerId
+      playerId: player.playerId as PlayerId,
+      team: playerInGame?.team ?? undefined
     };
   };
 }

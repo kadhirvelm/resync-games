@@ -131,7 +131,8 @@ exports.Prisma.GameStateScalarFieldEnum = {
 
 exports.Prisma.PlayersInGameScalarFieldEnum = {
   gameId: 'gameId',
-  playerId: 'playerId'
+  playerId: 'playerId',
+  team: 'team'
 };
 
 exports.Prisma.PlayerScalarFieldEnum = {
@@ -157,6 +158,11 @@ exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 exports.CurrentGameState = exports.$Enums.CurrentGameState = {
   waiting: 'waiting',

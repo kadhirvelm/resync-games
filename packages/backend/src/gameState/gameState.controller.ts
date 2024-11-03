@@ -7,7 +7,8 @@ import {
   GetGameState,
   JoinGame,
   LeaveGame,
-  UpdateGame
+  UpdateGame,
+  UpdatePlayerInGame
 } from "@resync-games/api";
 import {
   ServiceControllerInterface,
@@ -54,5 +55,10 @@ export class GameStateController
   @getDecorator(GameStateServiceDefinition.endpoints.updateGame)
   public async updateGame(@Body() request: UpdateGame) {
     return this.gameStateService.updateGame(request);
+  }
+
+  @getDecorator(GameStateServiceDefinition.endpoints.updatePlayerInGame)
+  public async updatePlayerInGame(@Body() request: UpdatePlayerInGame) {
+    return this.gameStateService.updatePlayerInGame(request);
   }
 }

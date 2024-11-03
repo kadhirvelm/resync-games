@@ -57,6 +57,12 @@ export interface LeaveGame {
   playerId: PlayerId;
 }
 
+export interface UpdatePlayerInGame {
+  gameId: GameId;
+  playerId: PlayerId;
+  team?: number;
+}
+
 export interface UpdateGameResponse {
   didAcceptChange: boolean;
   newGameState: GameStateAndInfo;
@@ -91,6 +97,10 @@ export interface GameStateApi extends Service {
     payload: UpdateGame;
     response: UpdateGameResponse;
   };
+  updatePlayerInGame: {
+    payload: UpdatePlayerInGame;
+    response: GameStateAndInfo;
+  };
 }
 
 // TODO: add endpoint for joining and leaving a game
@@ -103,6 +113,7 @@ export const GameStateServiceDefinition: ServiceDefinition<GameStateApi> = {
     getGameState: "get-game-state",
     joinGame: "join-game",
     leaveGame: "leave-game",
-    updateGame: "update-game"
+    updateGame: "update-game",
+    updatePlayerInGame: "update-player-in-game"
   }
 };
