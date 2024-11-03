@@ -5,10 +5,16 @@ import { GameStateService } from "./gameState.service";
 import { GameStateSocketGateway } from "./gameState.socket";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
 import { UserModule } from "@/user/user.module";
+import { GameRegistryService } from "./utils/gameRegistry.service";
 
 @Module({
   controllers: [GameStateController],
   imports: [ResyncGamesPrismaModule, UserModule],
-  providers: [GameStateService, GameStateSocketGateway, GamesInFlightService]
+  providers: [
+    GameStateService,
+    GameStateSocketGateway,
+    GamesInFlightService,
+    GameRegistryService
+  ]
 })
 export class GameStateModule {}
