@@ -2,7 +2,7 @@
 
 import { useNetworkCall } from "@/lib/hooks/useNetworkCall";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { Player } from "@resync-games/api";
+import { GameId, Player } from "@resync-games/api";
 import { createContext, useMemo } from "react";
 import { getBrowserIdentifier } from "./browserIdentifier";
 import { SetPlayer } from "./SetPlayer";
@@ -15,9 +15,11 @@ export const PlayerContext = createContext<Player>({
 } as Player);
 
 export const PlayerContextProvider = ({
-  children
+  children,
+  gameId
 }: {
   children: React.ReactNode;
+  gameId?: GameId;
 }) => {
   const browserIdentifier = useMemo(() => getBrowserIdentifier(), []);
 
@@ -35,7 +37,11 @@ export const PlayerContextProvider = ({
     <PlayerContext.Provider value={player}>
       {children}
       <Flex className={styles.playerContainer}>
-        <SetPlayer existingPlayer={player} onSetPlayer={setResult} />
+        <SetPlayer
+          existingPlayer={player}
+          gameId={gameId}
+          onSetPlayer={setResult}
+        />
       </Flex>
     </PlayerContext.Provider>
   );

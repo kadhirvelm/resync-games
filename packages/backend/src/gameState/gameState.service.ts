@@ -18,12 +18,14 @@ import {
   AvailableGameType
 } from "@resync-games/games/backendRegistry";
 import { IGameServer } from "@resync-games/games/base";
+import { UserService } from "@/user/user.service";
 
 @Injectable()
 export class GameStateService {
   public constructor(
     private prismaService: ResyncGamesPrismaService,
-    private gamesInFlightService: GamesInFlightService
+    private gamesInFlightService: GamesInFlightService,
+    private userService: UserService
   ) {}
 
   public changeGameState = async (
@@ -365,6 +367,13 @@ export class GameStateService {
       throw new BadRequestException(
         "The requested player is not in the game. Please check your request and try again."
       );
+    }
+
+    if (updatePlayerInGame.displayName !== undefined) {
+      await this.userService.update({
+        displayName: updatePlayerInGame.displayName,
+        playerId: updatePlayerInGame.playerId
+      });
     }
 
     await this.prismaService.client.playersInGame.update({

@@ -12,7 +12,7 @@ export default function Page({
 }) {
   return (
     <ClientGate>
-      <PlayerContextProvider>
+      <PlayerContextProvider gameId={gameId}>
         <GetGameState gameId={gameId} gameSlug={gameSlug} />
       </PlayerContextProvider>
     </ClientGate>

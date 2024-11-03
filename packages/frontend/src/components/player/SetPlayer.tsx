@@ -3,7 +3,7 @@ import { Flex } from "@/lib/radix/Flex";
 import { TextField } from "@/lib/radix/TextField";
 import { ClientServiceCallers } from "@/services/serviceCallers";
 import { Text } from "@radix-ui/themes";
-import { isServiceError, Player } from "@resync-games/api";
+import { GameId, isServiceError, Player } from "@resync-games/api";
 import { useMemo, useState } from "react";
 import { getBrowserIdentifier } from "./browserIdentifier";
 import { PlayerIcon } from "./PlayerIcon";
@@ -11,9 +11,11 @@ import styles from "./SetPlayer.module.scss";
 
 export const SetPlayer = ({
   existingPlayer,
+  gameId,
   onSetPlayer
 }: {
   existingPlayer?: Player;
+  gameId?: GameId;
   onSetPlayer: (player: Player) => void;
 }) => {
   const browserIdentifier = useMemo(() => getBrowserIdentifier(), []);
@@ -39,11 +41,11 @@ export const SetPlayer = ({
     onSetPlayer(player);
   };
 
-  const updatePlayer = async (updatePlayer: Player) => {
+  const updatePlayerInIsolation = async (updatePlayer: Player) => {
     setIsLoading(true);
     const player = await ClientServiceCallers.user.update({
       displayName,
-      playerId: updatePlayer?.playerId
+      playerId: updatePlayer.playerId
     });
     setIsLoading(false);
 
@@ -53,6 +55,43 @@ export const SetPlayer = ({
     }
 
     onSetPlayer(player);
+  };
+
+  const updatePlayerWithinGame = async (
+    updatePlayer: Player,
+    gameId: GameId
+  ) => {
+    setIsLoading(true);
+    const player = await ClientServiceCallers.gameState.updatePlayerInGame({
+      displayName,
+      gameId: gameId,
+      playerId: updatePlayer.playerId
+    });
+    setIsLoading(false);
+
+    if (isServiceError(player)) {
+      console.error(player);
+      return;
+    }
+
+    const maybePlayer = player.players.find(
+      (p) => p.playerId === updatePlayer.playerId
+    );
+    if (maybePlayer === undefined) {
+      return;
+    }
+
+    onSetPlayer(maybePlayer);
+  };
+
+  const updatePlayer = async (updatePlayer: Player) => {
+    setIsLoading(true);
+
+    if (gameId === undefined) {
+      updatePlayerInIsolation(updatePlayer);
+    } else {
+      updatePlayerWithinGame(updatePlayer, gameId);
+    }
   };
 
   const onSavePlayer = async () => {

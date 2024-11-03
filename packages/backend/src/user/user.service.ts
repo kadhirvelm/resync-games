@@ -21,7 +21,10 @@ export class UserService {
   }
 
   public async update(newPlayerDetails: Player) {
-    const maybeUser = await this.prismaModule.client.player.findFirst({
+    const maybeUser = await this.prismaModule.client.player.update({
+      data: {
+        displayName: newPlayerDetails.displayName
+      },
       where: {
         playerId: newPlayerDetails.playerId
       }
@@ -33,18 +36,7 @@ export class UserService {
       );
     }
 
-    const updatedUser = await this.prismaModule.client.player.update({
-      data: {
-        displayName: newPlayerDetails.displayName
-      },
-      where: {
-        playerId: newPlayerDetails.playerId
-      }
-    });
-
-    // TODO: identify if the user was in a game or not, then send out an update to that game's room
-
-    return this.prismaModule.converterService.convertPlayer(updatedUser);
+    return this.prismaModule.converterService.convertPlayer(maybeUser);
   }
 
   public async registerUser(playerId: PlayerId, displayName: string) {
