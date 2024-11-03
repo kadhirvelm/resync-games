@@ -9,6 +9,7 @@ import { GameRegistryService } from "./utils/gameRegistry.service";
 
 @Module({
   controllers: [GameStateController],
+  exports: [GameStateService, GameRegistryService],
   imports: [ResyncGamesPrismaModule, UserModule],
   providers: [
     GameStateService,

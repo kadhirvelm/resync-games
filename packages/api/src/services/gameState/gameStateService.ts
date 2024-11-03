@@ -25,7 +25,7 @@ export interface UpdateGame {
   gameId: GameId;
   lastUpdatedAt: string;
   newGameState: object;
-  playerId: PlayerId;
+  playerId?: PlayerId;
   version: string;
 }
 

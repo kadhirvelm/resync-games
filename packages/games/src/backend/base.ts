@@ -1,6 +1,7 @@
 import {
   CreateGame,
   CurrentGameState,
+  GameStateAndInfo,
   Player,
   PlayerInGame
 } from "@resync-games/api";
@@ -46,4 +47,10 @@ export interface IGameServer<GameState> {
    * Callback on when a player leaves the game. Useful if you want to clean up the player's state.
    */
   onPlayerLeave?: (game: GameState, player: Player) => GameState;
+  /**
+   * Callback every 5 seconds that allows the backend to modify the game state as required. If it returns
+   * undefined, the server will leave the current game state alone. All game state updates will be broadcast
+   * to all players.
+   */
+  tickGameState?: (gameStateAndInfo: GameStateAndInfo) => GameState | undefined;
 }
