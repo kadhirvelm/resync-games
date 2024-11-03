@@ -1,5 +1,11 @@
-import { CompleteTileMap, CreateGame, TileId } from "@resync-games/api";
-import { IGameServer } from "../base";
+import {
+  CompleteTileMap,
+  CreateGame,
+  CurrentGameState,
+  PlayerInGame,
+  TileId
+} from "@resync-games/api";
+import { ICanChangeToState, IGameServer } from "../base";
 import { completedMap1 } from "./map1";
 import { v4 } from "uuid";
 
@@ -21,8 +27,8 @@ export interface SnatchTheSnackGame {
 
 const colors = ["red", "blue", "yellow", "green"];
 
-export class SnatchTheSnackServer implements IGameServer {
-  async createGame(
+export class SnatchTheSnackServer implements IGameServer<SnatchTheSnackGame> {
+  public async createGame(
     createGameRequest: CreateGame
   ): Promise<{ gameState: SnatchTheSnackGame; version: string }> {
     const allPawns = ["pawn1", "pawn2", "pawn3", "pawn4"] as PawnId[];
@@ -48,4 +54,30 @@ export class SnatchTheSnackServer implements IGameServer {
       version: createGameRequest.version
     };
   }
+
+  public canChangeToState(
+    game: ICanChangeToState<SnatchTheSnackGame>,
+    newCurrentGameState: CurrentGameState
+  ) {
+    if (newCurrentGameState === "playing") {
+      return this.canStart(game.players);
+    }
+
+    return { canChange: true as const };
+  }
+
+  private canStart = (players: PlayerInGame[]) => {
+    const playersNotOnTeam = players.filter(
+      (player) => player.team === undefined
+    );
+
+    if (playersNotOnTeam.length !== 0) {
+      return {
+        canChange: false as const,
+        reason: `Cannot start game with players not on a team: ${playersNotOnTeam.map((p) => p.displayName).join(", ")}, hurry up!`
+      };
+    }
+
+    return { canChange: true as const };
+  };
 }

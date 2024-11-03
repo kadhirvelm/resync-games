@@ -1,3 +1,4 @@
+import { UserService } from "@/user/user.service";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import {
   AvailableGames,
@@ -11,27 +12,31 @@ import {
   UpdateGameResponse,
   UpdatePlayerInGame
 } from "@resync-games/api";
+import _ from "lodash";
 import { ResyncGamesPrismaService } from "../database/resyncGamesPrisma.service";
+import { GameRegistryService } from "./utils/gameRegistry.service";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
-import {
-  BACKEND_GAME_REGISTRY,
-  AvailableGameType
-} from "@resync-games/games/backendRegistry";
-import { IGameServer } from "@resync-games/games/base";
-import { UserService } from "@/user/user.service";
 
 @Injectable()
 export class GameStateService {
   public constructor(
     private prismaService: ResyncGamesPrismaService,
     private gamesInFlightService: GamesInFlightService,
-    private userService: UserService
+    private userService: UserService,
+    private gameRegistryService: GameRegistryService
   ) {}
 
   public changeGameState = async (
     changeGameState: ChangeGameState
   ): Promise<GameStateAndInfo> => {
     const requestedGame = await this.prismaService.client.gameState.findFirst({
+      include: {
+        PlayersInGame: {
+          include: {
+            player: true
+          }
+        }
+      },
       where: {
         gameId: changeGameState.gameId,
         gameType: changeGameState.gameType
@@ -42,6 +47,24 @@ export class GameStateService {
       throw new BadRequestException(
         "The requested game could not be found. Please check your request and try again."
       );
+    }
+
+    const backend = this.gameRegistryService.getGameRegistry(
+      changeGameState.gameType
+    );
+    const currentGameState =
+      this.prismaService.converterService.convertGameState(
+        requestedGame,
+        requestedGame.PlayersInGame.map((p) => p.player),
+        requestedGame.PlayersInGame
+      );
+    const canChangeToState = backend.canChangeToState?.(
+      _.pick(currentGameState, ["gameState", "players", "currentGameState"]),
+      changeGameState.currentGameState
+    ) ?? { canChange: true };
+
+    if (!canChangeToState.canChange) {
+      throw new BadRequestException(canChangeToState.reason);
     }
 
     const newGameStateRaw = await this.prismaService.client.gameState.update({
@@ -74,15 +97,9 @@ export class GameStateService {
   public createGame = async (
     createGameRequest: CreateGame
   ): Promise<GameStateAndInfo> => {
-    // The game needs to have an associated implementation.
-    const backend: IGameServer | undefined =
-      BACKEND_GAME_REGISTRY[createGameRequest.gameType as AvailableGameType]
-        ?.gameServer;
-    if (backend === undefined) {
-      throw new BadRequestException(
-        `The game type '${createGameRequest.gameType}' is not implemented. Available games: [${Object.keys(BACKEND_GAME_REGISTRY).join(", ")}]`
-      );
-    }
+    const backend = this.gameRegistryService.getGameRegistry(
+      createGameRequest.gameType
+    );
 
     const { gameState, version } = await backend.createGame(createGameRequest);
 
@@ -188,6 +205,8 @@ export class GameStateService {
   public joinGame = async (
     joinGameRequest: JoinGame
   ): Promise<GameStateAndInfo> => {
+    const player = await this.userService.getUser(joinGameRequest.playerId);
+
     const requestedGame = await this.prismaService.client.gameState.findFirst({
       include: {
         PlayersInGame: {
@@ -220,13 +239,25 @@ export class GameStateService {
       );
     }
 
+    const backend = this.gameRegistryService.getGameRegistry(
+      joinGameRequest.gameType
+    );
+    const updatedGameState =
+      backend.onPlayerJoin?.(
+        (requestedGame.gameState ?? {}) as object,
+        player
+      ) ??
+      requestedGame.gameState ??
+      {};
+
     const newGameStateRaw = await this.prismaService.client.gameState.update({
       data: {
         PlayersInGame: {
           create: {
             playerId: joinGameRequest.playerId
           }
-        }
+        },
+        gameState: updatedGameState
       },
       include: {
         PlayersInGame: {
@@ -252,6 +283,8 @@ export class GameStateService {
   };
 
   public leaveGame = async (leaveGame: LeaveGame) => {
+    const player = await this.userService.getUser(leaveGame.playerId);
+
     const requestedGame = await this.prismaService.client.gameState.findFirst({
       include: {
         PlayersInGame: {
@@ -281,6 +314,17 @@ export class GameStateService {
       );
     }
 
+    const backend = this.gameRegistryService.getGameRegistry(
+      leaveGame.gameType
+    );
+    const updatedGameState =
+      backend.onPlayerLeave?.(
+        (requestedGame.gameState ?? {}) as object,
+        player
+      ) ??
+      requestedGame.gameState ??
+      {};
+
     const newGameStateRaw = await this.prismaService.client.gameState.update({
       data: {
         PlayersInGame: {
@@ -288,7 +332,8 @@ export class GameStateService {
             gameId: leaveGame.gameId,
             playerId: leaveGame.playerId
           }
-        }
+        },
+        gameState: updatedGameState
       },
       include: {
         PlayersInGame: {

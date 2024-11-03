@@ -12,7 +12,10 @@ export type AvailableGameType = (typeof GAME_SLUGS)[number];
 export type StateReconcilerMethod = "top-level" | "closest";
 
 export interface BackendRegisteredGame {
-  gameServer: IGameServer;
+  /**
+   * The game server for the game. This is where the game logic is implemented.
+   */
+  gameServer: IGameServer<never>;
   /**
    * Defaults to "top-level", which will accept changes based on the most updated top-level
    * lastUpdatedAt timestamp. This will get automatically added by the server on all state
