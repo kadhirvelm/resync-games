@@ -2,7 +2,8 @@ import * as icons from "@radix-ui/react-icons";
 import { TextField as RadixComponent, Spinner } from "@radix-ui/themes";
 import React from "react";
 
-export interface TextFieldProps {
+export interface TextFieldProps
+  extends Omit<RadixComponent.RootProps, "onChange"> {
   className?: string;
   icon?: keyof typeof icons;
   isLoading?: boolean;
@@ -19,7 +20,8 @@ export const TextField = ({
   placeholder,
   value,
   style,
-  onChange
+  onChange,
+  ...properties
 }: TextFieldProps) => {
   const maybeIcon = () => {
     if (isLoading) {
@@ -51,6 +53,7 @@ export const TextField = ({
       placeholder={placeholder}
       style={style}
       value={value}
+      {...properties}
     >
       {maybeIcon()}
     </RadixComponent.Root>

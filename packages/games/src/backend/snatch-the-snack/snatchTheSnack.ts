@@ -25,7 +25,9 @@ export interface SnatchTheSnackGame {
   tileMap: CompleteTileMap;
 }
 
-export interface SnatchTheSnackGameConfiguration {}
+export interface SnatchTheSnackGameConfiguration {
+  pawnCount: number;
+}
 
 const colors = ["red", "blue", "yellow", "green"];
 
@@ -35,7 +37,9 @@ export class SnatchTheSnackServer
   public async createGame(
     createGameRequest: CreateGame<SnatchTheSnackGameConfiguration>
   ): Promise<{ gameState: SnatchTheSnackGame; version: string }> {
-    const allPawns = ["pawn1", "pawn2", "pawn3", "pawn4"] as PawnId[];
+    const allPawns = Array.from({
+      length: createGameRequest.gameConfiguration.pawnCount
+    }).map((_, index) => `pawn${index + 1}` as PawnId);
 
     return {
       gameState: {

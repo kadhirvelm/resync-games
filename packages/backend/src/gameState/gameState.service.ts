@@ -9,6 +9,7 @@ import {
   JoinGame,
   LeaveGame,
   UpdateGame,
+  UpdateGameConfiguration,
   UpdateGameResponse,
   UpdatePlayerInGame
 } from "@resync-games/api";
@@ -384,6 +385,47 @@ export class GameStateService {
       didAcceptChange,
       newGameState
     };
+  };
+
+  public updateGameConfiguration = async (
+    updateGameConfiguration: UpdateGameConfiguration
+  ) => {
+    const currentGameState = await this.gamesInFlightService.getInFlightGame(
+      updateGameConfiguration.gameId
+    );
+
+    if (currentGameState.currentGameState !== "waiting") {
+      throw new BadRequestException(
+        "Cannot update game configuration while the game is in progress."
+      );
+    }
+
+    const currentDate = new Date(currentGameState.lastUpdatedAt);
+    const updatedAtDate = new Date(updateGameConfiguration.lastUpdatedAt);
+    if (currentDate.valueOf() !== updatedAtDate.valueOf()) {
+      throw new BadRequestException(
+        "The game has been updated since you last checked. Please refresh and try again."
+      );
+    }
+
+    const nextGameState: GameStateAndInfo = {
+      ...currentGameState,
+      gameConfiguration: updateGameConfiguration.gameConfiguration,
+      lastUpdatedAt: new Date().toISOString()
+    };
+
+    await this.gamesInFlightService.updateGameInfo(nextGameState);
+
+    await this.prismaService.client.gameState.update({
+      data: {
+        gameConfiguration: updateGameConfiguration.gameConfiguration
+      },
+      where: {
+        gameId: updateGameConfiguration.gameId
+      }
+    });
+
+    return nextGameState;
   };
 
   public updatePlayerInGame = async (

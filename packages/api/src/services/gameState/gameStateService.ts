@@ -64,6 +64,14 @@ export interface UpdatePlayerInGame {
   team?: number;
 }
 
+export interface UpdateGameConfiguration<GameConfiguration = object> {
+  gameConfiguration: GameConfiguration;
+  gameId: GameId;
+  gameType: GameType;
+  lastUpdatedAt: string;
+  playerId: PlayerId;
+}
+
 export interface UpdateGameResponse {
   didAcceptChange: boolean;
   newGameState: GameStateAndInfo;
@@ -98,6 +106,10 @@ export interface GameStateApi extends Service {
     payload: UpdateGame;
     response: UpdateGameResponse;
   };
+  updateGameConfiguration: {
+    payload: UpdateGameConfiguration;
+    response: GameStateAndInfo;
+  };
   updatePlayerInGame: {
     payload: UpdatePlayerInGame;
     response: GameStateAndInfo;
@@ -115,6 +127,7 @@ export const GameStateServiceDefinition: ServiceDefinition<GameStateApi> = {
     joinGame: "join-game",
     leaveGame: "leave-game",
     updateGame: "update-game",
+    updateGameConfiguration: "update-game-configuration",
     updatePlayerInGame: "update-player-in-game"
   }
 };
