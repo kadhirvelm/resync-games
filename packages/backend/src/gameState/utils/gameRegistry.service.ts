@@ -8,7 +8,7 @@ import { IGameServer } from "@resync-games/games/base";
 @Injectable()
 export class GameRegistryService {
   public getGameRegistry = (gameType: string) => {
-    const backend: IGameServer<object> | undefined =
+    const backend: IGameServer<object, object> | undefined =
       BACKEND_GAME_REGISTRY[gameType as AvailableGameType]?.gameServer;
     if (backend === undefined) {
       throw new BadRequestException(

@@ -50,6 +50,7 @@ export const GameLobby = () => {
       return false;
     }
 
+    // TODO: make this a dynamic call to registered game configuration type
     return gameInfo.players.every((p) => p.team !== undefined);
   };
 
@@ -146,6 +147,7 @@ export const GameLobby = () => {
         </Flex>
         <Flex justify="center">
           <Flex className={styles.players}>
+            {/* TODO: add configuring game state here */}
             <Button
               disabled={!canStartGame()}
               loading={isLoading}

@@ -15,7 +15,11 @@ export interface PongGameState {
   score: number;
 }
 
-export class PongGameServer implements IGameServer<PongGameState> {
+export interface PongGameConfiguration {}
+
+export class PongGameServer
+  implements IGameServer<PongGameState, PongGameConfiguration>
+{
   async createGame(
     createGameRequest: CreateGame
   ): Promise<{ gameState: PongGameState; version: string }> {

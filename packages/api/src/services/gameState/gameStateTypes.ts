@@ -9,9 +9,9 @@ export interface PlayerInGame extends Player {
   team?: number;
 }
 
-export interface GameInfo {
+export interface GameInfo<GameConfiguration = object> {
   currentGameState: CurrentGameState;
-  gameConfiguration: object;
+  gameConfiguration: GameConfiguration;
   gameId: GameId;
   gameType: GameType;
   lastUpdatedAt: string;
@@ -19,6 +19,9 @@ export interface GameInfo {
   version: string;
 }
 
-export interface GameStateAndInfo extends GameInfo {
-  gameState: object;
+export interface GameStateAndInfo<
+  GameState = object,
+  GameConfiguration = object
+> extends GameInfo<GameConfiguration> {
+  gameState: GameState;
 }

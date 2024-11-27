@@ -59,7 +59,12 @@ export class GameStateService {
         requestedGame.PlayersInGame
       );
     const canChangeToState = backend.canChangeToState?.(
-      _.pick(currentGameState, ["gameState", "players", "currentGameState"]),
+      _.pick(currentGameState, [
+        "gameState",
+        "players",
+        "currentGameState",
+        "gameConfiguration"
+      ]),
       changeGameState.currentGameState
     ) ?? { canChange: true };
 
@@ -112,10 +117,8 @@ export class GameStateService {
         },
         currentGameState: "waiting",
         gameConfiguration: createGameRequest.gameConfiguration,
-        // TODO: call on the abstraction to create the default game state for the game here
         gameState,
         gameType: createGameRequest.gameType,
-        // TODO: call on the abstraction to get the current version
         version
       },
       include: {

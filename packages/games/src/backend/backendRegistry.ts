@@ -15,7 +15,7 @@ export interface BackendRegisteredGame {
   /**
    * The game server for the game. This is where the game logic is implemented.
    */
-  gameServer: IGameServer<never>;
+  gameServer: IGameServer<never, never>;
   /**
    * Defaults to "top-level", which will accept changes based on the most updated top-level
    * lastUpdatedAt timestamp. This will get automatically added by the server on all state
