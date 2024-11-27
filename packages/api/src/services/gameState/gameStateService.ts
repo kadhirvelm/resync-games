@@ -13,8 +13,8 @@ export interface GetGameState {
   playerId: PlayerId;
 }
 
-export interface CreateGame {
-  gameConfiguration: object;
+export interface CreateGame<GameConfiguration = object> {
+  gameConfiguration: GameConfiguration;
   gameName: string;
   gameType: GameType;
   playerId: PlayerId;

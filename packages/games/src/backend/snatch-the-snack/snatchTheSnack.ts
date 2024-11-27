@@ -25,11 +25,15 @@ export interface SnatchTheSnackGame {
   tileMap: CompleteTileMap;
 }
 
+export interface SnatchTheSnackGameConfiguration {}
+
 const colors = ["red", "blue", "yellow", "green"];
 
-export class SnatchTheSnackServer implements IGameServer<SnatchTheSnackGame> {
+export class SnatchTheSnackServer
+  implements IGameServer<SnatchTheSnackGame, SnatchTheSnackGameConfiguration>
+{
   public async createGame(
-    createGameRequest: CreateGame
+    createGameRequest: CreateGame<SnatchTheSnackGameConfiguration>
   ): Promise<{ gameState: SnatchTheSnackGame; version: string }> {
     const allPawns = ["pawn1", "pawn2", "pawn3", "pawn4"] as PawnId[];
 
@@ -56,7 +60,10 @@ export class SnatchTheSnackServer implements IGameServer<SnatchTheSnackGame> {
   }
 
   public canChangeToState(
-    game: ICanChangeToState<SnatchTheSnackGame>,
+    game: ICanChangeToState<
+      SnatchTheSnackGame,
+      SnatchTheSnackGameConfiguration
+    >,
     newCurrentGameState: CurrentGameState
   ) {
     if (newCurrentGameState === "playing") {
