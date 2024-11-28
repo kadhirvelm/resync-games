@@ -12,6 +12,8 @@ import {
   getTeamColor,
   getTeamName
 } from "@/lib/stableIdentifiers/teamIdentifier";
+import { canStartGame } from "./utils/canStartGame";
+import { ConfigureGame } from "./components/ConfigureGame";
 
 export const GameLobby = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -45,13 +47,12 @@ export const GameLobby = () => {
     (p) => p.playerId === player.playerId
   )?.team;
 
-  const canStartGame = () => {
+  const maybeCheckCanStartGame = () => {
     if (gameInfo === undefined) {
       return false;
     }
 
-    // TODO: make this a dynamic call to registered game configuration type
-    return gameInfo.players.every((p) => p.team !== undefined);
+    return canStartGame(gameInfo);
   };
 
   const joinTeam = (team: number) => async () => {
@@ -146,10 +147,11 @@ export const GameLobby = () => {
           {renderTeam(1)}
         </Flex>
         <Flex justify="center">
-          <Flex className={styles.players}>
-            {/* TODO: add configuring game state here */}
+          <Flex className={styles.players} direction="column" gap="2">
+            <ConfigureGame key={gameInfo?.gameId} />
             <Button
-              disabled={!canStartGame()}
+              className={styles.startGame}
+              disabled={!maybeCheckCanStartGame()}
               loading={isLoading}
               onClick={onStartGame}
             >
