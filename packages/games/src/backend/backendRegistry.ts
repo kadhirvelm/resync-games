@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { GAME_SLUGS } from "../shared/gamesRegistry";
 import { IGameServer } from "./base";
 import { PongGameServer } from "./pong/pong";
 import { SnatchTheSnackServer } from "./snatch-the-snack/snatchTheSnack";
+import { TheStockTimesServer } from "./theStockTimes/theStockTimes";
 
 export type BackendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: BackendRegisteredGame;
@@ -15,7 +18,7 @@ export interface BackendRegisteredGame {
   /**
    * The game server for the game. This is where the game logic is implemented.
    */
-  gameServer: IGameServer<never, never>;
+  gameServer: IGameServer<any, any>;
   /**
    * Defaults to "top-level", which will accept changes based on the most updated top-level
    * lastUpdatedAt timestamp. This will get automatically added by the server on all state
@@ -38,6 +41,10 @@ export const BACKEND_GAME_REGISTRY: BackendGameRegistry = {
   },
   "snatch-the-snack": {
     gameServer: new SnatchTheSnackServer(),
+    stateReconcilerMethod: "closest"
+  },
+  "the-stock-times": {
+    gameServer: new TheStockTimesServer(),
     stateReconcilerMethod: "closest"
   }
 };

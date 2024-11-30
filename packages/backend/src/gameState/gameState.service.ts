@@ -59,15 +59,17 @@ export class GameStateService {
         requestedGame.PlayersInGame.map((p) => p.player),
         requestedGame.PlayersInGame
       );
-    const canChangeToState = backend.canChangeToState?.(
-      _.pick(currentGameState, [
-        "gameState",
-        "players",
-        "currentGameState",
-        "gameConfiguration"
-      ]),
+    const canChangeToStateObject = _.pick(currentGameState, [
+      "gameState",
+      "players",
+      "currentGameState",
+      "gameConfiguration"
+    ]);
+
+    const canChangeToState = (await backend.canChangeToState?.(
+      canChangeToStateObject,
       changeGameState.currentGameState
-    ) ?? { canChange: true };
+    )) ?? { canChange: true };
 
     if (!canChangeToState.canChange) {
       throw new BadRequestException(canChangeToState.reason);
@@ -96,6 +98,17 @@ export class GameStateService {
     );
 
     await this.gamesInFlightService.updateGameInfo(newGameState);
+
+    const maybeUpdatedGameState = await backend.onChangeState?.(
+      canChangeToStateObject,
+      changeGameState.currentGameState
+    );
+    if (maybeUpdatedGameState != null) {
+      await this.gamesInFlightService.setGameState(
+        changeGameState.gameId,
+        maybeUpdatedGameState
+      );
+    }
 
     return newGameState;
   };
@@ -247,10 +260,11 @@ export class GameStateService {
       joinGameRequest.gameType
     );
     const updatedGameState =
-      backend.onPlayerJoin?.(
+      (await backend.onPlayerJoin?.(
         (requestedGame.gameState ?? {}) as object,
+        requestedGame.gameConfiguration as object,
         player
-      ) ??
+      )) ??
       requestedGame.gameState ??
       {};
 
@@ -322,10 +336,11 @@ export class GameStateService {
       leaveGame.gameType
     );
     const updatedGameState =
-      backend.onPlayerLeave?.(
+      (await backend.onPlayerLeave?.(
         (requestedGame.gameState ?? {}) as object,
+        requestedGame.gameConfiguration as object,
         player
-      ) ??
+      )) ??
       requestedGame.gameState ??
       {};
 
@@ -413,6 +428,20 @@ export class GameStateService {
       gameConfiguration: updateGameConfiguration.gameConfiguration,
       lastUpdatedAt: new Date().toISOString()
     };
+
+    const backend = this.gameRegistryService.getGameRegistry(
+      updateGameConfiguration.gameType
+    );
+    const maybeNewGameState = await backend.onChangeConfiguration?.(
+      nextGameState.gameState,
+      nextGameState.gameConfiguration
+    );
+    if (maybeNewGameState != null) {
+      await this.gamesInFlightService.setGameState(
+        nextGameState.gameId,
+        maybeNewGameState
+      );
+    }
 
     await this.gamesInFlightService.updateGameInfo(nextGameState);
 
