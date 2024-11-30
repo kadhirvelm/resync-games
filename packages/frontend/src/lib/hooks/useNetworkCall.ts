@@ -8,6 +8,7 @@ export function useNetworkCall<T>(
   // This is to get around the double trigger of useEffect in development mode
   const initialMountRef = useRef(false);
 
+  const [hasInitialized, setHasInitialized] = useState(false);
   const [result, setResult] = useState<T | null>(null);
 
   const conductNetworkCall = useCallback(async () => {
@@ -24,6 +25,7 @@ export function useNetworkCall<T>(
     }
 
     setResult(result);
+    setHasInitialized(true);
   }, []);
 
   useEffect(() => {
@@ -31,6 +33,7 @@ export function useNetworkCall<T>(
   }, []);
 
   return {
+    hasInitialized,
     result,
     setResult
   };

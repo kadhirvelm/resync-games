@@ -1,10 +1,10 @@
 import { StateReconcilerMethod } from "@resync-games/games/backendRegistry";
 
-interface WithTimestamp {
+export interface WithTimestamp {
   lastUpdatedAt: string;
 }
 
-interface NestedTimestamp {
+export interface NestedTimestamp {
   [key: string]: WithTimestamp;
 }
 

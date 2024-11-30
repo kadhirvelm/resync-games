@@ -16,7 +16,7 @@ export const DisplayTheStockTimes = () => {
       {Object.entries(gameState.stocks).map(([stockSymbol, stock]) => (
         <Flex direction="column">
           <Text>
-            {stockSymbol}: {stock.title} (${stock.history[0].price})
+            {stockSymbol}: {stock.title} (${stock.history[0]?.price})
           </Text>
           <Text color="gray" size="2">
             {stock.description}

@@ -1,22 +1,49 @@
-import { CurrentGameState, PlayerId } from "@resync-games/api";
+import {
+  CurrentGameState,
+  GameStateAndInfo,
+  PlayerId
+} from "@resync-games/api";
 import { ICanChangeToState, IGameServer } from "../base";
+import _ from "lodash";
+import { AVAILABLE_STOCKS } from "./stocks/availableStocks";
+
+export interface StockPriceHistory {
+  lastUpdatedAt: string;
+  price: number;
+}
+
+export interface Stock {
+  description: string;
+  history: StockPriceHistory[];
+  lastUpdatedAt: string;
+  title: string;
+}
+
+export interface OwnedStock {
+  price: number;
+  quantity: number;
+}
+
+export interface TransactionHistory {
+  playerId: PlayerId;
+  quantity: number;
+  stockSymbol: string;
+  type: "buy" | "sell";
+}
 
 export interface TheStockTimesGame {
   players: {
     [playerId: PlayerId]: {
       cash: number;
       ownedStocks: {
-        [stockSymbol: string]: [{ price: number; quantity: number }];
+        [stockSymbol: string]: OwnedStock[];
       };
       team: number;
+      transactionHistory: TransactionHistory[];
     };
   };
   stocks: {
-    [stockSymbol: string]: {
-      description: string;
-      history: [{ lastUpdatedAt: string; price: number }];
-      title: string;
-    };
+    [stockSymbol: string]: Stock;
   };
 }
 
@@ -58,122 +85,64 @@ export class TheStockTimesServer
       newGameState.players[player.playerId] = {
         cash: game.gameConfiguration.startingCash,
         ownedStocks: {},
-        team: player.team ?? 0
+        team: player.team ?? 0,
+        transactionHistory: []
       };
     }
 
-    newGameState.stocks = {
-      ARE: {
-        description:
-          "AncientRuins Expeditions offers archaeological tourism and immersive historical experiences for culture enthusiasts.",
-        history: [
-          {
-            lastUpdatedAt: new Date().toISOString(),
-            price: 15.89
-          }
-        ],
-        title: "AncientRuins Expeditions"
-      },
-      BSS: {
-        description:
-          "BrightSun Solar Solutions specializes in advanced solar panel technologies and renewable energy solutions for a sustainable future.",
-        history: [
-          {
-            lastUpdatedAt: new Date().toISOString(),
-            price: 123.45
-          }
-        ],
-        title: "BrightSun Solar Solutions"
-      },
-      COC: {
-        description:
-          "CalmOcean Cruises provides luxury oceanic travel experiences, focusing on sustainability and relaxation for travelers.",
-        history: [
-          {
-            lastUpdatedAt: new Date().toISOString(),
-            price: 45.67
-          }
-        ],
-        title: "CalmOcean Cruises"
-      },
-      CRM: {
-        description:
-          "ColorfulRainbow Media is a leading content creator focused on diverse, family-friendly entertainment across multiple platforms.",
-        history: [
-          {
-            lastUpdatedAt: new Date().toISOString(),
-            price: 67.45
-          }
-        ],
-        title: "ColorfulRainbow Media"
-      },
-      DFI: {
-        description:
-          "DarkForest Innovations develops cutting-edge AI-driven cybersecurity solutions inspired by nature's complexity.",
-        history: [
-          {
-            lastUpdatedAt: new Date().toISOString(),
-            price: 89.23
-          }
-        ],
-        title: "DarkForest Innovations"
-      },
-      FBA: {
-        description:
-          "FreshBreeze Aromatics creates eco-friendly air fresheners and home fragrances with nature-inspired scents.",
-        history: [
-          {
-            lastUpdatedAt: new Date().toISOString(),
-            price: 21.34
-          }
-        ],
-        title: "FreshBreeze Aromatics"
-      },
-      FST: {
-        description:
-          "FierceStorm Technologies develops robust and scalable infrastructure solutions for businesses facing extreme data demands.",
-        history: [
-          {
-            lastUpdatedAt: new Date().toISOString(),
-            price: 142.56
-          }
-        ],
-        title: "FierceStorm Technologies"
-      },
-      GRH: {
-        description:
-          "GentleRiver Hydropower harnesses river energy to provide clean and reliable electricity for sustainable development.",
-        history: [
-          {
-            lastUpdatedAt: new Date().toISOString(),
-            price: 78.34
-          }
-        ],
-        title: "GentleRiver Hydropower"
-      },
-      PMR: {
-        description:
-          "PeacefulMeadow Retreats provides high-end wellness retreats in serene locations to promote relaxation and mental well-being.",
-        history: [
-          {
-            lastUpdatedAt: new Date().toISOString(),
-            price: 33.12
-          }
-        ],
-        title: "PeacefulMeadow Retreats"
-      },
-      SGJ: {
-        description:
-          "SparklingGem Jewels crafts bespoke, high-quality jewelry, incorporating ethically sourced gemstones and modern designs.",
-        history: [
-          {
-            lastUpdatedAt: new Date().toISOString(),
-            price: 54.76
-          }
-        ],
-        title: "SparklingGem Jewels"
+    const randomStocks = _.sampleSize(
+      AVAILABLE_STOCKS,
+      game.gameConfiguration.totalStocks
+    );
+    for (const stock of randomStocks) {
+      newGameState.stocks[stock.symbol] = {
+        description: stock.description,
+        history: stock.history,
+        lastUpdatedAt: new Date().toISOString(),
+        title: stock.title
+      };
+    }
+
+    return newGameState;
+  }
+
+  public tickGameState(
+    gameStateAndInfo: GameStateAndInfo<
+      TheStockTimesGame,
+      TheStockTimesGameConfiguration
+    >
+  ) {
+    if (gameStateAndInfo.currentGameState !== "playing") {
+      return;
+    }
+
+    const newGameState = { ...gameStateAndInfo.gameState };
+
+    const { stocks } = newGameState;
+    for (const symbol of Object.keys(gameStateAndInfo.gameState.stocks)) {
+      const stock = stocks[symbol];
+      if (stock === undefined) {
+        continue;
       }
-    };
+
+      const priceHistory = stock.history;
+      const lastPrice = stock.history[0]?.price;
+      if (priceHistory === undefined || lastPrice === undefined) {
+        continue;
+      }
+
+      const increaseOrDecrease = Math.random() > 0.6 ? 1 : -1;
+      const priceDelta = Math.random() * (lastPrice * 0.025);
+
+      const newPrice =
+        Math.round((lastPrice + increaseOrDecrease * priceDelta) * 100) / 100;
+      stock.history.unshift({
+        lastUpdatedAt: new Date().toISOString(),
+        price: newPrice
+      });
+
+      stock.lastUpdatedAt = new Date().toISOString();
+    }
 
     return newGameState;
   }

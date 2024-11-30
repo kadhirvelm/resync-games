@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import {
   CreateGame,
   CurrentGameState,
@@ -80,6 +82,6 @@ export interface IGameServer<GameState, GameConfiguration> {
    * with the existing game state, which will then be be broadcast to all players.
    */
   tickGameState?: (
-    gameStateAndInfo: GameStateAndInfo
+    gameStateAndInfo: GameStateAndInfo<any, any>
   ) => Promise<GameState | undefined> | GameState | undefined;
 }
