@@ -69,6 +69,24 @@ export class GamesInFlightService {
     );
   };
 
+  public setGameState = async (gameId: GameId, gameState: object) => {
+    const currentGameState = this.gamesInFlightCache.get(gameId);
+    if (currentGameState == null) {
+      throw new BadRequestException(`Unable to find game with id: ${gameId}`);
+    }
+
+    const newGameState: GameStateAndInfo = {
+      ...currentGameState,
+      gameState,
+      lastUpdatedAt: new Date().toISOString()
+    };
+
+    this.gamesInFlightCache.set(newGameState.gameId, newGameState);
+    await this.updateInFlightGameInDb(newGameState);
+
+    this.socketGateway.updateGameState(newGameState, newGameState.gameId);
+  };
+
   public updateInFlightGame = async (
     previousGameState: GameStateAndInfo,
     nextGameState: GameStateAndInfo

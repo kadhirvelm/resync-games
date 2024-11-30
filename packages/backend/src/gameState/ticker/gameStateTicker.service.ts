@@ -53,7 +53,7 @@ export class GameStateTicker {
 
   private tickGame = async (game: GameStateAndInfo) => {
     const backend = this.gameRegistryService.getGameRegistry(game.gameType);
-    const maybeNewGameState = backend?.tickGameState?.(game);
+    const maybeNewGameState = await backend?.tickGameState?.(game);
     if (maybeNewGameState === undefined) {
       return;
     }

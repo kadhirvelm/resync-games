@@ -2,7 +2,6 @@ import {
   CreateGame,
   CurrentGameState,
   GameStateAndInfo,
-  Player,
   PlayerInGame
 } from "@resync-games/api";
 
@@ -37,24 +36,50 @@ export interface IGameServer<GameState, GameConfiguration> {
     newCurrentGameState: CurrentGameState
   ) => ICanChangeToStateResponse;
   /**
-   * Called on when a user requests to create a game, used to initialize the initial game state.
+   * Called on when a user requests to create a game, used to initialize the game state. The default
+   * configuration will come from the configuration object declared in the frontend configuration object.
    */
   createGame: (createGameRequest: CreateGame<GameConfiguration>) => Promise<{
-    gameState: object;
+    gameState: GameState;
     version: string;
   }>;
   /**
+   * Callback on when a game configuration changes. Useful if you want to respond to when the game configuration changes.
+   */
+  onChangeConfiguration?: (
+    game: GameState,
+    newConfiguration: GameConfiguration
+  ) => Promise<GameState | undefined> | GameState | undefined;
+  /**
+   * Callback on when a game state changes. Useful if you want to respond to when the game state starts, or pauses.
+   * Return undefined if you don't want to update the game state.
+   */
+  onChangeState?: (
+    game: ICanChangeToState<GameState, GameConfiguration>,
+    newCurrentGameState: CurrentGameState
+  ) => Promise<GameState | undefined> | GameState | undefined;
+  /**
    * Callback on when a player joins the game. Useful if you want to initialize the player's state.
    */
-  onPlayerJoin?: (game: GameState, player: Player) => GameState;
+  onPlayerJoin?: (
+    game: GameState,
+    gameConfiguration: GameConfiguration,
+    player: PlayerInGame
+  ) => Promise<GameState | undefined> | GameState | undefined;
   /**
    * Callback on when a player leaves the game. Useful if you want to clean up the player's state.
    */
-  onPlayerLeave?: (game: GameState, player: Player) => GameState;
+  onPlayerLeave?: (
+    game: GameState,
+    gameConfiguration: GameConfiguration,
+    player: PlayerInGame
+  ) => Promise<GameState | undefined> | GameState | undefined;
   /**
    * Callback every 5 seconds that allows the backend to modify the game state as required. If it returns
    * undefined, the server will leave the current game state alone. The resulting game state will be reconciled
    * with the existing game state, which will then be be broadcast to all players.
    */
-  tickGameState?: (gameStateAndInfo: GameStateAndInfo) => GameState | undefined;
+  tickGameState?: (
+    gameStateAndInfo: GameStateAndInfo
+  ) => Promise<GameState | undefined> | GameState | undefined;
 }

@@ -46,7 +46,7 @@ export const AvailableGame = ({ game }: { game: AvailableGameType }) => {
       <Flex justify="end" mt="4">
         <Flex>
           <NavigationButton
-            href={`/snatch-the-snack/${game.gameId}`}
+            href={`/${game.gameType}/${game.gameId}`}
             onNavigation={onJoinGame}
             variant="outline"
           >
