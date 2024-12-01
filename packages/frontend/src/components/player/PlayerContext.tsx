@@ -8,6 +8,7 @@ import { getBrowserIdentifier } from "./browserIdentifier";
 import { SetPlayer } from "./SetPlayer";
 import { Flex } from "@/lib/radix/Flex";
 import styles from "./PlayerContext.module.scss";
+import { Spinner } from "@radix-ui/themes";
 
 export const PlayerContext = createContext<Player>({
   displayName: "",
@@ -23,11 +24,23 @@ export const PlayerContextProvider = ({
 }) => {
   const browserIdentifier = useMemo(() => getBrowserIdentifier(), []);
 
-  const { result: player, setResult } = useNetworkCall(() =>
+  const {
+    result: player,
+    setResult,
+    hasInitialized
+  } = useNetworkCall(() =>
     ClientServiceCallers.user.me({
       playerId: browserIdentifier
     })
   );
+
+  if (!hasInitialized) {
+    return (
+      <Flex align="center" flex="1" justify="center">
+        <Spinner />
+      </Flex>
+    );
+  }
 
   if (player == null) {
     return <SetPlayer onSetPlayer={setResult} />;

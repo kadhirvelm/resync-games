@@ -5,6 +5,7 @@
     "@radix-ui/themes": "^3.1.3",
     "@resync-games/api": "workspace:^",
     "clsx": "^2.1.1",
+    "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "phaser": "v3.85.2",
     "react": "^18.3.1",
@@ -12,6 +13,7 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.7",
     "@types/lodash-es": "^4",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
