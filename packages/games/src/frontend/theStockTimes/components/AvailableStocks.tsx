@@ -9,9 +9,9 @@ export const AvailableStocks = () => {
   }
 
   return (
-    <Flex>
+    <Flex direction="column" flex="2" mx="4">
       {Object.entries(gameState.stocks).map(([stockSymbol, stock]) => (
-        <Flex direction="column">
+        <Flex direction="column" key={stockSymbol}>
           <Text>
             {stockSymbol}: {stock.title} (${stock.history[0]?.price})
           </Text>

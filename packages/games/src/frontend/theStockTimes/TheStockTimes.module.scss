@@ -1,0 +1,11 @@
+@use "@/styles/variables.scss" as vars;
+
+.mainContainer {
+    margin: 50px;
+}
+
+.gameName {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}

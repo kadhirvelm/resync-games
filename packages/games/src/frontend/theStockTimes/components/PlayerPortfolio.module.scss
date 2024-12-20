@@ -5,3 +5,12 @@
     background: vars.$white;
     border: 1px solid vars.$muted-font;
 }
+
+.divider {
+    background: vars.$muted-font;
+    height: 1px;
+}
+
+.cash {
+    color: vars.$green;
+}
