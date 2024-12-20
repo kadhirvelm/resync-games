@@ -1,4 +1,4 @@
-@import "@/styles/variables.scss";
+@use "@/styles/variables.scss" as vars;
 
 .pawnMovementContainer {
     position: fixed;
@@ -29,17 +29,17 @@
 }
 
 .yellow {
-    background: $yellow;
+    background: vars.$yellow;
 }
 
 .red {
-    background: $red;
+    background: vars.$red;
 }
 
 .blue {
-    background: $blue;
+    background: vars.$blue;
 }
 
 .green {
-    background: $green;
+    background: vars.$green;
 }

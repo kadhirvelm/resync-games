@@ -1,5 +1,5 @@
-import { BaseScene } from "../baseScene";
-import { BaseGame } from "../baseGame";
+import { BaseScene } from "../phaser/baseScene";
+import { BaseGame } from "../phaser/baseGame";
 import { useEffect, useRef } from "react";
 import { FrontendGameComponentProps } from "../frontendRegistry";
 import { PongGameState } from "../../backend/pong/pong";

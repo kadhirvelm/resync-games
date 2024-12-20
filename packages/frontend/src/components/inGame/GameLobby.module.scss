@@ -1,4 +1,4 @@
-@import "@/styles/variables.scss";
+@use "@/styles/variables.scss" as vars;
 
 .overallContainer {
     margin: 100px auto;
@@ -6,8 +6,8 @@
 
 .players {
     border-radius: 5px;
-    background: $white;
-    border: 1px solid $black;
+    background: vars.$white;
+    border: 1px solid vars.$black;
     padding: 20px;
     min-width: 29vw;
 }

@@ -1,4 +1,5 @@
-@import "@/styles/variables.scss";
+@use "@/styles/variables.scss" as vars;
+@use "sass:color";
 
 .selectPawn {
     position: fixed;
@@ -15,34 +16,34 @@
 }
 
 .yellow {
-    background: $yellow;
+    background: vars.$yellow;
 
     &:hover {
-        background: darken($yellow, 10%);
+        background: color.scale(vars.$yellow, $lightness: -10%);
     }
 }
 
 .red {
-    background: $red;
+    background: vars.$red;
 
     &:hover {
-        background: darken($red, 10%);
+        background: color.scale(vars.$red, $lightness: -10%);
     }
 }
 
 .blue {
-    background: $blue;
+    background: vars.$blue;
 
     &:hover {
-        background: darken($blue, 10%);
+        background: color.scale(vars.$blue, $lightness: -10%);
     }
 }
 
 .green {
-    background: $green;
+    background: vars.$green;
 
     &:hover {
-        background: darken($green, 10%);
+        background: color.scale(vars.$green, $lightness: -10%);
     }
 }
 

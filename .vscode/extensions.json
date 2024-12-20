@@ -8,5 +8,6 @@
     "graphite.gti-vscode",
     "github.copilot-chat",
     "prisma.prisma",
+    "esbenp.prettier-vscode"
   ]
 }
