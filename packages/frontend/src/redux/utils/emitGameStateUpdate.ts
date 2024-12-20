@@ -16,6 +16,7 @@ export function emitGameStateUpdate(
 
   ClientServiceCallers.gameState.updateGame({
     ...gameInfo,
+    lastUpdatedAt: new Date().toISOString(),
     newGameState: {
       ...gameState,
       ...newState

@@ -1,4 +1,4 @@
-@import "@/styles/variables.scss";
+@use "@/styles/variables.scss" as vars;
 
 .body {
   height: 100vh;
@@ -7,7 +7,7 @@
   margin: 0;
   padding: 0;
   font-size: 35px;
-  background: $background;
+  background: vars.$background;
 }
 
 .entryPoint {
@@ -15,5 +15,5 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background: $background;
+  background: vars.$background;
 }

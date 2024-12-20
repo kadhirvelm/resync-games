@@ -7,6 +7,7 @@ import { IGameStateHandler } from "@/redux";
 import { SnatchTheSnackConfiguration } from "./snatchTheSnack/snatchTheSnackConfiguration";
 import { TheStockTimesConfiguration } from "./theStockTimes/theStockTimesConfiguration";
 import { DisplayTheStockTimes } from "./theStockTimes/theStockTimes";
+import { JSX } from "react";
 
 export type FrontendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: FrontendRegisteredGame;

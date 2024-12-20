@@ -1,4 +1,4 @@
-@import "@/styles/variables.scss";
+@use "@/styles/variables.scss" as vars;
 
 .indicator {
     position: fixed;
@@ -10,9 +10,9 @@
 }
 
 .connected {
-    background-color: $green;
+    background-color: vars.$green;
 }
 
 .disconnected {
-    background-color: $red;
+    background-color: vars.$red;
 }

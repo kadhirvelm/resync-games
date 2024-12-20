@@ -6,8 +6,8 @@ import {
 import { Tile } from "@resync-games/api";
 import { useEffect, useRef } from "react";
 import { SnatchTheSnackGame } from "../../backend/snatch-the-snack/snatchTheSnack";
-import { BaseGame } from "../baseGame";
-import { BaseScene } from "../baseScene";
+import { BaseGame } from "../phaser/baseGame";
+import { BaseScene } from "../phaser/baseScene";
 import { FrontendGameComponentProps } from "../frontendRegistry";
 import { PawnMovement } from "./components/PawnMovement";
 import { SelectPawn } from "./components/SelectPawn";

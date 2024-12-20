@@ -1,8 +1,8 @@
-@import "@/styles/variables.scss";
+@use "@/styles/variables.scss" as vars;
 
 .goHome {
     position: fixed;
     top: 10px;
     left: 10px;
-    background: $white;
+    background: vars.$white;
 }
