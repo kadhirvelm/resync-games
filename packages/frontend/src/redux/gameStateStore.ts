@@ -24,7 +24,7 @@ export const useGameStateDispatch = useDispatch.withTypes<GameStateDispatch>();
 export const useGameStateSelector = useSelector.withTypes<GameStateStore>();
 export const useGameStateAppStore = useStore.withTypes<StateStore>();
 
-type GameStateStoreWithStates<
+export type GameStateStoreWithStates<
   GameState extends object = object,
   LocalState extends object = object
 > = {

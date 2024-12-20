@@ -6,6 +6,7 @@ import {
 } from "@/redux";
 import { Player } from "@resync-games/api";
 import { TheStockTimesGame } from "../../../backend/theStockTimes/theStockTimes";
+import { GameStateStoreWithStates } from "@/redux";
 
 export interface TheStockTimesLocalState {}
 
@@ -21,6 +22,11 @@ export const updateSnatchTheSnackLocalState = (
 ) => {
   return updateLocalState(newLocalState);
 };
+
+export type TheStockTimesReduxState = GameStateStoreWithStates<
+  TheStockTimesGame,
+  TheStockTimesLocalState
+>;
 
 export const {
   useGameStateAppStore,
