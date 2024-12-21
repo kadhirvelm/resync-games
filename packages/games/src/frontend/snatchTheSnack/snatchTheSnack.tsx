@@ -6,12 +6,12 @@ import {
 import { Tile } from "@resync-games/api";
 import { useEffect, useRef } from "react";
 import { SnatchTheSnackGame } from "../../backend/snatch-the-snack/snatchTheSnack";
+import { FrontendGameComponentProps } from "../frontendRegistry";
 import { BaseGame } from "../phaser/baseGame";
 import { BaseScene } from "../phaser/baseScene";
-import { FrontendGameComponentProps } from "../frontendRegistry";
 import { PawnMovement } from "./components/PawnMovement";
 import { SelectPawn } from "./components/SelectPawn";
-import { SnatchTheSnackLocalState } from "./store/snatchTheSnackRedux";
+import { SnatchTheSnackLocalState } from "./store/snatchTheSnackLocalState";
 import { indexPawns } from "./utils/indexPawns";
 
 const COLORS = {

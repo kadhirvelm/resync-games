@@ -18,9 +18,7 @@ export const SelectPawn = () => {
   const maybeAvailablePawns = useGameStateSelector(
     (state) => state.gameStateSlice.gameState?.pawns
   );
-  const localGameState = useGameStateSelector(
-    (state) => state.gameStateSlice.localState
-  );
+  const { localState } = useGameStateSelector((state) => state.localStateSlice);
 
   const availablePawns = Object.values(maybeAvailablePawns ?? {});
   const sortedAvailablePawns = useMemo(() => {
@@ -29,12 +27,12 @@ export const SelectPawn = () => {
       .sort((a, b) => a.color.localeCompare(b.color));
   }, [availablePawns]);
 
-  if (localGameState === undefined || maybeAvailablePawns === undefined) {
+  if (localState === undefined || maybeAvailablePawns === undefined) {
     return;
   }
 
   const renderSinglePawn = (pawn: SnatchTheSnackPawn) => {
-    const isSelected = localGameState.selectedPawn === pawn.pawnId;
+    const isSelected = localState.selectedPawn === pawn.pawnId;
 
     const selectPawn = () => {
       dispatch(updateSnatchTheSnackLocalState({ selectedPawn: pawn.pawnId }));

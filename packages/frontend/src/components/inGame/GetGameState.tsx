@@ -6,8 +6,14 @@ import { Dispatch, useContext } from "react";
 import { PlayerContext } from "../player/PlayerContext";
 import { InitializeGame } from "./InitializeGame";
 import { ReduxGate } from "@/lib/resync-components/ReduxGate";
-import { setGame, initializeGameStateStore } from "@/redux";
+import {
+  setGame,
+  initializeGameStateStore,
+  setLocalState,
+  setPlayer
+} from "@/redux";
 import { UnknownAction } from "@reduxjs/toolkit";
+import { getFrontendGame } from "@/lib/utils/getFrontendGame";
 
 export const GetGameState = ({
   gameId,
@@ -34,7 +40,11 @@ export const GetGameState = ({
   }
 
   const setInitialState = (dispatch: Dispatch<UnknownAction>) => {
+    const frontendGame = getFrontendGame(gameSlug);
+
     dispatch(setGame(gameStateAndInfo));
+    dispatch(setLocalState(frontendGame.initialLocalState));
+    dispatch(setPlayer(player));
   };
 
   return (

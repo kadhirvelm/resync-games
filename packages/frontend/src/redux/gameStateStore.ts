@@ -5,13 +5,20 @@ import {
   GameStateReducer,
   GameStateReduxSlice
 } from "./stores/redux/gameStateSlice";
+import {
+  LocalGameStateSlice,
+  LocalStateReducer
+} from "./stores/redux/localStateSlice";
+import { PlayerReducer, PlayerSlice } from "./stores/redux/playerSlice";
 
 export const initializeGameStateStore = () => {
   return configureStore({
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(reduxLogger),
     reducer: {
-      gameStateSlice: GameStateReducer
+      gameStateSlice: GameStateReducer,
+      localStateSlice: LocalStateReducer,
+      playerSlice: PlayerReducer
     }
   });
 };
@@ -28,7 +35,9 @@ export type GameStateStoreWithStates<
   GameState extends object = object,
   LocalState extends object = object
 > = {
-  gameStateSlice: GameStateReduxSlice<GameState, LocalState>;
+  gameStateSlice: GameStateReduxSlice<GameState>;
+  localStateSlice: LocalGameStateSlice<LocalState>;
+  playerSlice: PlayerSlice;
 };
 
 export const getGameHooks = <

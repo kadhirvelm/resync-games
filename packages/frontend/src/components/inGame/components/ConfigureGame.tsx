@@ -55,7 +55,7 @@ export const ConfigureGame = () => {
     configurationValue: GameConfigurationFieldNumber
   ) => {
     return (
-      <Flex direction="column" gap="1">
+      <Flex direction="column" gap="1" key={key}>
         <Text>
           {configurationValue.label}
           {configurationValue.required ? "*" : ""}
@@ -80,7 +80,7 @@ export const ConfigureGame = () => {
     configurationValue: GameConfigurationFieldString
   ) => {
     return (
-      <Flex direction="column" gap="1">
+      <Flex direction="column" gap="1" key={key}>
         <Text>
           {configurationValue.label}
           {configurationValue.required ? "*" : ""}
