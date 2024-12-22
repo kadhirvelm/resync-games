@@ -387,7 +387,10 @@ export class GameStateService {
 
     const nextGameState: GameStateAndInfo = {
       ...currentGameState,
-      gameState: updateGameRequest.newGameState,
+      gameState: {
+        ...currentGameState.gameState,
+        ...updateGameRequest.newGameState
+      },
       lastUpdatedAt: new Date().toISOString()
     };
 

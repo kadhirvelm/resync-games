@@ -1,0 +1,7 @@
+@use "@/styles/variables.scss" as vars;
+
+.details {
+    border-radius: 3px;
+    background: vars.$white;
+    border: 1px solid vars.$muted-font;
+}
