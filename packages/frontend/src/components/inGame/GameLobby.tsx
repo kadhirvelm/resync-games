@@ -14,6 +14,8 @@ import {
 } from "@/lib/stableIdentifiers/teamIdentifier";
 import { canStartGame } from "./utils/canStartGame";
 import { ConfigureGame } from "./components/ConfigureGame";
+import { CopyIcon } from "@radix-ui/react-icons";
+import copy from "copy-to-clipboard";
 
 export const GameLobby = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -75,6 +77,33 @@ export const GameLobby = () => {
     console.error(response);
   };
 
+  const renderRoomName = () => {
+    if (gameInfo === undefined) {
+      return;
+    }
+
+    const { gameName } = gameInfo;
+
+    const copyGameLink = () => copy(window.location.href);
+
+    return (
+      <Flex
+        align="center"
+        className={styles.inviteLink}
+        gap="3"
+        justify="center"
+        onClick={copyGameLink}
+      >
+        <Text size="4" weight="bold">
+          {gameName}
+        </Text>
+        <Flex>
+          <CopyIcon />
+        </Flex>
+      </Flex>
+    );
+  };
+
   const maybeRenderUndecided = () => {
     const undecided =
       gameInfo?.players.filter((p) => p.team === undefined) ?? [];
@@ -90,7 +119,7 @@ export const GameLobby = () => {
       >
         {undecided.map((p) => (
           <Flex justify="center" key={p.playerId}>
-            <Text>{p.displayName}</Text>
+            <Text size="4">{p.displayName}</Text>
           </Flex>
         ))}
       </Flex>
@@ -116,7 +145,7 @@ export const GameLobby = () => {
         >
           {playersInTeam.map((p) => (
             <Flex justify="center" key={p.playerId}>
-              <Text>{p.displayName}</Text>
+              <Text size="4">{p.displayName}</Text>
             </Flex>
           ))}
         </Flex>
@@ -140,6 +169,7 @@ export const GameLobby = () => {
         <GoHome />
       </Flex>
       <Flex className={styles.overallContainer} direction="column" gap="5">
+        {renderRoomName()}
         {maybeRenderUndecided()}
         <Flex align="baseline" gap="3">
           {renderTeam(0)}
