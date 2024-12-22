@@ -12,6 +12,9 @@ const nextConfig = {
       }
     ]
   },
+  devIndicators: {
+    appIsrStatus: false,
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")]
   },

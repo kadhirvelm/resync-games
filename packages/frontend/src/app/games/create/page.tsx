@@ -1,8 +1,10 @@
 "use client";
 
-import CreateGame from "@/components/createGame/CreateGame";
 import { PlayerContextProvider } from "@/components/player/PlayerContext";
 import { ClientGate } from "@/lib/ClientGate";
+import { lazy } from "react";
+
+const CreateGame = lazy(() => import("@/components/createGame/CreateGame"));
 
 export default function NavigateToGameCreate() {
   return (
