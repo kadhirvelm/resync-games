@@ -1,50 +1,48 @@
-import { PlayerContext } from "@/components/player/PlayerContext";
-import { Button } from "@/lib/radix/Button";
-import { Flex } from "@/lib/radix/Flex";
-import { getFrontendGame } from "@/lib/utils/getFrontendGame";
-import { ClientServiceCallers } from "@/services/serviceCallers";
-import { GameType, isServiceError } from "@resync-games/api";
-import { useRouter } from "next/navigation";
-import { useContext } from "react";
-import { getDefaultConfiguration } from "../utils/getDefaultConfiguration";
+import { Flex } from "@/lib/radix";
+import { Text } from "@radix-ui/themes";
+import { GameType } from "@resync-games/api";
 import { GAME_REGISTRY } from "@resync-games/games-shared/gamesRegistry";
+import clsx from "clsx";
+import styles from "./SelectGame.module.scss";
 
-const SelectGame = () => {
-  const router = useRouter();
-  const player = useContext(PlayerContext);
+export interface SelectedGame {
+  gameType: GameType;
+  version: string;
+}
 
-  const onCreateGame = async (gameSlug: GameType, version: string) => {
-    const accordingGame = getFrontendGame(gameSlug);
-
-    const newGame = await ClientServiceCallers.gameState.createGame({
-      gameConfiguration: getDefaultConfiguration(
-        accordingGame.gameConfiguration
-      ),
-      gameName: `Example game ${gameSlug} ${new Date().toDateString()}-${new Date().toTimeString()}`,
-      gameType: gameSlug,
-      playerId: player.playerId,
-      version
-    });
-
-    if (isServiceError(newGame)) {
-      console.error(newGame);
-      return;
-    }
-
-    router.push(`/${gameSlug}/${newGame.gameId}`);
-  };
-
+const SelectGame = ({
+  selectedGame,
+  onSelectGame
+}: {
+  onSelectGame: (selectedGame: SelectedGame) => void;
+  selectedGame: SelectedGame | undefined;
+}) => {
   return (
-    <Flex direction="column" gap="2">
-      {Object.entries(GAME_REGISTRY).map(([slug, { name, version }]) => (
-        <Button
-          key={slug}
-          onClick={() => onCreateGame(slug as GameType, version)}
-          style={{ padding: "5px" }}
-        >
-          {name}
-        </Button>
-      ))}
+    <Flex gap="2" wrap="wrap">
+      {Object.entries(GAME_REGISTRY).map(
+        ([slug, { name, description, version }]) => (
+          <Flex
+            className={clsx(styles.selectGame, {
+              [styles.active ?? ""]: slug === selectedGame?.gameType
+            })}
+            direction="column"
+            key={slug}
+            onClick={() =>
+              onSelectGame({ gameType: slug as GameType, version })
+            }
+            p="3"
+          >
+            <Flex>
+              <Text weight="bold">{name}</Text>
+            </Flex>
+            <Flex mt="2">
+              <Text color="gray" size="2">
+                {description}
+              </Text>
+            </Flex>
+          </Flex>
+        )
+      )}
     </Flex>
   );
 };
