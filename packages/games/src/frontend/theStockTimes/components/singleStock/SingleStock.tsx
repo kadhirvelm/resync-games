@@ -1,0 +1,29 @@
+import { Flex } from "../../../components";
+import { useGameStateSelector } from "../../store/theStockTimesRedux";
+import { PurchaseStock } from "./PurchaseStock";
+import { StockDetails } from "./StockDetails";
+
+export const SingleStock = ({
+  viewingStockSymbol
+}: {
+  viewingStockSymbol: string;
+}) => {
+  const stocks = useGameStateSelector(
+    (s) => s.gameStateSlice.gameState?.stocks
+  );
+  const thisStock = stocks?.[viewingStockSymbol];
+
+  if (thisStock === undefined) {
+    return;
+  }
+
+  return (
+    <Flex direction="column" flex="1" gap="3" mx="4">
+      <StockDetails
+        thisStock={thisStock}
+        viewingStockSymbol={viewingStockSymbol}
+      />
+      <PurchaseStock viewingStockSymbol={viewingStockSymbol} />
+    </Flex>
+  );
+};

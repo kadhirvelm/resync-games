@@ -1,0 +1,7 @@
+@use "@/styles/variables.scss" as vars;
+
+.purchase {
+    background: vars.$white;
+    border-radius: 3px;
+    border: 1px solid vars.$black;
+}

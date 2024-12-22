@@ -20,12 +20,14 @@ export interface Stock {
 }
 
 export interface OwnedStock {
+  date: string;
   price: number;
   quantity: number;
 }
 
 export interface TransactionHistory {
-  playerId: PlayerId;
+  date: string;
+  price: number;
   quantity: number;
   stockSymbol: string;
   type: "buy" | "sell";
@@ -35,6 +37,7 @@ export interface TheStockTimesGame {
   players: {
     [playerId: PlayerId]: {
       cash: number;
+      lastUpdatedAt: string;
       ownedStocks: {
         [stockSymbol: string]: OwnedStock[];
       };
@@ -84,6 +87,7 @@ export class TheStockTimesServer
     for (const player of game.players) {
       newGameState.players[player.playerId] = {
         cash: game.gameConfiguration.startingCash,
+        lastUpdatedAt: new Date().toISOString(),
         ownedStocks: {},
         team: player.team ?? 0,
         transactionHistory: []
