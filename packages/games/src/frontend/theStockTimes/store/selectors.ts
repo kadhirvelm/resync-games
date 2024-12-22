@@ -3,6 +3,20 @@ import { TheStockTimesReduxState } from "./theStockTimesRedux";
 import { PlayerInGame } from "@resync-games/api";
 import { getTeamName } from "@/lib/stableIdentifiers/teamIdentifier";
 
+export const selectPlayerPortfolio = createSelector(
+  [
+    (state: TheStockTimesReduxState) => state.playerSlice.player,
+    (state: TheStockTimesReduxState) => state.gameStateSlice.gameState?.players
+  ],
+  (player, gamePlayers) => {
+    if (player === undefined) {
+      return;
+    }
+
+    return gamePlayers?.[player?.playerId];
+  }
+);
+
 export const selectTeams = createSelector(
   [
     (state: TheStockTimesReduxState) => state.gameStateSlice.gameInfo?.players,

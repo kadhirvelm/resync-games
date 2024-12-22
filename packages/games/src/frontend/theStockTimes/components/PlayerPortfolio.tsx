@@ -1,15 +1,12 @@
-import { useContext } from "react";
-import { useGameStateSelector } from "../store/theStockTimesRedux";
-import { PlayerContext } from "@/components/player/PlayerContext";
 import { Flex, Text } from "../../components";
+import { selectPlayerPortfolio, selectTeams } from "../store/selectors";
+import { useGameStateSelector } from "../store/theStockTimesRedux";
+import { displayDollar } from "../utils/displayDollar";
 import styles from "./PlayerPortfolio.module.scss";
-import { selectTeams } from "../store/selectors";
 
 export const PlayerPortfolio = () => {
-  const player = useContext(PlayerContext);
-  const playerPortfolio = useGameStateSelector(
-    (s) => s.gameStateSlice.gameState?.players[player.playerId]
-  );
+  const { player } = useGameStateSelector((s) => s.playerSlice);
+  const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
   const stocks = useGameStateSelector(
     (s) => s.gameStateSlice.gameState?.stocks
   );
@@ -26,7 +23,7 @@ export const PlayerPortfolio = () => {
       <>
         <Flex align="center" gap="3">
           <Flex>
-            <Text>{player.displayName}</Text>
+            <Text>{player?.displayName}</Text>
           </Flex>
           <Flex className={styles.divider} flex="1" />
           <Flex>
@@ -40,7 +37,7 @@ export const PlayerPortfolio = () => {
           <Flex className={styles.divider} flex="1" />
           <Flex>
             <Text className={styles.cash}>
-              ${playerTeam?.teamCash?.toLocaleString()}
+              {displayDollar(playerTeam?.teamCash)}
             </Text>
           </Flex>
         </Flex>
@@ -63,7 +60,7 @@ export const PlayerPortfolio = () => {
           <Flex className={styles.divider} flex="1" />
           <Flex>
             <Text className={styles.cash} weight="bold">
-              ${playerPortfolio.cash.toLocaleString()}
+              {displayDollar(playerPortfolio.cash)}
             </Text>
           </Flex>
         </Flex>

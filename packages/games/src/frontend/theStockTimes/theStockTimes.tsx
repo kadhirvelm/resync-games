@@ -16,8 +16,12 @@ export const DisplayTheStockTimes = () => {
       <Flex className={styles.gameName}>
         <Text>The stock times</Text>
       </Flex>
-      <PlayerPortfolio />
-      <AvailableStocks />
+      <Flex flex="1">
+        <PlayerPortfolio />
+      </Flex>
+      <Flex flex="2">
+        <AvailableStocks />
+      </Flex>
     </Flex>
   );
 };
