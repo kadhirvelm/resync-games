@@ -66,6 +66,7 @@ export const PurchaseStock = ({
               cash: leftOverCash,
               lastUpdatedAt: new Date().toISOString(),
               ownedStocks: {
+                ...playerPortfolio.ownedStocks,
                 [viewingStockSymbol]: [
                   ...(playerPortfolio.ownedStocks[viewingStockSymbol] ?? []),
                   newOwnedStock

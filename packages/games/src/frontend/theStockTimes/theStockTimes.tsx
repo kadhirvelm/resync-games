@@ -1,6 +1,6 @@
 import { Flex, Text } from "../components";
 import { AvailableStocks } from "./components/AvailableStocks";
-import { PlayerPortfolio } from "./components/PlayerPortfolio";
+import { PlayerPortfolio } from "./components/playerPortfolio/PlayerPortfolio";
 import { useGameStateSelector } from "./store/theStockTimesRedux";
 import styles from "./TheStockTimes.module.scss";
 

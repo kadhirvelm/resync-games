@@ -100,8 +100,6 @@ export class GamesInFlightService {
       reconcilerMethod
     );
 
-    console.log(JSON.stringify(newState));
-
     if (!didAcceptChange) {
       return { didAcceptChange: false, newGameState: previousGameState };
     }

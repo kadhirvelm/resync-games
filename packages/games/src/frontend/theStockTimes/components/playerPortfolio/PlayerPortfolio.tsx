@@ -1,15 +1,13 @@
-import { Flex, Text } from "../../components";
-import { selectPlayerPortfolio, selectTeams } from "../store/selectors";
-import { useGameStateSelector } from "../store/theStockTimesRedux";
-import { displayDollar } from "../utils/displayDollar";
+import { Flex, Text } from "../../../components";
+import { selectPlayerPortfolio, selectTeams } from "../../store/selectors";
+import { useGameStateSelector } from "../../store/theStockTimesRedux";
+import { displayDollar } from "../../utils/displayDollar";
 import styles from "./PlayerPortfolio.module.scss";
+import { PlayerStocks } from "./PlayerStocks";
 
 export const PlayerPortfolio = () => {
   const { player } = useGameStateSelector((s) => s.playerSlice);
   const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
-  const stocks = useGameStateSelector(
-    (s) => s.gameStateSlice.gameState?.stocks
-  );
 
   const teams = useGameStateSelector(selectTeams);
   const playerTeam = teams[playerPortfolio?.team ?? 0];
@@ -48,11 +46,6 @@ export const PlayerPortfolio = () => {
   const renderYourPortfolio = () => {
     return (
       <>
-        <Flex mt="2">
-          <Text color="gray" size="2">
-            Your portfolio
-          </Text>
-        </Flex>
         <Flex align="center" gap="3">
           <Flex>
             <Text>Cash</Text>
@@ -68,42 +61,6 @@ export const PlayerPortfolio = () => {
     );
   };
 
-  const renderYourStocks = () => {
-    const playerStocks = Object.entries(playerPortfolio.ownedStocks);
-
-    return (
-      <>
-        {playerStocks.map(([symbol, quantity]) => {
-          const stock = stocks?.[symbol];
-          return (
-            <Flex direction="column" key={symbol}>
-              <Flex>
-                <Text>
-                  {stock?.title} ({symbol})
-                </Text>
-              </Flex>
-              <Flex direction="column" gap="2">
-                {quantity.map(({ price, quantity }, index) => (
-                  <Flex key={`${symbol}-${index}`}>
-                    <Flex>
-                      <Text>{quantity}</Text>
-                    </Flex>
-                    <Flex>
-                      <Text color="gray" size="2">
-                        bought at
-                      </Text>
-                      <Text>${price}</Text>
-                    </Flex>
-                  </Flex>
-                ))}
-              </Flex>
-            </Flex>
-          );
-        })}
-      </>
-    );
-  };
-
   return (
     <Flex
       className={styles.portfolioContainer}
@@ -113,8 +70,13 @@ export const PlayerPortfolio = () => {
       p="3"
     >
       {renderTeamValue()}
+      <Flex mt="2">
+        <Text color="gray" size="2">
+          Your portfolio
+        </Text>
+      </Flex>
       {renderYourPortfolio()}
-      {renderYourStocks()}
+      <PlayerStocks />
     </Flex>
   );
 };
