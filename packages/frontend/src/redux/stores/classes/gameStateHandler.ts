@@ -1,7 +1,7 @@
+import { GameStateStoreWithStates } from "@/redux/gameStateStore";
 import { emitGameStateUpdate } from "@/redux/utils/emitGameStateUpdate";
 import { EnhancedStore } from "@reduxjs/toolkit";
 import { GameInfo, Player } from "@resync-games/api";
-import { GameStateReduxSlice } from "../redux/gameStateSlice";
 import { deepEqual } from "./utils/deepEqual";
 
 type SeparatedGameStateAndInfo<GameState extends object> = {
@@ -23,9 +23,7 @@ export interface IGameStateHandler<
 export type GameStateReduxStore<
   GameState extends object = object,
   LocalGameState extends object = object
-> = EnhancedStore<{
-  gameStateSlice: GameStateReduxSlice<GameState, LocalGameState>;
-}>;
+> = EnhancedStore<GameStateStoreWithStates<GameState, LocalGameState>>;
 
 /**
  * Simple wrapper around a Redux store that offers a single dispatch action and a subscribe method
@@ -73,7 +71,8 @@ export class GameStateHandler<
   };
 
   public getLocalGameState = () => {
-    const maybeLocalGameState = this.store.getState().gameStateSlice.localState;
+    const maybeLocalGameState =
+      this.store.getState().localStateSlice.localState;
     if (maybeLocalGameState === undefined) {
       throw new Error(`Local game state is not initialized.`);
     }

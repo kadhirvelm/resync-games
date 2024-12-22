@@ -46,7 +46,7 @@ export function PawnMovement() {
     (s) => s.gameStateSlice.gameState?.pawns
   );
   const selectedPawnId = useGameStateSelector(
-    (s) => s.gameStateSlice.localState?.selectedPawn
+    (s) => s.localStateSlice.localState?.selectedPawn
   );
 
   const indexedMap = useMemo(() => {

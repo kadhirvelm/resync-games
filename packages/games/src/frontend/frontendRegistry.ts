@@ -8,6 +8,8 @@ import { SnatchTheSnackConfiguration } from "./snatchTheSnack/snatchTheSnackConf
 import { TheStockTimesConfiguration } from "./theStockTimes/theStockTimesConfiguration";
 import { DisplayTheStockTimes } from "./theStockTimes/theStockTimes";
 import { JSX } from "react";
+import { INITIAL_SNATCH_THE_SNACK_LOCAL_STATE } from "./snatchTheSnack/store/snatchTheSnackLocalState";
+import { INITIAL_THE_STOCK_TIMES_LOCAL_STATE } from "./theStockTimes/store/theStockTimesLocalState";
 
 export type FrontendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: FrontendRegisteredGame;
@@ -25,19 +27,23 @@ export interface FrontendRegisteredGame {
   gameEntry: (
     properties: FrontendGameComponentProps
   ) => JSX.Element | undefined | null;
+  initialLocalState: object | undefined;
 }
 
 export const GAME_REGISTRY: FrontendGameRegistry = {
   pong: {
     gameConfiguration: PongConfiguration,
-    gameEntry: PongHomePage
+    gameEntry: PongHomePage,
+    initialLocalState: undefined
   },
   "snatch-the-snack": {
     gameConfiguration: SnatchTheSnackConfiguration,
-    gameEntry: DisplayMagicMazeGame
+    gameEntry: DisplayMagicMazeGame,
+    initialLocalState: INITIAL_SNATCH_THE_SNACK_LOCAL_STATE
   },
   "the-stock-times": {
     gameConfiguration: TheStockTimesConfiguration,
-    gameEntry: DisplayTheStockTimes
+    gameEntry: DisplayTheStockTimes,
+    initialLocalState: INITIAL_THE_STOCK_TIMES_LOCAL_STATE
   }
 };

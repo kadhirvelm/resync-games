@@ -1,4 +1,5 @@
 import {
+  GameStateStoreWithStates,
   getGameHooks,
   RecursivePartial,
   updateGameState,
@@ -6,18 +7,16 @@ import {
 } from "@/redux";
 import { Player } from "@resync-games/api";
 import { TheStockTimesGame } from "../../../backend/theStockTimes/theStockTimes";
-import { GameStateStoreWithStates } from "@/redux";
+import { TheStockTimesLocalState } from "./theStockTimesLocalState";
 
-export interface TheStockTimesLocalState {}
-
-export const updateSnatchTheSnackGameState = (
+export const updateTheStockTimesGameState = (
   newGameState: RecursivePartial<TheStockTimesGame>,
   player: Player
 ) => {
   return updateGameState({ gameState: newGameState, player });
 };
 
-export const updateSnatchTheSnackLocalState = (
+export const updateTheStockTimesLocalState = (
   newLocalState: RecursivePartial<TheStockTimesLocalState>
 ) => {
   return updateLocalState(newLocalState);

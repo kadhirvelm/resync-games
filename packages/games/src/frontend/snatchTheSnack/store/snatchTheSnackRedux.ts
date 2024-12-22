@@ -4,15 +4,9 @@ import {
   updateGameState,
   updateLocalState
 } from "@/redux";
-import {
-  PawnId,
-  SnatchTheSnackGame
-} from "../../../backend/snatch-the-snack/snatchTheSnack";
 import { Player } from "@resync-games/api";
-
-export interface SnatchTheSnackLocalState {
-  selectedPawn: PawnId | undefined;
-}
+import { SnatchTheSnackGame } from "../../../backend/snatch-the-snack/snatchTheSnack";
+import { SnatchTheSnackLocalState } from "./snatchTheSnackLocalState";
 
 export const updateSnatchTheSnackGameState = (
   newGameState: RecursivePartial<SnatchTheSnackGame>,

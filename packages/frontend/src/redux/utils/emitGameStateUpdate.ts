@@ -3,7 +3,7 @@ import { Player } from "@resync-games/api";
 import { GameStateReduxSlice } from "../stores/redux/gameStateSlice";
 
 export function emitGameStateUpdate(
-  currentGameState: GameStateReduxSlice<object, object>,
+  currentGameState: GameStateReduxSlice<object>,
   newState: Partial<object>,
   player: Player
 ) {
