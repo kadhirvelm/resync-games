@@ -13,6 +13,7 @@ export interface GameInfo<GameConfiguration = object> {
   currentGameState: CurrentGameState;
   gameConfiguration: GameConfiguration;
   gameId: GameId;
+  gameName: string;
   gameType: GameType;
   lastUpdatedAt: string;
   players: PlayerInGame[];

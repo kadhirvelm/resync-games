@@ -15,3 +15,11 @@
 .startGame {
     padding: 5px 0;
 }
+
+.inviteLink {
+    cursor: pointer;
+
+    &:hover {
+        color: vars.$muted-font;
+    }
+}
