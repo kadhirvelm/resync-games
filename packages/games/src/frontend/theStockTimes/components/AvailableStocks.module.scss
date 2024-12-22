@@ -1,0 +1,12 @@
+@use "@/styles/variables.scss" as vars;
+
+.singleStock {
+    border-radius: 3px;
+    background: vars.$white;
+    cursor: pointer;
+    border: 1px solid vars.$muted-font;
+
+    &:hover {
+        background: vars.$muted-font;
+    }
+}
