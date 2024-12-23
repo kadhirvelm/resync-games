@@ -1,0 +1,19 @@
+@use "@/styles/variables.scss" as vars;
+
+.holding {
+    border-radius: 3px;
+    border: 1px solid vars.$muted-font;
+}
+
+.holdingAction {
+    border-bottom: 1px solid vars.$muted-font;
+}
+
+.equals {
+    border-bottom: 1px solid vars.$muted-font;
+}
+
+.divider {
+    background: vars.$muted-font;
+    height: 1px;
+}
