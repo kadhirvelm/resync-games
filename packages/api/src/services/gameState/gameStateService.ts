@@ -31,7 +31,7 @@ export interface UpdateGame {
 
 export type AvailableGame = Pick<
   GameStateAndInfo,
-  "gameId" | "gameType" | "players"
+  "gameId" | "gameName" | "gameType" | "players"
 >;
 
 export interface AvailableGames {

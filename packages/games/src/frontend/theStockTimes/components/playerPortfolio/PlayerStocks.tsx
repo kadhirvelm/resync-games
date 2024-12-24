@@ -13,10 +13,12 @@ import {
 } from "../../../../backend/theStockTimes/theStockTimes";
 
 const SellPlayerStock = ({
+  color,
   currentPrice,
   ownedStock,
   symbol
 }: {
+  color: "green" | "red";
   currentPrice: number;
   ownedStock: OwnedStock;
   symbol: string;
@@ -67,7 +69,7 @@ const SellPlayerStock = ({
   };
 
   return (
-    <Button color="red" onClick={onSell}>
+    <Button color={color} onClick={onSell}>
       Sell
     </Button>
   );
@@ -143,34 +145,32 @@ export const PlayerStocks = () => {
                     </Text>
                     <Text color="green">{displayDollar(price)}</Text>
                   </Flex>
-                  <SellPlayerStock
-                    currentPrice={currentPrice}
-                    ownedStock={ownedStock}
-                    symbol={symbol}
-                  />
+                  <Flex width="50%">
+                    <SellPlayerStock
+                      color={totalProfit >= 0 ? "green" : "red"}
+                      currentPrice={currentPrice}
+                      ownedStock={ownedStock}
+                      symbol={symbol}
+                    />
+                  </Flex>
                 </Flex>
-                <Flex align="end" direction="column" gap="1" px="2" py="1">
-                  <Flex align="center" gap="1">
-                    <Text color="green">{displayDollar(revenue)}</Text>
-                    <Text color="gray" size="2">
-                      (revenue)
-                    </Text>
-                  </Flex>
-                  <Flex align="center" className={styles.equals} gap="1">
-                    <Text color="red">-{displayDollar(costBasis)}</Text>
-                    <Text color="gray" size="2">
-                      (cost basis)
-                    </Text>
-                  </Flex>
-                  <Flex align="center" gap="1" mt="1">
-                    <Text color="gray" size="2">
-                      (profit)
-                    </Text>
-                    <Text>=</Text>
-                    <Text color={totalProfit > 0 ? "green" : "red"} size="4">
-                      {displayDollar(totalProfit)}
-                    </Text>
-                  </Flex>
+                <Flex align="center" gap="1" px="2" py="1" wrap="wrap">
+                  <Text color="green">{displayDollar(revenue)}</Text>
+                  <Text color="gray" size="2">
+                    (revenue)
+                  </Text>
+                  <Text>-</Text>
+                  <Text color="red">{displayDollar(costBasis)}</Text>
+                  <Text color="gray" size="2">
+                    (cost basis)
+                  </Text>
+                  <Text>=</Text>
+                  <Text color={totalProfit > 0 ? "green" : "red"} size="4">
+                    {displayDollar(totalProfit)}
+                  </Text>
+                  <Text color="gray" size="2">
+                    (profit)
+                  </Text>
                 </Flex>
               </Flex>
             );

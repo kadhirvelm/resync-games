@@ -12,6 +12,10 @@ import { useContext } from "react";
 import styles from "./AvailableGame.module.scss";
 import { GameState } from "./GameState";
 import { ClientServiceCallers } from "@/services/serviceCallers";
+import {
+  GAME_REGISTRY,
+  GAME_SLUGS
+} from "@resync-games/games-shared/gamesRegistry";
 
 export const AvailableGame = ({ game }: { game: AvailableGameType }) => {
   const player = useContext(PlayerContext);
@@ -30,17 +34,19 @@ export const AvailableGame = ({ game }: { game: AvailableGameType }) => {
     throw new Error(result.message);
   };
 
+  const gameSlug = game.gameType as (typeof GAME_SLUGS)[number];
+
   return (
     <Flex className={styles.singleGame} direction="column" p="3">
       <Flex align="center" flex="1" justify="between">
         <Flex>
-          <Text>{game.gameId}</Text>
+          <Text>{game.gameName}</Text>
         </Flex>
         <GameState state={"waiting"} />
       </Flex>
       <Flex>
         <Text color="gray" size="2">
-          Game - {game.gameType}
+          {GAME_REGISTRY[gameSlug]?.name}
         </Text>
       </Flex>
       <Flex justify="end" mt="4">

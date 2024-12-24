@@ -18,6 +18,8 @@ export function useNetworkCall<T>(
 
     initialMountRef.current = true;
     const result = await networkCall();
+    setHasInitialized(true);
+
     if (isServiceError(result)) {
       console.error(result);
       onError?.(result);
@@ -25,7 +27,6 @@ export function useNetworkCall<T>(
     }
 
     setResult(result);
-    setHasInitialized(true);
   }, []);
 
   useEffect(() => {

@@ -3251,6 +3251,7 @@ __metadata:
     react-dom: "npm:^19.0.0"
     typescript: "npm:5.5.4"
     typescript-plugin-css-modules: "npm:^5.1.0"
+    uplot: "npm:^1.6.31"
     uuid: "npm:^11.0.3"
   languageName: unknown
   linkType: soft
@@ -3291,6 +3292,7 @@ __metadata:
     styled-components: "npm:^6.1.13"
     typescript: "npm:5.5.4"
     typescript-plugin-css-modules: "npm:^5.1.0"
+    uplot: "npm:^1.6.31"
     uuid: "npm:^11.0.3"
   languageName: unknown
   linkType: soft
@@ -12331,6 +12333,13 @@ __metadata:
   bin:
     update-browserslist-db: cli.js
   checksum: 10c0/536a2979adda2b4be81b07e311bd2f3ad5e978690987956bc5f514130ad50cac87cd22c710b686d79731e00fbee8ef43efe5fcd72baa241045209195d43dcc80
+  languageName: node
+  linkType: hard
+
+"uplot@npm:^1.6.31":
+  version: 1.6.31
+  resolution: "uplot@npm:1.6.31"
+  checksum: 10c0/b1b03ebb23bda148c16e085006db183f93e99c63dd457863217c81fe7f9d99d680b2bf18f5ea2e39c39df67e20d7bae4e7730853c0af9c86c0eb8e8004e2f8ed
   languageName: node
   linkType: hard
 
