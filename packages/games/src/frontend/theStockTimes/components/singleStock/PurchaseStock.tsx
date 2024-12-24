@@ -1,4 +1,4 @@
-import { RocketIcon } from "@radix-ui/react-icons";
+import { ArrowRightIcon, RocketIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import {
   OwnedStock,
@@ -92,8 +92,8 @@ export const PurchaseStock = ({
   };
 
   return (
-    <Flex className={styles.purchase} direction="column" gap="4" p="5">
-      <Flex align="center" gap="2">
+    <Flex className={styles.purchase} justify="between" p="5">
+      <Flex align="center" gap="2" wrap="wrap">
         <Text>Buy</Text>
         <Flex gap="1">
           <TextField
@@ -106,30 +106,22 @@ export const PurchaseStock = ({
           </Button>
         </Flex>
         <Text>{viewingStockSymbol}</Text>
-      </Flex>
-      <Flex gap="2">
         <Text>at</Text>
         <Text color="green">{displayDollar(currentStockPrice)}</Text>
         <Text>=</Text>
-        <Flex align="center" gap="1">
-          <Text color="red">{displayDollar(totalCost)}</Text>
-          <Text color="gray" size="2">
-            (cost)
-          </Text>
-        </Flex>
+        <Text color="red">{displayDollar(totalCost)}</Text>
+        <Text color="gray" size="2">
+          (cost)
+        </Text>
+        <ArrowRightIcon />
+        <Text color={leftOverCash > 0 ? "green" : "red"}>
+          {displayDollar(leftOverCash)}
+        </Text>
+        <Text color="gray" size="2">
+          (cash left)
+        </Text>
       </Flex>
-      <Flex gap="2">
-        <Flex align="center" gap="1">
-          <Text>=</Text>
-          <Text color={leftOverCash > 0 ? "green" : "red"}>
-            {displayDollar(leftOverCash)}
-          </Text>
-          <Text color="gray" size="2">
-            (leftover)
-          </Text>
-        </Flex>
-      </Flex>
-      <Flex justify="end">
+      <Flex style={{ width: "20%" }}>
         <Button
           disabled={quantity <= 0 || leftOverCash < 0}
           onClick={purchaseStock}
