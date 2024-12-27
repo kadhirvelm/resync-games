@@ -1,14 +1,5 @@
+import { WithTimestamp, NestedTimestamp } from "@resync-games/api";
 import { StateReconcilerMethod } from "@resync-games/games/backendRegistry";
-
-export interface WithTimestamp {
-  lastUpdatedAt: string;
-}
-
-export interface NestedTimestamp {
-  [key: string]: WithTimestamp;
-}
-
-export type TimestampedState = WithTimestamp | NestedTimestamp;
 
 function compareDates(
   dateOne: string | undefined,

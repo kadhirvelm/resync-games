@@ -20,7 +20,8 @@
     "esModuleInterop": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@resync-games/games/*": ["../games/src/backend/*"]
+      "@resync-games/games/*": ["../games/src/backend/*"],
+      "@resync-games/games-shared/*": ["../games/src/shared/*"]
     },
   },
   "include": ["**/*.ts", "../games/src/backend/**/*.ts", "../games/src/shared/**/*.ts"],

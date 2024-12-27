@@ -21,6 +21,7 @@
     "resolveJsonModule": true,
     "paths": {
       "@/*": ["../frontend/src/*"],
+      "@resync-games/games-shared/*": ["./src/shared/*"],
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "../frontend/src/**/*.tsx", "../frontend/src/**/*.ts", "../backend/src/**/*.ts"],
