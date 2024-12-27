@@ -1,3 +1,4 @@
+import { WithTimestamp } from "../../genericTypes";
 import { Service, ServiceDefinition } from "../../genericTypes/service";
 import { PlayerId } from "../user";
 import {
@@ -21,9 +22,8 @@ export interface CreateGame<GameConfiguration = object> {
   version: string;
 }
 
-export interface UpdateGame {
+export interface UpdateGame extends WithTimestamp {
   gameId: GameId;
-  lastUpdatedAt: string;
   newGameState: object;
   playerId?: PlayerId;
   version: string;
@@ -64,11 +64,11 @@ export interface UpdatePlayerInGame {
   team?: number;
 }
 
-export interface UpdateGameConfiguration<GameConfiguration = object> {
+export interface UpdateGameConfiguration<GameConfiguration = object>
+  extends WithTimestamp {
   gameConfiguration: GameConfiguration;
   gameId: GameId;
   gameType: GameType;
-  lastUpdatedAt: string;
   playerId: PlayerId;
 }
 

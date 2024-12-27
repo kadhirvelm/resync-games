@@ -1,21 +1,26 @@
 import {
   CurrentGameState,
   GameStateAndInfo,
-  PlayerId
+  PlayerId,
+  WithTimestamp
 } from "@resync-games/api";
 import { ICanChangeToState, IGameServer } from "../base";
 import _ from "lodash";
 import { AVAILABLE_STOCKS } from "./stocks/availableStocks";
 
-export interface StockPriceHistory {
-  lastUpdatedAt: string;
+export interface StockTimesCycle {
+  dayTime: number;
+  nightTime: number;
+  startTime: string;
+}
+
+export interface StockPriceHistory extends WithTimestamp {
   price: number;
 }
 
-export interface Stock {
+export interface Stock extends WithTimestamp {
   description: string;
   history: StockPriceHistory[];
-  lastUpdatedAt: string;
   title: string;
 }
 
@@ -33,17 +38,19 @@ export interface TransactionHistory {
   type: "buy" | "sell";
 }
 
+export interface StockTimesPlayer extends WithTimestamp {
+  cash: number;
+  ownedStocks: {
+    [stockSymbol: string]: OwnedStock[];
+  };
+  team: number;
+  transactionHistory: TransactionHistory[];
+}
+
 export interface TheStockTimesGame {
+  cycle: StockTimesCycle;
   players: {
-    [playerId: PlayerId]: {
-      cash: number;
-      lastUpdatedAt: string;
-      ownedStocks: {
-        [stockSymbol: string]: OwnedStock[];
-      };
-      team: number;
-      transactionHistory: TransactionHistory[];
-    };
+    [playerId: PlayerId]: StockTimesPlayer;
   };
   stocks: {
     [stockSymbol: string]: Stock;
@@ -62,8 +69,15 @@ export class TheStockTimesServer
     gameState: TheStockTimesGame;
     version: string;
   }> {
+    console.log("Creating game @@@");
+
     return {
       gameState: {
+        cycle: {
+          dayTime: 40 * 1_000, // 40 seconds
+          nightTime: 20 * 1_000, // 20 seconds
+          startTime: new Date().toISOString()
+        },
         players: {},
         stocks: {}
       },

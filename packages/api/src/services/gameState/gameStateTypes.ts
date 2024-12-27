@@ -1,3 +1,4 @@
+import { WithTimestamp } from "../../genericTypes";
 import { Player } from "../user";
 
 export type GameId = string & { __brand: "game-id" };
@@ -9,13 +10,12 @@ export interface PlayerInGame extends Player {
   team?: number;
 }
 
-export interface GameInfo<GameConfiguration = object> {
+export interface GameInfo<GameConfiguration = object> extends WithTimestamp {
   currentGameState: CurrentGameState;
   gameConfiguration: GameConfiguration;
   gameId: GameId;
   gameName: string;
   gameType: GameType;
-  lastUpdatedAt: string;
   players: PlayerInGame[];
   version: string;
 }

@@ -1,5 +1,10 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { GameId, GameStateAndInfo, GameType } from "@resync-games/api";
+import {
+  GameId,
+  GameStateAndInfo,
+  GameType,
+  TimestampedState
+} from "@resync-games/api";
 import * as _ from "lodash";
 import { ResyncGamesPrismaService } from "../../database/resyncGamesPrisma.service";
 import { GameStateSocketGateway } from "../gameState.socket";
@@ -9,7 +14,7 @@ import {
   BackendRegisteredGame,
   StateReconcilerMethod
 } from "@resync-games/games/backendRegistry";
-import { reconcileStates, TimestampedState } from "./reconcileStates";
+import { reconcileStates } from "./reconcileStates";
 
 @Injectable()
 export class GamesInFlightService {
