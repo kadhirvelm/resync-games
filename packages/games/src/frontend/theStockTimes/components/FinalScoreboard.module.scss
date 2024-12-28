@@ -1,0 +1,18 @@
+@use "@/styles/variables.scss" as vars;
+
+.teamContainer {
+    border-radius: 3px;
+    background: vars.$white;
+    border: 1px solid vars.$black;
+}
+
+.divider {
+    height: 1px;
+    background: vars.$black;
+    width: 200px;
+}
+
+.gold {
+    background: vars.$yellow;
+    color: vars.$white;
+}
