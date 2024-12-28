@@ -1,0 +1,38 @@
+@use "@/styles/variables.scss" as vars;
+
+.articlesContainer {
+    background: vars.$white;
+    border-radius: 3px;
+    border: 1px solid vars.$muted-font;
+}
+
+.impactContainer {
+    border: 1px solid vars.$black;
+    border-radius: 3px;
+}
+
+.two {
+    background: vars.$green;
+    color: vars.$white;
+}
+
+.one {
+    background: rgba(vars.$green, 0.25);
+}
+
+.minusTwo {
+    background: vars.$red;
+    color: vars.$white;
+}
+
+.minusOne {
+    background: rgba(vars.$red, 0.25);
+}
+
+.changeArticle {
+    cursor: pointer;
+    
+    &:hover {
+        background: rgba(vars.$muted-font, 0.75);
+    }
+}

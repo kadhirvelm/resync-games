@@ -37,7 +37,7 @@ function calculateClockPointer(timeFraction: number) {
 }
 
 export const Clock = ({ cycle }: { cycle: StockTimesCycle }) => {
-  const { day, timeFraction } = cycleTime(cycle);
+  const { currentCycle, day, timeFraction } = cycleTime(cycle);
 
   const [_, setCounter] = useState(0);
 
@@ -51,7 +51,7 @@ export const Clock = ({ cycle }: { cycle: StockTimesCycle }) => {
 
   return (
     <Flex align="center" gap="1">
-      <Text size="2">Day</Text>
+      <Text size="2">{currentCycle === "day" ? "Day" : "Night"}</Text>
       <Text size="2">{day}</Text>
       <svg height={50} width={50}>
         <circle className={styles.baseClock} cx="25" cy="25" r="20" />

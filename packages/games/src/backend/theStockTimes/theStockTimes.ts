@@ -11,6 +11,7 @@ import {
   CurentCyle,
   cycleTime
 } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { NEWS_ARTICLES } from "./stocks/stockArticles";
 
 export interface StockTimesCycle {
   dayTime: number;
@@ -60,7 +61,7 @@ export interface StockArticle extends WithTimestamp {
   title: string;
 }
 
-export interface StockTimesNewsArticle {
+export interface StockTimesNewsArticle extends WithTimestamp {
   articles: {
     [stockSymbol: string]: StockArticle[];
   };
@@ -99,7 +100,8 @@ export class TheStockTimesServer
         },
         newsArticles: {
           articles: {},
-          lastDay: 0
+          lastDay: 0,
+          lastUpdatedAt: new Date().toISOString()
         },
         players: {},
         stocks: {}
@@ -138,11 +140,18 @@ export class TheStockTimesServer
     for (const stock of randomStocks) {
       newGameState.stocks[stock.symbol] = {
         description: stock.description,
-        history: stock.history,
+        history: stock.history.map((h) => ({
+          ...h,
+          lastUpdatedAt: new Date().toISOString()
+        })),
         lastUpdatedAt: new Date().toISOString(),
         title: stock.title
       };
+
+      newGameState.newsArticles.articles[stock.symbol] = [];
     }
+
+    newGameState.cycle.startTime = new Date().toISOString();
 
     return newGameState;
   }
@@ -178,9 +187,37 @@ export class TheStockTimesServer
       return newArticles;
     }
 
-    newArticles.lastDay = day;
+    for (const stock of Object.keys(newsArticles.articles)) {
+      const newArticle = _.sample(NEWS_ARTICLES[stock] ?? []);
+      if (newArticle === undefined) {
+        throw new Error(
+          `No news for stock ${stock}. Please contact an administrator to check the database and try again.`
+        );
+      }
 
-    // TODO: add one more article to each day
+      if (
+        newArticles.articles[stock]?.find((s) => s.title === newArticle?.title)
+      ) {
+        newArticles.articles[stock].unshift({
+          addedOn: day,
+          description: "No news for today",
+          impact: 0,
+          lastUpdatedAt: new Date().toISOString(),
+          title: "No news"
+        });
+        continue;
+      }
+
+      newArticles.articles[stock] = newArticles.articles[stock] ?? [];
+      newArticles.articles[stock].unshift({
+        addedOn: day,
+        lastUpdatedAt: new Date().toISOString(),
+        ...newArticle
+      });
+    }
+
+    newArticles.lastDay = day;
+    newArticles.lastUpdatedAt = new Date().toISOString();
 
     return newArticles;
   }

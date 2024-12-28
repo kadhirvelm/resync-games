@@ -2,6 +2,7 @@ import { Flex } from "../../../components";
 import { useGameStateSelector } from "../../store/theStockTimesRedux";
 import { PriceGraph } from "./PriceGraph";
 import { PurchaseStock } from "./PurchaseStock";
+import { StockArticles } from "./StockArticles";
 import { StockDetails } from "./StockDetails";
 
 export const SingleStock = ({
@@ -24,6 +25,9 @@ export const SingleStock = ({
         thisStock={thisStock}
         viewingStockSymbol={viewingStockSymbol}
       />
+      <Flex>
+        <StockArticles viewingStockSymbol={viewingStockSymbol} />
+      </Flex>
       <PurchaseStock viewingStockSymbol={viewingStockSymbol} />
       <PriceGraph viewingStockSymbol={viewingStockSymbol} />
     </Flex>
