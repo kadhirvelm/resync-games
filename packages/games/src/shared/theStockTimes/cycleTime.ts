@@ -1,6 +1,15 @@
 import { StockTimesCycle } from "../../backend/theStockTimes/theStockTimes";
 
-export function cycleTime(cycle: StockTimesCycle) {
+export type CurentCyle = "day" | "night";
+
+export interface CycleTime {
+  currentCycle: CurentCyle;
+  day: number;
+  time: number;
+  timeFraction: number;
+}
+
+export function cycleTime(cycle: StockTimesCycle): CycleTime {
   const currentTime =
     new Date().valueOf() - new Date(cycle.startTime).valueOf();
   const totalTimePerDay = cycle.dayTime + cycle.nightTime;

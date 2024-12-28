@@ -394,5 +394,265 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
     lastUpdatedAt: new Date().toISOString(),
     symbol: "CBCR",
     title: "CanvasBurst Creations"
+  },
+  {
+    description:
+      "A crypto token claiming to harness the power of starlight to generate blockchain rewards. Totally not a pyramid scheme!",
+    history: [
+      {
+        lastUpdatedAt: "2024-11-30T10:00:00Z",
+        price: 0.0037
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "BRCOIN",
+    title: "BrightCoin"
+  },
+  {
+    description:
+      "An NFT marketplace selling unique GIFs of animated breezes for the discerning collector. 'Feel the breeze in your wallet!'",
+    history: [
+      {
+        lastUpdatedAt: "2024-11-30T10:00:00Z",
+        price: 0.48
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "GBNFT",
+    title: "GentleBreeze NFTs"
+  },
+  {
+    description:
+      "A crypto mining operation promising insane returns by 'mining' on virtual mountains. Returns may vary (or vanish).",
+    history: [
+      {
+        lastUpdatedAt: "2024-11-30T10:00:00Z",
+        price: 4.12
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "MMMINE",
+    title: "MassiveMountain Mining"
+  },
+  {
+    description:
+      "A meme coin inspired by lions, roaring through the crypto jungle. Community-driven and 'totally serious.'",
+    history: [
+      {
+        lastUpdatedAt: "2024-11-30T10:00:00Z",
+        price: 0.00021
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "LION",
+    title: "LionCoin"
+  },
+  {
+    description:
+      "A multi-level marketing scheme selling miracle water filters that 'purify your life' (and empty your bank account).",
+    history: [
+      {
+        lastUpdatedAt: "2024-11-30T10:00:00Z",
+        price: 0.75
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "SRNPND",
+    title: "SerenePond MLM"
+  },
+  {
+    description:
+      "A decentralized blockchain promising to 'flap its wings' and cause financial hurricanes across the crypto market.",
+    history: [
+      {
+        lastUpdatedAt: "2024-11-30T10:00:00Z",
+        price: 0.0089
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "BFLY",
+    title: "ButterflyChain"
+  },
+  {
+    description:
+      "A scammy crypto token 'planting virtual trees' while planting doubts in your investment choices.",
+    history: [
+      {
+        lastUpdatedAt: "2024-11-30T10:00:00Z",
+        price: 0.0015
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "TRTKN",
+    title: "TreeToken"
+  },
+  {
+    description:
+      "A mystical, meme-based cryptocurrency promising to take you to the 'next dimension' of investing. Good vibes only!",
+    history: [
+      {
+        lastUpdatedAt: "2024-11-30T10:00:00Z",
+        price: 0.0042
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "MYST",
+    title: "MysticCrypto"
+  },
+  {
+    description:
+      "A luxurious Ponzi scheme masked as an exclusive crypto 'investment club' for swan enthusiasts. Gracefully taking your money!",
+    history: [
+      {
+        lastUpdatedAt: "2024-11-30T10:00:00Z",
+        price: 0.0023
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "SWGPNZ",
+    title: "SwanGrace Ponzi"
+  },
+  {
+    description:
+      "A 'community-run' decentralized autonomous organization promising to fund ocean exploration but mainly funds someone's yacht.",
+    history: [
+      {
+        lastUpdatedAt: "2024-11-30T10:00:00Z",
+        price: 0.0067
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "OCDAO",
+    title: "OceanDAO"
+  },
+  {
+    description:
+      "A Japanese courier service known for its ultra-fast and reliable deliveries, using advanced AI for route optimization.",
+    history: [
+      {
+        lastUpdatedAt: "2024-12-26T10:00:00Z",
+        price: 178.45
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "FSL",
+    title: "FoxSwift Logistics"
+  },
+  {
+    description:
+      "A Swiss manufacturer of state-of-the-art armor and equipment for modern military and personal safety.",
+    history: [
+      {
+        lastUpdatedAt: "2024-12-26T10:00:00Z",
+        price: 324.75
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "VKD",
+    title: "ValorKnights Defense"
+  },
+  {
+    description:
+      "A British firm specializing in restoring and commercializing ancient technologies for modern applications.",
+    history: [
+      {
+        lastUpdatedAt: "2024-12-26T10:00:00Z",
+        price: 98.67
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "ATV",
+    title: "Antiquitech Ventures"
+  },
+  {
+    description:
+      "A French fashion house crafting swan-inspired luxury apparel and accessories for high-end clients.",
+    history: [
+      {
+        lastUpdatedAt: "2024-12-26T10:00:00Z",
+        price: 452.1
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "CYG",
+    title: "Cygnus Gracewear"
+  },
+  {
+    description:
+      "An Indian company pioneering sustainable timber and herbal medicines sourced from untapped forest ecosystems.",
+    history: [
+      {
+        lastUpdatedAt: "2024-12-26T10:00:00Z",
+        price: 63.89
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "MYFI",
+    title: "MystiFore Industries"
+  },
+  {
+    description:
+      "A Chinese enterprise focusing on renewable energy solutions inspired by celestial physics and star energy models.",
+    history: [
+      {
+        lastUpdatedAt: "2024-12-26T10:00:00Z",
+        price: 210.33
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "SNS",
+    title: "StarNova Systems"
+  },
+  {
+    description:
+      "A South African mining conglomerate extracting rare gems and metals with cutting-edge technology.",
+    history: [
+      {
+        lastUpdatedAt: "2024-12-26T10:00:00Z",
+        price: 389.12
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "LCM",
+    title: "LustreCore Mining"
+  },
+  {
+    description:
+      "A Brazilian company developing ferocious immune-boosting biopharmaceuticals derived from jungle flora.",
+    history: [
+      {
+        lastUpdatedAt: "2024-12-26T10:00:00Z",
+        price: 275.88
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "LHB",
+    title: "LionHeart Biotech"
+  },
+  {
+    description:
+      "A Norwegian firm creating luxury yachts and eco-friendly maritime technologies for a calmer sea experience.",
+    history: [
+      {
+        lastUpdatedAt: "2024-12-26T10:00:00Z",
+        price: 186.22
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "SRM",
+    title: "Serenity Marine"
+  },
+  {
+    description:
+      "An Italian atelier specializing in handcrafted, elegant dresses with a focus on timeless aesthetics.",
+    history: [
+      {
+        lastUpdatedAt: "2024-12-26T10:00:00Z",
+        price: 520.15
+      }
+    ],
+    lastUpdatedAt: new Date().toISOString(),
+    symbol: "ELAN",
+    title: "Élan Couture"
   }
 ];
