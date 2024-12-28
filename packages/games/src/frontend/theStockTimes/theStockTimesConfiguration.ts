@@ -12,10 +12,10 @@ export const TheStockTimesConfiguration: MapGameConfiguration<TheStockTimesGameC
       type: "number"
     },
     totalStocks: {
-      default: 5,
+      default: 8,
       label: "Total stocks",
-      max: 10,
-      min: 2,
+      max: 12,
+      min: 4,
       required: true,
       type: "number"
     }

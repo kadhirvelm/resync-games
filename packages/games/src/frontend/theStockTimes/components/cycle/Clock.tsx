@@ -1,6 +1,7 @@
-import { CycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import clsx from "clsx";
 import { StockTimesCycle } from "../../../../backend/theStockTimes/theStockTimes";
 import { Flex } from "../../../components";
+import { useCycleTime } from "../../hooks/cycleTime";
 import styles from "./Clock.module.scss";
 
 const size = 75;
@@ -35,40 +36,52 @@ function calculateClockPointer(timeFraction: number) {
   return `M ${centerX} ${centerY} L ${endX} ${endY}`;
 }
 
-export const Clock = ({
-  calculatedCycleTime,
-  cycle
-}: {
-  calculatedCycleTime: CycleTime;
-  cycle: StockTimesCycle;
-}) => {
+export const Clock = ({ cycle }: { cycle: StockTimesCycle }) => {
+  const calculatedCycleTime = useCycleTime(cycle);
+
   const { day, timeFraction } = calculatedCycleTime;
 
   return (
-    <Flex align="center" gap="1">
-      <svg height={size} width={size}>
-        <circle
-          className={styles.baseClock}
-          cx={centerX}
-          cy={centerY}
-          r={radius}
-        />
-        <path className={styles.night} d={calculateNightTimeArc(cycle)} />
-        <path
-          className={styles.pointer}
-          d={calculateClockPointer(timeFraction)}
-        />
-        <circle
-          cx={centerX}
-          cy={centerY}
-          fill="white"
-          r={radius * 0.5}
-          stroke="black"
-        />
-        <text dy=".3em" textAnchor="middle" x={centerX} y={centerY}>
-          {day}
-        </text>
-      </svg>
-    </Flex>
+    <>
+      <Flex align="center" gap="1">
+        <svg height={size} width={size}>
+          <circle
+            className={styles.baseClock}
+            cx={centerX}
+            cy={centerY}
+            r={radius}
+          />
+          <path className={styles.night} d={calculateNightTimeArc(cycle)} />
+          <path
+            className={styles.pointer}
+            d={calculateClockPointer(timeFraction)}
+          />
+          <circle
+            cx={centerX}
+            cy={centerY}
+            fill="white"
+            r={radius * 0.5}
+            stroke="black"
+          />
+          <text
+            className={clsx({
+              [styles.lastDay ?? ""]: cycle.endDay - 1 === day
+            })}
+            dy=".3em"
+            textAnchor="middle"
+            x={centerX}
+            y={centerY}
+          >
+            {day}
+          </text>
+        </svg>
+      </Flex>
+      <Flex
+        className={clsx(styles.background, {
+          [styles.day ?? ""]: calculatedCycleTime.currentCycle === "day",
+          [styles.night ?? ""]: calculatedCycleTime.currentCycle === "night"
+        })}
+      />
+    </>
   );
 };

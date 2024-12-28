@@ -17,7 +17,7 @@ export const FinalScoreboard = () => {
           })}
           direction="column"
           gap="2"
-          key={team.teamName}
+          key={team.teamName ?? index}
           p="3"
         >
           <Flex align="center" gap="2">

@@ -1,22 +1,23 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useGameStateSelector } from "../store/theStockTimesRedux";
 import { shuffle } from "lodash-es";
 import { StockArticle } from "../../../backend/theStockTimes/theStockTimes";
 import { Button, Flex, Text } from "../../components";
 import styles from "./DayArticles.module.scss";
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
+import { selectArticles } from "../store/selectors";
 
 export const DayArticles = () => {
-  const articles = useGameStateSelector(
-    (s) => s.gameStateSlice.gameState?.newsArticles.articles
-  );
+  const { articles, lastestAddedOn } = useGameStateSelector(selectArticles);
 
   const [selectedDay, setSelectedDay] = useState(0);
 
+  useEffect(() => {
+    setSelectedDay(0);
+  }, [lastestAddedOn]);
+
   const viewingArticles: StockArticle[] = useMemo(() => {
-    const collapsedArticles = Object.keys(articles ?? {}).map(
-      (stockSymbol) => articles?.[stockSymbol]?.[selectedDay]
-    );
+    const collapsedArticles = articles.map((a) => a?.[selectedDay]);
     const filteredArticles = collapsedArticles.filter(
       (article) => article !== undefined && article?.title !== "No news"
     ) as StockArticle[];
@@ -35,7 +36,7 @@ export const DayArticles = () => {
     }
 
     return shuffle(filteredArticles);
-  }, [articles, selectedDay]);
+  }, [lastestAddedOn, selectedDay]);
 
   return (
     <Flex

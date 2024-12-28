@@ -1,6 +1,7 @@
 import { selectPlayerPortfolio } from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
+  updateTheStockTimesLocalState,
   useGameStateDispatch,
   useGameStateSelector
 } from "../../store/theStockTimesRedux";
@@ -76,6 +77,8 @@ const SellPlayerStock = ({
 };
 
 export const PlayerStocks = () => {
+  const dispatch = useGameStateDispatch();
+
   const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
   const stocks = useGameStateSelector(
     (s) => s.gameStateSlice.gameState?.stocks
@@ -88,6 +91,12 @@ export const PlayerStocks = () => {
   const playerStocksSorted = Object.keys(playerPortfolio.ownedStocks)
     .slice()
     .sort();
+
+  const setViewingStockSymbol = (stockSymbol: string) => () => {
+    dispatch(
+      updateTheStockTimesLocalState({ viewingStockSymbol: stockSymbol })
+    );
+  };
 
   return playerStocksSorted.map((symbol) => {
     const ownedStock = playerPortfolio.ownedStocks[symbol];
@@ -110,7 +119,12 @@ export const PlayerStocks = () => {
 
     return (
       <Flex direction="column" key={symbol}>
-        <Flex align="center" gap="3">
+        <Flex
+          align="center"
+          className={styles.stockSymbol}
+          gap="3"
+          onClick={setViewingStockSymbol(symbol)}
+        >
           <Text>{symbol}</Text>
           <Flex className={styles.divider} flex="1" />
           <Text color="green">{displayDollar(totalPrice)}</Text>

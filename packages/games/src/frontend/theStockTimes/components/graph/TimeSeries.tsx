@@ -3,7 +3,17 @@ import uPlot from "uplot";
 import "uplot/dist/uPlot.min.css";
 import { displayDollar } from "../../utils/displayDollar";
 
-export const TimeSeries = ({ x, y }: { x: number[]; y: number[] }) => {
+export const TimeSeries = ({
+  x,
+  xAxisLabel,
+  xAxisCursor,
+  y
+}: {
+  x: number[];
+  xAxisCursor?: (value: number) => string | undefined;
+  xAxisLabel?: (value: number) => string | undefined;
+  y: number[];
+}) => {
   const chartRef = useRef<uPlot | null>(null);
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -28,11 +38,12 @@ export const TimeSeries = ({ x, y }: { x: number[]; y: number[] }) => {
         axes: [
           {
             grid: {
-              show: false
+              show: true
             },
             values: (_, values) =>
               values.map(
                 (value) =>
+                  xAxisLabel?.(value) ??
                   `${new Date(value).getMinutes().toString().padStart(2, "0")}:${new Date(value).getSeconds().toString().padStart(2, "0")}`
               )
           },
@@ -42,11 +53,39 @@ export const TimeSeries = ({ x, y }: { x: number[]; y: number[] }) => {
           }
         ],
         height: chartContainerRef.current.clientHeight,
+        hooks: {
+          draw: [
+            (u) => {
+              const ctx = u.ctx;
+              const { top, height } = u.bbox;
+              ctx.save();
+              ctx.strokeStyle = "rgba(0,0,0,0.5)";
+              ctx.lineWidth = 1;
+
+              for (let i = 0; i < u.data[0].length; i++) {
+                const date = new Date(u.data[0][i] ?? 0 * 1000);
+                if (date.getHours() === 0 && date.getMinutes() === 0) {
+                  const x = Math.round(
+                    u.valToPos(u.data[0][i] ?? 0, "x", true)
+                  );
+                  ctx.beginPath();
+                  ctx.moveTo(x, top);
+                  ctx.lineTo(x, top + height);
+                  ctx.stroke();
+                }
+              }
+
+              ctx.restore();
+            }
+          ]
+        },
         id: "price",
         series: [
           {
             value: (_, value) => {
-              return value == null ? value : new Date(value).toLocaleString();
+              return value == null
+                ? value
+                : (xAxisCursor?.(value) ?? new Date(value).toLocaleString());
             }
           },
           {
