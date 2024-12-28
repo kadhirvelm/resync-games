@@ -7,6 +7,10 @@ import {
 import { ICanChangeToState, IGameServer } from "../base";
 import _ from "lodash";
 import { AVAILABLE_STOCKS } from "./stocks/availableStocks";
+import {
+  CurentCyle,
+  cycleTime
+} from "@resync-games/games-shared/theStockTimes/cycleTime";
 
 export interface StockTimesCycle {
   dayTime: number;
@@ -47,8 +51,25 @@ export interface StockTimesPlayer extends WithTimestamp {
   transactionHistory: TransactionHistory[];
 }
 
+export type StockArticleImpact = -2 | -1 | 0 | 1 | 2;
+
+export interface StockArticle extends WithTimestamp {
+  addedOn: number;
+  description: string;
+  impact: StockArticleImpact;
+  title: string;
+}
+
+export interface StockTimesNewsArticle {
+  articles: {
+    [stockSymbol: string]: StockArticle[];
+  };
+  lastDay: number;
+}
+
 export interface TheStockTimesGame {
   cycle: StockTimesCycle;
+  newsArticles: StockTimesNewsArticle;
   players: {
     [playerId: PlayerId]: StockTimesPlayer;
   };
@@ -69,14 +90,16 @@ export class TheStockTimesServer
     gameState: TheStockTimesGame;
     version: string;
   }> {
-    console.log("Creating game @@@");
-
     return {
       gameState: {
         cycle: {
-          dayTime: 40 * 1_000, // 40 seconds
+          dayTime: 40 * 1_000, // 100 seconds
           nightTime: 20 * 1_000, // 20 seconds
           startTime: new Date().toISOString()
+        },
+        newsArticles: {
+          articles: {},
+          lastDay: 0
         },
         players: {},
         stocks: {}
@@ -130,15 +153,49 @@ export class TheStockTimesServer
       TheStockTimesGameConfiguration
     >
   ) {
-    if (gameStateAndInfo.currentGameState !== "playing") {
-      return;
+    const newGameState = { ...gameStateAndInfo.gameState };
+    const { day, currentCycle } = cycleTime(newGameState.cycle);
+
+    newGameState.stocks = this.tickStockPrices(
+      gameStateAndInfo.gameState.stocks,
+      currentCycle
+    );
+    newGameState.newsArticles = this.tickNewsArticles(
+      gameStateAndInfo.gameState.newsArticles,
+      day
+    );
+
+    return newGameState;
+  }
+
+  private tickNewsArticles(
+    newsArticles: TheStockTimesGame["newsArticles"],
+    day: number
+  ) {
+    const newArticles = { ...newsArticles };
+
+    if (newArticles.lastDay === day) {
+      return newArticles;
     }
 
-    const newGameState = { ...gameStateAndInfo.gameState };
+    newArticles.lastDay = day;
 
-    const { stocks } = newGameState;
-    for (const symbol of Object.keys(gameStateAndInfo.gameState.stocks)) {
-      const stock = stocks[symbol];
+    // TODO: add one more article to each day
+
+    return newArticles;
+  }
+
+  private tickStockPrices(
+    stocks: TheStockTimesGame["stocks"],
+    currentCycle: CurentCyle
+  ) {
+    const newStocks = { ...stocks };
+    if (currentCycle === "night") {
+      return newStocks;
+    }
+
+    for (const symbol of Object.keys(stocks)) {
+      const stock = newStocks[symbol];
       if (stock === undefined) {
         continue;
       }
@@ -148,6 +205,8 @@ export class TheStockTimesServer
       if (priceHistory === undefined || lastPrice === undefined) {
         continue;
       }
+
+      // TODO: take into account the latest news article when calculating the price
 
       const increaseOrDecrease = Math.random() > 0.6 ? 1 : -1;
       const priceDelta = Math.random() * (lastPrice * 0.025);
@@ -162,6 +221,6 @@ export class TheStockTimesServer
       stock.lastUpdatedAt = new Date().toISOString();
     }
 
-    return newGameState;
+    return newStocks;
   }
 }
