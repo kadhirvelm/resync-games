@@ -49,3 +49,48 @@ export const selectTeams = createSelector(
     );
   }
 );
+
+export const selectTotalTeamValue = createSelector(
+  [
+    (state: TheStockTimesReduxState) => state.gameStateSlice.gameState?.players,
+    (state: TheStockTimesReduxState) => state.gameStateSlice.gameState?.stocks,
+    selectTeams
+  ],
+  (players, stocks, existingTeams) => {
+    const teams: { [teamNumber: number]: { totalValue: number } } = {};
+    for (const player of Object.values(players ?? {})) {
+      const heldStockValue = Object.entries(player.ownedStocks ?? {}).reduce(
+        (previous, [symbol, ownedStocks]) => {
+          const accordingStock = stocks?.[symbol];
+          const latestPrice = accordingStock?.history[0]?.price ?? 0;
+          const totalValue = ownedStocks.reduce(
+            (acc, stock) => acc + stock.quantity * latestPrice,
+            0
+          );
+
+          return previous + totalValue;
+        },
+        0
+      );
+
+      teams[player.team] = {
+        totalValue:
+          (teams[player.team]?.totalValue ?? 0) + player.cash + heldStockValue
+      };
+    }
+
+    const finalTeamValues = Object.fromEntries(
+      Object.entries(teams).map(([teamNumber, value]) => [
+        teamNumber,
+        {
+          ...existingTeams[teamNumber],
+          ...value
+        }
+      ])
+    );
+
+    return Object.values(finalTeamValues).sort((a, b) =>
+      a.totalValue > b.totalValue ? -1 : 1
+    );
+  }
+);

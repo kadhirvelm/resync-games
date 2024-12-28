@@ -7,11 +7,17 @@ import { PlayerPortfolio } from "./components/playerPortfolio/PlayerPortfolio";
 import { useCycleTime } from "./hooks/cycleTime";
 import { useGameStateSelector } from "./store/theStockTimesRedux";
 import styles from "./TheStockTimes.module.scss";
+import { FinalScoreboard } from "./components/FinalScoreboard";
 
 export const DisplayTheStockTimes = () => {
+  const gameInfo = useGameStateSelector((s) => s.gameStateSlice.gameInfo);
   const gameState = useGameStateSelector((s) => s.gameStateSlice.gameState);
 
   const calculatedCycleTime = useCycleTime(gameState?.cycle);
+
+  if (gameInfo?.currentGameState === "finished") {
+    return <FinalScoreboard />;
+  }
 
   if (gameState === undefined) {
     return;
