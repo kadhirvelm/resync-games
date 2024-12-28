@@ -95,8 +95,8 @@ export class TheStockTimesServer
     return {
       gameState: {
         cycle: {
-          dayTime: 60 * 1_000, // 60 seconds
-          endDay: 16, // 15 full days = 20 minute game by default
+          dayTime: 60 * 1_000, // 40 seconds
+          endDay: 16, // 15 full days = 15 minute game
           nightTime: 20 * 1_000, // 20 seconds
           startTime: new Date().toISOString()
         },

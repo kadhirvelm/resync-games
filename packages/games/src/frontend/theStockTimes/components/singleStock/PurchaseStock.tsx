@@ -92,8 +92,8 @@ export const PurchaseStock = ({
   };
 
   return (
-    <Flex className={styles.purchase} justify="between" p="5">
-      <Flex align="center" gap="2" wrap="wrap">
+    <Flex className={styles.purchase} direction="column">
+      <Flex align="center" gap="2" pt="4" px="4" wrap="wrap">
         <Text>Buy</Text>
         <Flex gap="1">
           <TextField
@@ -121,13 +121,15 @@ export const PurchaseStock = ({
           (cash left)
         </Text>
       </Flex>
-      <Flex style={{ width: "20%" }}>
-        <Button
-          disabled={quantity <= 0 || leftOverCash < 0}
-          onClick={purchaseStock}
-        >
-          Buy {quantity} stocks
-        </Button>
+      <Flex flex="1" justify="end" p="2">
+        <Flex style={{ width: "30%" }}>
+          <Button
+            disabled={quantity <= 0 || leftOverCash < 0}
+            onClick={purchaseStock}
+          >
+            Buy {quantity} stocks
+          </Button>
+        </Flex>
       </Flex>
     </Flex>
   );

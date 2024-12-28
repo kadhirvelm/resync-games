@@ -9,9 +9,10 @@ export interface CycleTime {
   timeFraction: number;
 }
 
-export function cycleTime(cycle: StockTimesCycle): CycleTime {
+export function cycleTime(cycle: StockTimesCycle, value?: number): CycleTime {
   const currentTime =
-    new Date().valueOf() - new Date(cycle.startTime).valueOf();
+    (value === undefined ? new Date().valueOf() : new Date(value).valueOf()) -
+    new Date(cycle.startTime).valueOf();
   const totalTimePerDay = cycle.dayTime + cycle.nightTime;
 
   const day = Math.floor(currentTime / totalTimePerDay) + 1;

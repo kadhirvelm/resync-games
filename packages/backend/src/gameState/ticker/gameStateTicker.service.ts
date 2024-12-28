@@ -1,9 +1,11 @@
 import { ResyncGamesPrismaService } from "@/database/resyncGamesPrisma.service";
 import { Injectable, Logger } from "@nestjs/common";
-import { Cron, CronExpression } from "@nestjs/schedule";
+import { Cron } from "@nestjs/schedule";
 import { GameStateAndInfo, PlayerId } from "@resync-games/api";
 import { GameStateService } from "../gameState.service";
 import { GameRegistryService } from "../utils/gameRegistry.service";
+
+const EVERY_3_SECONDS = "*/3 * * * * *";
 
 @Injectable()
 export class GameStateTicker {
@@ -15,7 +17,7 @@ export class GameStateTicker {
     private gameRegistryService: GameRegistryService
   ) {}
 
-  @Cron(CronExpression.EVERY_5_SECONDS)
+  @Cron(EVERY_3_SECONDS)
   public async tick() {
     const gamesInFlight = await this.prismaService.client.gameState.findMany({
       include: {

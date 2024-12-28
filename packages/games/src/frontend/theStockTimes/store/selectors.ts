@@ -1,7 +1,7 @@
-import { createSelector } from "@reduxjs/toolkit";
-import { TheStockTimesReduxState } from "./theStockTimesRedux";
-import { PlayerInGame } from "@resync-games/api";
 import { getTeamName } from "@/lib/stableIdentifiers/teamIdentifier";
+import { createSelector } from "@reduxjs/toolkit";
+import { PlayerInGame } from "@resync-games/api";
+import { TheStockTimesReduxState } from "./theStockTimesRedux";
 
 export const selectPlayerPortfolio = createSelector(
   [
@@ -73,7 +73,7 @@ export const selectTotalTeamValue = createSelector(
         0
       );
 
-      teams[player.team] = {
+      teams[player.team ?? 0] = {
         totalValue:
           (teams[player.team]?.totalValue ?? 0) + player.cash + heldStockValue
       };
@@ -92,5 +92,19 @@ export const selectTotalTeamValue = createSelector(
     return Object.values(finalTeamValues).sort((a, b) =>
       a.totalValue > b.totalValue ? -1 : 1
     );
+  }
+);
+
+export const selectArticles = createSelector(
+  [
+    (state: TheStockTimesReduxState) =>
+      state.gameStateSlice.gameState?.newsArticles.articles
+  ],
+  (articlesByStock) => {
+    const articles = Object.values(articlesByStock ?? {});
+    return {
+      articles,
+      lastestAddedOn: articles[0]?.[0]?.addedOn
+    };
   }
 );

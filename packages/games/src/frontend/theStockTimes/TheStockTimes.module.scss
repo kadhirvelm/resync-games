@@ -2,27 +2,12 @@
 
 .mainContainer {
     margin: 50px;
+    z-index: 1;
 }
 
-.gameName {
+.clock {
     position: fixed;
     top: 5px;
     right: 5px;
-}
-
-.background {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
     z-index: -1;
-    
-    &.night {
-        background: rgba(vars.$blue, 0.1);
-    }
-
-    &.day {
-        background: rgba(vars.$yellow, 0.1);
-    }
 }
