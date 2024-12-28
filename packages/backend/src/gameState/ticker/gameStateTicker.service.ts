@@ -58,13 +58,11 @@ export class GameStateTicker {
       return;
     }
 
-    const { didAcceptChange } = await this.gameStateService.updateGame({
+    await this.gameStateService.updateGame({
       gameId: game.gameId,
       lastUpdatedAt: new Date().toISOString(),
       newGameState: maybeNewGameState,
       version: game.version
     });
-
-    console.log(didAcceptChange);
   };
 }

@@ -17,7 +17,8 @@ export function cycleTime(cycle: StockTimesCycle): CycleTime {
   const day = Math.floor(currentTime / totalTimePerDay) + 1;
   const time = currentTime % totalTimePerDay;
   const timeFraction = time / totalTimePerDay;
-  const currentCycle: "day" | "night" = time < cycle.dayTime ? "day" : "night";
+  const currentCycle: "day" | "night" =
+    time < cycle.nightTime ? "night" : "day";
 
   return {
     currentCycle,
