@@ -4,17 +4,18 @@ import {
   PlayerId,
   WithTimestamp
 } from "@resync-games/api";
-import { ICanChangeToState, IGameServer } from "../base";
-import _ from "lodash";
-import { AVAILABLE_STOCKS } from "./stocks/availableStocks";
 import {
   CurentCyle,
   cycleTime
 } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import _ from "lodash";
+import { ICanChangeToState, IGameServer } from "../base";
+import { AVAILABLE_STOCKS } from "./stocks/availableStocks";
 import { NEWS_ARTICLES } from "./stocks/stockArticles";
 
 export interface StockTimesCycle {
   dayTime: number;
+  endDay: number;
   nightTime: number;
   startTime: string;
 }
@@ -94,7 +95,8 @@ export class TheStockTimesServer
     return {
       gameState: {
         cycle: {
-          dayTime: 40 * 1_000, // 100 seconds
+          dayTime: 60 * 1_000, // 60 seconds
+          endDay: 16, // 15 full days = 20 minute game by default
           nightTime: 20 * 1_000, // 20 seconds
           startTime: new Date().toISOString()
         },
@@ -167,6 +169,7 @@ export class TheStockTimesServer
 
     newGameState.stocks = this.tickStockPrices(
       gameStateAndInfo.gameState.stocks,
+      gameStateAndInfo.gameState.newsArticles.articles,
       currentCycle
     );
     newGameState.newsArticles = this.tickNewsArticles(
@@ -224,6 +227,7 @@ export class TheStockTimesServer
 
   private tickStockPrices(
     stocks: TheStockTimesGame["stocks"],
+    newsArticles: StockTimesNewsArticle["articles"],
     currentCycle: CurentCyle
   ) {
     const newStocks = { ...stocks };
@@ -243,13 +247,19 @@ export class TheStockTimesServer
         continue;
       }
 
-      // TODO: take into account the latest news article when calculating the price
+      const latestNewsArticle = newsArticles[symbol]?.[0];
+      const { probabilityOfIncrease, percentOfLastPrice } =
+        this.accountForNewsArticle(latestNewsArticle);
 
-      const increaseOrDecrease = Math.random() > 0.6 ? 1 : -1;
-      const priceDelta = Math.random() * (lastPrice * 0.025);
+      const increaseOrDecrease =
+        Math.random() >= 1 - probabilityOfIncrease ? 1 : -1;
+      const priceDelta = Math.random() * (lastPrice * percentOfLastPrice);
+      const finalPriceChange = increaseOrDecrease * priceDelta;
 
-      const newPrice =
-        Math.round((lastPrice + increaseOrDecrease * priceDelta) * 100) / 100;
+      const newPrice = Math.max(
+        Math.round((lastPrice + finalPriceChange) * 100) / 100,
+        0.01
+      );
       stock.history.unshift({
         lastUpdatedAt: new Date().toISOString(),
         price: newPrice
@@ -259,5 +269,40 @@ export class TheStockTimesServer
     }
 
     return newStocks;
+  }
+
+  private accountForNewsArticle(latestNewsArticle: StockArticle | undefined) {
+    if (latestNewsArticle?.impact === 1) {
+      return {
+        percentOfLastPrice: 0.05,
+        probabilityOfIncrease: 0.7
+      };
+    }
+
+    if (latestNewsArticle?.impact === 2) {
+      return {
+        percentOfLastPrice: 0.1,
+        probabilityOfIncrease: 0.8
+      };
+    }
+
+    if (latestNewsArticle?.impact === -1) {
+      return {
+        percentOfLastPrice: 0.05,
+        probabilityOfIncrease: 0.5
+      };
+    }
+
+    if (latestNewsArticle?.impact === -2) {
+      return {
+        percentOfLastPrice: 0.1,
+        probabilityOfIncrease: 0.4
+      };
+    }
+
+    return {
+      percentOfLastPrice: 0.025,
+      probabilityOfIncrease: 0.6
+    };
   }
 }
