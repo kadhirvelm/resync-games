@@ -401,7 +401,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
     history: [
       {
         lastUpdatedAt: "2024-11-30T10:00:00Z",
-        price: 0.0037
+        price: 3.37
       }
     ],
     lastUpdatedAt: new Date().toISOString(),
@@ -414,7 +414,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
     history: [
       {
         lastUpdatedAt: "2024-11-30T10:00:00Z",
-        price: 0.48
+        price: 1.48
       }
     ],
     lastUpdatedAt: new Date().toISOString(),
@@ -440,7 +440,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
     history: [
       {
         lastUpdatedAt: "2024-11-30T10:00:00Z",
-        price: 0.00021
+        price: 6.21
       }
     ],
     lastUpdatedAt: new Date().toISOString(),
@@ -453,7 +453,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
     history: [
       {
         lastUpdatedAt: "2024-11-30T10:00:00Z",
-        price: 0.75
+        price: 5.75
       }
     ],
     lastUpdatedAt: new Date().toISOString(),
@@ -466,7 +466,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
     history: [
       {
         lastUpdatedAt: "2024-11-30T10:00:00Z",
-        price: 0.0089
+        price: 10.89
       }
     ],
     lastUpdatedAt: new Date().toISOString(),
@@ -479,7 +479,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
     history: [
       {
         lastUpdatedAt: "2024-11-30T10:00:00Z",
-        price: 0.0015
+        price: 1.15
       }
     ],
     lastUpdatedAt: new Date().toISOString(),
@@ -492,7 +492,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
     history: [
       {
         lastUpdatedAt: "2024-11-30T10:00:00Z",
-        price: 0.0042
+        price: 3.42
       }
     ],
     lastUpdatedAt: new Date().toISOString(),
@@ -505,7 +505,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
     history: [
       {
         lastUpdatedAt: "2024-11-30T10:00:00Z",
-        price: 0.0023
+        price: 5.23
       }
     ],
     lastUpdatedAt: new Date().toISOString(),
@@ -518,7 +518,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
     history: [
       {
         lastUpdatedAt: "2024-11-30T10:00:00Z",
-        price: 0.0067
+        price: 2.67
       }
     ],
     lastUpdatedAt: new Date().toISOString(),
