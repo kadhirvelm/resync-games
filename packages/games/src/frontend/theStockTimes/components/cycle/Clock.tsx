@@ -1,16 +1,17 @@
-import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { CycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
 import { StockTimesCycle } from "../../../../backend/theStockTimes/theStockTimes";
-import { Flex, Text } from "../../../components";
+import { Flex } from "../../../components";
 import styles from "./Clock.module.scss";
-import { useEffect, useState } from "react";
+
+const size = 75;
+
+const radius = size / 2 - 1;
+const centerX = size / 2;
+const centerY = size / 2;
 
 function calculateNightTimeArc(cycle: StockTimesCycle) {
   const percentNight = cycle.nightTime / (cycle.dayTime + cycle.nightTime);
   const angle = percentNight * 360;
-
-  const radius = 20;
-  const centerX = 25;
-  const centerY = 25;
 
   const endX = centerX + radius * Math.cos((angle - 90) * (Math.PI / 180));
   const endY = centerY + radius * Math.sin((angle - 90) * (Math.PI / 180));
@@ -26,40 +27,47 @@ function calculateNightTimeArc(cycle: StockTimesCycle) {
 function calculateClockPointer(timeFraction: number) {
   const angle = timeFraction * 360;
 
-  const radius = 18;
-  const centerX = 25;
-  const centerY = 25;
-
-  const endX = centerX + radius * Math.cos((angle - 90) * (Math.PI / 180));
-  const endY = centerY + radius * Math.sin((angle - 90) * (Math.PI / 180));
+  const endX =
+    centerX + radius * Math.cos((angle - 90) * (Math.PI / 180)) * 0.95;
+  const endY =
+    centerY + radius * Math.sin((angle - 90) * (Math.PI / 180)) * 0.95;
 
   return `M ${centerX} ${centerY} L ${endX} ${endY}`;
 }
 
-export const Clock = ({ cycle }: { cycle: StockTimesCycle }) => {
-  const { currentCycle, day, timeFraction } = cycleTime(cycle);
-
-  const [_, setCounter] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCounter((prev) => prev + 1);
-    }, 100);
-
-    return () => clearInterval(interval);
-  }, []);
+export const Clock = ({
+  calculatedCycleTime,
+  cycle
+}: {
+  calculatedCycleTime: CycleTime;
+  cycle: StockTimesCycle;
+}) => {
+  const { day, timeFraction } = calculatedCycleTime;
 
   return (
     <Flex align="center" gap="1">
-      <Text size="2">{currentCycle === "day" ? "Day" : "Night"}</Text>
-      <Text size="2">{day}</Text>
-      <svg height={50} width={50}>
-        <circle className={styles.baseClock} cx="25" cy="25" r="20" />
+      <svg height={size} width={size}>
+        <circle
+          className={styles.baseClock}
+          cx={centerX}
+          cy={centerY}
+          r={radius}
+        />
         <path className={styles.night} d={calculateNightTimeArc(cycle)} />
         <path
           className={styles.pointer}
           d={calculateClockPointer(timeFraction)}
         />
+        <circle
+          cx={centerX}
+          cy={centerY}
+          fill="white"
+          r={radius * 0.5}
+          stroke="black"
+        />
+        <text dy=".3em" textAnchor="middle" x={centerX} y={centerY}>
+          {day}
+        </text>
       </svg>
     </Flex>
   );

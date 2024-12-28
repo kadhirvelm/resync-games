@@ -1,13 +1,12 @@
+import { Flex, Text } from "../../components";
 import {
   updateTheStockTimesLocalState,
   useGameStateDispatch,
   useGameStateSelector
 } from "../store/theStockTimesRedux";
-import { Flex, Text } from "../../components";
-import styles from "./AvailableStocks.module.scss";
 import { displayDollar } from "../utils/displayDollar";
+import styles from "./AvailableStocks.module.scss";
 import { SingleStock } from "./singleStock/SingleStock";
-import { StockArticles } from "./singleStock/StockArticles";
 
 export const AvailableStocks = () => {
   const dispatch = useGameStateDispatch();
@@ -60,12 +59,6 @@ export const AvailableStocks = () => {
             <Text color="gray" mt="2" size="2">
               {stock.description}
             </Text>
-            <Flex flex="1" mt="2">
-              <StockArticles
-                disableChangingArticle={true}
-                viewingStockSymbol={stockSymbol}
-              />
-            </Flex>
           </Flex>
         );
       })}
