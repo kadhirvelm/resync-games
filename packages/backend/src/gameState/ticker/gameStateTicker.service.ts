@@ -1,7 +1,7 @@
 import { ResyncGamesPrismaService } from "@/database/resyncGamesPrisma.service";
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron, CronExpression } from "@nestjs/schedule";
-import { GameStateAndInfo } from "@resync-games/api";
+import { GameStateAndInfo, PlayerId } from "@resync-games/api";
 import { GameStateService } from "../gameState.service";
 import { GameRegistryService } from "../utils/gameRegistry.service";
 
@@ -58,11 +58,24 @@ export class GameStateTicker {
       return;
     }
 
-    await this.gameStateService.updateGame({
-      gameId: game.gameId,
-      lastUpdatedAt: new Date().toISOString(),
-      newGameState: maybeNewGameState,
-      version: game.version
-    });
+    const { gameState, hasFinished } = maybeNewGameState;
+
+    if (gameState !== undefined) {
+      await this.gameStateService.updateGame({
+        gameId: game.gameId,
+        lastUpdatedAt: new Date().toISOString(),
+        newGameState: gameState,
+        version: game.version
+      });
+    }
+
+    if (hasFinished) {
+      await this.gameStateService.changeGameState({
+        currentGameState: "finished",
+        gameId: game.gameId,
+        gameType: game.gameType,
+        playerId: "GAME_TICKER" as PlayerId
+      });
+    }
   };
 }

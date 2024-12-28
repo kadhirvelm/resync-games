@@ -28,6 +28,11 @@ export interface ICannotChange {
 
 export type ICanChangeToStateResponse = ICanChange | ICannotChange;
 
+export interface TickGameState<GameState> {
+  gameState: GameState | undefined;
+  hasFinished: boolean;
+}
+
 export interface IGameServer<GameState, GameConfiguration> {
   /**
    * Determines whether the game can change to the new state. Generally used to determine if the
@@ -83,5 +88,5 @@ export interface IGameServer<GameState, GameConfiguration> {
    */
   tickGameState?: (
     gameStateAndInfo: GameStateAndInfo<any, any>
-  ) => Promise<GameState | undefined> | GameState | undefined;
+  ) => Promise<TickGameState<GameState>> | TickGameState<GameState> | undefined;
 }

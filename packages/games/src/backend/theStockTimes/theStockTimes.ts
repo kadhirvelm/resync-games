@@ -177,7 +177,10 @@ export class TheStockTimesServer
       day
     );
 
-    return newGameState;
+    return {
+      gameState: newGameState,
+      hasFinished: day >= newGameState.cycle.endDay
+    };
   }
 
   private tickNewsArticles(
