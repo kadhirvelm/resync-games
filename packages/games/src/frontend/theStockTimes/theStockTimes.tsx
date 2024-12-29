@@ -1,3 +1,4 @@
+import { ScrollArea } from "@radix-ui/themes";
 import { Flex } from "../components";
 import { AvailableStocks } from "./components/AvailableStocks";
 import { Clock } from "./components/cycle/Clock";
@@ -28,7 +29,9 @@ export const DisplayTheStockTimes = () => {
         <PlayerPortfolio />
       </Flex>
       <Flex flex="1" ml="2">
-        <DayArticles />
+        <ScrollArea>
+          <DayArticles />
+        </ScrollArea>
       </Flex>
       <Flex flex="2" mr="5">
         <AvailableStocks />

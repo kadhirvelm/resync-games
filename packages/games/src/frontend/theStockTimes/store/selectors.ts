@@ -52,30 +52,33 @@ export const selectTeams = createSelector(
 
 export const selectTotalTeamValue = createSelector(
   [
+    (state: TheStockTimesReduxState) => state.gameStateSlice.gameInfo?.players,
     (state: TheStockTimesReduxState) => state.gameStateSlice.gameState?.players,
     (state: TheStockTimesReduxState) => state.gameStateSlice.gameState?.stocks,
     selectTeams
   ],
-  (players, stocks, existingTeams) => {
+  (players, gamePlayers, stocks, existingTeams) => {
     const teams: { [teamNumber: number]: { totalValue: number } } = {};
-    for (const player of Object.values(players ?? {})) {
-      const heldStockValue = Object.entries(player.ownedStocks ?? {}).reduce(
-        (previous, [symbol, ownedStocks]) => {
-          const accordingStock = stocks?.[symbol];
-          const latestPrice = accordingStock?.history[0]?.price ?? 0;
-          const totalValue = ownedStocks.reduce(
-            (acc, stock) => acc + stock.quantity * latestPrice,
-            0
-          );
+    for (const player of players ?? []) {
+      const accordingPlayer = gamePlayers?.[player.playerId];
+      const heldStockValue = Object.entries(
+        accordingPlayer?.ownedStocks ?? {}
+      ).reduce((previous, [symbol, ownedStocks]) => {
+        const accordingStock = stocks?.[symbol];
+        const latestPrice = accordingStock?.history[0]?.price ?? 0;
+        const totalValue = ownedStocks.reduce(
+          (acc, stock) => acc + stock.quantity * latestPrice,
+          0
+        );
 
-          return previous + totalValue;
-        },
-        0
-      );
+        return previous + totalValue;
+      }, 0);
 
       teams[player.team ?? 0] = {
         totalValue:
-          (teams[player.team]?.totalValue ?? 0) + player.cash + heldStockValue
+          (teams[player.team ?? 0]?.totalValue ?? 0) +
+          (accordingPlayer?.cash ?? 0) +
+          heldStockValue
       };
     }
 

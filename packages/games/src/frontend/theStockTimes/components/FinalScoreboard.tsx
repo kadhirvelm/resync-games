@@ -9,7 +9,7 @@ export const FinalScoreboard = () => {
   const teams = useGameStateSelector(selectTotalTeamValue);
 
   return (
-    <Flex align="center" direction="column" flex="1" gap="3" justify="center">
+    <Flex direction="column" flex="1" gap="3" justify="center" px="5">
       {teams.map((team, index) => (
         <Flex
           className={clsx(styles.teamContainer, {
@@ -23,7 +23,7 @@ export const FinalScoreboard = () => {
           <Flex align="center" gap="2">
             <Text size="8">{index + 1})</Text>
             <Text size="8">{team.teamName}</Text>
-            <Flex className={styles.divider} mx="2" />
+            <Flex className={styles.divider} flex="1" mx="2" />
             <Text size="8">{displayDollar(team.totalValue)}</Text>
           </Flex>
           <Flex>{team.players?.map((p) => p.displayName).join(", ")}</Flex>
