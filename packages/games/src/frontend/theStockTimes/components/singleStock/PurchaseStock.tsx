@@ -63,6 +63,7 @@ export const PurchaseStock = ({
         {
           players: {
             [player.playerId]: {
+              ...playerPortfolio,
               cash: leftOverCash,
               lastUpdatedAt: new Date().toISOString(),
               ownedStocks: {

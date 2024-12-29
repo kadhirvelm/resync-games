@@ -51,6 +51,7 @@ const SellPlayerStock = ({
         {
           players: {
             [player.playerId]: {
+              ...playerPortfolio,
               cash: newCash,
               lastUpdatedAt: new Date().toISOString(),
               ownedStocks: {
