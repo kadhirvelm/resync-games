@@ -6,7 +6,7 @@ import { DayArticles } from "./components/DayArticles";
 import { FinalScoreboard } from "./components/FinalScoreboard";
 import { PlayerPortfolio } from "./components/playerPortfolio/PlayerPortfolio";
 import { useGameStateSelector } from "./store/theStockTimesRedux";
-import styles from "./TheStockTimes.module.scss";
+import styles from "./DisplayTheStockTimes.module.scss";
 
 export const DisplayTheStockTimes = () => {
   const gameInfo = useGameStateSelector((s) => s.gameStateSlice.gameInfo);

@@ -37,7 +37,7 @@ export class GameStateSocketGateway
     @MessageBody() identifier: IdentifyPlayerSocket,
     @ConnectedSocket() client: Socket
   ) {
-    this.logger.log(`Client identified: ${identifier.socketId}`);
+    this.logger.log(`Client identified: ${identifier.playerId}`);
 
     client.join(identifier.gameId);
 

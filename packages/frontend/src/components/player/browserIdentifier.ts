@@ -14,3 +14,19 @@ export const getBrowserIdentifier = (): PlayerId => {
 
   return playerId as PlayerId;
 };
+
+const GLOBAL_SCREEN_PLAYER_ID = "globalScreenPlayerId";
+
+export const getGlobalScreenIdentifier = (): PlayerId => {
+  const maybeGlobalScreenIdentifier = localStorage.getItem(
+    GLOBAL_SCREEN_PLAYER_ID
+  );
+  if (maybeGlobalScreenIdentifier != null) {
+    return maybeGlobalScreenIdentifier as PlayerId;
+  }
+
+  const globalScreenIdentifier = `${v4()}-global-screen`;
+  localStorage.setItem(GLOBAL_SCREEN_PLAYER_ID, globalScreenIdentifier);
+
+  return globalScreenIdentifier as PlayerId;
+};

@@ -4,11 +4,16 @@ import {
   TileMapServiceDefinition
 } from "./services/games/snatch-the-snack";
 import { GameStateApi, GameStateServiceDefinition } from "./services/gameState";
+import {
+  GlobalScreenApi,
+  GlobalScreenServiceDefinition
+} from "./services/globalScreen";
 import { HealthServiceApi, HealthServiceDefinition } from "./services/health";
 import { UserServiceApi, UserServiceDefinition } from "./services/user";
 
 export type AvailableServices = {
   gameState: GameStateApi;
+  globalScreen: GlobalScreenApi;
   health: HealthServiceApi;
   snatchTheSnackMaps: TileMapServiceApi;
   user: UserServiceApi;
@@ -20,6 +25,7 @@ export type AvailbleServicesDefinition = {
 
 export const AVAILABLE_SERVICES: AvailbleServicesDefinition = {
   gameState: GameStateServiceDefinition,
+  globalScreen: GlobalScreenServiceDefinition,
   health: HealthServiceDefinition,
   snatchTheSnackMaps: TileMapServiceDefinition,
   user: UserServiceDefinition
