@@ -116,7 +116,6 @@ export interface GameStateApi extends Service {
   };
 }
 
-// TODO: add endpoint for joining and leaving a game
 export const GameStateServiceDefinition: ServiceDefinition<GameStateApi> = {
   controller: "game-state",
   endpoints: {

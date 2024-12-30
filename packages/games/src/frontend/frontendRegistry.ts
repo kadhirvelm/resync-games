@@ -6,10 +6,11 @@ import { DisplayMagicMazeGame } from "./snatchTheSnack/snatchTheSnack";
 import { IGameStateHandler } from "@/redux";
 import { SnatchTheSnackConfiguration } from "./snatchTheSnack/snatchTheSnackConfiguration";
 import { TheStockTimesConfiguration } from "./theStockTimes/theStockTimesConfiguration";
-import { DisplayTheStockTimes } from "./theStockTimes/theStockTimes";
+import { DisplayTheStockTimes } from "./theStockTimes/DisplayTheStockTimes";
 import { JSX } from "react";
 import { INITIAL_SNATCH_THE_SNACK_LOCAL_STATE } from "./snatchTheSnack/store/snatchTheSnackLocalState";
 import { INITIAL_THE_STOCK_TIMES_LOCAL_STATE } from "./theStockTimes/store/theStockTimesLocalState";
+import { StockTimesGlobalScreen } from "./theStockTimes/StockTimesGlobalScreen";
 
 export type FrontendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: FrontendRegisteredGame;
@@ -22,10 +23,20 @@ export interface FrontendGameComponentProps<
   gameStateHandler: IGameStateHandler<GameState, LocalGameState>;
 }
 
+export interface GlobalScreenComponentProps<
+  GameState extends object = object,
+  LocalGameState extends object = object
+> {
+  gameStateHandler: IGameStateHandler<GameState, LocalGameState>;
+}
+
 export interface FrontendRegisteredGame {
   gameConfiguration: MapGameConfiguration<object>;
   gameEntry: (
     properties: FrontendGameComponentProps
+  ) => JSX.Element | undefined | null;
+  globalScreen?: (
+    properties: GlobalScreenComponentProps
   ) => JSX.Element | undefined | null;
   initialLocalState: object | undefined;
 }
@@ -44,6 +55,7 @@ export const GAME_REGISTRY: FrontendGameRegistry = {
   "the-stock-times": {
     gameConfiguration: TheStockTimesConfiguration,
     gameEntry: DisplayTheStockTimes,
+    globalScreen: StockTimesGlobalScreen,
     initialLocalState: INITIAL_THE_STOCK_TIMES_LOCAL_STATE
   }
 };
