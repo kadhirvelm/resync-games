@@ -11,7 +11,7 @@ export function useCycleTime(cycle: StockTimesCycle | undefined): CycleTime {
   useEffect(() => {
     const interval = setInterval(() => {
       setCounter((prev) => prev + 1);
-    }, 100);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
