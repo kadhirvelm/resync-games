@@ -1,21 +1,21 @@
-import { Flex } from "@/lib/radix/Flex";
-import { useGameStateSelector } from "@/redux";
-import { GoHome } from "./components/GoHome";
 import { Button } from "@/lib/radix/Button";
-import { ClientServiceCallers } from "@/services/serviceCallers";
-import { useContext, useState } from "react";
-import { PlayerContext } from "../player/PlayerContext";
-import { isServiceError } from "@resync-games/api";
-import styles from "./GameLobby.module.scss";
-import { Text } from "@radix-ui/themes";
+import { Flex } from "@/lib/radix/Flex";
 import {
   getTeamColor,
   getTeamName
 } from "@/lib/stableIdentifiers/teamIdentifier";
-import { canStartGame } from "./utils/canStartGame";
-import { ConfigureGame } from "./components/ConfigureGame";
-import { CopyIcon } from "@radix-ui/react-icons";
+import { useGameStateSelector } from "@/redux";
+import { ClientServiceCallers } from "@/services/serviceCallers";
+import { ClipboardCopyIcon, OpenInNewWindowIcon } from "@radix-ui/react-icons";
+import { Text } from "@radix-ui/themes";
+import { isServiceError } from "@resync-games/api";
 import copy from "copy-to-clipboard";
+import { useContext, useState } from "react";
+import { PlayerContext } from "../player/PlayerContext";
+import { ConfigureGame } from "./components/ConfigureGame";
+import { GoHome } from "./components/GoHome";
+import styles from "./GameLobby.module.scss";
+import { canStartGame } from "./utils/canStartGame";
 
 export const GameLobby = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -85,20 +85,39 @@ export const GameLobby = () => {
     const { gameName } = gameInfo;
 
     const copyGameLink = () => copy(window.location.href);
+    const openGlobalScreen = () =>
+      window.open(`${window.location.href}/global`, "_blank");
 
     return (
-      <Flex
-        align="center"
-        className={styles.inviteLink}
-        gap="3"
-        justify="center"
-        onClick={copyGameLink}
-      >
-        <Text size="4" weight="bold">
-          {gameName}
-        </Text>
-        <Flex>
-          <CopyIcon />
+      <Flex direction="column" gap="3">
+        <Flex align="center">
+          <Text size="8" weight="bold">
+            {gameName}
+          </Text>
+        </Flex>
+        <Flex
+          align="center"
+          className={styles.inviteLink}
+          gap="3"
+          onClick={copyGameLink}
+        >
+          <Text>Invite link</Text>
+          <ClipboardCopyIcon />
+        </Flex>
+        <Flex
+          align="center"
+          className={styles.inviteLink}
+          gap="3"
+          onClick={openGlobalScreen}
+        >
+          <Text
+            onClick={() =>
+              window.open(`${window.location.href}/global`, "_blank")
+            }
+          >
+            Global screen
+          </Text>
+          <OpenInNewWindowIcon />
         </Flex>
       </Flex>
     );
@@ -130,6 +149,24 @@ export const GameLobby = () => {
     const playersInTeam =
       gameInfo?.players.filter((p) => p.team === team) ?? [];
 
+    const maybeRenderPlayers = () => {
+      if (playersInTeam.length === 0) {
+        return (
+          <Flex align="center" justify="center">
+            <Text color="gray" size="2">
+              No players yet
+            </Text>
+          </Flex>
+        );
+      }
+
+      return playersInTeam.map((p) => (
+        <Flex justify="center" key={p.playerId}>
+          <Text size="4">{p.displayName}</Text>
+        </Flex>
+      ));
+    };
+
     return (
       <Flex direction="column">
         <Flex justify="center" mb="1">
@@ -143,11 +180,7 @@ export const GameLobby = () => {
           gap="2"
           style={{ background: getTeamColor(team) }}
         >
-          {playersInTeam.map((p) => (
-            <Flex justify="center" key={p.playerId}>
-              <Text size="4">{p.displayName}</Text>
-            </Flex>
-          ))}
+          {maybeRenderPlayers()}
         </Flex>
         <Flex mt="2" px="4">
           <Button
@@ -164,28 +197,40 @@ export const GameLobby = () => {
   };
 
   return (
-    <Flex direction="column" flex="1">
+    <Flex flex="1">
       <Flex>
         <GoHome />
       </Flex>
-      <Flex className={styles.overallContainer} direction="column" gap="5">
+      <Flex
+        className={styles.configuration}
+        direction="column"
+        flex="1"
+        gap="5"
+        p="8"
+      >
         {renderRoomName()}
+        <Flex direction="column" gap="4">
+          <Text color="gray" size="2">
+            Game configuration
+          </Text>
+          <ConfigureGame key={gameInfo?.gameId} />
+        </Flex>
+      </Flex>
+      <Flex direction="column" flex="4" gap="8" justify="center">
         {maybeRenderUndecided()}
-        <Flex align="baseline" gap="3">
+        <Flex align="baseline" gap="3" justify="center">
           {renderTeam(0)}
           <Text>VS</Text>
           {renderTeam(1)}
         </Flex>
         <Flex justify="center">
-          <Flex className={styles.players} direction="column" gap="2">
-            <ConfigureGame key={gameInfo?.gameId} />
+          <Flex height="200px" width="25vw">
             <Button
-              className={styles.startGame}
               disabled={!maybeCheckCanStartGame()}
               loading={isLoading}
               onClick={onStartGame}
             >
-              Start game
+              Start game!
             </Button>
           </Flex>
         </Flex>

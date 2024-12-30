@@ -115,7 +115,7 @@ export const ConfigureGame = () => {
   };
 
   return (
-    <Flex direction="column">
+    <Flex direction="column" gap="2">
       {Object.entries(accordingGame.gameConfiguration).map(
         ([key, configurationValue]: [string, GameConfigurationField]) =>
           renderField(key, configurationValue)

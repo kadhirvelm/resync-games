@@ -58,7 +58,9 @@ export const selectTotalTeamValue = createSelector(
     selectTeams
   ],
   (players, gamePlayers, stocks, existingTeams) => {
-    const teams: { [teamNumber: number]: { totalValue: number } } = {};
+    const teams: {
+      [teamNumber: number]: { totalPlayers: number; totalValue: number };
+    } = {};
     for (const player of players ?? []) {
       const accordingPlayer = gamePlayers?.[player.playerId];
       const heldStockValue = Object.entries(
@@ -75,6 +77,7 @@ export const selectTotalTeamValue = createSelector(
       }, 0);
 
       teams[player.team ?? 0] = {
+        totalPlayers: (teams[player.team ?? 0]?.totalPlayers ?? 0) + 1,
         totalValue:
           (teams[player.team ?? 0]?.totalValue ?? 0) +
           (accordingPlayer?.cash ?? 0) +
@@ -87,7 +90,8 @@ export const selectTotalTeamValue = createSelector(
         teamNumber,
         {
           ...existingTeams[teamNumber],
-          ...value
+          ...value,
+          totalValue: value.totalValue / value.totalPlayers
         }
       ])
     );
