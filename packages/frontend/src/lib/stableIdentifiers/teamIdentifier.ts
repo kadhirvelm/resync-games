@@ -4,7 +4,7 @@ import { capitalize } from "lodash-es";
 
 const RED = "#f5b7b1";
 const BLUE = "#a9cce3";
-const GRAY = "#ccd1d1";
+const GRAY = "#fff";
 
 export function getTeamColor(team?: number) {
   if (team === undefined) {

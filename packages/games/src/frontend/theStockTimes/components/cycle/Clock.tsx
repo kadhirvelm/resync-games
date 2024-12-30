@@ -61,7 +61,7 @@ export const Clock = ({
         })}
       />
       <Flex align="center" gap="1">
-        <svg height={size} width={size}>
+        <svg height={finalSize} width={finalSize}>
           <circle
             className={styles.baseClock}
             cx={centerX(finalSize)}

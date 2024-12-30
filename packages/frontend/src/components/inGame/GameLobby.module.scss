@@ -1,7 +1,8 @@
 @use "@/styles/variables.scss" as vars;
 
-.overallContainer {
-    margin: 100px auto;
+.configuration {
+    border-right: 1px solid vars.$black;
+    background: vars.$white;
 }
 
 .players {
@@ -10,10 +11,6 @@
     border: 1px solid vars.$black;
     padding: 20px;
     min-width: 29vw;
-}
-
-.startGame {
-    padding: 5px 0;
 }
 
 .inviteLink {

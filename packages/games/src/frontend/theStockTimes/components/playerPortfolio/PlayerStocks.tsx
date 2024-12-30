@@ -179,6 +179,8 @@ export const PlayerStocks = () => {
                   <Text color="gray" size="2">
                     (cost basis)
                   </Text>
+                </Flex>
+                <Flex align="center" gap="1" px="2" py="1" wrap="wrap">
                   <Text>=</Text>
                   <Text color={totalProfit > 0 ? "green" : "red"} size="4">
                     {displayDollar(totalProfit)}

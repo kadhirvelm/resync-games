@@ -12,7 +12,7 @@ export const StockTimesGlobalScreen = () => {
   }
 
   return (
-    <Flex gap="2">
+    <Flex flex="1" gap="2">
       <Flex flex="1">
         <FinalScoreboard />
       </Flex>
