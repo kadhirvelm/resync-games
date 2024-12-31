@@ -24,7 +24,7 @@ export const FinalScoreboard = () => {
             <Text size="8">{index + 1})</Text>
             <Text size="8">{team.teamName}</Text>
             <Flex className={styles.divider} flex="1" mx="2" />
-            <Text size="8">{displayDollar(team.totalValue)}</Text>
+            <Text size="8">{displayDollar(team.averageTeamValue)}</Text>
           </Flex>
           <Flex>{team.players?.map((p) => p.displayName).join(", ")}</Flex>
         </Flex>

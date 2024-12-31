@@ -44,10 +44,19 @@ export interface TransactionHistory {
   type: "buy" | "sell";
 }
 
+export interface StorePowerUpUsage {
+  cooldownTime: number | undefined;
+  unlocksAt: string | undefined;
+}
+
 export interface StockTimesPlayer extends WithTimestamp {
   cash: number;
+  debt: number;
   ownedStocks: {
     [stockSymbol: string]: OwnedStock[];
+  };
+  storePowers: {
+    loan: StorePowerUpUsage;
   };
   team: number;
   transactionHistory: TransactionHistory[];
@@ -95,8 +104,8 @@ export class TheStockTimesServer
     return {
       gameState: {
         cycle: {
-          dayTime: 60 * 1_000, // 40 seconds
-          endDay: 16, // 15 full days = 15 minute game
+          dayTime: 60 * 1_000, // 60 seconds
+          endDay: 11, // 10 full days = 13 minute game
           nightTime: 20 * 1_000, // 20 seconds
           startTime: new Date().toISOString()
         },
@@ -128,8 +137,15 @@ export class TheStockTimesServer
     for (const player of game.players) {
       newGameState.players[player.playerId] = {
         cash: game.gameConfiguration.startingCash,
+        debt: 0,
         lastUpdatedAt: new Date().toISOString(),
         ownedStocks: {},
+        storePowers: {
+          loan: {
+            cooldownTime: undefined,
+            unlocksAt: undefined
+          }
+        },
         team: player.team ?? 0,
         transactionHistory: []
       };

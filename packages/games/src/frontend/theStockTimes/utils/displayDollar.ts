@@ -8,5 +8,5 @@ export function displayDollar(amount: string | number | null | undefined) {
 
   const number =
     typeof amount === "string" ? parseFloat(amount ?? "0") : amount;
-  return `$${number.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+  return `$${number.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 })}`;
 }

@@ -1,2 +1,2 @@
 export * from "@/lib/radix";
-export { Text } from "@radix-ui/themes";
+export { Text, Tabs, Progress } from "@radix-ui/themes";
