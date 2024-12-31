@@ -131,16 +131,19 @@ export const GameLobby = () => {
     }
 
     return (
-      <Flex
-        className={styles.players}
-        gap="3"
-        style={{ background: getTeamColor() }}
-      >
-        {undecided.map((p) => (
-          <Flex justify="center" key={p.playerId}>
-            <Text size="4">{p.displayName}</Text>
-          </Flex>
-        ))}
+      <Flex justify="center">
+        <Flex
+          className={styles.players}
+          gap="3"
+          mx="3"
+          style={{ background: getTeamColor() }}
+        >
+          {undecided.map((p) => (
+            <Flex justify="center" key={p.playerId}>
+              <Text size="4">{p.displayName}</Text>
+            </Flex>
+          ))}
+        </Flex>
       </Flex>
     );
   };

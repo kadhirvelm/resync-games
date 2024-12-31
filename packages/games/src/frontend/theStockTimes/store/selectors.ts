@@ -59,7 +59,7 @@ export const selectTotalTeamValue = createSelector(
   ],
   (players, gamePlayers, stocks, existingTeams) => {
     const teams: {
-      [teamNumber: number]: { totalPlayers: number; totalValue: number };
+      [teamNumber: number]: { averageTeamValue: number; totalPlayers: number };
     } = {};
     for (const player of players ?? []) {
       const accordingPlayer = gamePlayers?.[player.playerId];
@@ -77,11 +77,12 @@ export const selectTotalTeamValue = createSelector(
       }, 0);
 
       teams[player.team ?? 0] = {
-        totalPlayers: (teams[player.team ?? 0]?.totalPlayers ?? 0) + 1,
-        totalValue:
-          (teams[player.team ?? 0]?.totalValue ?? 0) +
-          (accordingPlayer?.cash ?? 0) +
-          heldStockValue
+        averageTeamValue:
+          (teams[player.team ?? 0]?.averageTeamValue ?? 0) +
+          (accordingPlayer?.cash ?? 0) -
+          (accordingPlayer?.debt ?? 0) +
+          heldStockValue,
+        totalPlayers: (teams[player.team ?? 0]?.totalPlayers ?? 0) + 1
       };
     }
 
@@ -91,13 +92,13 @@ export const selectTotalTeamValue = createSelector(
         {
           ...existingTeams[teamNumber],
           ...value,
-          totalValue: value.totalValue / value.totalPlayers
+          averageTeamValue: value.averageTeamValue / value.totalPlayers
         }
       ])
     );
 
     return Object.values(finalTeamValues).sort((a, b) =>
-      a.totalValue > b.totalValue ? -1 : 1
+      a.averageTeamValue > b.averageTeamValue ? -1 : 1
     );
   }
 );

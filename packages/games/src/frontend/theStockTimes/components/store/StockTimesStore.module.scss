@@ -1,0 +1,10 @@
+@use "@/styles/variables.scss" as vars;
+
+.storePower {
+    border-radius: 3px;
+    border: 1px solid vars.$muted-font;
+}
+
+.powerName {
+    border-bottom: 1px solid vars.$muted-font;
+}

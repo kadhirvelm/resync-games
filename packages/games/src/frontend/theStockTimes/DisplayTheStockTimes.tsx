@@ -5,8 +5,8 @@ import { Clock } from "./components/cycle/Clock";
 import { DayArticles } from "./components/DayArticles";
 import { FinalScoreboard } from "./components/FinalScoreboard";
 import { PlayerPortfolio } from "./components/playerPortfolio/PlayerPortfolio";
-import { useGameStateSelector } from "./store/theStockTimesRedux";
 import styles from "./DisplayTheStockTimes.module.scss";
+import { useGameStateSelector } from "./store/theStockTimesRedux";
 
 export const DisplayTheStockTimes = () => {
   const gameInfo = useGameStateSelector((s) => s.gameStateSlice.gameInfo);
