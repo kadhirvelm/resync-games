@@ -38,6 +38,7 @@ export interface OwnedStock {
 
 export interface TransactionHistory {
   date: string;
+  lossIntoGain?: boolean;
   price: number;
   quantity: number;
   stockSymbol: string;
@@ -57,6 +58,7 @@ export interface StockTimesPlayer extends WithTimestamp {
   };
   storePowers: {
     loan: StorePowerUpUsage;
+    lossIntoGain: StorePowerUpUsage;
   };
   team: number;
   transactionHistory: TransactionHistory[];
@@ -142,6 +144,10 @@ export class TheStockTimesServer
         ownedStocks: {},
         storePowers: {
           loan: {
+            cooldownTime: undefined,
+            unlocksAt: undefined
+          },
+          lossIntoGain: {
             cooldownTime: undefined,
             unlocksAt: undefined
           }

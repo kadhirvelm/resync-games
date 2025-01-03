@@ -4,17 +4,27 @@ import { useStorePower } from "../../hooks/storePower";
 
 export const ActivateStorePower = ({
   storePower,
+  text,
   onClick
 }: {
-  onClick: () => void;
+  onClick?: () => void;
   storePower: keyof StockTimesPlayer["storePowers"];
+  text?: string;
 }) => {
   const { isAvailable, timeLeft } = useStorePower(storePower);
 
-  if (isAvailable) {
+  if (isAvailable && onClick !== undefined) {
     return (
       <Button color="green" onClick={onClick}>
-        Activate
+        {text ?? "Activate"}
+      </Button>
+    );
+  }
+
+  if (isAvailable) {
+    return (
+      <Button color="green" variant="outline">
+        Available
       </Button>
     );
   }

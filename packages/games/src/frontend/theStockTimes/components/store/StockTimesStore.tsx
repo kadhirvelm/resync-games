@@ -69,7 +69,7 @@ export const StockTimesStore = () => {
   };
 
   return (
-    <Flex direction="column">
+    <Flex direction="column" gap="2">
       <Flex className={styles.storePower} direction="column">
         <Flex align="center" className={styles.powerName} p="2">
           <Flex flex="1">
@@ -93,6 +93,29 @@ export const StockTimesStore = () => {
           <Flex justify="end">
             <Text color="gray" size="2">
               2.5 day cooldown
+            </Text>
+          </Flex>
+        </Flex>
+      </Flex>
+      <Flex className={styles.storePower} direction="column">
+        <Flex align="center" className={styles.powerName} p="2">
+          <Flex flex="1">
+            <Text size="4" weight="bold">
+              Losses into gains
+            </Text>
+          </Flex>
+          <Flex flex="1">
+            <ActivateStorePower storePower="lossIntoGain" />
+          </Flex>
+        </Flex>
+        <Flex direction="column" gap="1" p="2">
+          <Text color="gray" size="2">
+            Converts losses into gains for 1 holding. Activate this on a holding
+            with losses in the "your portfolio" section.
+          </Text>
+          <Flex justify="end">
+            <Text color="gray" size="2">
+              1.5 day cooldown
             </Text>
           </Flex>
         </Flex>
