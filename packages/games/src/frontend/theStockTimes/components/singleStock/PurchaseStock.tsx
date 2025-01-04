@@ -13,6 +13,11 @@ import {
 } from "../../store/theStockTimesRedux";
 import { displayDollar } from "../../utils/displayDollar";
 import styles from "./PurchaseStock.module.scss";
+import { ActivateStorePower } from "../store/ActivateStorePower";
+import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+
+export const LOCK_UP_TIME = 2;
+export const DISCOUNT_BUY_COOLDOWN = 1.5;
 
 export const PurchaseStock = ({
   viewingStockSymbol
@@ -26,6 +31,7 @@ export const PurchaseStock = ({
   const stocks = useGameStateSelector(
     (s) => s.gameStateSlice.gameState?.stocks
   );
+  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
 
   const [totalPurchase, setTotalPurchase] = useState("0");
   const quantity = Math.round(Number(totalPurchase));
@@ -87,9 +93,103 @@ export const PurchaseStock = ({
     setTotalPurchase("0");
   };
 
+  const purchaseDiscountStock = () => {
+    if (
+      playerPortfolio === undefined ||
+      player === undefined ||
+      currentStockPrice === undefined ||
+      cycle === undefined
+    ) {
+      return;
+    }
+
+    const availabilityTime = (cycle.dayTime + cycle.nightTime) * LOCK_UP_TIME;
+    const lockedAt = cycleTime(cycle).currentTime;
+
+    const newOwnedStockOne: OwnedStock = {
+      date: new Date().toISOString(),
+      lockedUntil: {
+        availabilityTime,
+        lockedAt
+      },
+      price: currentStockPrice,
+      quantity
+    };
+    const newTransactionOne: TransactionHistory = {
+      date: new Date().toISOString(),
+      price: currentStockPrice,
+      quantity,
+      stockSymbol: viewingStockSymbol,
+      type: "buy"
+    };
+
+    const newOwnedStockTwo: OwnedStock = {
+      date: new Date().toISOString(),
+      lockedUntil: {
+        availabilityTime,
+        lockedAt
+      },
+      price: currentStockPrice,
+      quantity
+    };
+    const newTransactionTwo: TransactionHistory = {
+      date: new Date().toISOString(),
+      price: currentStockPrice,
+      quantity,
+      stockSymbol: viewingStockSymbol,
+      type: "buy"
+    };
+
+    const discountBuyCooldown =
+      (cycle.dayTime + cycle.nightTime) * DISCOUNT_BUY_COOLDOWN;
+    const usedAt = cycleTime(cycle).currentTime;
+
+    dispatch(
+      updateTheStockTimesGameState(
+        {
+          players: {
+            [player.playerId]: {
+              ...playerPortfolio,
+              cash: leftOverCash,
+              lastUpdatedAt: new Date().toISOString(),
+              ownedStocks: {
+                ...playerPortfolio.ownedStocks,
+                [viewingStockSymbol]: [
+                  ...(playerPortfolio.ownedStocks[viewingStockSymbol] ?? []),
+                  newOwnedStockOne,
+                  newOwnedStockTwo
+                ]
+              },
+              storePowers: {
+                ...playerPortfolio.storePowers,
+                discountBuy: {
+                  cooldownTime: discountBuyCooldown,
+                  usedAt
+                }
+              },
+              transactionHistory: [
+                ...playerPortfolio.transactionHistory,
+                newTransactionOne,
+                newTransactionTwo
+              ]
+            }
+          }
+        },
+        player
+      )
+    );
+
+    setTotalPurchase("0");
+  };
+
   const maxOutBuy = () => {
     const totalCanBuy = Math.floor(currentCash / currentStockPrice);
     setTotalPurchase(totalCanBuy.toString());
+  };
+
+  const halfBuy = () => {
+    const halfBuyStock = Math.floor(currentCash / currentStockPrice) / 2;
+    setTotalPurchase(halfBuyStock.toString());
   };
 
   return (
@@ -104,6 +204,9 @@ export const PurchaseStock = ({
           />
           <Button onClick={maxOutBuy} variant="outline">
             <RocketIcon />
+          </Button>
+          <Button onClick={halfBuy} variant="outline">
+            0.5
           </Button>
         </Flex>
         <Text>{viewingStockSymbol}</Text>
@@ -124,12 +227,20 @@ export const PurchaseStock = ({
       </Flex>
       <Flex flex="1" justify="end" p="2">
         <Flex style={{ width: "30%" }}>
-          <Button
-            disabled={quantity <= 0 || leftOverCash < 0}
-            onClick={purchaseStock}
-          >
-            Buy {quantity} stocks
-          </Button>
+          <Flex direction="column" flex="1" gap="2">
+            <Button
+              disabled={quantity <= 0 || leftOverCash < 0}
+              onClick={purchaseStock}
+            >
+              Buy {quantity} stocks
+            </Button>
+            <ActivateStorePower
+              disabled={quantity <= 0 || leftOverCash < 0}
+              onClick={purchaseDiscountStock}
+              storePower="discountBuy"
+              text={`Buy ${quantity * 2} stocks with lock`}
+            />
+          </Flex>
         </Flex>
       </Flex>
     </Flex>

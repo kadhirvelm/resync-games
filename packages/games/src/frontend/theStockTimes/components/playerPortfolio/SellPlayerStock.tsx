@@ -3,7 +3,7 @@ import {
   OwnedStock,
   TransactionHistory
 } from "../../../../backend/theStockTimes/theStockTimes";
-import { Button, Flex } from "../../../components";
+import { Button, Flex, Progress, Text } from "../../../components";
 import { selectPlayerPortfolio } from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
@@ -11,8 +11,9 @@ import {
   useGameStateSelector
 } from "../../store/theStockTimesRedux";
 import { ActivateStorePower } from "../store/ActivateStorePower";
+import { useStockLock } from "../../hooks/stockLock";
 
-const SELL_INTO_GAIN_COOLDOWN = 1.5;
+export const SELL_INTO_GAIN_COOLDOWN = 1.5;
 
 export const SellPlayerStock = ({
   atLoss,
@@ -30,15 +31,33 @@ export const SellPlayerStock = ({
   const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
   const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
 
+  const { isAvailable, timeLeft } = useStockLock(ownedStock);
+
+  const removeStock = () => {
+    if (playerPortfolio === undefined) {
+      return [];
+    }
+
+    const newOwnedStock = (playerPortfolio.ownedStocks[symbol] ?? []).slice();
+
+    const firstMatchingStock =
+      newOwnedStock.findIndex(
+        (stock) =>
+          stock.date === ownedStock.date &&
+          stock.quantity === ownedStock.quantity &&
+          stock.price === ownedStock.price
+      ) ?? 0;
+    newOwnedStock.splice(firstMatchingStock, 1);
+
+    return newOwnedStock;
+  };
+
   const onSell = () => {
     if (player === undefined || playerPortfolio === undefined) {
       return;
     }
 
     const newCash = playerPortfolio.cash + currentPrice * ownedStock.quantity;
-    const newOwnedStock = playerPortfolio.ownedStocks[symbol]?.filter(
-      (stock) => stock.date !== ownedStock.date
-    );
 
     const newTransaction: TransactionHistory = {
       date: new Date().toISOString(),
@@ -58,7 +77,7 @@ export const SellPlayerStock = ({
               lastUpdatedAt: new Date().toISOString(),
               ownedStocks: {
                 ...playerPortfolio.ownedStocks,
-                [symbol]: newOwnedStock
+                [symbol]: removeStock()
               },
               transactionHistory: [
                 ...playerPortfolio.transactionHistory,
@@ -83,9 +102,6 @@ export const SellPlayerStock = ({
 
     const newPrice = (ownedStock.price - currentPrice) * 2 + currentPrice;
     const newCash = playerPortfolio.cash + newPrice * ownedStock.quantity;
-    const newOwnedStock = playerPortfolio.ownedStocks[symbol]?.filter(
-      (stock) => stock.date !== ownedStock.date
-    );
 
     const newTransaction: TransactionHistory = {
       date: new Date().toISOString(),
@@ -110,7 +126,7 @@ export const SellPlayerStock = ({
               lastUpdatedAt: new Date().toISOString(),
               ownedStocks: {
                 ...playerPortfolio.ownedStocks,
-                [symbol]: newOwnedStock
+                [symbol]: removeStock()
               },
               storePowers: {
                 ...playerPortfolio.storePowers,
@@ -130,6 +146,15 @@ export const SellPlayerStock = ({
       )
     );
   };
+
+  if (!isAvailable) {
+    return (
+      <Flex align="center" flex="1" gap="2">
+        <Text color="gray">Locked</Text>
+        <Progress color="blue" value={timeLeft} />
+      </Flex>
+    );
+  }
 
   return (
     <Flex direction="column" flex="1" gap="2">
