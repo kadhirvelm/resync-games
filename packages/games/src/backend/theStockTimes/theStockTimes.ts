@@ -50,8 +50,20 @@ export interface Stock extends WithTimestamp {
   title: string;
 }
 
+export interface OwnedStockLock {
+  /**
+   * The time in milliseconds when the stock will be available again, after the lockedAt time.
+   */
+  availabilityTime: number;
+  /**
+   * The current time on the clock when the stock was locked.
+   */
+  lockedAt: number;
+}
+
 export interface OwnedStock {
   date: string;
+  lockedUntil?: OwnedStockLock;
   price: number;
   quantity: number;
 }
@@ -83,6 +95,7 @@ export interface StockTimesPlayer extends WithTimestamp {
     [stockSymbol: string]: OwnedStock[];
   };
   storePowers: {
+    discountBuy: StorePowerUpUsage;
     loan: StorePowerUpUsage;
     lossIntoGain: StorePowerUpUsage;
   };
@@ -133,12 +146,10 @@ export class TheStockTimesServer
       gameState: {
         cycle: {
           dayTime: 60 * 1_000, // 60 seconds
-          endDay: 11,
+          endDay: 11, // 10 full days = 13 minute game,
           lastUpdatedAt: new Date().toISOString(),
-          // 10 full days = 13 minute game,
-          nightTime: 20 * 1_000,
+          nightTime: 20 * 1_000, // 20 seconds
           seedTime: 0,
-          // 20 seconds
           startTime: new Date().toISOString(),
           state: "playing"
         },
@@ -174,6 +185,10 @@ export class TheStockTimesServer
         lastUpdatedAt: new Date().toISOString(),
         ownedStocks: {},
         storePowers: {
+          discountBuy: {
+            cooldownTime: undefined,
+            usedAt: undefined
+          },
           loan: {
             cooldownTime: undefined,
             usedAt: undefined

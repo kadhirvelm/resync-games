@@ -12,10 +12,15 @@ import {
 import { displayDollar } from "../../utils/displayDollar";
 import { ActivateStorePower } from "./ActivateStorePower";
 import styles from "./StockTimesStore.module.scss";
+import {
+  DISCOUNT_BUY_COOLDOWN,
+  LOCK_UP_TIME
+} from "../singleStock/PurchaseStock";
+import { SELL_INTO_GAIN_COOLDOWN } from "../playerPortfolio/SellPlayerStock";
 
 const LOAN_AMOUNT = 0.25;
 const LOAN_DEBT = 1.2;
-const LOAN_COOLDOWN = 0.15;
+const LOAN_COOLDOWN = 2.5;
 
 export const StockTimesStore = () => {
   const dispatch = useGameStateDispatch();
@@ -94,7 +99,7 @@ export const StockTimesStore = () => {
           </Text>
           <Flex justify="end">
             <Text color="gray" size="2">
-              2.5 day cooldown
+              {LOAN_COOLDOWN} day cooldown
             </Text>
           </Flex>
         </Flex>
@@ -117,7 +122,32 @@ export const StockTimesStore = () => {
           </Text>
           <Flex justify="end">
             <Text color="gray" size="2">
-              1.5 day cooldown
+              {SELL_INTO_GAIN_COOLDOWN} day cooldown
+            </Text>
+          </Flex>
+        </Flex>
+      </Flex>
+      <Flex className={styles.storePower} direction="column">
+        <Flex align="center" className={styles.powerName} p="2">
+          <Flex flex="1">
+            <Text size="4" weight="bold">
+              2x buy with lock
+            </Text>
+          </Flex>
+          <Flex flex="1">
+            <ActivateStorePower storePower="discountBuy" />
+          </Flex>
+        </Flex>
+        <Flex direction="column" gap="1" p="2">
+          <Text color="gray" size="2">
+            Buy 2x the stock for 1x the price, split into two holdings. However,
+            both holdings will be locked for {LOCK_UP_TIME} days, preventing
+            sale during this time. Activate this option on the purchase stock
+            screen.
+          </Text>
+          <Flex justify="end">
+            <Text color="gray" size="2">
+              {DISCOUNT_BUY_COOLDOWN} day cooldown
             </Text>
           </Flex>
         </Flex>

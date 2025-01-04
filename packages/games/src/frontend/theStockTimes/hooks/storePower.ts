@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { StockTimesPlayer } from "../../../backend/theStockTimes/theStockTimes";
-import { useGameStateSelector } from "../store/theStockTimesRedux";
 import { selectPlayerPortfolio } from "../store/selectors";
-import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { useGameStateSelector } from "../store/theStockTimesRedux";
+import { IsAvailable, isAvailable } from "./utils/isAvailable";
 
 export function useStorePower(
   storePower: keyof StockTimesPlayer["storePowers"]
-) {
+): IsAvailable {
   const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
   const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
 
@@ -37,25 +37,9 @@ export function useStorePower(
     };
   }
 
-  const { currentTime } = cycleTime(cycle);
-
-  const availableOn =
-    (accordingStorePower.usedAt ?? 0) + (accordingStorePower.cooldownTime ?? 0);
-
-  const isAvailable = availableOn < currentTime;
-  const timeLeft = (() => {
-    if (isAvailable) {
-      return 0;
-    }
-
-    const timePassed = currentTime - (accordingStorePower.usedAt ?? 0);
-    const percentTime = timePassed / (accordingStorePower.cooldownTime ?? 1);
-
-    return 100 * percentTime;
-  })();
-
-  return {
-    isAvailable,
-    timeLeft
-  };
+  return isAvailable(
+    cycle,
+    accordingStorePower.usedAt,
+    accordingStorePower.cooldownTime
+  );
 }

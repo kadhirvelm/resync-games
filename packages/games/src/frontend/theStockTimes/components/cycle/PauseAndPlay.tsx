@@ -44,7 +44,6 @@ export const PauseAndPlay = () => {
   return (
     <Button
       onClick={togglePause}
-      style={{ paddingBottom: "5px", paddingTop: "5px" }}
       variant={gameState.cycle.state === "paused" ? "solid" : "outline"}
     >
       {gameState.cycle.state === "paused" ? <PlayIcon /> : <PauseIcon />}
