@@ -13,11 +13,31 @@ import { ICanChangeToState, IGameServer } from "../base";
 import { AVAILABLE_STOCKS } from "./stocks/availableStocks";
 import { NEWS_ARTICLES } from "./stocks/stockArticles";
 
-export interface StockTimesCycle {
+export interface StockTimesCycle extends WithTimestamp {
+  /**
+   * The time in milliseconds that the day will last.
+   */
   dayTime: number;
+  /**
+   * The day that the game will end on. This is a 1-based index.
+   */
   endDay: number;
+  /**
+   * The time in milliseconds that the night will last.
+   */
   nightTime: number;
+  /**
+   * The last time the cycle was updated. This is updated when we pause the game.
+   */
+  seedTime: number;
+  /**
+   * The time that the game started. This should update whenever we resume the game.
+   */
   startTime: string;
+  /**
+   * The current state of the game. Remember to change the seedTime when resuming the game.
+   */
+  state: "playing" | "paused";
 }
 
 export interface StockPriceHistory extends WithTimestamp {
@@ -46,8 +66,14 @@ export interface TransactionHistory {
 }
 
 export interface StorePowerUpUsage {
+  /**
+   * The time in milliseconds when the power will be available again, after the usedAt time.
+   */
   cooldownTime: number | undefined;
-  unlocksAt: string | undefined;
+  /**
+   * The current time on the clock when the power was used.
+   */
+  usedAt: number | undefined;
 }
 
 export interface StockTimesPlayer extends WithTimestamp {
@@ -107,9 +133,14 @@ export class TheStockTimesServer
       gameState: {
         cycle: {
           dayTime: 60 * 1_000, // 60 seconds
-          endDay: 11, // 10 full days = 13 minute game
-          nightTime: 20 * 1_000, // 20 seconds
-          startTime: new Date().toISOString()
+          endDay: 11,
+          lastUpdatedAt: new Date().toISOString(),
+          // 10 full days = 13 minute game,
+          nightTime: 20 * 1_000,
+          seedTime: 0,
+          // 20 seconds
+          startTime: new Date().toISOString(),
+          state: "playing"
         },
         newsArticles: {
           articles: {},
@@ -145,11 +176,11 @@ export class TheStockTimesServer
         storePowers: {
           loan: {
             cooldownTime: undefined,
-            unlocksAt: undefined
+            usedAt: undefined
           },
           lossIntoGain: {
             cooldownTime: undefined,
-            unlocksAt: undefined
+            usedAt: undefined
           }
         },
         team: player.team ?? 0,
@@ -186,6 +217,10 @@ export class TheStockTimesServer
       TheStockTimesGameConfiguration
     >
   ) {
+    if (gameStateAndInfo.gameState.cycle.state === "paused") {
+      return;
+    }
+
     const newGameState = { ...gameStateAndInfo.gameState };
     const { day, currentCycle } = cycleTime(newGameState.cycle);
 

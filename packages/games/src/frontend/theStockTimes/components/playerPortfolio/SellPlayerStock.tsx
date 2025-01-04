@@ -1,3 +1,4 @@
+import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
 import {
   OwnedStock,
   TransactionHistory
@@ -97,6 +98,7 @@ export const SellPlayerStock = ({
 
     const lossIntoGainCooldown =
       (cycle.dayTime + cycle.nightTime) * SELL_INTO_GAIN_COOLDOWN;
+    const usedAt = cycleTime(cycle).currentTime;
 
     dispatch(
       updateTheStockTimesGameState(
@@ -114,9 +116,7 @@ export const SellPlayerStock = ({
                 ...playerPortfolio.storePowers,
                 lossIntoGain: {
                   cooldownTime: lossIntoGainCooldown,
-                  unlocksAt: new Date(
-                    Date.now() + lossIntoGainCooldown
-                  ).toISOString()
+                  usedAt
                 }
               },
               transactionHistory: [

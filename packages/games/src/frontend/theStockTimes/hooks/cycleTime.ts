@@ -19,6 +19,7 @@ export function useCycleTime(cycle: StockTimesCycle | undefined): CycleTime {
   if (cycle === undefined) {
     return {
       currentCycle: "day",
+      currentTime: 0,
       day: 0,
       time: 0,
       timeFraction: 0

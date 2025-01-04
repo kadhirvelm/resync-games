@@ -1,3 +1,4 @@
+import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
 import { Flex, Text } from "../../../components";
 import {
   selectPlayerPortfolio,
@@ -14,7 +15,7 @@ import styles from "./StockTimesStore.module.scss";
 
 const LOAN_AMOUNT = 0.25;
 const LOAN_DEBT = 1.2;
-const LOAN_COOLDOWN = 2.5;
+const LOAN_COOLDOWN = 0.15;
 
 export const StockTimesStore = () => {
   const dispatch = useGameStateDispatch();
@@ -43,6 +44,7 @@ export const StockTimesStore = () => {
     }
 
     const loanCooldown = (cycle.dayTime + cycle.nightTime) * LOAN_COOLDOWN;
+    const usedAt = cycleTime(cycle).currentTime;
 
     dispatch(
       updateTheStockTimesGameState(
@@ -57,7 +59,7 @@ export const StockTimesStore = () => {
                 ...playerPortfolio.storePowers,
                 loan: {
                   cooldownTime: loanCooldown,
-                  unlocksAt: new Date(Date.now() + loanCooldown).toISOString()
+                  usedAt
                 }
               }
             }
