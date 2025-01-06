@@ -53,6 +53,14 @@ export default function CreateGame() {
     <Flex className={styles.formBoxContainer} direction="column">
       <Flex className={styles.formBox} direction="column" gap="3">
         <Text>Hi, {player.displayName}! Pick game to create</Text>
+        <Flex direction="column" gap="2">
+          <Flex>
+            <Text color="gray" size="2">
+              Game type
+            </Text>
+          </Flex>
+          <SelectGame onSelectGame={onSelectGame} selectedGame={selectedGame} />
+        </Flex>
         <Flex direction="column" gap="2" my="2">
           <Flex>
             <Text color="gray" size="2">
@@ -64,14 +72,6 @@ export default function CreateGame() {
             placeholder="Set the name of your game here..."
             value={gameName}
           />
-        </Flex>
-        <Flex direction="column" gap="2">
-          <Flex>
-            <Text color="gray" size="2">
-              Game type
-            </Text>
-          </Flex>
-          <SelectGame onSelectGame={onSelectGame} selectedGame={selectedGame} />
         </Flex>
         <Flex justify="end">
           <Button
