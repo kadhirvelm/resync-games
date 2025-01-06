@@ -17,6 +17,7 @@ import {
   LOCK_UP_TIME
 } from "../singleStock/PurchaseStock";
 import { SELL_INTO_GAIN_COOLDOWN } from "../playerPortfolio/SellPlayerStock";
+import { TRANSFER_CASH_COOLDOWN, TransferCash } from "./powers/TransferCash";
 
 const LOAN_AMOUNT = 0.25;
 const LOAN_DEBT = 1.2;
@@ -100,6 +101,29 @@ export const StockTimesStore = () => {
           <Flex justify="end">
             <Text color="gray" size="2">
               {LOAN_COOLDOWN} day cooldown
+            </Text>
+          </Flex>
+        </Flex>
+      </Flex>
+      <Flex className={styles.storePower} direction="column">
+        <Flex align="center" className={styles.powerName} p="2">
+          <Flex flex="1">
+            <Text size="4" weight="bold">
+              Transfer cash
+            </Text>
+          </Flex>
+        </Flex>
+        <Flex direction="column" gap="1" p="2">
+          <Text color="gray" size="2">
+            Move cash from your portfolio to a teammate's, up to 50% of your
+            current cash.
+          </Text>
+          <Flex py="2">
+            <TransferCash />
+          </Flex>
+          <Flex justify="end">
+            <Text color="gray" size="2">
+              {TRANSFER_CASH_COOLDOWN} day cooldown
             </Text>
           </Flex>
         </Flex>

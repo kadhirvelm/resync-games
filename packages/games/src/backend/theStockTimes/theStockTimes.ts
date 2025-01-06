@@ -98,6 +98,7 @@ export interface StockTimesPlayer extends WithTimestamp {
     discountBuy: StorePowerUpUsage;
     loan: StorePowerUpUsage;
     lossIntoGain: StorePowerUpUsage;
+    transferCash: StorePowerUpUsage;
   };
   team: number;
   transactionHistory: TransactionHistory[];
@@ -119,9 +120,22 @@ export interface StockTimesNewsArticle extends WithTimestamp {
   lastDay: number;
 }
 
+export interface StockTimesPlayerActions extends WithTimestamp {
+  cashInflux?: number;
+}
+
+export interface StockTimesPendingPlayerActions {
+  [playerId: PlayerId]: StockTimesPlayerActions;
+}
+
 export interface TheStockTimesGame {
   cycle: StockTimesCycle;
   newsArticles: StockTimesNewsArticle;
+  /**
+   * We want the player to be the source of truth for their portfolio, so when another player transfers money to them
+   * we want the player's computer to update the final amount. We do that through this pending action mechanism.
+   */
+  pendingPlayerActions: StockTimesPendingPlayerActions;
   players: {
     [playerId: PlayerId]: StockTimesPlayer;
   };
@@ -158,6 +172,7 @@ export class TheStockTimesServer
           lastDay: 0,
           lastUpdatedAt: new Date().toISOString()
         },
+        pendingPlayerActions: {},
         players: {},
         stocks: {}
       },
@@ -196,10 +211,18 @@ export class TheStockTimesServer
           lossIntoGain: {
             cooldownTime: undefined,
             usedAt: undefined
+          },
+          transferCash: {
+            cooldownTime: undefined,
+            usedAt: undefined
           }
         },
         team: player.team ?? 0,
         transactionHistory: []
+      };
+
+      newGameState.pendingPlayerActions[player.playerId] = {
+        lastUpdatedAt: new Date().toISOString()
       };
     }
 
