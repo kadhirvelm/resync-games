@@ -89,18 +89,48 @@ export interface StorePowerUpUsage {
 }
 
 export interface StockTimesPlayer extends WithTimestamp {
+  /**
+   * The amount of cash the player has.
+   */
   cash: number;
+  /**
+   * The amount of debt the player has.
+   */
   debt: number;
+  /**
+   * The stocks the player owns. This will be used to determine the player's total value.
+   */
   ownedStocks: {
     [stockSymbol: string]: OwnedStock[];
   };
+  /**
+   * The store powers the player has. This will be used to determine if the player can use a power.
+   */
   storePowers: {
+    /**
+     * Allows buying 2x the stock for the price of 1x.
+     */
     discountBuy: StorePowerUpUsage;
+    /**
+     * Allows the player to take out a loan of some % of everyone's average value.
+     */
     loan: StorePowerUpUsage;
+    /**
+     * Converts the losses on a holding into gains.
+     */
     lossIntoGain: StorePowerUpUsage;
+    /**
+     * Allows the player to transfer cash to another player, on their team.
+     */
     transferCash: StorePowerUpUsage;
   };
+  /**
+   * The team the player is on.
+   */
   team: number;
+  /**
+   * All the transactions the player has made, used to render a graph of overall performance at the end of the game.
+   */
   transactionHistory: TransactionHistory[];
 }
 
@@ -129,16 +159,28 @@ export interface StockTimesPendingPlayerActions {
 }
 
 export interface TheStockTimesGame {
+  /**
+   * The current cycle of the game. This will determine the time of day and the state of the game.
+   */
   cycle: StockTimesCycle;
+  /**
+   * The news articles for the game. This will be used to determine the impact of the news on the stock prices.
+   */
   newsArticles: StockTimesNewsArticle;
   /**
    * We want the player to be the source of truth for their portfolio, so when another player transfers money to them
    * we want the player's computer to update the final amount. We do that through this pending action mechanism.
    */
   pendingPlayerActions: StockTimesPendingPlayerActions;
+  /**
+   * The players in the game. This will be used to determine the player's cash, debt, and owned stocks.
+   */
   players: {
     [playerId: PlayerId]: StockTimesPlayer;
   };
+  /**
+   * The stocks in the game. This is set when the game starts, not when it's created.
+   */
   stocks: {
     [stockSymbol: string]: Stock;
   };
