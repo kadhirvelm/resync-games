@@ -8,8 +8,11 @@ import { PlayerPortfolio } from "./components/playerPortfolio/PlayerPortfolio";
 import styles from "./DisplayTheStockTimes.module.scss";
 import { useGameStateSelector } from "./store/theStockTimesRedux";
 import { PauseAndPlay } from "./components/cycle/PauseAndPlay";
+import { usePendingPlayerChanges } from "./hooks/pendingPlayerChanges";
 
 export const DisplayTheStockTimes = () => {
+  usePendingPlayerChanges();
+
   const gameInfo = useGameStateSelector((s) => s.gameStateSlice.gameInfo);
   const gameState = useGameStateSelector((s) => s.gameStateSlice.gameState);
 
