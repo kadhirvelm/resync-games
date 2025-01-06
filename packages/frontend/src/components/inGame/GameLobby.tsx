@@ -16,6 +16,7 @@ import { ConfigureGame } from "./components/ConfigureGame";
 import { GoHome } from "./components/GoHome";
 import styles from "./GameLobby.module.scss";
 import { canStartGame } from "./utils/canStartGame";
+import { TutorialScreen } from "./components/TutorialScreen";
 
 export const GameLobby = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -212,11 +213,12 @@ export const GameLobby = () => {
         p="8"
       >
         {renderRoomName()}
+        <TutorialScreen key={gameInfo?.gameId + "tutorial"} />
         <Flex direction="column" gap="4">
           <Text color="gray" size="2">
             Game configuration
           </Text>
-          <ConfigureGame key={gameInfo?.gameId} />
+          <ConfigureGame key={gameInfo?.gameId + "configure"} />
         </Flex>
       </Flex>
       <Flex direction="column" flex="4" gap="8" justify="center">

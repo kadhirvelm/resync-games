@@ -11,6 +11,7 @@ import { JSX } from "react";
 import { INITIAL_SNATCH_THE_SNACK_LOCAL_STATE } from "./snatchTheSnack/store/snatchTheSnackLocalState";
 import { INITIAL_THE_STOCK_TIMES_LOCAL_STATE } from "./theStockTimes/store/theStockTimesLocalState";
 import { StockTimesGlobalScreen } from "./theStockTimes/StockTimesGlobalScreen";
+import { StockTimesTutorial } from "./theStockTimes/StockTimesTutorial";
 
 export type FrontendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: FrontendRegisteredGame;
@@ -31,14 +32,32 @@ export interface GlobalScreenComponentProps<
 }
 
 export interface FrontendRegisteredGame {
+  /**
+   * The configuration by the user for the game.
+   */
   gameConfiguration: MapGameConfiguration<object>;
+  /**
+   * The primary entry point for the game.
+   */
   gameEntry: (
     properties: FrontendGameComponentProps
   ) => JSX.Element | undefined | null;
+  /**
+   * The screen to display on a central screen when the game is playing. Receives the state from the socket.
+   */
   globalScreen?: (
     properties: GlobalScreenComponentProps
   ) => JSX.Element | undefined | null;
+  /**
+   * The initial local state for the game, dispatches before the game initializes.
+   */
   initialLocalState: object | undefined;
+  /**
+   * Dispays how to play the game.
+   */
+  tutorialScreen?: (properties: {
+    gameConfiguration: object;
+  }) => JSX.Element | undefined | null;
 }
 
 export const GAME_REGISTRY: FrontendGameRegistry = {
@@ -56,6 +75,7 @@ export const GAME_REGISTRY: FrontendGameRegistry = {
     gameConfiguration: TheStockTimesConfiguration,
     gameEntry: DisplayTheStockTimes,
     globalScreen: StockTimesGlobalScreen,
-    initialLocalState: INITIAL_THE_STOCK_TIMES_LOCAL_STATE
+    initialLocalState: INITIAL_THE_STOCK_TIMES_LOCAL_STATE,
+    tutorialScreen: StockTimesTutorial
   }
 };
