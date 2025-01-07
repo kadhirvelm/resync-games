@@ -108,6 +108,10 @@ export interface StockTimesPlayer extends WithTimestamp {
    */
   storePowers: {
     /**
+     * Allows the player to corrupt a news article, which changes a stock's article impact to minimal.
+     */
+    corruptedStock: StorePowerUpUsage;
+    /**
      * Allows buying 2x the stock for the price of 1x.
      */
     discountBuy: StorePowerUpUsage;
@@ -138,6 +142,7 @@ export type StockArticleImpact = -2 | -1 | 0 | 1 | 2;
 
 export interface StockArticle extends WithTimestamp {
   addedOn: number;
+  corruptedOn?: number;
   description: string;
   impact: StockArticleImpact;
   title: string;
@@ -242,6 +247,10 @@ export class TheStockTimesServer
         lastUpdatedAt: new Date().toISOString(),
         ownedStocks: {},
         storePowers: {
+          corruptedStock: {
+            cooldownTime: undefined,
+            usedAt: undefined
+          },
           discountBuy: {
             cooldownTime: undefined,
             usedAt: undefined
@@ -412,6 +421,13 @@ export class TheStockTimesServer
   }
 
   private accountForNewsArticle(latestNewsArticle: StockArticle | undefined) {
+    if (latestNewsArticle?.corruptedOn !== undefined) {
+      return {
+        percentOfLastPrice: 0.015,
+        probabilityOfIncrease: 0.5
+      };
+    }
+
     if (latestNewsArticle?.impact === 1) {
       return {
         percentOfLastPrice: 0.05,
