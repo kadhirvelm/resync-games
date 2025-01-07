@@ -169,6 +169,10 @@ export const StockTimesStore = () => {
             sale during this time. Activate this option on the purchase stock
             screen.
           </Text>
+          <Text color="gray" size="2">
+            Note this will be disabled at the start of day{" "}
+            {(cycle?.endDay ?? 0) - LOCK_UP_TIME}.
+          </Text>
           <Flex justify="end">
             <Text color="gray" size="2">
               {DISCOUNT_BUY_COOLDOWN} day cooldown
