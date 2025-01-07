@@ -6,6 +6,7 @@ import {
 } from "../../store/selectors";
 import { useGameStateSelector } from "../../store/theStockTimesRedux";
 import { displayDollar } from "../../utils/displayDollar";
+import { Sabotage } from "../sabotage/Sabotage";
 import { StockTimesStore } from "../store/StockTimesStore";
 import styles from "./PlayerPortfolio.module.scss";
 import { PlayerStocks } from "./PlayerStocks";
@@ -104,6 +105,7 @@ export const PlayerPortfolio = () => {
         <Tabs.List>
           <Tabs.Trigger value="your-portfolio">Your portfolio</Tabs.Trigger>
           <Tabs.Trigger value="store">Store</Tabs.Trigger>
+          <Tabs.Trigger value="sabotage">Sabotage</Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="your-portfolio">
           <Flex direction="column" mt="2">
@@ -114,6 +116,11 @@ export const PlayerPortfolio = () => {
         <Tabs.Content value="store">
           <Flex direction="column" mt="2">
             <StockTimesStore />
+          </Flex>
+        </Tabs.Content>
+        <Tabs.Content value="sabotage">
+          <Flex direction="column" mt="2">
+            <Sabotage />
           </Flex>
         </Tabs.Content>
       </Tabs.Root>

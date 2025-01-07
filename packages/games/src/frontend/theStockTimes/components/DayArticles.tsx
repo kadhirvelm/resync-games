@@ -16,6 +16,10 @@ export const DayArticles = () => {
     setSelectedDay(0);
   }, [lastestAddedOn]);
 
+  const anyCorrupted = articles
+    .map((a) => a?.[selectedDay]?.corruptedOn ?? "")
+    .join("");
+
   const viewingArticles: StockArticle[] = useMemo(() => {
     const collapsedArticles = articles.map((a) => a?.[selectedDay]);
     const filteredArticles = collapsedArticles.filter(
@@ -36,7 +40,7 @@ export const DayArticles = () => {
     }
 
     return shuffle(filteredArticles);
-  }, [lastestAddedOn, selectedDay]);
+  }, [lastestAddedOn, selectedDay, anyCorrupted]);
 
   return (
     <Flex
@@ -81,11 +85,17 @@ export const DayArticles = () => {
           >
             <Flex justify="between">
               <Text size="4" weight="bold">
-                {article.title}
+                {article.corruptedOn !== undefined
+                  ? "CORRUPTED"
+                  : article.title}
               </Text>
             </Flex>
             <Flex>
-              <Text color="gray">{article.description}</Text>
+              <Text color="gray">
+                {article.corruptedOn !== undefined
+                  ? `[CORRUPTED] ${article.title}`
+                  : article.description}
+              </Text>
             </Flex>
           </Flex>
         ))}

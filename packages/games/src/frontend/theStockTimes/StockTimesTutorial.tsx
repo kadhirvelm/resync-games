@@ -59,13 +59,13 @@ export const StockTimesTutorial = ({
       </Flex>
       <Flex direction="column" gap="1">
         <Text color="gray" size="2">
-          Store
+          Store and Sabotage
         </Text>
         <Text>
-          In addition to buying and sell stocks, there is a store where you can
-          purchase special powers. Be sure to check it out. Some powers will
-          boost your portfolio, and others will let you mess with your
-          opponents.
+          In addition to buying and sell stocks, there is a store and a sabotage
+          screen where you can purchase special powers. Be sure to check them
+          out. Some powers will boost your portfolio, and others will let you
+          mess with your opponents.
         </Text>
       </Flex>
       <Flex direction="column" gap="1">
@@ -83,7 +83,7 @@ export const StockTimesTutorial = ({
         <Text>
           In addition, we recommend keeping a close eye on how your opponents
           portfolios are doing. If you see them doing well, there might be some
-          options in the store to mess with their success. Good luck!
+          options in the sabotage tab to mess with their success. Good luck!
         </Text>
       </Flex>
     </Flex>
