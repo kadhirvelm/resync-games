@@ -93,12 +93,25 @@ export const PurchaseStock = ({
     setTotalPurchase("0");
   };
 
+  const areThereEnoughLockUpDays = () => {
+    if (cycle === undefined) {
+      return false;
+    }
+
+    const availabilityTime = (cycle.dayTime + cycle.nightTime) * LOCK_UP_TIME;
+    const dateAtCompletion = new Date(Date.now() + availabilityTime);
+
+    const { day } = cycleTime(cycle, dateAtCompletion.valueOf());
+    return day < cycle.endDay;
+  };
+
   const purchaseDiscountStock = () => {
     if (
       playerPortfolio === undefined ||
       player === undefined ||
       currentStockPrice === undefined ||
-      cycle === undefined
+      cycle === undefined ||
+      !areThereEnoughLockUpDays()
     ) {
       return;
     }
@@ -229,7 +242,9 @@ export const PurchaseStock = ({
         <Flex style={{ width: "30%" }}>
           <Flex direction="column" flex="1" gap="2">
             <Button
-              disabled={quantity <= 0 || leftOverCash < 0}
+              disabled={
+                quantity <= 0 || leftOverCash < 0 || !areThereEnoughLockUpDays()
+              }
               onClick={purchaseStock}
             >
               Buy {quantity} stocks
