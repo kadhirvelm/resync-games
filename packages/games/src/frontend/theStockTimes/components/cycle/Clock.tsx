@@ -3,6 +3,9 @@ import { StockTimesCycle } from "../../../../backend/theStockTimes/theStockTimes
 import { Flex } from "../../../components";
 import { useCycleTime } from "../../hooks/cycleTime";
 import styles from "./Clock.module.scss";
+import { useGameStateSelector } from "../../store/theStockTimesRedux";
+import { selectPlayerPortfolio } from "../../store/selectors";
+import { isAvailable } from "../../hooks/utils/isAvailable";
 
 const DEFAULT_SIZE = 75;
 
@@ -47,17 +50,28 @@ export const Clock = ({
   cycle: StockTimesCycle;
   size?: number;
 }) => {
+  const lockCashSpending = useGameStateSelector(
+    selectPlayerPortfolio
+  )?.lockCashSpending;
   const calculatedCycleTime = useCycleTime(cycle);
   const finalSize = size ?? DEFAULT_SIZE;
 
   const { day, timeFraction } = calculatedCycleTime;
+  const isLocked = !isAvailable(
+    cycle,
+    lockCashSpending?.lockedAt,
+    lockCashSpending?.availabilityTime
+  ).isAvailable;
 
   return (
     <>
       <Flex
         className={clsx(styles.background, {
-          [styles.day ?? ""]: calculatedCycleTime.currentCycle === "day",
-          [styles.night ?? ""]: calculatedCycleTime.currentCycle === "night"
+          [styles.day ?? ""]:
+            calculatedCycleTime.currentCycle === "day" && !isLocked,
+          [styles.night ?? ""]:
+            calculatedCycleTime.currentCycle === "night" && !isLocked,
+          [styles.locked ?? ""]: isLocked
         })}
       />
       <Flex align="center" gap="1">

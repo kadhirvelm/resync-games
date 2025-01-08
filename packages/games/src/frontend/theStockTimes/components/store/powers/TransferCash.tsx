@@ -3,7 +3,10 @@ import { PlayerId } from "@resync-games/api";
 import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
 import { useState } from "react";
 import { Button, Flex, Select, Text, TextField } from "../../../../components";
-import { selectPlayerPortfolio, selectTeams } from "../../../store/selectors";
+import {
+  selectPlayerPortfolio,
+  selectTeammates
+} from "../../../store/selectors";
 import {
   updateTheStockTimesGameState,
   useGameStateDispatch,
@@ -23,19 +26,14 @@ export const TransferCash = () => {
   );
 
   const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
-  const teams = useGameStateSelector(selectTeams);
-
-  const playersOnTeam = teams[playerPortfolio?.team ?? ""]?.players ?? [];
-  const filteredPlayers = playersOnTeam.filter(
-    (p) => p.playerId !== player?.playerId
-  );
+  const teammates = useGameStateSelector(selectTeammates);
 
   const [playerSelector, setPlayerSelector] = useState<PlayerId | undefined>(
-    filteredPlayers[0]?.playerId
+    teammates[0]?.playerId
   );
   const [cashSelector, setCashSelector] = useState<string>("0");
 
-  if (playerPortfolio === undefined || filteredPlayers.length === 0) {
+  if (playerPortfolio === undefined || teammates.length === 0) {
     return <Text color="gray">No teammates available</Text>;
   }
 
@@ -108,7 +106,7 @@ export const TransferCash = () => {
   return (
     <Flex direction="column" flex="1" gap="2">
       <Select<PlayerId>
-        items={filteredPlayers.map((player) => ({
+        items={teammates.map((player) => ({
           label: player.displayName,
           value: player.playerId
         }))}

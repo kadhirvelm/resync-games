@@ -98,6 +98,10 @@ export interface StockTimesPlayer extends WithTimestamp {
    */
   debt: number;
   /**
+   * Prevents the player from spending cash
+   */
+  lockCashSpending?: PowerLock;
+  /**
    * The stocks the player owns. This will be used to determine the player's total value.
    */
   ownedStocks: {
@@ -119,6 +123,10 @@ export interface StockTimesPlayer extends WithTimestamp {
      * Allows the player to take out a loan of some % of everyone's average value.
      */
     loan: StorePowerUpUsage;
+    /**
+     * Prevents a player from spending their cash for a set amount of time.
+     */
+    lockCashSpending: StorePowerUpUsage;
     /**
      * Converts the losses on a holding into gains.
      */
@@ -155,8 +163,20 @@ export interface StockTimesNewsArticle extends WithTimestamp {
   lastDay: number;
 }
 
+export interface PowerLock {
+  /**
+   * The time in milliseconds when the stock will be available again, after the lockedAt time.
+   */
+  availabilityTime: number;
+  /**
+   * The current time on the clock when the stock was locked.
+   */
+  lockedAt: number;
+}
+
 export interface StockTimesPlayerActions extends WithTimestamp {
   cashInflux?: number;
+  lockCashSpending?: PowerLock;
 }
 
 export interface StockTimesPendingPlayerActions {
@@ -256,6 +276,10 @@ export class TheStockTimesServer
             usedAt: undefined
           },
           loan: {
+            cooldownTime: undefined,
+            usedAt: undefined
+          },
+          lockCashSpending: {
             cooldownTime: undefined,
             usedAt: undefined
           },

@@ -50,6 +50,28 @@ export const selectTeams = createSelector(
   }
 );
 
+export const selectTeammates = createSelector(
+  [
+    selectTeams,
+    selectPlayerPortfolio,
+    (state: TheStockTimesReduxState) => state.playerSlice.player
+  ],
+  (teams, playerPortfolio, player) => {
+    const teammates = teams[playerPortfolio?.team ?? 0]?.players ?? [];
+    return teammates.filter((p) => p.playerId !== player?.playerId);
+  }
+);
+
+export const selectOpponents = createSelector(
+  [selectTeams, selectPlayerPortfolio],
+  (teams, playerPortfolio) => {
+    const opponents = Object.entries(teams).filter(
+      ([teamNumber]) => teamNumber !== playerPortfolio?.team?.toString()
+    );
+    return opponents.flatMap(([_teamNumber, { players }]) => players);
+  }
+);
+
 export const selectTotalTeamValue = createSelector(
   [
     (state: TheStockTimesReduxState) => state.gameStateSlice.gameInfo?.players,

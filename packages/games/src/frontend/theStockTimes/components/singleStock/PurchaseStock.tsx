@@ -4,7 +4,7 @@ import {
   OwnedStock,
   TransactionHistory
 } from "../../../../backend/theStockTimes/theStockTimes";
-import { Button, Flex, Text, TextField } from "../../../components";
+import { Button, Flex, Progress, Text, TextField } from "../../../components";
 import { selectPlayerPortfolio } from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
@@ -15,6 +15,7 @@ import { displayDollar } from "../../utils/displayDollar";
 import styles from "./PurchaseStock.module.scss";
 import { ActivateStorePower } from "../store/ActivateStorePower";
 import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { useCashSpendLock } from "../../hooks/cashSpendLock";
 
 export const LOCK_UP_TIME = 2;
 export const DISCOUNT_BUY_COOLDOWN = 1.5;
@@ -25,6 +26,8 @@ export const PurchaseStock = ({
   viewingStockSymbol: string;
 }) => {
   const dispatch = useGameStateDispatch();
+
+  const { isAvailable, timeLeft } = useCashSpendLock();
 
   const player = useGameStateSelector((s) => s.playerSlice.player);
   const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
@@ -205,6 +208,36 @@ export const PurchaseStock = ({
     setTotalPurchase(halfBuyStock.toString());
   };
 
+  const maybeRenderBuy = () => {
+    if (!isAvailable) {
+      return (
+        <Flex align="center" flex="1" gap="2">
+          <Text color="gray">Locked</Text>
+          <Progress color="blue" value={timeLeft} />
+        </Flex>
+      );
+    }
+
+    return (
+      <Flex direction="column" flex="1" gap="2">
+        <Button
+          disabled={
+            quantity <= 0 || leftOverCash < 0 || !areThereEnoughLockUpDays()
+          }
+          onClick={purchaseStock}
+        >
+          Buy {quantity} stocks
+        </Button>
+        <ActivateStorePower
+          disabled={quantity <= 0 || leftOverCash < 0}
+          onClick={purchaseDiscountStock}
+          storePower="discountBuy"
+          text={`Buy ${quantity * 2} stocks with lock`}
+        />
+      </Flex>
+    );
+  };
+
   return (
     <Flex className={styles.purchase} direction="column">
       <Flex align="center" gap="2" pt="4" px="4" wrap="wrap">
@@ -239,24 +272,7 @@ export const PurchaseStock = ({
         </Text>
       </Flex>
       <Flex flex="1" justify="end" p="2">
-        <Flex style={{ width: "30%" }}>
-          <Flex direction="column" flex="1" gap="2">
-            <Button
-              disabled={
-                quantity <= 0 || leftOverCash < 0 || !areThereEnoughLockUpDays()
-              }
-              onClick={purchaseStock}
-            >
-              Buy {quantity} stocks
-            </Button>
-            <ActivateStorePower
-              disabled={quantity <= 0 || leftOverCash < 0}
-              onClick={purchaseDiscountStock}
-              storePower="discountBuy"
-              text={`Buy ${quantity * 2} stocks with lock`}
-            />
-          </Flex>
-        </Flex>
+        <Flex style={{ width: "30%" }}>{maybeRenderBuy()}</Flex>
       </Flex>
     </Flex>
   );

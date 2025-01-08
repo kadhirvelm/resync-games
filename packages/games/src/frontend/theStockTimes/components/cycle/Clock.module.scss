@@ -38,4 +38,8 @@
     &.day {
         background: rgba(vars.$yellow, 0.1);
     }
+
+    &.locked {
+        background: rgba(vars.$red, 0.15);
+    }
 }
