@@ -141,8 +141,11 @@ export const StockTimesStore = () => {
         </Flex>
         <Flex direction="column" gap="1" p="2">
           <Text color="gray" size="2">
-            Converts losses into gains for 1 holding. Activate this on a holding
-            with losses in the "your portfolio" section.
+            Converts losses into gains for 1 holding. In other words, if you
+            have a <Text color="red">$100.00</Text> in losses, this power will
+            convert it to a <Text color="green">$100.00</Text> in gains.
+            Activate this on a holding with losses in the "your portfolio"
+            section.
           </Text>
           <Flex justify="end">
             <Text color="gray" size="2">

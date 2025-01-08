@@ -81,24 +81,20 @@ export const CashLock = () => {
   };
 
   return (
-    <Flex align="center" flex="1" gap="2">
-      <Flex flex="1">
-        <Select<PlayerId>
-          items={opponents.map((player) => ({
-            label: player.displayName,
-            value: player.playerId
-          }))}
-          onChange={setPlayerSelector}
-          value={playerSelector}
-        />
-      </Flex>
-      <Flex flex="1">
-        <ActivateStorePower
-          disabled={playerSelector === undefined || playerSelector === ""}
-          onClick={lockPlayerCash}
-          storePower="lockCashSpending"
-        />
-      </Flex>
+    <Flex direction="column" flex="1" gap="2">
+      <Select<PlayerId>
+        items={opponents.map((player) => ({
+          label: player.displayName,
+          value: player.playerId
+        }))}
+        onChange={setPlayerSelector}
+        value={playerSelector}
+      />
+      <ActivateStorePower
+        disabled={playerSelector === undefined || playerSelector === ""}
+        onClick={lockPlayerCash}
+        storePower="lockCashSpending"
+      />
     </Flex>
   );
 };

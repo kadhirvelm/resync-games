@@ -25,13 +25,13 @@ export const CorruptStock = () => {
     (s) => s.gameStateSlice.gameState?.stocks ?? {}
   );
 
-  const [stockSelector, setStockSelector] = useState("");
-
   const sortedStock = useMemo(() => {
     return Object.entries(stocks).sort(([aSymbol], [bSymbol]) => {
       return aSymbol.localeCompare(bSymbol);
     });
   }, [stocks]);
+
+  const [stockSelector, setStockSelector] = useState(sortedStock[0]?.[0]);
 
   const onCorruptStock = () => {
     if (

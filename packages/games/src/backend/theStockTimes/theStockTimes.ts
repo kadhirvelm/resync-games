@@ -108,6 +108,12 @@ export interface StockTimesPlayer extends WithTimestamp {
     [stockSymbol: string]: OwnedStock[];
   };
   /**
+   * Prevents the player from selling the stock.
+   */
+  stockLocks: {
+    [stockSymbol: string]: PowerLock;
+  };
+  /**
    * The store powers the player has. This will be used to determine if the player can use a power.
    */
   storePowers: {
@@ -131,6 +137,10 @@ export interface StockTimesPlayer extends WithTimestamp {
      * Converts the losses on a holding into gains.
      */
     lossIntoGain: StorePowerUpUsage;
+    /**
+     * Prevents a player from selling a stock for a set amount of time.
+     */
+    stockLock: StorePowerUpUsage;
     /**
      * Allows the player to transfer cash to another player, on their team.
      */
@@ -177,6 +187,10 @@ export interface PowerLock {
 export interface StockTimesPlayerActions extends WithTimestamp {
   cashInflux?: number;
   lockCashSpending?: PowerLock;
+  stockLock?: {
+    lock: PowerLock;
+    stockSymbol: string;
+  };
 }
 
 export interface StockTimesPendingPlayerActions {
@@ -266,6 +280,7 @@ export class TheStockTimesServer
         debt: 0,
         lastUpdatedAt: new Date().toISOString(),
         ownedStocks: {},
+        stockLocks: {},
         storePowers: {
           corruptedStock: {
             cooldownTime: undefined,
@@ -284,6 +299,10 @@ export class TheStockTimesServer
             usedAt: undefined
           },
           lossIntoGain: {
+            cooldownTime: undefined,
+            usedAt: undefined
+          },
+          stockLock: {
             cooldownTime: undefined,
             usedAt: undefined
           },

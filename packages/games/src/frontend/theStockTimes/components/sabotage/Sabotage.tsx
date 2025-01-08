@@ -2,6 +2,11 @@ import { Flex, Text } from "../../../components";
 import { CASH_LOCK_DURATION, CASH_LOCK_COOLDOWN, CashLock } from "./CashLock";
 import { CORRUPT_STOCK_COOLDOWN, CorruptStock } from "./CorruptStock";
 import styles from "./Sabotage.module.scss";
+import {
+  STOCK_LOCK_COOLDOWN,
+  STOCK_LOCK_DURATION,
+  StockLock
+} from "./StockLock";
 
 export const Sabotage = () => {
   return (
@@ -49,6 +54,30 @@ export const Sabotage = () => {
           <Flex justify="end">
             <Text color="gray" size="2">
               {CASH_LOCK_COOLDOWN} day cooldown
+            </Text>
+          </Flex>
+        </Flex>
+      </Flex>
+      <Flex className={styles.sabotagePower} direction="column">
+        <Flex align="center" className={styles.powerName} p="2">
+          <Flex flex="1">
+            <Text size="4" weight="bold">
+              Stock lock
+            </Text>
+          </Flex>
+        </Flex>
+        <Flex direction="column" gap="1" p="2">
+          <Text color="gray" size="2">
+            Prevents a player from selling a specific stock for{" "}
+            {STOCK_LOCK_DURATION} days. Use this to prevent a player from
+            selling a specific stock.
+          </Text>
+          <Flex py="2">
+            <StockLock />
+          </Flex>
+          <Flex justify="end">
+            <Text color="gray" size="2">
+              {STOCK_LOCK_COOLDOWN} day cooldown
             </Text>
           </Flex>
         </Flex>
