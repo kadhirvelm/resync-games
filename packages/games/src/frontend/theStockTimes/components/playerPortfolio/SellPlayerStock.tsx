@@ -53,13 +53,20 @@ export const SellPlayerStock = ({
   };
 
   const onSell = () => {
-    if (player === undefined || playerPortfolio === undefined) {
+    if (
+      player === undefined ||
+      playerPortfolio === undefined ||
+      cycle === undefined
+    ) {
       return;
     }
 
     const newCash = playerPortfolio.cash + currentPrice * ownedStock.quantity;
 
+    const usedAt = cycleTime(cycle).currentTime;
+
     const newTransaction: TransactionHistory = {
+      clockTime: usedAt,
       date: new Date().toISOString(),
       price: currentPrice,
       quantity: ownedStock.quantity,
@@ -100,10 +107,15 @@ export const SellPlayerStock = ({
       return;
     }
 
+    const lossIntoGainCooldown =
+      (cycle.dayTime + cycle.nightTime) * SELL_INTO_GAIN_COOLDOWN;
+    const usedAt = cycleTime(cycle).currentTime;
+
     const newPrice = (ownedStock.price - currentPrice) * 2 + currentPrice;
     const newCash = playerPortfolio.cash + newPrice * ownedStock.quantity;
 
     const newTransaction: TransactionHistory = {
+      clockTime: usedAt,
       date: new Date().toISOString(),
       lossIntoGain: true,
       price: currentPrice,
@@ -111,10 +123,6 @@ export const SellPlayerStock = ({
       stockSymbol: symbol,
       type: "sell"
     };
-
-    const lossIntoGainCooldown =
-      (cycle.dayTime + cycle.nightTime) * SELL_INTO_GAIN_COOLDOWN;
-    const usedAt = cycleTime(cycle).currentTime;
 
     dispatch(
       updateTheStockTimesGameState(

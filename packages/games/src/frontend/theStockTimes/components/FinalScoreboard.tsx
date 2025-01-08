@@ -4,9 +4,36 @@ import { selectTotalTeamValue } from "../store/selectors";
 import { useGameStateSelector } from "../store/theStockTimesRedux";
 import { displayDollar } from "../utils/displayDollar";
 import styles from "./FinalScoreboard.module.scss";
+import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
 
 export const FinalScoreboard = () => {
+  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
   const teams = useGameStateSelector(selectTotalTeamValue);
+
+  // When the last day's articles come out, this should trigger
+  const isLastDay = (() => {
+    if (cycle === undefined) {
+      return false;
+    }
+
+    const { day } = cycleTime(cycle);
+    return day === cycle.endDay - 1;
+  })();
+
+  if (isLastDay) {
+    return (
+      <Flex direction="column" flex="1" gap="3" justify="center" px="5">
+        <Flex
+          align="center"
+          className={styles.teamContainer}
+          justify="center"
+          py="4"
+        >
+          <Text color="gray">Last day of trading!</Text>
+        </Flex>
+      </Flex>
+    );
+  }
 
   return (
     <Flex direction="column" flex="1" gap="3" justify="center" px="5">

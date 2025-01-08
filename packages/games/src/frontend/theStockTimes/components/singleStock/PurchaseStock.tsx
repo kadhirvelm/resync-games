@@ -49,10 +49,13 @@ export const PurchaseStock = ({
     if (
       playerPortfolio === undefined ||
       player === undefined ||
-      currentStockPrice === undefined
+      currentStockPrice === undefined ||
+      cycle === undefined
     ) {
       return;
     }
+
+    const lockedAt = cycleTime(cycle).currentTime;
 
     const newOwnedStock: OwnedStock = {
       date: new Date().toISOString(),
@@ -60,6 +63,7 @@ export const PurchaseStock = ({
       quantity
     };
     const newTransaction: TransactionHistory = {
+      clockTime: lockedAt,
       date: new Date().toISOString(),
       price: currentStockPrice,
       quantity,
@@ -132,6 +136,7 @@ export const PurchaseStock = ({
       quantity
     };
     const newTransactionOne: TransactionHistory = {
+      clockTime: lockedAt,
       date: new Date().toISOString(),
       price: currentStockPrice,
       quantity,
@@ -149,6 +154,7 @@ export const PurchaseStock = ({
       quantity
     };
     const newTransactionTwo: TransactionHistory = {
+      clockTime: lockedAt,
       date: new Date().toISOString(),
       price: currentStockPrice,
       quantity,
@@ -221,15 +227,15 @@ export const PurchaseStock = ({
     return (
       <Flex direction="column" flex="1" gap="2">
         <Button
-          disabled={
-            quantity <= 0 || leftOverCash < 0 || !areThereEnoughLockUpDays()
-          }
+          disabled={quantity <= 0 || leftOverCash < 0}
           onClick={purchaseStock}
         >
           Buy {quantity} stocks
         </Button>
         <ActivateStorePower
-          disabled={quantity <= 0 || leftOverCash < 0}
+          disabled={
+            quantity <= 0 || leftOverCash < 0 || !areThereEnoughLockUpDays()
+          }
           onClick={purchaseDiscountStock}
           storePower="discountBuy"
           text={`Buy ${quantity * 2} stocks with lock`}
