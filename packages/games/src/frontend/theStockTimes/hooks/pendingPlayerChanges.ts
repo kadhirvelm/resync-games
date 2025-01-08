@@ -59,6 +59,15 @@ export function usePendingPlayerChanges() {
       newPlayerActions.lastUpdatedAt = new Date().toISOString();
     }
 
+    if (pendingPlayerActions.lockCashSpending !== undefined) {
+      newPlayerPortfolio.lockCashSpending =
+        pendingPlayerActions.lockCashSpending;
+      newPlayerPortfolio.lastUpdatedAt = new Date().toISOString();
+
+      newPlayerActions.lockCashSpending = undefined;
+      newPlayerActions.lastUpdatedAt = new Date().toISOString();
+    }
+
     processActionsAndPortfolio(newPlayerPortfolio, newPlayerActions);
   }, [pendingPlayerActions?.lastUpdatedAt]);
 }
