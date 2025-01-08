@@ -10,6 +10,7 @@ import {
   StockTimesPendingPlayerActions,
   StockTimesPlayer
 } from "../../../backend/theStockTimes/theStockTimes";
+import { cloneDeep } from "lodash";
 
 export function usePendingPlayerChanges() {
   const dispatch = useGameStateDispatch();
@@ -49,8 +50,11 @@ export function usePendingPlayerChanges() {
       return;
     }
 
+    // TODO: display a toast when these activate
+
     const newPlayerActions = { ...pendingPlayerActions };
-    const newPlayerPortfolio = { ...playerPortfolio };
+    const newPlayerPortfolio = cloneDeep(playerPortfolio);
+
     if (pendingPlayerActions.cashInflux !== undefined) {
       newPlayerPortfolio.cash += pendingPlayerActions.cashInflux;
       newPlayerPortfolio.lastUpdatedAt = new Date().toISOString();
@@ -65,6 +69,16 @@ export function usePendingPlayerChanges() {
       newPlayerPortfolio.lastUpdatedAt = new Date().toISOString();
 
       newPlayerActions.lockCashSpending = undefined;
+      newPlayerActions.lastUpdatedAt = new Date().toISOString();
+    }
+
+    if (pendingPlayerActions.stockLock !== undefined) {
+      newPlayerPortfolio.stockLocks[
+        pendingPlayerActions.stockLock.stockSymbol
+      ] = pendingPlayerActions.stockLock.lock;
+      newPlayerPortfolio.lastUpdatedAt = new Date().toISOString();
+
+      newPlayerActions.stockLock = undefined;
       newPlayerActions.lastUpdatedAt = new Date().toISOString();
     }
 

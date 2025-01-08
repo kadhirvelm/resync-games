@@ -108,7 +108,7 @@ export const PlayerPortfolio = () => {
           <Tabs.Trigger value="sabotage">Sabotage</Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="your-portfolio">
-          <Flex direction="column" mt="2">
+          <Flex direction="column" gap="2" mt="2">
             {renderYourPortfolio()}
             <PlayerStocks />
           </Flex>

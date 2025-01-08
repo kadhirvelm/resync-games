@@ -213,7 +213,7 @@ export const PurchaseStock = ({
       return (
         <Flex align="center" flex="1" gap="2">
           <Text color="gray">Locked</Text>
-          <Progress color="blue" value={timeLeft} />
+          <Progress color="red" value={timeLeft} />
         </Flex>
       );
     }

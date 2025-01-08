@@ -77,9 +77,11 @@ export const selectTotalTeamValue = createSelector(
     (state: TheStockTimesReduxState) => state.gameStateSlice.gameInfo?.players,
     (state: TheStockTimesReduxState) => state.gameStateSlice.gameState?.players,
     (state: TheStockTimesReduxState) => state.gameStateSlice.gameState?.stocks,
-    selectTeams
+    selectTeams,
+    (state: TheStockTimesReduxState) =>
+      state.gameStateSlice.gameState?.pendingPlayerActions
   ],
-  (players, gamePlayers, stocks, existingTeams) => {
+  (players, gamePlayers, stocks, existingTeams, pendingPlayerActions) => {
     const teams: {
       [teamNumber: number]: { averageTeamValue: number; totalPlayers: number };
     } = {};
@@ -94,8 +96,10 @@ export const selectTotalTeamValue = createSelector(
           (acc, stock) => acc + stock.quantity * latestPrice,
           0
         );
+        const pendingCashInflux =
+          pendingPlayerActions?.[player.playerId]?.cashInflux ?? 0;
 
-        return previous + totalValue;
+        return previous + totalValue + pendingCashInflux;
       }, 0);
 
       teams[player.team ?? 0] = {

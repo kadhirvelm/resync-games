@@ -31,7 +31,7 @@ export const SellPlayerStock = ({
   const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
   const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
 
-  const { isAvailable, timeLeft } = useStockLock(ownedStock);
+  const { isAvailable, timeLeft } = useStockLock(ownedStock, symbol);
 
   const removeStock = () => {
     if (playerPortfolio === undefined) {
@@ -151,7 +151,7 @@ export const SellPlayerStock = ({
     return (
       <Flex align="center" flex="1" gap="2">
         <Text color="gray">Locked</Text>
-        <Progress color="blue" value={timeLeft} />
+        <Progress color="red" value={timeLeft} />
       </Flex>
     );
   }
