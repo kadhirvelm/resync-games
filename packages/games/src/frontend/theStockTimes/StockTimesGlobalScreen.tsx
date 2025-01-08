@@ -1,6 +1,7 @@
 import { Flex, Text } from "../components";
 import { Clock } from "./components/cycle/Clock";
 import { FinalScoreboard } from "./components/FinalScoreboard";
+import { EndGameGraph } from "./components/globalScreen/EndGameGraph";
 import { useGameStateSelector } from "./store/theStockTimesRedux";
 
 export const StockTimesGlobalScreen = () => {
@@ -19,16 +20,30 @@ export const StockTimesGlobalScreen = () => {
     );
   }
 
+  if (gameInfo?.currentGameState === "waiting") {
+    return (
+      <Flex align="center" flex="1" justify="center">
+        <Text color="gray">Waiting for the game to start</Text>
+      </Flex>
+    );
+  }
+
+  if (gameInfo?.currentGameState === "finished") {
+    return (
+      <Flex flex="1">
+        <EndGameGraph />
+      </Flex>
+    );
+  }
+
   return (
     <Flex flex="1" gap="2">
       <Flex flex="1">
         <FinalScoreboard />
       </Flex>
-      {gameInfo?.currentGameState === "playing" && (
-        <Flex flex="1">
-          <Clock cycle={gameState?.cycle} size={window.innerWidth / 2} />
-        </Flex>
-      )}
+      <Flex flex="1">
+        <Clock cycle={gameState?.cycle} size={window.innerWidth / 2} />
+      </Flex>
     </Flex>
   );
 };

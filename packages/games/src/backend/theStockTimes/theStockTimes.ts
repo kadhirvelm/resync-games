@@ -69,6 +69,10 @@ export interface OwnedStock {
 }
 
 export interface TransactionHistory {
+  /**
+   * The current time on the clock in milliseconds when transaction happened.
+   */
+  clockTime: number;
   date: string;
   lossIntoGain?: boolean;
   price: number;
