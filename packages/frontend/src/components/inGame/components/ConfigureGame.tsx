@@ -65,7 +65,7 @@ export const ConfigureGame = () => {
           onChange={(newValue) =>
             setCurrentGameConfiguration({
               ...currentGameConfiguration,
-              [key]: newValue
+              [key]: parseFloat(newValue)
             })
           }
           value={currentValue?.toString() ?? ""}
