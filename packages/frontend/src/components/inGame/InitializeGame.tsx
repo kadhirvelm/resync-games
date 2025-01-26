@@ -17,7 +17,7 @@ export const InitializeGame = ({
   store: GameStateReduxStore;
 }) => {
   // This line has to be rendered inside of the ReduxGate so it can dispatch its updates accordingly
-  const { connectionStatus } = useGameStateSocket(gameId);
+  const { connectionStatus } = useGameStateSocket(gameId, gameSlug);
   const currentGameState = useGameStateSelector(
     (s) => s.gameStateSlice.gameInfo?.currentGameState
   );

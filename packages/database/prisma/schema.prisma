@@ -20,11 +20,16 @@ model GameState {
   gameConfiguration Json             @map("game_configuration")
   currentGameState  CurrentGameState @map("current_game_state")
   gameType          String           @map("game_type")
-  gameName          String           @map("game_name") @default("Example game")
+  gameName          String           @default("Example game") @map("game_name")
   version           String           @map("version")
   lastUpdatedAt     DateTime         @default(now()) @map("last_update_timestamp")
 
   PlayersInGame PlayersInGame[]
+}
+
+enum ConnectionStatus {
+  connected
+  disconnected
 }
 
 model PlayersInGame {
@@ -32,8 +37,9 @@ model PlayersInGame {
   playerId String @map("player_id")
   team     Int?   @map("team")
 
-  game   GameState @relation(fields: [gameId], references: [gameId])
-  player Player    @relation(fields: [playerId], references: [playerId])
+  game             GameState        @relation(fields: [gameId], references: [gameId])
+  player           Player           @relation(fields: [playerId], references: [playerId])
+  connectionStatus ConnectionStatus @default(connected) @map("connection_status")
 
   @@id([gameId, playerId])
   @@unique([gameId, playerId])

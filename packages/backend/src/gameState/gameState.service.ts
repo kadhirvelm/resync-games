@@ -200,22 +200,9 @@ export class GameStateService {
       );
     }
 
-    const allPlayers = requestedGame.PlayersInGame.map((p) => p.player);
-
-    const isPlayerInGame = requestedGame.PlayersInGame.some(
-      (p) => p.playerId === getGameStateRequest.playerId
-    );
-    if (!isPlayerInGame) {
-      return await this.joinGame({
-        gameId: getGameStateRequest.gameId,
-        gameType: getGameStateRequest.gameType,
-        playerId: getGameStateRequest.playerId
-      });
-    }
-
     return this.prismaService.converterService.convertGameState(
       requestedGame,
-      allPlayers,
+      requestedGame.PlayersInGame.map((p) => p.player),
       requestedGame.PlayersInGame
     );
   };
@@ -223,159 +210,11 @@ export class GameStateService {
   public joinGame = async (
     joinGameRequest: JoinGame
   ): Promise<GameStateAndInfo> => {
-    const player = await this.userService.getUser(joinGameRequest.playerId);
-
-    const requestedGame = await this.prismaService.client.gameState.findFirst({
-      include: {
-        PlayersInGame: {
-          include: {
-            player: true
-          }
-        }
-      },
-      where: {
-        currentGameState: "waiting",
-        gameId: joinGameRequest.gameId,
-        gameType: joinGameRequest.gameType
-      }
-    });
-
-    if (requestedGame == null) {
-      throw new BadRequestException(
-        "The requested game could not be found. Please check your request and try again."
-      );
-    }
-
-    const playerAlreadyInGame = requestedGame.PlayersInGame.some(
-      (p) => p.playerId === joinGameRequest.playerId
-    );
-    if (playerAlreadyInGame) {
-      return this.prismaService.converterService.convertGameState(
-        requestedGame,
-        requestedGame.PlayersInGame.map((p) => p.player),
-        requestedGame.PlayersInGame
-      );
-    }
-
-    const backend = this.gameRegistryService.getGameRegistry(
-      joinGameRequest.gameType
-    );
-    const updatedGameState =
-      (await backend.onPlayerJoin?.(
-        (requestedGame.gameState ?? {}) as object,
-        requestedGame.gameConfiguration as object,
-        player
-      )) ??
-      requestedGame.gameState ??
-      {};
-
-    const newGameStateRaw = await this.prismaService.client.gameState.update({
-      data: {
-        PlayersInGame: {
-          create: {
-            playerId: joinGameRequest.playerId
-          }
-        },
-        gameState: updatedGameState
-      },
-      include: {
-        PlayersInGame: {
-          include: {
-            player: true
-          }
-        }
-      },
-      where: {
-        gameId: joinGameRequest.gameId
-      }
-    });
-
-    const newGameState = this.prismaService.converterService.convertGameState(
-      newGameStateRaw,
-      newGameStateRaw.PlayersInGame.map((p) => p.player),
-      newGameStateRaw.PlayersInGame
-    );
-
-    await this.gamesInFlightService.updateGameInfo(newGameState);
-
-    return newGameState;
+    return this.gamesInFlightService.joinGame(joinGameRequest);
   };
 
   public leaveGame = async (leaveGame: LeaveGame) => {
-    const player = await this.userService.getUser(leaveGame.playerId);
-
-    const requestedGame = await this.prismaService.client.gameState.findFirst({
-      include: {
-        PlayersInGame: {
-          include: {
-            player: true
-          }
-        }
-      },
-      where: {
-        gameId: leaveGame.gameId,
-        gameType: leaveGame.gameType
-      }
-    });
-
-    if (requestedGame == null) {
-      throw new BadRequestException(
-        "The requested game could not be found. Please check your request and try again."
-      );
-    }
-
-    const playerInGame = requestedGame.PlayersInGame.find(
-      (p) => p.playerId === leaveGame.playerId
-    );
-    if (playerInGame == null) {
-      throw new BadRequestException(
-        "The requested player is not in the game. Please check your request and try again."
-      );
-    }
-
-    const backend = this.gameRegistryService.getGameRegistry(
-      leaveGame.gameType
-    );
-    const updatedGameState =
-      (await backend.onPlayerLeave?.(
-        (requestedGame.gameState ?? {}) as object,
-        requestedGame.gameConfiguration as object,
-        player
-      )) ??
-      requestedGame.gameState ??
-      {};
-
-    const newGameStateRaw = await this.prismaService.client.gameState.update({
-      data: {
-        PlayersInGame: {
-          deleteMany: {
-            gameId: leaveGame.gameId,
-            playerId: leaveGame.playerId
-          }
-        },
-        gameState: updatedGameState
-      },
-      include: {
-        PlayersInGame: {
-          include: {
-            player: true
-          }
-        }
-      },
-      where: {
-        gameId: leaveGame.gameId
-      }
-    });
-
-    const newGameState = this.prismaService.converterService.convertGameState(
-      newGameStateRaw,
-      newGameStateRaw.PlayersInGame.map((p) => p.player),
-      newGameStateRaw.PlayersInGame
-    );
-
-    await this.gamesInFlightService.updateGameInfo(newGameState);
-
-    return newGameState;
+    return this.gamesInFlightService.leaveGame(leaveGame);
   };
 
   public updateGame = async (

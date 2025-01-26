@@ -2,7 +2,11 @@
 
 import { PlayerContext } from "@/components/player/PlayerContext";
 import { getSocketEmitter, registerSocketHandler } from "@/services/socket";
-import { GameId, GameStateClientSocketDefinition } from "@resync-games/api";
+import {
+  GameId,
+  GameStateClientSocketDefinition,
+  GameType
+} from "@resync-games/api";
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 import { v4 } from "uuid";
@@ -12,7 +16,7 @@ import { useGameStateCallbacks } from "./useGameStateCallbacks";
  * Registers the socket and handles all of the initialization logic. It also ensures the right listeners
  * are connected.
  */
-export function useGameStateSocket(gameId: GameId) {
+export function useGameStateSocket(gameId: GameId, gameType: GameType) {
   const player = useContext(PlayerContext);
 
   const [connectionStatus, setConnectionStatus] = useState(false);
@@ -32,6 +36,7 @@ export function useGameStateSocket(gameId: GameId) {
   const connect = useCallback(() => {
     socketEmitter.identify({
       gameId,
+      gameType,
       playerId: player.playerId,
       socketId: socketIdentifier
     });

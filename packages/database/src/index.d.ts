@@ -41,11 +41,23 @@ export namespace $Enums {
 
 export type CurrentGameState = (typeof CurrentGameState)[keyof typeof CurrentGameState]
 
+
+export const ConnectionStatus: {
+  connected: 'connected',
+  disconnected: 'disconnected'
+};
+
+export type ConnectionStatus = (typeof ConnectionStatus)[keyof typeof ConnectionStatus]
+
 }
 
 export type CurrentGameState = $Enums.CurrentGameState
 
 export const CurrentGameState: typeof $Enums.CurrentGameState
+
+export type ConnectionStatus = $Enums.ConnectionStatus
+
+export const ConnectionStatus: typeof $Enums.ConnectionStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -2093,18 +2105,21 @@ export namespace Prisma {
     gameId: string | null
     playerId: string | null
     team: number | null
+    connectionStatus: $Enums.ConnectionStatus | null
   }
 
   export type PlayersInGameMaxAggregateOutputType = {
     gameId: string | null
     playerId: string | null
     team: number | null
+    connectionStatus: $Enums.ConnectionStatus | null
   }
 
   export type PlayersInGameCountAggregateOutputType = {
     gameId: number
     playerId: number
     team: number
+    connectionStatus: number
     _all: number
   }
 
@@ -2121,18 +2136,21 @@ export namespace Prisma {
     gameId?: true
     playerId?: true
     team?: true
+    connectionStatus?: true
   }
 
   export type PlayersInGameMaxAggregateInputType = {
     gameId?: true
     playerId?: true
     team?: true
+    connectionStatus?: true
   }
 
   export type PlayersInGameCountAggregateInputType = {
     gameId?: true
     playerId?: true
     team?: true
+    connectionStatus?: true
     _all?: true
   }
 
@@ -2226,6 +2244,7 @@ export namespace Prisma {
     gameId: string
     playerId: string
     team: number | null
+    connectionStatus: $Enums.ConnectionStatus
     _count: PlayersInGameCountAggregateOutputType | null
     _avg: PlayersInGameAvgAggregateOutputType | null
     _sum: PlayersInGameSumAggregateOutputType | null
@@ -2251,6 +2270,7 @@ export namespace Prisma {
     gameId?: boolean
     playerId?: boolean
     team?: boolean
+    connectionStatus?: boolean
     game?: boolean | GameStateDefaultArgs<ExtArgs>
     player?: boolean | PlayerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["playersInGame"]>
@@ -2259,6 +2279,7 @@ export namespace Prisma {
     gameId?: boolean
     playerId?: boolean
     team?: boolean
+    connectionStatus?: boolean
     game?: boolean | GameStateDefaultArgs<ExtArgs>
     player?: boolean | PlayerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["playersInGame"]>
@@ -2267,6 +2288,7 @@ export namespace Prisma {
     gameId?: boolean
     playerId?: boolean
     team?: boolean
+    connectionStatus?: boolean
   }
 
   export type PlayersInGameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2288,6 +2310,7 @@ export namespace Prisma {
       gameId: string
       playerId: string
       team: number | null
+      connectionStatus: $Enums.ConnectionStatus
     }, ExtArgs["result"]["playersInGame"]>
     composites: {}
   }
@@ -2686,6 +2709,7 @@ export namespace Prisma {
     readonly gameId: FieldRef<"PlayersInGame", 'String'>
     readonly playerId: FieldRef<"PlayersInGame", 'String'>
     readonly team: FieldRef<"PlayersInGame", 'Int'>
+    readonly connectionStatus: FieldRef<"PlayersInGame", 'ConnectionStatus'>
   }
     
 
@@ -3961,7 +3985,8 @@ export namespace Prisma {
   export const PlayersInGameScalarFieldEnum: {
     gameId: 'gameId',
     playerId: 'playerId',
-    team: 'team'
+    team: 'team',
+    connectionStatus: 'connectionStatus'
   };
 
   export type PlayersInGameScalarFieldEnum = (typeof PlayersInGameScalarFieldEnum)[keyof typeof PlayersInGameScalarFieldEnum]
@@ -4084,6 +4109,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'ConnectionStatus'
+   */
+  export type EnumConnectionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConnectionStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ConnectionStatus[]'
+   */
+  export type ListEnumConnectionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConnectionStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -4177,6 +4216,7 @@ export namespace Prisma {
     gameId?: StringFilter<"PlayersInGame"> | string
     playerId?: StringFilter<"PlayersInGame"> | string
     team?: IntNullableFilter<"PlayersInGame"> | number | null
+    connectionStatus?: EnumConnectionStatusFilter<"PlayersInGame"> | $Enums.ConnectionStatus
     game?: XOR<GameStateScalarRelationFilter, GameStateWhereInput>
     player?: XOR<PlayerScalarRelationFilter, PlayerWhereInput>
   }
@@ -4185,6 +4225,7 @@ export namespace Prisma {
     gameId?: SortOrder
     playerId?: SortOrder
     team?: SortOrderInput | SortOrder
+    connectionStatus?: SortOrder
     game?: GameStateOrderByWithRelationInput
     player?: PlayerOrderByWithRelationInput
   }
@@ -4197,6 +4238,7 @@ export namespace Prisma {
     gameId?: StringFilter<"PlayersInGame"> | string
     playerId?: StringFilter<"PlayersInGame"> | string
     team?: IntNullableFilter<"PlayersInGame"> | number | null
+    connectionStatus?: EnumConnectionStatusFilter<"PlayersInGame"> | $Enums.ConnectionStatus
     game?: XOR<GameStateScalarRelationFilter, GameStateWhereInput>
     player?: XOR<PlayerScalarRelationFilter, PlayerWhereInput>
   }, "gameId_playerId" | "gameId_playerId">
@@ -4205,6 +4247,7 @@ export namespace Prisma {
     gameId?: SortOrder
     playerId?: SortOrder
     team?: SortOrderInput | SortOrder
+    connectionStatus?: SortOrder
     _count?: PlayersInGameCountOrderByAggregateInput
     _avg?: PlayersInGameAvgOrderByAggregateInput
     _max?: PlayersInGameMaxOrderByAggregateInput
@@ -4219,6 +4262,7 @@ export namespace Prisma {
     gameId?: StringWithAggregatesFilter<"PlayersInGame"> | string
     playerId?: StringWithAggregatesFilter<"PlayersInGame"> | string
     team?: IntNullableWithAggregatesFilter<"PlayersInGame"> | number | null
+    connectionStatus?: EnumConnectionStatusWithAggregatesFilter<"PlayersInGame"> | $Enums.ConnectionStatus
   }
 
   export type PlayerWhereInput = {
@@ -4267,7 +4311,7 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: $Enums.CurrentGameState
     gameType: string
-    gameName: string
+    gameName?: string
     version: string
     lastUpdatedAt?: Date | string
     PlayersInGame?: PlayersInGameCreateNestedManyWithoutGameInput
@@ -4279,7 +4323,7 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: $Enums.CurrentGameState
     gameType: string
-    gameName: string
+    gameName?: string
     version: string
     lastUpdatedAt?: Date | string
     PlayersInGame?: PlayersInGameUncheckedCreateNestedManyWithoutGameInput
@@ -4315,7 +4359,7 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: $Enums.CurrentGameState
     gameType: string
-    gameName: string
+    gameName?: string
     version: string
     lastUpdatedAt?: Date | string
   }
@@ -4344,6 +4388,7 @@ export namespace Prisma {
 
   export type PlayersInGameCreateInput = {
     team?: number | null
+    connectionStatus?: $Enums.ConnectionStatus
     game: GameStateCreateNestedOneWithoutPlayersInGameInput
     player: PlayerCreateNestedOneWithoutPlayersInGameInput
   }
@@ -4352,10 +4397,12 @@ export namespace Prisma {
     gameId: string
     playerId: string
     team?: number | null
+    connectionStatus?: $Enums.ConnectionStatus
   }
 
   export type PlayersInGameUpdateInput = {
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    connectionStatus?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
     game?: GameStateUpdateOneRequiredWithoutPlayersInGameNestedInput
     player?: PlayerUpdateOneRequiredWithoutPlayersInGameNestedInput
   }
@@ -4364,22 +4411,26 @@ export namespace Prisma {
     gameId?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    connectionStatus?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
   }
 
   export type PlayersInGameCreateManyInput = {
     gameId: string
     playerId: string
     team?: number | null
+    connectionStatus?: $Enums.ConnectionStatus
   }
 
   export type PlayersInGameUpdateManyMutationInput = {
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    connectionStatus?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
   }
 
   export type PlayersInGameUncheckedUpdateManyInput = {
     gameId?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    connectionStatus?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
   }
 
   export type PlayerCreateInput = {
@@ -4593,6 +4644,13 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type EnumConnectionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConnectionStatus | EnumConnectionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumConnectionStatusFilter<$PrismaModel> | $Enums.ConnectionStatus
+  }
+
   export type GameStateScalarRelationFilter = {
     is?: GameStateWhereInput
     isNot?: GameStateWhereInput
@@ -4617,6 +4675,7 @@ export namespace Prisma {
     gameId?: SortOrder
     playerId?: SortOrder
     team?: SortOrder
+    connectionStatus?: SortOrder
   }
 
   export type PlayersInGameAvgOrderByAggregateInput = {
@@ -4627,12 +4686,14 @@ export namespace Prisma {
     gameId?: SortOrder
     playerId?: SortOrder
     team?: SortOrder
+    connectionStatus?: SortOrder
   }
 
   export type PlayersInGameMinOrderByAggregateInput = {
     gameId?: SortOrder
     playerId?: SortOrder
     team?: SortOrder
+    connectionStatus?: SortOrder
   }
 
   export type PlayersInGameSumOrderByAggregateInput = {
@@ -4653,6 +4714,16 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumConnectionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConnectionStatus | EnumConnectionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumConnectionStatusWithAggregatesFilter<$PrismaModel> | $Enums.ConnectionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumConnectionStatusFilter<$PrismaModel>
+    _max?: NestedEnumConnectionStatusFilter<$PrismaModel>
   }
 
   export type PlayerCountOrderByAggregateInput = {
@@ -4742,6 +4813,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type EnumConnectionStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ConnectionStatus
   }
 
   export type GameStateUpdateOneRequiredWithoutPlayersInGameNestedInput = {
@@ -4919,6 +4994,13 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedEnumConnectionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConnectionStatus | EnumConnectionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumConnectionStatusFilter<$PrismaModel> | $Enums.ConnectionStatus
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -4946,14 +5028,26 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedEnumConnectionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConnectionStatus | EnumConnectionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumConnectionStatusWithAggregatesFilter<$PrismaModel> | $Enums.ConnectionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumConnectionStatusFilter<$PrismaModel>
+    _max?: NestedEnumConnectionStatusFilter<$PrismaModel>
+  }
+
   export type PlayersInGameCreateWithoutGameInput = {
     team?: number | null
+    connectionStatus?: $Enums.ConnectionStatus
     player: PlayerCreateNestedOneWithoutPlayersInGameInput
   }
 
   export type PlayersInGameUncheckedCreateWithoutGameInput = {
     playerId: string
     team?: number | null
+    connectionStatus?: $Enums.ConnectionStatus
   }
 
   export type PlayersInGameCreateOrConnectWithoutGameInput = {
@@ -4989,6 +5083,7 @@ export namespace Prisma {
     gameId?: StringFilter<"PlayersInGame"> | string
     playerId?: StringFilter<"PlayersInGame"> | string
     team?: IntNullableFilter<"PlayersInGame"> | number | null
+    connectionStatus?: EnumConnectionStatusFilter<"PlayersInGame"> | $Enums.ConnectionStatus
   }
 
   export type GameStateCreateWithoutPlayersInGameInput = {
@@ -4997,7 +5092,7 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: $Enums.CurrentGameState
     gameType: string
-    gameName: string
+    gameName?: string
     version: string
     lastUpdatedAt?: Date | string
   }
@@ -5008,7 +5103,7 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: $Enums.CurrentGameState
     gameType: string
-    gameName: string
+    gameName?: string
     version: string
     lastUpdatedAt?: Date | string
   }
@@ -5089,12 +5184,14 @@ export namespace Prisma {
 
   export type PlayersInGameCreateWithoutPlayerInput = {
     team?: number | null
+    connectionStatus?: $Enums.ConnectionStatus
     game: GameStateCreateNestedOneWithoutPlayersInGameInput
   }
 
   export type PlayersInGameUncheckedCreateWithoutPlayerInput = {
     gameId: string
     team?: number | null
+    connectionStatus?: $Enums.ConnectionStatus
   }
 
   export type PlayersInGameCreateOrConnectWithoutPlayerInput = {
@@ -5126,41 +5223,49 @@ export namespace Prisma {
   export type PlayersInGameCreateManyGameInput = {
     playerId: string
     team?: number | null
+    connectionStatus?: $Enums.ConnectionStatus
   }
 
   export type PlayersInGameUpdateWithoutGameInput = {
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    connectionStatus?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
     player?: PlayerUpdateOneRequiredWithoutPlayersInGameNestedInput
   }
 
   export type PlayersInGameUncheckedUpdateWithoutGameInput = {
     playerId?: StringFieldUpdateOperationsInput | string
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    connectionStatus?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
   }
 
   export type PlayersInGameUncheckedUpdateManyWithoutGameInput = {
     playerId?: StringFieldUpdateOperationsInput | string
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    connectionStatus?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
   }
 
   export type PlayersInGameCreateManyPlayerInput = {
     gameId: string
     team?: number | null
+    connectionStatus?: $Enums.ConnectionStatus
   }
 
   export type PlayersInGameUpdateWithoutPlayerInput = {
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    connectionStatus?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
     game?: GameStateUpdateOneRequiredWithoutPlayersInGameNestedInput
   }
 
   export type PlayersInGameUncheckedUpdateWithoutPlayerInput = {
     gameId?: StringFieldUpdateOperationsInput | string
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    connectionStatus?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
   }
 
   export type PlayersInGameUncheckedUpdateManyWithoutPlayerInput = {
     gameId?: StringFieldUpdateOperationsInput | string
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    connectionStatus?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
   }
 
 
