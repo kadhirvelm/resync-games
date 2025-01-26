@@ -8,6 +8,7 @@ import {
 import { displayDollar } from "../../utils/displayDollar";
 import styles from "./PlayerStocks.module.scss";
 import { SellPlayerStock } from "./SellPlayerStock";
+import { motion } from "motion/react";
 
 export const PlayerStocks = () => {
   const dispatch = useGameStateDispatch();
@@ -74,58 +75,68 @@ export const PlayerStocks = () => {
                 const totalProfit = revenue - costBasis;
 
                 return (
-                  <Flex
-                    className={styles.holding}
-                    direction="column"
-                    gap="1"
+                  <motion.div
+                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0 }}
                     key={`${symbol}-${index}`}
+                    style={{ display: "flex", flex: "1" }}
                   >
                     <Flex
-                      align="center"
-                      className={styles.holdingAction}
-                      gap="4"
-                      justify="between"
-                      p="2"
+                      className={styles.holding}
+                      direction="column"
+                      flex="1"
+                      gap="1"
                     >
-                      <Flex align="center" gap="2">
-                        <Flex>
-                          <Text>{quantity.toLocaleString()}</Text>
+                      <Flex
+                        align="center"
+                        className={styles.holdingAction}
+                        gap="4"
+                        justify="between"
+                        p="2"
+                      >
+                        <Flex align="center" gap="2">
+                          <Flex>
+                            <Text>{quantity.toLocaleString()}</Text>
+                          </Flex>
+                          <Text color="gray" size="2">
+                            at
+                          </Text>
+                          <Text color="green">{displayDollar(price)}</Text>
                         </Flex>
+                        <Flex width="50%">
+                          <SellPlayerStock
+                            atLoss={totalProfit < 0}
+                            currentPrice={currentPrice}
+                            ownedStock={ownedStock}
+                            symbol={symbol}
+                          />
+                        </Flex>
+                      </Flex>
+                      <Flex align="center" gap="1" px="2" py="1" wrap="wrap">
+                        <Text color="green">{displayDollar(revenue)}</Text>
                         <Text color="gray" size="2">
-                          at
+                          (revenue)
                         </Text>
-                        <Text color="green">{displayDollar(price)}</Text>
+                        <Text>-</Text>
+                        <Text color="red">{displayDollar(costBasis)}</Text>
+                        <Text color="gray" size="2">
+                          (cost basis)
+                        </Text>
                       </Flex>
-                      <Flex width="50%">
-                        <SellPlayerStock
-                          atLoss={totalProfit < 0}
-                          currentPrice={currentPrice}
-                          ownedStock={ownedStock}
-                          symbol={symbol}
-                        />
+                      <Flex align="center" gap="1" px="2" py="1" wrap="wrap">
+                        <Text>=</Text>
+                        <Text
+                          color={totalProfit > 0 ? "green" : "red"}
+                          size="4"
+                        >
+                          {displayDollar(totalProfit)}
+                        </Text>
+                        <Text color="gray" size="2">
+                          (profit)
+                        </Text>
                       </Flex>
                     </Flex>
-                    <Flex align="center" gap="1" px="2" py="1" wrap="wrap">
-                      <Text color="green">{displayDollar(revenue)}</Text>
-                      <Text color="gray" size="2">
-                        (revenue)
-                      </Text>
-                      <Text>-</Text>
-                      <Text color="red">{displayDollar(costBasis)}</Text>
-                      <Text color="gray" size="2">
-                        (cost basis)
-                      </Text>
-                    </Flex>
-                    <Flex align="center" gap="1" px="2" py="1" wrap="wrap">
-                      <Text>=</Text>
-                      <Text color={totalProfit > 0 ? "green" : "red"} size="4">
-                        {displayDollar(totalProfit)}
-                      </Text>
-                      <Text color="gray" size="2">
-                        (profit)
-                      </Text>
-                    </Flex>
-                  </Flex>
+                  </motion.div>
                 );
               })}
             </Flex>

@@ -10,6 +10,7 @@ import { Sabotage } from "../sabotage/Sabotage";
 import { StockTimesStore } from "../store/StockTimesStore";
 import styles from "./PlayerPortfolio.module.scss";
 import { PlayerStocks } from "./PlayerStocks";
+import { motion } from "motion/react";
 
 export const PlayerPortfolio = () => {
   const { player } = useGameStateSelector((s) => s.playerSlice);
@@ -72,9 +73,16 @@ export const PlayerPortfolio = () => {
           </Flex>
           <Flex className={styles.divider} flex="1" />
           <Flex>
-            <Text className={styles.cash} weight="bold">
-              {displayDollar(playerPortfolio.cash)}
-            </Text>
+            <motion.span
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              initial={{ opacity: 0, rotate: 180, scale: 1.5 }}
+              key={playerPortfolio.cash}
+              style={{ display: "flex", flex: "1" }}
+            >
+              <Text className={styles.cash} weight="bold">
+                {displayDollar(playerPortfolio.cash)}
+              </Text>
+            </motion.span>
           </Flex>
         </Flex>
         <Flex align="center" gap="3">
@@ -83,9 +91,16 @@ export const PlayerPortfolio = () => {
           </Flex>
           <Flex className={styles.divider} flex="1" />
           <Flex>
-            <Text className={styles.debt}>
-              {displayDollar(playerPortfolio.debt)}
-            </Text>
+            <motion.span
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              initial={{ opacity: 0, rotate: 180, scale: 1.5 }}
+              key={playerPortfolio.cash}
+              style={{ display: "flex", flex: "1" }}
+            >
+              <Text className={styles.debt}>
+                {displayDollar(playerPortfolio.debt)}
+              </Text>
+            </motion.span>
           </Flex>
         </Flex>
       </>
@@ -108,20 +123,38 @@ export const PlayerPortfolio = () => {
           <Tabs.Trigger value="sabotage">Sabotage</Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="your-portfolio">
-          <Flex direction="column" gap="2" mt="2">
-            {renderYourPortfolio()}
-            <PlayerStocks />
-          </Flex>
+          <motion.div
+            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -100 }}
+            style={{ display: "flex", flex: "1" }}
+          >
+            <Flex direction="column" flex="1" gap="2" mt="2">
+              {renderYourPortfolio()}
+              <PlayerStocks />
+            </Flex>
+          </motion.div>
         </Tabs.Content>
         <Tabs.Content value="store">
-          <Flex direction="column" mt="2">
-            <StockTimesStore />
-          </Flex>
+          <motion.div
+            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -100 }}
+            style={{ display: "flex", flex: "1" }}
+          >
+            <Flex direction="column" flex="1" mt="2">
+              <StockTimesStore />
+            </Flex>
+          </motion.div>
         </Tabs.Content>
         <Tabs.Content value="sabotage">
-          <Flex direction="column" mt="2">
-            <Sabotage />
-          </Flex>
+          <motion.div
+            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -100 }}
+            style={{ display: "flex", flex: "1" }}
+          >
+            <Flex direction="column" flex="1" mt="2">
+              <Sabotage />
+            </Flex>
+          </motion.div>
         </Tabs.Content>
       </Tabs.Root>
     </Flex>

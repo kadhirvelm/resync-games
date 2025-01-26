@@ -6,6 +6,7 @@ import { Button, Flex, Text } from "../../components";
 import styles from "./DayArticles.module.scss";
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
 import { selectArticles } from "../store/selectors";
+import { motion } from "motion/react";
 
 export const DayArticles = () => {
   const { articles, lastestAddedOn } = useGameStateSelector(selectArticles);
@@ -76,28 +77,33 @@ export const DayArticles = () => {
       </Flex>
       <Flex direction="column" gap="2">
         {viewingArticles.map((article) => (
-          <Flex
-            className={styles.articlesContainer}
-            direction="column"
-            flex="1"
+          <motion.div
+            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -100 }}
             key={article.title}
-            p="3"
           >
-            <Flex justify="between">
-              <Text size="4" weight="bold">
-                {article.corruptedOn !== undefined
-                  ? "CORRUPTED"
-                  : article.title}
-              </Text>
+            <Flex
+              className={styles.articlesContainer}
+              direction="column"
+              flex="1"
+              p="3"
+            >
+              <Flex justify="between">
+                <Text size="4" weight="bold">
+                  {article.corruptedOn !== undefined
+                    ? "CORRUPTED"
+                    : article.title}
+                </Text>
+              </Flex>
+              <Flex>
+                <Text color="gray">
+                  {article.corruptedOn !== undefined
+                    ? `[CORRUPTED] ${article.title}`
+                    : article.description}
+                </Text>
+              </Flex>
             </Flex>
-            <Flex>
-              <Text color="gray">
-                {article.corruptedOn !== undefined
-                  ? `[CORRUPTED] ${article.title}`
-                  : article.description}
-              </Text>
-            </Flex>
-          </Flex>
+          </motion.div>
         ))}
       </Flex>
     </Flex>
