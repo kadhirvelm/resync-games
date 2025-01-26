@@ -6,13 +6,17 @@ import { displayDollar } from "../utils/displayDollar";
 import styles from "./FinalScoreboard.module.scss";
 import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
 import { motion } from "motion/react";
+import Confetti from "react-confetti";
 
 export const FinalScoreboard = () => {
+  const currentGameState = useGameStateSelector(
+    (s) => s.gameStateSlice.gameInfo?.currentGameState
+  );
   const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
   const teams = useGameStateSelector(selectTotalTeamValue);
 
   // When the last day's articles come out, this should trigger
-  const isLastDay = (() => {
+  const isLastDayOfTrading = (() => {
     if (cycle === undefined) {
       return false;
     }
@@ -21,7 +25,9 @@ export const FinalScoreboard = () => {
     return day === cycle.endDay - 1;
   })();
 
-  if (isLastDay) {
+  const hasGameEnded = currentGameState === "finished";
+
+  if (isLastDayOfTrading) {
     return (
       <Flex direction="column" flex="1" gap="3" justify="center" px="5">
         <Flex
@@ -41,6 +47,9 @@ export const FinalScoreboard = () => {
       <Flex justify="center" mb="5">
         <Text size="9">Final scoreboard</Text>
       </Flex>
+      {hasGameEnded && (
+        <Confetti height={window.innerHeight} width={window.innerWidth} />
+      )}
       {teams.map((team, index) => (
         <motion.div
           animate={{ opacity: 1, y: 0 }}

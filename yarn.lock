@@ -3252,6 +3252,7 @@ __metadata:
     motion: "npm:^12.0.5"
     phaser: "npm:^3.87.0"
     react: "npm:^19.0.0"
+    react-confetti: "npm:^6.2.2"
     react-dom: "npm:^19.0.0"
     ts-jest: "npm:^29.2.5"
     typescript: "npm:5.5.4"
@@ -3292,6 +3293,7 @@ __metadata:
     next: "npm:^15.1.2"
     phaser: "npm:^3.87.0"
     react: "npm:^19.0.0"
+    react-confetti: "npm:^6.2.2"
     react-dom: "npm:^19.0.0"
     react-redux: "npm:^9.2.0"
     sass: "npm:^1.83.0"
@@ -10367,6 +10369,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-confetti@npm:^6.2.2":
+  version: 6.2.2
+  resolution: "react-confetti@npm:6.2.2"
+  dependencies:
+    tween-functions: "npm:^1.2.0"
+  peerDependencies:
+    react: ^16.3.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/c25250acc18a7e66a2a41aa429fee70a1e56346a73dced7aa64d8c8e87b96b478eb90933b530d1857832785eeb4a5978c5cb30080d187d32bbc68c3c0ef7f0a9
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^19.0.0":
   version: 19.0.0
   resolution: "react-dom@npm:19.0.0"
@@ -12133,6 +12146,13 @@ __metadata:
   bin:
     turbo: bin/turbo
   checksum: 10c0/9aab52fb868a2b6246f41fe2343dec56c70252a9cb7729a3ea183458cfa728c1445d1b98882dd43542f0ffd46524e8ba7776fe0925e31a86904b113222778fa5
+  languageName: node
+  linkType: hard
+
+"tween-functions@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "tween-functions@npm:1.2.0"
+  checksum: 10c0/7e59295b8b0ee4132ed2fe335f56a9db5c87056dad6b6fd3011be72239fd20398003ddb4403bc98ad9f5c94468890830f64016edbbde35581faf95b32cda8305
   languageName: node
   linkType: hard
 
