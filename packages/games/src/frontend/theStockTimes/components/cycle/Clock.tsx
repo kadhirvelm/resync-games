@@ -6,6 +6,7 @@ import styles from "./Clock.module.scss";
 import { useGameStateSelector } from "../../store/theStockTimesRedux";
 import { selectPlayerPortfolio } from "../../store/selectors";
 import { isAvailable } from "../../hooks/utils/isAvailable";
+import { motion } from "motion/react";
 
 const DEFAULT_SIZE = 75;
 
@@ -98,18 +99,25 @@ export const Clock = ({
             r={radius(finalSize) * 0.5}
             stroke="black"
           />
-          <text
-            className={clsx({
-              [styles.lastDay ?? ""]: cycle.endDay - 1 === day
-            })}
-            dy=".3em"
-            fontSize={finalSize / 5}
-            textAnchor="middle"
-            x={centerX(finalSize)}
-            y={centerY(finalSize)}
+          <motion.g
+            animate={{ scale: 1 }}
+            initial={{ scale: 3 }}
+            key={day}
+            transition={{ duration: 0.5 }}
           >
-            {day}
-          </text>
+            <text
+              className={clsx({
+                [styles.lastDay ?? ""]: cycle.endDay - 1 === day
+              })}
+              dy=".3em"
+              fontSize={finalSize / 5}
+              textAnchor="middle"
+              x={centerX(finalSize)}
+              y={centerY(finalSize)}
+            >
+              {day}
+            </text>
+          </motion.g>
         </svg>
       </Flex>
     </>

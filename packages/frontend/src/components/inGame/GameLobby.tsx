@@ -17,6 +17,7 @@ import { GoHome } from "./components/GoHome";
 import styles from "./GameLobby.module.scss";
 import { canStartGame } from "./utils/canStartGame";
 import { TutorialScreen } from "./components/TutorialScreen";
+import { motion } from "motion/react";
 
 export const GameLobby = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -165,19 +166,33 @@ export const GameLobby = () => {
       }
 
       return playersInTeam.map((p) => (
-        <Flex justify="center" key={p.playerId}>
+        <motion.div
+          animate={{ x: -100 }}
+          initial={{ x: 0 }}
+          key={p.playerId}
+          style={{ display: "flex", justifyContent: "center" }}
+        >
           <Text size="4">{p.displayName}</Text>
-        </Flex>
+        </motion.div>
       ));
     };
 
+    const teamName = getTeamName(playersInTeam, team);
+
     return (
       <Flex direction="column">
-        <Flex justify="center" mb="1">
-          <Text size="4" weight="bold">
-            {getTeamName(playersInTeam, team)}
-          </Text>
-        </Flex>
+        <motion.div
+          animate={{ opacity: 1, rotate: 0 }}
+          initial={{ opacity: 0, rotate: -180 }}
+          key={teamName}
+          transition={{ delay: 0.5 }}
+        >
+          <Flex justify="center" mb="1">
+            <Text size="4" weight="bold">
+              {teamName}
+            </Text>
+          </Flex>
+        </motion.div>
         <Flex
           className={styles.players}
           direction="column"
