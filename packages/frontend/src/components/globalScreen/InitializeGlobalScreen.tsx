@@ -18,7 +18,7 @@ export const InitializeGlobalScreen = ({
   store: GameStateReduxStore;
 }) => {
   const player = useContext(PlayerContext);
-  const { connectionStatus } = useGameStateSocket(gameId);
+  const { connectionStatus } = useGameStateSocket(gameId, gameSlug);
 
   const gameStateHandler = useMemo(() => {
     return new GameStateHandler(store, player);

@@ -44,6 +44,7 @@ export class ResyncGamesConverterService {
   ): PlayerInGame => {
     return {
       ...player,
+      connectionStatus: playerInGame?.connectionStatus,
       playerId: player.playerId as PlayerId,
       team: playerInGame?.team ?? undefined
     };

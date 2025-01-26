@@ -7,6 +7,7 @@ export type GameType = string & { __brand: "game-type" }; // Equivalent of (type
 export type CurrentGameState = "waiting" | "playing" | "finished";
 
 export interface PlayerInGame extends Player {
+  connectionStatus?: "connected" | "disconnected";
   team?: number;
 }
 

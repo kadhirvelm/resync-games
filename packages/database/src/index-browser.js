@@ -131,7 +131,8 @@ exports.Prisma.GameStateScalarFieldEnum = {
 exports.Prisma.PlayersInGameScalarFieldEnum = {
   gameId: 'gameId',
   playerId: 'playerId',
-  team: 'team'
+  team: 'team',
+  connectionStatus: 'connectionStatus'
 };
 
 exports.Prisma.PlayerScalarFieldEnum = {
@@ -167,6 +168,11 @@ exports.CurrentGameState = exports.$Enums.CurrentGameState = {
   waiting: 'waiting',
   playing: 'playing',
   finished: 'finished'
+};
+
+exports.ConnectionStatus = exports.$Enums.ConnectionStatus = {
+  connected: 'connected',
+  disconnected: 'disconnected'
 };
 
 exports.Prisma.ModelName = {

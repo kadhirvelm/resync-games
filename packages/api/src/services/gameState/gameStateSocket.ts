@@ -1,9 +1,10 @@
 import { HandleMessage, SocketDefinition } from "../../genericTypes";
 import { PlayerId } from "../user";
-import { GameId, GameStateAndInfo } from "./gameStateTypes";
+import { GameId, GameStateAndInfo, GameType } from "./gameStateTypes";
 
 export interface IdentifyPlayerSocket {
   gameId: GameId;
+  gameType: GameType;
   playerId: PlayerId;
   socketId: string;
 }

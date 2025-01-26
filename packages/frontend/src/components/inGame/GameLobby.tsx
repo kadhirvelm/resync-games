@@ -18,6 +18,7 @@ import styles from "./GameLobby.module.scss";
 import { canStartGame } from "./utils/canStartGame";
 import { TutorialScreen } from "./components/TutorialScreen";
 import { motion } from "motion/react";
+import { DisplayPlayer } from "@/components/player/DisplayPlayer";
 
 export const GameLobby = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -167,12 +168,12 @@ export const GameLobby = () => {
 
       return playersInTeam.map((p) => (
         <motion.div
-          animate={{ x: -100 }}
-          initial={{ x: 0 }}
+          animate={{ x: 0 }}
+          initial={{ x: -100 }}
           key={p.playerId}
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <Text size="4">{p.displayName}</Text>
+          <DisplayPlayer key={p.playerId} player={p} />
         </motion.div>
       ));
     };
