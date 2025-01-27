@@ -1,16 +1,15 @@
-import { ScrollArea } from "@radix-ui/themes";
 import { Flex, Text } from "../components";
-import { AvailableStocks } from "./components/AvailableStocks";
-import { Clock } from "./components/cycle/Clock";
-import { DayArticles } from "./components/DayArticles";
-import { FinalScoreboard } from "./components/FinalScoreboard";
-import { PlayerPortfolio } from "./components/playerPortfolio/PlayerPortfolio";
-import styles from "./DisplayTheStockTimes.module.scss";
-import { useGameStateSelector } from "./store/theStockTimesRedux";
+import { FrontendGameComponentProps } from "../frontendRegistry";
 import { PauseAndPlay } from "./components/cycle/PauseAndPlay";
+import { FinalScoreboard } from "./components/FinalScoreboard";
+import { DesktopGame } from "./DesktopGame";
 import { usePendingPlayerChanges } from "./hooks/pendingPlayerChanges";
+import { MobileGame } from "./MobileGame";
+import { useGameStateSelector } from "./store/theStockTimesRedux";
 
-export const DisplayTheStockTimes = () => {
+export const DisplayTheStockTimes = ({
+  isMobile
+}: FrontendGameComponentProps) => {
   usePendingPlayerChanges();
 
   const gameInfo = useGameStateSelector((s) => s.gameStateSlice.gameInfo);
@@ -35,29 +34,9 @@ export const DisplayTheStockTimes = () => {
     );
   }
 
-  return (
-    <Flex className={styles.mainContainer} flex="1">
-      <Flex
-        align="center"
-        className={styles.clock}
-        direction="column"
-        flex="1"
-        gap="2"
-      >
-        <Clock cycle={gameState.cycle} />
-        <PauseAndPlay />
-      </Flex>
-      <Flex flex="1">
-        <PlayerPortfolio />
-      </Flex>
-      <Flex flex="1" ml="2">
-        <ScrollArea>
-          <DayArticles />
-        </ScrollArea>
-      </Flex>
-      <Flex flex="2" mr="5">
-        <AvailableStocks />
-      </Flex>
-    </Flex>
-  );
+  if (isMobile) {
+    return <MobileGame gameState={gameState} />;
+  }
+
+  return <DesktopGame gameState={gameState} />;
 };

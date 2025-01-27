@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import { getFrontendGame } from "@/lib/utils/getFrontendGame";
 import { GameStateHandler } from "@/redux";
 import { GameType } from "@resync-games/api";
@@ -10,7 +11,9 @@ const FetchGameEntry = ({
   gameStateHandler: GameStateHandler<object, object>;
 }) => {
   const accordingGame = getFrontendGame(gameSlug);
-  return accordingGame.gameEntry({ gameStateHandler });
+  const { isMobile } = useMediaQuery();
+
+  return accordingGame.gameEntry({ gameStateHandler, isMobile });
 };
 
 export default FetchGameEntry;
