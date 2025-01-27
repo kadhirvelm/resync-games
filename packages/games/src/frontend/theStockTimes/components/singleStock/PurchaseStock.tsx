@@ -278,7 +278,7 @@ export const PurchaseStock = ({
         </Text>
       </Flex>
       <Flex flex="1" justify="end" p="2">
-        <Flex style={{ width: "30%" }}>{maybeRenderBuy()}</Flex>
+        <Flex style={{ width: "60%" }}>{maybeRenderBuy()}</Flex>
       </Flex>
     </Flex>
   );

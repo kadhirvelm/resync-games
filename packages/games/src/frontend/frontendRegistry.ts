@@ -22,6 +22,7 @@ export interface FrontendGameComponentProps<
   LocalGameState extends object = object
 > {
   gameStateHandler: IGameStateHandler<GameState, LocalGameState>;
+  isMobile: boolean;
 }
 
 export interface GlobalScreenComponentProps<

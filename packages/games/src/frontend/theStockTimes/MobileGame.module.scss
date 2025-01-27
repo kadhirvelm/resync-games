@@ -1,8 +1,9 @@
 @use "@/styles/variables.scss" as vars;
 
 .mainContainer {
-    margin: 50px;
+    margin: 70px 15px 60px;
     z-index: 1;
+    overflow: auto;
 }
 
 .clock {
