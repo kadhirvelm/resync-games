@@ -7,19 +7,43 @@ import { PauseAndPlay } from "./components/cycle/PauseAndPlay";
 import { DayArticles } from "./components/DayArticles";
 import { PlayerPortfolio } from "./components/playerPortfolio/PlayerPortfolio";
 import styles from "./MobileGame.module.scss";
+import {
+  updateTheStockTimesLocalState,
+  useGameStateDispatch,
+  useGameStateSelector
+} from "./store/theStockTimesRedux";
 
 export const MobileGame = ({ gameState }: { gameState: TheStockTimesGame }) => {
+  const dispatch = useGameStateDispatch();
+
+  const viewingTab = useGameStateSelector(
+    (s) => s.localStateSlice.localState?.viewingTab
+  );
+
+  const handleTabChange = (tab: string) => () => {
+    dispatch(updateTheStockTimesLocalState({ viewingTab: tab }));
+  };
+
   return (
     <Flex className={styles.mainContainer} flex="1">
       <Flex align="center" className={styles.clock} flex="1" gap="2">
         <Clock cycle={gameState.cycle} size={60} />
         <PauseAndPlay />
       </Flex>
-      <Tabs.Root defaultValue="articles" style={{ width: "100%" }}>
+      <Tabs.Root style={{ width: "100%" }} value={viewingTab}>
         <Tabs.List>
-          <Tabs.Trigger value="portfolio">Portfolio</Tabs.Trigger>
-          <Tabs.Trigger value="articles">Articles</Tabs.Trigger>
-          <Tabs.Trigger value="stocks">Stocks</Tabs.Trigger>
+          <Tabs.Trigger
+            onClick={handleTabChange("portfolio")}
+            value="portfolio"
+          >
+            Portfolio
+          </Tabs.Trigger>
+          <Tabs.Trigger onClick={handleTabChange("articles")} value="articles">
+            Articles
+          </Tabs.Trigger>
+          <Tabs.Trigger onClick={handleTabChange("stocks")} value="stocks">
+            Stocks
+          </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="portfolio">
           <motion.div
