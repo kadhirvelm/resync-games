@@ -144,6 +144,30 @@ export const selectArticles = createSelector(
   }
 );
 
+export const selectStocksAndSymbols = createSelector(
+  [(state: TheStockTimesReduxState) => state.gameStateSlice.gameState?.stocks],
+  (stocks) => {
+    if (stocks === undefined) {
+      return {};
+    }
+
+    const stocksToSymbols: { [stockSymbol: string]: string } =
+      Object.fromEntries(
+        Object.keys(stocks ?? {}).map((symbol) => [symbol, symbol])
+      );
+
+    for (const [symbol, stock] of Object.entries(stocks)) {
+      stocksToSymbols[stock.title] = symbol;
+
+      stock.title.split(" ").forEach((token) => {
+        stocksToSymbols[token] = symbol;
+      });
+    }
+
+    return stocksToSymbols;
+  }
+);
+
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 export const selectEndGameGraph = createSelector(
