@@ -6,7 +6,6 @@ import {
   useGameStateSelector
 } from "../../store/theStockTimesRedux";
 import styles from "./ArticleText.module.scss";
-import { Flex } from "../../../components";
 
 export const ArticleText = ({ text }: { text: string }) => {
   const dispatch = useGameStateDispatch();
@@ -14,15 +13,17 @@ export const ArticleText = ({ text }: { text: string }) => {
 
   const setViewingStockSymbol = (stockSymbol: string) => () => {
     dispatch(
-      updateTheStockTimesLocalState({ viewingStockSymbol: stockSymbol })
+      updateTheStockTimesLocalState({
+        viewingStockSymbol: stockSymbol,
+        viewingTab: "stocks"
+      })
     );
   };
 
-  console.log(stocksToSymbols, "@@@");
-  const tokens = text.split(" ");
+  const tokens = text.split(/(?=\s|')/g);
 
   return (
-    <Flex gap="1" wrap="wrap">
+    <>
       {tokens.map((token, index) => {
         const accordingSymbol = stocksToSymbols[token];
         return (
@@ -41,6 +42,6 @@ export const ArticleText = ({ text }: { text: string }) => {
           </span>
         );
       })}
-    </Flex>
+    </>
   );
 };
