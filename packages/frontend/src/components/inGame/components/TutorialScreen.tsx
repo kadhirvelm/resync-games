@@ -22,7 +22,7 @@ export const TutorialScreen = () => {
   const accordingGameName = GAME_REGISTRY[gameSlug]?.name;
 
   return (
-    <Flex direction="column" gap="4">
+    <Flex direction="column" gap="2">
       <Text color="gray" size="2">
         {accordingGameName} tutorial
       </Text>

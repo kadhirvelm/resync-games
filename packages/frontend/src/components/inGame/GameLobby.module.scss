@@ -1,22 +1,9 @@
 @use "@/styles/variables.scss" as vars;
 
-.configuration {
-    border-right: 1px solid vars.$black;
-    background: vars.$white;
-}
-
 .players {
     border-radius: 5px;
     background: vars.$white;
     border: 1px solid vars.$black;
     padding: 20px;
     min-width: 29vw;
-}
-
-.inviteLink {
-    cursor: pointer;
-
-    &:hover {
-        color: vars.$muted-font;
-    }
 }

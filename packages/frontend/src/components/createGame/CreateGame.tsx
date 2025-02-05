@@ -50,7 +50,7 @@ export default function CreateGame() {
   };
 
   return (
-    <Flex className={styles.formBoxContainer} direction="column">
+    <Flex className={styles.formBoxContainer} direction="column" p="2">
       <Flex className={styles.formBox} direction="column" gap="3">
         <Text>Hi, {player.displayName}! Pick game to create</Text>
         <Flex direction="column" gap="2">

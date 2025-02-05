@@ -1,3 +1,4 @@
+import { DisplayPlayer } from "@/components/player/DisplayPlayer";
 import { Button } from "@/lib/radix/Button";
 import { Flex } from "@/lib/radix/Flex";
 import {
@@ -6,19 +7,15 @@ import {
 } from "@/lib/stableIdentifiers/teamIdentifier";
 import { useGameStateSelector } from "@/redux";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { ClipboardCopyIcon, OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import { Text } from "@radix-ui/themes";
 import { isServiceError } from "@resync-games/api";
-import copy from "copy-to-clipboard";
+import { motion } from "motion/react";
 import { useContext, useState } from "react";
 import { PlayerContext } from "../player/PlayerContext";
-import { ConfigureGame } from "./components/ConfigureGame";
 import { GoHome } from "./components/GoHome";
 import styles from "./GameLobby.module.scss";
 import { canStartGame } from "./utils/canStartGame";
-import { TutorialScreen } from "./components/TutorialScreen";
-import { motion } from "motion/react";
-import { DisplayPlayer } from "@/components/player/DisplayPlayer";
+import { GameConfigurationSideBar } from "./components/GameConfigurationSideBar";
 
 export const GameLobby = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -78,52 +75,6 @@ export const GameLobby = () => {
     }
 
     console.error(response);
-  };
-
-  const renderRoomName = () => {
-    if (gameInfo === undefined) {
-      return;
-    }
-
-    const { gameName } = gameInfo;
-
-    const copyGameLink = () => copy(window.location.href);
-    const openGlobalScreen = () =>
-      window.open(`${window.location.href}/global`, "_blank");
-
-    return (
-      <Flex direction="column" gap="3">
-        <Flex align="center">
-          <Text size="8" weight="bold">
-            {gameName}
-          </Text>
-        </Flex>
-        <Flex
-          align="center"
-          className={styles.inviteLink}
-          gap="3"
-          onClick={copyGameLink}
-        >
-          <Text>Invite link</Text>
-          <ClipboardCopyIcon />
-        </Flex>
-        <Flex
-          align="center"
-          className={styles.inviteLink}
-          gap="3"
-          onClick={openGlobalScreen}
-        >
-          <Text
-            onClick={() =>
-              window.open(`${window.location.href}/global`, "_blank")
-            }
-          >
-            Global screen
-          </Text>
-          <OpenInNewWindowIcon />
-        </Flex>
-      </Flex>
-    );
   };
 
   const maybeRenderUndecided = () => {
@@ -221,22 +172,7 @@ export const GameLobby = () => {
       <Flex>
         <GoHome />
       </Flex>
-      <Flex
-        className={styles.configuration}
-        direction="column"
-        flex="1"
-        gap="5"
-        p="8"
-      >
-        {renderRoomName()}
-        <TutorialScreen key={gameInfo?.gameId + "tutorial"} />
-        <Flex direction="column" gap="4">
-          <Text color="gray" size="2">
-            Game configuration
-          </Text>
-          <ConfigureGame key={gameInfo?.gameId + "configure"} />
-        </Flex>
-      </Flex>
+      <GameConfigurationSideBar />
       <Flex direction="column" flex="4" gap="8" justify="center">
         {maybeRenderUndecided()}
         <Flex align="baseline" gap="3" justify="center">
