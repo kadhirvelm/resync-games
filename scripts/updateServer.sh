@@ -1,3 +1,3 @@
 #!/bin/bash
 
-yarn deploy;
+yarn deploy:restart;
