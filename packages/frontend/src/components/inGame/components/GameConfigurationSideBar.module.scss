@@ -1,0 +1,27 @@
+@use "@/styles/variables.scss" as vars;
+
+.configuration {
+    border-right: 1px solid vars.$black;
+    background: vars.$white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.inviteLink {
+    cursor: pointer;
+
+    &:hover {
+        color: vars.$muted-font;
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(vars.$black, 0.25);
+}
