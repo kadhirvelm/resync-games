@@ -2,8 +2,10 @@
 
 import { TextField } from "@/lib/radix";
 import { Flex } from "@/lib/radix/Flex";
+import { NavigationButton } from "@/lib/resync-components/NavigationButton";
 import { getFrontendGame } from "@/lib/utils/getFrontendGame";
 import { ClientServiceCallers } from "@/services/serviceCallers";
+import { ExitIcon } from "@radix-ui/react-icons";
 import { Button, Text } from "@radix-ui/themes";
 import { isServiceError } from "@resync-games/api";
 import { useRouter } from "next/navigation";
@@ -51,6 +53,11 @@ export default function CreateGame() {
 
   return (
     <Flex className={styles.formBoxContainer} direction="column" p="2">
+      <Flex className={styles.goHome}>
+        <NavigationButton href="/" variant="outline">
+          <ExitIcon />
+        </NavigationButton>
+      </Flex>
       <Flex className={styles.formBox} direction="column" gap="3">
         <Text>Hi, {player.displayName}! Pick game to create</Text>
         <Flex direction="column" gap="2">

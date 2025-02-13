@@ -12,3 +12,12 @@
     height: fit-content;
     background: vars.$white;
 }
+
+.goHome {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: vars.$white;
+    z-index: 1;
+}
+

@@ -1,5 +1,5 @@
 import { Flex } from "@/lib/radix";
-import { Text } from "@radix-ui/themes";
+import { Badge, Text } from "@radix-ui/themes";
 import { GameType } from "@resync-games/api";
 import { GAME_REGISTRY } from "@resync-games/games-shared/gamesRegistry";
 import clsx from "clsx";
@@ -20,12 +20,13 @@ const SelectGame = ({
   return (
     <Flex gap="2" wrap="wrap">
       {Object.entries(GAME_REGISTRY).map(
-        ([slug, { name, description, version }]) => (
+        ([slug, { gameTags, name, description, version }]) => (
           <Flex
             className={clsx(styles.selectGame, {
               [styles.active ?? ""]: slug === selectedGame?.gameType
             })}
             direction="column"
+            gap="2"
             key={slug}
             onClick={() =>
               onSelectGame({ gameType: slug as GameType, version })
@@ -35,10 +36,15 @@ const SelectGame = ({
             <Flex>
               <Text weight="bold">{name}</Text>
             </Flex>
-            <Flex mt="2">
-              <Text color="gray" size="2">
-                {description}
-              </Text>
+            <Flex align="start" flex="1" gap="3">
+              <Flex flex="1">
+                <Text color="gray" size="2">
+                  {description}
+                </Text>
+              </Flex>
+            </Flex>
+            <Flex justify="end">
+              {!gameTags.completed && <Badge color="red">development</Badge>}
             </Flex>
           </Flex>
         )
