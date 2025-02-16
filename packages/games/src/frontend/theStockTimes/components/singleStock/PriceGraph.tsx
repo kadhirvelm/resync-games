@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useGameStateSelector } from "../../store/theStockTimesRedux";
+import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import { TimeSeries } from "../graph/TimeSeries";
 import { getRecentStockHistory } from "../../utils/getRecentHistory";
 import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
@@ -9,8 +9,8 @@ export const PriceGraph = ({
 }: {
   viewingStockSymbol: string;
 }) => {
-  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
-  const stocks = useGameStateSelector(
+  const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
+  const stocks = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.stocks
   );
   const thisStock = stocks?.[viewingStockSymbol];

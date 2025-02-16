@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { StockTimesPlayer } from "../../../backend/theStockTimes/theStockTimes";
 import { selectPlayerPortfolio } from "../store/selectors";
-import { useGameStateSelector } from "../store/theStockTimesRedux";
+import { useStockTimesSelector } from "../store/theStockTimesRedux";
 import { IsAvailable, isAvailable } from "./utils/isAvailable";
 
 export function useStorePower(
   storePower: keyof StockTimesPlayer["storePowers"]
 ): IsAvailable {
-  const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
-  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
+  const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
+  const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
 
   const [_, setCounter] = useState(0);
 

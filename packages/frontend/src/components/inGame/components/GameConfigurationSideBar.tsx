@@ -10,6 +10,10 @@ import { useEffect, useState } from "react";
 import { ConfigureGame } from "./ConfigureGame";
 import styles from "./GameConfigurationSideBar.module.scss";
 import { TutorialScreen } from "./TutorialScreen";
+import {
+  GAME_REGISTRY,
+  GAME_SLUGS
+} from "@resync-games/games-shared/gamesRegistry";
 
 export const GameConfigurationSideBar = () => {
   const { isMobile } = useMediaQuery();
@@ -32,6 +36,8 @@ export const GameConfigurationSideBar = () => {
     const openGlobalScreen = () =>
       window.open(`${window.location.href}/global`, "_blank");
 
+    const gameSlug = gameInfo.gameType as (typeof GAME_SLUGS)[number];
+
     return (
       <Flex direction="column" gap="3">
         <Flex align="center">
@@ -39,6 +45,7 @@ export const GameConfigurationSideBar = () => {
             {gameName}
           </Text>
         </Flex>
+        <Flex>{GAME_REGISTRY[gameSlug]?.name}</Flex>
         <Flex
           align="center"
           className={styles.inviteLink}

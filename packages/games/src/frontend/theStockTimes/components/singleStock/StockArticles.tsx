@@ -8,7 +8,7 @@ import {
   MinusIcon
 } from "@radix-ui/react-icons";
 import { Flex, Text } from "../../../components";
-import { useGameStateSelector } from "../../store/theStockTimesRedux";
+import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import styles from "./StockArticles.module.scss";
 import clsx from "clsx";
 import { useState } from "react";
@@ -20,7 +20,7 @@ export const StockArticles = ({
   disableChangingArticle?: boolean;
   viewingStockSymbol: string;
 }) => {
-  const articles = useGameStateSelector(
+  const articles = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.newsArticles.articles
   );
   const articlesOnStock = articles?.[viewingStockSymbol];

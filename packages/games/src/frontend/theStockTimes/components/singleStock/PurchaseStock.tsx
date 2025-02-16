@@ -8,8 +8,8 @@ import { Button, Flex, Progress, Text, TextField } from "../../../components";
 import { selectPlayerPortfolio } from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
-  useGameStateDispatch,
-  useGameStateSelector
+  useStockTimesGameStateDispatch,
+  useStockTimesSelector
 } from "../../store/theStockTimesRedux";
 import { displayDollar } from "../../utils/displayDollar";
 import styles from "./PurchaseStock.module.scss";
@@ -25,16 +25,16 @@ export const PurchaseStock = ({
 }: {
   viewingStockSymbol: string;
 }) => {
-  const dispatch = useGameStateDispatch();
+  const dispatch = useStockTimesGameStateDispatch();
 
   const { isAvailable, timeLeft } = useCashSpendLock();
 
-  const player = useGameStateSelector((s) => s.playerSlice.player);
-  const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
-  const stocks = useGameStateSelector(
+  const player = useStockTimesSelector((s) => s.playerSlice.player);
+  const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
+  const stocks = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.stocks
   );
-  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
+  const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
 
   const [totalPurchase, setTotalPurchase] = useState("0");
   const quantity = Math.round(Number(totalPurchase));

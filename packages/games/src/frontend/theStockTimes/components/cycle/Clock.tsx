@@ -3,7 +3,7 @@ import { StockTimesCycle } from "../../../../backend/theStockTimes/theStockTimes
 import { Flex } from "../../../components";
 import { useCycleTime } from "../../hooks/cycleTime";
 import styles from "./Clock.module.scss";
-import { useGameStateSelector } from "../../store/theStockTimesRedux";
+import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import { selectPlayerPortfolio } from "../../store/selectors";
 import { isAvailable } from "../../hooks/utils/isAvailable";
 import { motion } from "motion/react";
@@ -51,7 +51,7 @@ export const Clock = ({
   cycle: StockTimesCycle;
   size?: number;
 }) => {
-  const lockCashSpending = useGameStateSelector(
+  const lockCashSpending = useStockTimesSelector(
     selectPlayerPortfolio
   )?.lockCashSpending;
   const calculatedCycleTime = useCycleTime(cycle);

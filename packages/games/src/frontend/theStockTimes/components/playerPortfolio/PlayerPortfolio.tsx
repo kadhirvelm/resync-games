@@ -4,7 +4,7 @@ import {
   selectTeams,
   selectTotalTeamValue
 } from "../../store/selectors";
-import { useGameStateSelector } from "../../store/theStockTimesRedux";
+import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import { displayDollar } from "../../utils/displayDollar";
 import { Sabotage } from "../sabotage/Sabotage";
 import { StockTimesStore } from "../store/StockTimesStore";
@@ -13,11 +13,11 @@ import { PlayerStocks } from "./PlayerStocks";
 import { motion } from "motion/react";
 
 export const PlayerPortfolio = () => {
-  const { player } = useGameStateSelector((s) => s.playerSlice);
-  const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
+  const { player } = useStockTimesSelector((s) => s.playerSlice);
+  const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
 
-  const teams = useGameStateSelector(selectTeams);
-  const teamValues = useGameStateSelector(selectTotalTeamValue);
+  const teams = useStockTimesSelector(selectTeams);
+  const teamValues = useStockTimesSelector(selectTotalTeamValue);
 
   const playerTeam = teams[playerPortfolio?.team ?? 0];
   const playerTeamValue = teamValues[playerPortfolio?.team ?? 0];

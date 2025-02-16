@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { Flex, Text } from "../../components";
 import { selectTotalTeamValue } from "../store/selectors";
-import { useGameStateSelector } from "../store/theStockTimesRedux";
+import { useStockTimesSelector } from "../store/theStockTimesRedux";
 import { displayDollar } from "../utils/displayDollar";
 import styles from "./FinalScoreboard.module.scss";
 import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
@@ -9,11 +9,11 @@ import { motion } from "motion/react";
 import Confetti from "react-confetti";
 
 export const FinalScoreboard = () => {
-  const currentGameState = useGameStateSelector(
+  const currentGameState = useStockTimesSelector(
     (s) => s.gameStateSlice.gameInfo?.currentGameState
   );
-  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
-  const teams = useGameStateSelector(selectTotalTeamValue);
+  const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
+  const teams = useStockTimesSelector(selectTotalTeamValue);
 
   // When the last day's articles come out, this should trigger
   const isLastDayOfTrading = (() => {

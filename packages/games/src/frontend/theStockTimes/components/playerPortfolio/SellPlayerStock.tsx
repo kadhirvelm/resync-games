@@ -7,8 +7,8 @@ import { Button, Flex, Progress, Text } from "../../../components";
 import { selectPlayerPortfolio } from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
-  useGameStateDispatch,
-  useGameStateSelector
+  useStockTimesGameStateDispatch,
+  useStockTimesSelector
 } from "../../store/theStockTimesRedux";
 import { ActivateStorePower } from "../store/ActivateStorePower";
 import { useStockLock } from "../../hooks/stockLock";
@@ -26,10 +26,10 @@ export const SellPlayerStock = ({
   ownedStock: OwnedStock;
   symbol: string;
 }) => {
-  const dispatch = useGameStateDispatch();
-  const player = useGameStateSelector((s) => s.playerSlice.player);
-  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
-  const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
+  const dispatch = useStockTimesGameStateDispatch();
+  const player = useStockTimesSelector((s) => s.playerSlice.player);
+  const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
+  const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
 
   const { isAvailable, timeLeft } = useStockLock(ownedStock, symbol);
 

@@ -1,8 +1,8 @@
 import { PlayerId } from "@resync-games/api";
 import {
   updateTheStockTimesGameState,
-  useGameStateDispatch,
-  useGameStateSelector
+  useStockTimesGameStateDispatch,
+  useStockTimesSelector
 } from "../store/theStockTimesRedux";
 import { useEffect } from "react";
 import { selectPlayerPortfolio } from "../store/selectors";
@@ -13,11 +13,11 @@ import {
 import { cloneDeep } from "lodash";
 
 export function usePendingPlayerChanges() {
-  const dispatch = useGameStateDispatch();
+  const dispatch = useStockTimesGameStateDispatch();
 
-  const gameState = useGameStateSelector((s) => s.gameStateSlice.gameState);
-  const player = useGameStateSelector((s) => s.playerSlice.player);
-  const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
+  const gameState = useStockTimesSelector((s) => s.gameStateSlice.gameState);
+  const player = useStockTimesSelector((s) => s.playerSlice.player);
+  const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
 
   const pendingPlayerActions =
     gameState?.pendingPlayerActions[player?.playerId ?? ("" as PlayerId)];

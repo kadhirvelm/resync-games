@@ -5,7 +5,8 @@ export type GameRegistry = {
 export const GAME_SLUGS = [
   "pong",
   "snatch-the-snack",
-  "the-stock-times"
+  "the-stock-times",
+  "spirit-gatherer"
 ] as const;
 
 export interface GameTags {
@@ -39,13 +40,20 @@ export const GAME_REGISTRY: GameRegistry = {
     name: "Snatch the Snack",
     version: "1.0.0"
   },
+  "spirit-gatherer": {
+    description:
+      "Work with your team to gather as many spirit herbs as possible while defending yourself from the other team.",
+    gameTags: {},
+    name: "Battle for Spirit Herbs",
+    version: "1.0.0"
+  },
   "the-stock-times": {
     description:
-      "A stock market simulation game. Which team can make the most money?",
+      "Bet on generated stocks using the daily news to guess which stocks are going to shoot. Which team can make the most money?",
     gameTags: {
       completed: true
     },
-    name: "The Stock Times",
+    name: "YOLO Bet on Stocks",
     version: "1.0.0"
   }
 };

@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { OwnedStock } from "../../../backend/theStockTimes/theStockTimes";
 import { selectPlayerPortfolio } from "../store/selectors";
-import { useGameStateSelector } from "../store/theStockTimesRedux";
+import { useStockTimesSelector } from "../store/theStockTimesRedux";
 import { isAvailable, IsAvailable } from "./utils/isAvailable";
 
 export function useStockLock(
   ownedStock: OwnedStock,
   stockSymbol: string
 ): IsAvailable {
-  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
-  const maybeStockLock = useGameStateSelector(selectPlayerPortfolio)
+  const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
+  const maybeStockLock = useStockTimesSelector(selectPlayerPortfolio)
     ?.stockLocks[stockSymbol];
 
   const [_, setCounter] = useState(0);

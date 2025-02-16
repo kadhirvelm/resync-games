@@ -5,8 +5,8 @@ import { Flex, Select, Text } from "../../../components";
 import { selectOpponents, selectPlayerPortfolio } from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
-  useGameStateDispatch,
-  useGameStateSelector
+  useStockTimesGameStateDispatch,
+  useStockTimesSelector
 } from "../../store/theStockTimesRedux";
 import { ActivateStorePower } from "../store/ActivateStorePower";
 
@@ -14,16 +14,16 @@ export const CASH_LOCK_DURATION = 0.75;
 export const CASH_LOCK_COOLDOWN = 3.5;
 
 export const CashLock = () => {
-  const dispatch = useGameStateDispatch();
+  const dispatch = useStockTimesGameStateDispatch();
 
-  const player = useGameStateSelector((s) => s.playerSlice.player);
-  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
-  const pendingPlayerActions = useGameStateSelector(
+  const player = useStockTimesSelector((s) => s.playerSlice.player);
+  const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
+  const pendingPlayerActions = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.pendingPlayerActions
   );
 
-  const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
-  const opponents = useGameStateSelector(selectOpponents);
+  const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
+  const opponents = useStockTimesSelector(selectOpponents);
 
   const [playerSelector, setPlayerSelector] = useState(opponents[0]?.playerId);
 

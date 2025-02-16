@@ -9,14 +9,14 @@ import { PlayerPortfolio } from "./components/playerPortfolio/PlayerPortfolio";
 import styles from "./MobileGame.module.scss";
 import {
   updateTheStockTimesLocalState,
-  useGameStateDispatch,
-  useGameStateSelector
+  useStockTimesGameStateDispatch,
+  useStockTimesSelector
 } from "./store/theStockTimesRedux";
 
 export const MobileGame = ({ gameState }: { gameState: TheStockTimesGame }) => {
-  const dispatch = useGameStateDispatch();
+  const dispatch = useStockTimesGameStateDispatch();
 
-  const viewingTab = useGameStateSelector(
+  const viewingTab = useStockTimesSelector(
     (s) => s.localStateSlice.localState?.viewingTab
   );
 

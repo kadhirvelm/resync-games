@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { selectPlayerPortfolio } from "../store/selectors";
-import { useGameStateSelector } from "../store/theStockTimesRedux";
+import { useStockTimesSelector } from "../store/theStockTimesRedux";
 import { isAvailable, IsAvailable } from "./utils/isAvailable";
 
 export function useCashSpendLock(): IsAvailable {
-  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
-  const cashSpendLock = useGameStateSelector(
+  const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
+  const cashSpendLock = useStockTimesSelector(
     selectPlayerPortfolio
   )?.lockCashSpending;
 

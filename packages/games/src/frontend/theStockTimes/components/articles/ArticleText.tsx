@@ -2,14 +2,14 @@ import clsx from "clsx";
 import { selectStocksAndSymbols } from "../../store/selectors";
 import {
   updateTheStockTimesLocalState,
-  useGameStateDispatch,
-  useGameStateSelector
+  useStockTimesGameStateDispatch,
+  useStockTimesSelector
 } from "../../store/theStockTimesRedux";
 import styles from "./ArticleText.module.scss";
 
 export const ArticleText = ({ text }: { text: string }) => {
-  const dispatch = useGameStateDispatch();
-  const stocksToSymbols = useGameStateSelector(selectStocksAndSymbols);
+  const dispatch = useStockTimesGameStateDispatch();
+  const stocksToSymbols = useStockTimesSelector(selectStocksAndSymbols);
 
   const setViewingStockSymbol = (stockSymbol: string) => () => {
     dispatch(

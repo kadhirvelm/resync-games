@@ -1,8 +1,8 @@
 import { Flex, Text } from "../../components";
 import {
   updateTheStockTimesLocalState,
-  useGameStateDispatch,
-  useGameStateSelector
+  useStockTimesGameStateDispatch,
+  useStockTimesSelector
 } from "../store/theStockTimesRedux";
 import { displayDollar } from "../utils/displayDollar";
 import styles from "./AvailableStocks.module.scss";
@@ -10,10 +10,10 @@ import { SingleStock } from "./singleStock/SingleStock";
 import { motion } from "motion/react";
 
 export const AvailableStocks = () => {
-  const dispatch = useGameStateDispatch();
+  const dispatch = useStockTimesGameStateDispatch();
 
-  const gameState = useGameStateSelector((s) => s.gameStateSlice.gameState);
-  const viewingStockSymbol = useGameStateSelector(
+  const gameState = useStockTimesSelector((s) => s.gameStateSlice.gameState);
+  const viewingStockSymbol = useStockTimesSelector(
     (s) => s.localStateSlice.localState?.viewingStockSymbol
   );
 

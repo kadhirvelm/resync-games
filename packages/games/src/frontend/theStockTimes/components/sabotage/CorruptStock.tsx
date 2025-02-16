@@ -3,8 +3,8 @@ import { useMemo, useState } from "react";
 import { selectPlayerPortfolio } from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
-  useGameStateDispatch,
-  useGameStateSelector
+  useStockTimesGameStateDispatch,
+  useStockTimesSelector
 } from "../../store/theStockTimesRedux";
 import { ActivateStorePower } from "../store/ActivateStorePower";
 import { Flex, Select } from "../../../components";
@@ -12,16 +12,16 @@ import { Flex, Select } from "../../../components";
 export const CORRUPT_STOCK_COOLDOWN = 3;
 
 export const CorruptStock = () => {
-  const dispatch = useGameStateDispatch();
+  const dispatch = useStockTimesGameStateDispatch();
 
-  const player = useGameStateSelector((s) => s.playerSlice.player);
-  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
-  const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
+  const player = useStockTimesSelector((s) => s.playerSlice.player);
+  const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
+  const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
 
-  const newsArticles = useGameStateSelector(
+  const newsArticles = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.newsArticles
   );
-  const stocks = useGameStateSelector(
+  const stocks = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.stocks ?? {}
   );
 
