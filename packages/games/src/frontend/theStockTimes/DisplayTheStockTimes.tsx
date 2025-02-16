@@ -5,15 +5,15 @@ import { FinalScoreboard } from "./components/FinalScoreboard";
 import { DesktopGame } from "./DesktopGame";
 import { usePendingPlayerChanges } from "./hooks/pendingPlayerChanges";
 import { MobileGame } from "./MobileGame";
-import { useGameStateSelector } from "./store/theStockTimesRedux";
+import { useStockTimesSelector } from "./store/theStockTimesRedux";
 
 export const DisplayTheStockTimes = ({
   isMobile
 }: FrontendGameComponentProps) => {
   usePendingPlayerChanges();
 
-  const gameInfo = useGameStateSelector((s) => s.gameStateSlice.gameInfo);
-  const gameState = useGameStateSelector((s) => s.gameStateSlice.gameState);
+  const gameInfo = useStockTimesSelector((s) => s.gameStateSlice.gameInfo);
+  const gameState = useStockTimesSelector((s) => s.gameStateSlice.gameState);
 
   if (gameInfo?.currentGameState === "finished") {
     return <FinalScoreboard />;

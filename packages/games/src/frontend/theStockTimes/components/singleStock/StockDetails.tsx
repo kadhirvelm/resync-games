@@ -3,7 +3,7 @@ import { Stock } from "../../../../backend/theStockTimes/theStockTimes";
 import { Button, Flex, Text } from "../../../components";
 import {
   updateTheStockTimesLocalState,
-  useGameStateDispatch
+  useStockTimesGameStateDispatch
 } from "../../store/theStockTimesRedux";
 import styles from "./StockDetails.module.scss";
 
@@ -14,7 +14,7 @@ export const StockDetails = ({
   thisStock: Stock;
   viewingStockSymbol: string;
 }) => {
-  const dispatch = useGameStateDispatch();
+  const dispatch = useStockTimesGameStateDispatch();
 
   const onGoBack = () => {
     dispatch(updateTheStockTimesLocalState({ viewingStockSymbol: undefined }));

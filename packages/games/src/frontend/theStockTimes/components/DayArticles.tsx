@@ -5,12 +5,12 @@ import { useEffect, useMemo, useState } from "react";
 import { StockArticle } from "../../../backend/theStockTimes/theStockTimes";
 import { Button, Flex, Text } from "../../components";
 import { selectArticles } from "../store/selectors";
-import { useGameStateSelector } from "../store/theStockTimesRedux";
+import { useStockTimesSelector } from "../store/theStockTimesRedux";
 import { ArticleText } from "./articles/ArticleText";
 import styles from "./DayArticles.module.scss";
 
 export const DayArticles = () => {
-  const { articles, lastestAddedOn } = useGameStateSelector(selectArticles);
+  const { articles, lastestAddedOn } = useStockTimesSelector(selectArticles);
 
   const [selectedDay, setSelectedDay] = useState(0);
 

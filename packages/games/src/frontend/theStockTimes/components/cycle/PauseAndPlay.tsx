@@ -2,16 +2,16 @@ import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
 import { Button } from "../../../components";
 import {
   updateTheStockTimesGameState,
-  useGameStateDispatch,
-  useGameStateSelector
+  useStockTimesGameStateDispatch,
+  useStockTimesSelector
 } from "../../store/theStockTimesRedux";
 import { PauseIcon, PlayIcon } from "@radix-ui/react-icons";
 
 export const PauseAndPlay = () => {
-  const dispatch = useGameStateDispatch();
+  const dispatch = useStockTimesGameStateDispatch();
 
-  const gameState = useGameStateSelector((s) => s.gameStateSlice.gameState);
-  const player = useGameStateSelector((s) => s.playerSlice.player);
+  const gameState = useStockTimesSelector((s) => s.gameStateSlice.gameState);
+  const player = useStockTimesSelector((s) => s.playerSlice.player);
 
   if (gameState?.cycle === undefined || player === undefined) {
     return;

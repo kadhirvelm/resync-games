@@ -1,5 +1,5 @@
 import { Flex } from "../../../components";
-import { useGameStateSelector } from "../../store/theStockTimesRedux";
+import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import { PriceGraph } from "./PriceGraph";
 import { PurchaseStock } from "./PurchaseStock";
 import { StockDetails } from "./StockDetails";
@@ -10,7 +10,7 @@ export const SingleStock = ({
 }: {
   viewingStockSymbol: string;
 }) => {
-  const stocks = useGameStateSelector(
+  const stocks = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.stocks
   );
   const thisStock = stocks?.[viewingStockSymbol];

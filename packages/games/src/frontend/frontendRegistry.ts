@@ -12,6 +12,9 @@ import { INITIAL_SNATCH_THE_SNACK_LOCAL_STATE } from "./snatchTheSnack/store/sna
 import { INITIAL_THE_STOCK_TIMES_LOCAL_STATE } from "./theStockTimes/store/theStockTimesLocalState";
 import { StockTimesGlobalScreen } from "./theStockTimes/StockTimesGlobalScreen";
 import { StockTimesTutorial } from "./theStockTimes/StockTimesTutorial";
+import { DisplaySpiritGatherer } from "./spiritGatherer/DisplaySpiritGatherer";
+import { INITIAL_SPIRIT_GATHERER_LOCAL_STATE } from "./spiritGatherer/store/spiritGathererLocalState";
+import { SpiritGathererConfiguration } from "./spiritGatherer/spiritGathererConfiguration";
 
 export type FrontendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: FrontendRegisteredGame;
@@ -71,6 +74,11 @@ export const GAME_REGISTRY: FrontendGameRegistry = {
     gameConfiguration: SnatchTheSnackConfiguration,
     gameEntry: DisplayMagicMazeGame,
     initialLocalState: INITIAL_SNATCH_THE_SNACK_LOCAL_STATE
+  },
+  "spirit-gatherer": {
+    gameConfiguration: SpiritGathererConfiguration,
+    gameEntry: DisplaySpiritGatherer,
+    initialLocalState: INITIAL_SPIRIT_GATHERER_LOCAL_STATE
   },
   "the-stock-times": {
     gameConfiguration: TheStockTimesConfiguration,

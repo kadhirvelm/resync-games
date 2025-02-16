@@ -28,7 +28,7 @@ export type TheStockTimesReduxState = GameStateStoreWithStates<
 >;
 
 export const {
-  useGameStateAppStore,
-  useGameStateDispatch,
-  useGameStateSelector
+  useGameStateAppStore: useStockTimesAppStore,
+  useGameStateDispatch: useStockTimesGameStateDispatch,
+  useGameStateSelector: useStockTimesSelector
 } = getGameHooks<TheStockTimesGame, TheStockTimesLocalState>();

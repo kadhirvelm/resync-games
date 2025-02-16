@@ -2,8 +2,8 @@ import { Flex, Text } from "../../../components";
 import { selectPlayerPortfolio } from "../../store/selectors";
 import {
   updateTheStockTimesLocalState,
-  useGameStateDispatch,
-  useGameStateSelector
+  useStockTimesGameStateDispatch,
+  useStockTimesSelector
 } from "../../store/theStockTimesRedux";
 import { displayDollar } from "../../utils/displayDollar";
 import styles from "./PlayerStocks.module.scss";
@@ -11,10 +11,10 @@ import { SellPlayerStock } from "./SellPlayerStock";
 import { motion } from "motion/react";
 
 export const PlayerStocks = () => {
-  const dispatch = useGameStateDispatch();
+  const dispatch = useStockTimesGameStateDispatch();
 
-  const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
-  const stocks = useGameStateSelector(
+  const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
+  const stocks = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.stocks
   );
 

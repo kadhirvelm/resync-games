@@ -6,8 +6,8 @@ import {
 } from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
-  useGameStateDispatch,
-  useGameStateSelector
+  useStockTimesGameStateDispatch,
+  useStockTimesSelector
 } from "../../store/theStockTimesRedux";
 import { displayDollar } from "../../utils/displayDollar";
 import { ActivateStorePower } from "./ActivateStorePower";
@@ -24,12 +24,12 @@ const LOAN_DEBT = 1.2;
 const LOAN_COOLDOWN = 2.5;
 
 export const StockTimesStore = () => {
-  const dispatch = useGameStateDispatch();
+  const dispatch = useStockTimesGameStateDispatch();
 
-  const { player } = useGameStateSelector((s) => s.playerSlice);
-  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
-  const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
-  const allTeamValues = useGameStateSelector(selectTotalTeamValue);
+  const { player } = useStockTimesSelector((s) => s.playerSlice);
+  const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
+  const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
+  const allTeamValues = useStockTimesSelector(selectTotalTeamValue);
 
   const loanAmount =
     (allTeamValues.reduce(

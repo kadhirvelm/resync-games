@@ -1,13 +1,13 @@
 import { Flex } from "../../../components";
 import { selectEndGameGraph, selectTeams } from "../../store/selectors";
-import { useGameStateSelector } from "../../store/theStockTimesRedux";
+import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import { MultiTimeSeries } from "../graph/MultiTimeSeries";
 
 export const EndGameGraph = () => {
-  const players = useGameStateSelector(selectEndGameGraph);
-  const teams = useGameStateSelector(selectTeams);
+  const players = useStockTimesSelector(selectEndGameGraph);
+  const teams = useStockTimesSelector(selectTeams);
 
-  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
+  const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
 
   const xDates = Object.keys(Object.values(players)[0] ?? {}).map((v) =>
     parseFloat(v)

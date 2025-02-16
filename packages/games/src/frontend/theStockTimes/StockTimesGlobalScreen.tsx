@@ -2,11 +2,11 @@ import { Flex, Text } from "../components";
 import { Clock } from "./components/cycle/Clock";
 import { FinalScoreboard } from "./components/FinalScoreboard";
 import { EndGameGraph } from "./components/globalScreen/EndGameGraph";
-import { useGameStateSelector } from "./store/theStockTimesRedux";
+import { useStockTimesSelector } from "./store/theStockTimesRedux";
 
 export const StockTimesGlobalScreen = () => {
-  const gameInfo = useGameStateSelector((s) => s.gameStateSlice.gameInfo);
-  const gameState = useGameStateSelector((s) => s.gameStateSlice.gameState);
+  const gameInfo = useStockTimesSelector((s) => s.gameStateSlice.gameInfo);
+  const gameState = useStockTimesSelector((s) => s.gameStateSlice.gameState);
 
   if (gameState === undefined) {
     return;

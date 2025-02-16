@@ -9,24 +9,24 @@ import {
 } from "../../../store/selectors";
 import {
   updateTheStockTimesGameState,
-  useGameStateDispatch,
-  useGameStateSelector
+  useStockTimesGameStateDispatch,
+  useStockTimesSelector
 } from "../../../store/theStockTimesRedux";
 import { ActivateStorePower } from "../ActivateStorePower";
 
 export const TRANSFER_CASH_COOLDOWN = 0.5;
 
 export const TransferCash = () => {
-  const dispatch = useGameStateDispatch();
+  const dispatch = useStockTimesGameStateDispatch();
 
-  const player = useGameStateSelector((s) => s.playerSlice.player);
-  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
-  const pendingPlayerActions = useGameStateSelector(
+  const player = useStockTimesSelector((s) => s.playerSlice.player);
+  const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
+  const pendingPlayerActions = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.pendingPlayerActions
   );
 
-  const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
-  const teammates = useGameStateSelector(selectTeammates);
+  const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
+  const teammates = useStockTimesSelector(selectTeammates);
 
   const [playerSelector, setPlayerSelector] = useState<PlayerId | undefined>(
     teammates[0]?.playerId

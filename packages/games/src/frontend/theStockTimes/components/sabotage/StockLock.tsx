@@ -2,8 +2,8 @@ import { useMemo, useState } from "react";
 import { selectOpponents, selectPlayerPortfolio } from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
-  useGameStateDispatch,
-  useGameStateSelector
+  useStockTimesGameStateDispatch,
+  useStockTimesSelector
 } from "../../store/theStockTimesRedux";
 import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
 import { Flex, Select, Text } from "../../../components";
@@ -14,17 +14,17 @@ export const STOCK_LOCK_DURATION = 0.75;
 export const STOCK_LOCK_COOLDOWN = 1.5;
 
 export const StockLock = () => {
-  const dispatch = useGameStateDispatch();
+  const dispatch = useStockTimesGameStateDispatch();
 
-  const player = useGameStateSelector((s) => s.playerSlice.player);
-  const cycle = useGameStateSelector((s) => s.gameStateSlice.gameState?.cycle);
-  const pendingPlayerActions = useGameStateSelector(
+  const player = useStockTimesSelector((s) => s.playerSlice.player);
+  const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
+  const pendingPlayerActions = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.pendingPlayerActions
   );
 
-  const playerPortfolio = useGameStateSelector(selectPlayerPortfolio);
-  const opponents = useGameStateSelector(selectOpponents);
-  const stocks = useGameStateSelector(
+  const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
+  const opponents = useStockTimesSelector(selectOpponents);
+  const stocks = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.stocks ?? {}
   );
 
