@@ -1,9 +1,11 @@
+import { useContext } from "react";
 import { Flex } from "../../../components";
 import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import { PriceGraph } from "./PriceGraph";
 import { PurchaseStock } from "./PurchaseStock";
 import { StockDetails } from "./StockDetails";
 import { motion } from "motion/react";
+import { DisplayType } from "../../utils/DisplayType";
 
 export const SingleStock = ({
   viewingStockSymbol
@@ -15,9 +17,13 @@ export const SingleStock = ({
   );
   const thisStock = stocks?.[viewingStockSymbol];
 
+  const displayType = useContext(DisplayType);
+
   if (thisStock === undefined) {
     return;
   }
+
+  const isGlobalScreen = displayType.displayType === "global-screen";
 
   return (
     <motion.div
@@ -30,8 +36,12 @@ export const SingleStock = ({
           thisStock={thisStock}
           viewingStockSymbol={viewingStockSymbol}
         />
-        <PurchaseStock viewingStockSymbol={viewingStockSymbol} />
-        <PriceGraph viewingStockSymbol={viewingStockSymbol} />
+        {!isGlobalScreen && (
+          <PurchaseStock viewingStockSymbol={viewingStockSymbol} />
+        )}
+        {isGlobalScreen && (
+          <PriceGraph viewingStockSymbol={viewingStockSymbol} />
+        )}
       </Flex>
     </motion.div>
   );

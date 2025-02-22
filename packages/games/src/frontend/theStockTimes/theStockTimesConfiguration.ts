@@ -4,18 +4,18 @@ import { MapGameConfiguration } from "../baseConfiguration";
 export const TheStockTimesConfiguration: MapGameConfiguration<TheStockTimesGameConfiguration> =
   {
     startingCash: {
-      default: 10_000,
+      default: 1_000,
       label: "Starting cash",
-      max: 100_000,
+      max: 50_000,
       min: 100,
       required: true,
       type: "number"
     },
     totalStocks: {
-      default: 8,
+      default: 4,
       label: "Total stocks",
-      max: 12,
-      min: 4,
+      max: 8,
+      min: 2,
       required: true,
       type: "number"
     }
