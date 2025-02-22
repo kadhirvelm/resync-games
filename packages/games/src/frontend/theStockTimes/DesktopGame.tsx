@@ -32,7 +32,7 @@ export const DesktopGame = ({
         <Flex flex="1" ml="2">
           <AvailableStocks />
         </Flex>
-        <Flex flex="2" mr="5">
+        <Flex flex="1" mr="5">
           <FinalScoreboard />
         </Flex>
       </Flex>

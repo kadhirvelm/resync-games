@@ -7,6 +7,6 @@ export class ResyncGamesPrismaService {
   public client: PrismaClient;
 
   constructor(public converterService: ResyncGamesConverterService) {
-    this.client = new PrismaClient({ log: ["query"] });
+    this.client = new PrismaClient();
   }
 }

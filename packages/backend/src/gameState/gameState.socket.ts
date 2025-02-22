@@ -1,4 +1,5 @@
-import { InternalServerErrorException } from "@nestjs/common";
+import { CustomWsExceptionFilter } from "@/library/WsExceptions.filter";
+import { InternalServerErrorException, UseFilters } from "@nestjs/common";
 import {
   ConnectedSocket,
   MessageBody,
@@ -6,14 +7,14 @@ import {
   WebSocketServer
 } from "@nestjs/websockets";
 import {
-  IdentifyPlayerSocket,
-  GameStateFromClientToServer,
-  GameStateServerSocketDefinition,
   GameId,
   GameStateAndInfo,
+  GameStateFromClientToServer,
+  GameStateServerSocketDefinition,
+  IdentifyPlayerSocket,
+  JoinGame,
   LeaveGame,
-  PlayerId,
-  JoinGame
+  PlayerId
 } from "@resync-games/api";
 import { Server, Socket } from "socket.io";
 import {
@@ -23,6 +24,7 @@ import {
 } from "src/genericTypes/socket";
 import { SocketGateway } from "src/genericTypes/socket.gateway";
 
+@UseFilters(CustomWsExceptionFilter)
 @WebSocketGateway({
   cors: {
     origin: "*"
@@ -39,6 +41,8 @@ export class GameStateSocketGateway
 
   private joinGameCallback?: (joinGame: JoinGame) => Promise<unknown>;
   private leaveGameCallback?: (leaveGame: LeaveGame) => Promise<unknown>;
+
+  private exceptionFilter = new CustomWsExceptionFilter();
 
   @WebSocketServer() server: Server;
 
@@ -100,22 +104,30 @@ export class GameStateSocketGateway
     await this.clients.get(clientId)?.join(joinGame.gameId);
   };
 
+  /**
+   * For whatever reason, the disconnect part of the gateway isn't falling under the exception filter. We've added a custom
+   * catch here to handle the disconnect errors.
+   */
   async handleDisconnect(client: Socket) {
-    super.handleDisconnect(client);
+    try {
+      super.handleDisconnect(client);
 
-    const leaveGameDetails = this.clientsToGameId.get(client.id);
-    if (leaveGameDetails == null) {
-      return;
+      const leaveGameDetails = this.clientsToGameId.get(client.id);
+      if (leaveGameDetails == null) {
+        return;
+      }
+
+      if (this.leaveGameCallback == null) {
+        throw new InternalServerErrorException(
+          "Leave game callback not set. Please check the instantiation of the GameStateSocketGateway and try again."
+        );
+      }
+
+      await this.leaveGame(leaveGameDetails);
+      await this.leaveGameCallback(leaveGameDetails);
+    } catch (error) {
+      this.exceptionFilter.customCatch(error, client, {});
     }
-
-    if (this.leaveGameCallback == null) {
-      throw new InternalServerErrorException(
-        "Leave game callback not set. Please check the instantiation of the GameStateSocketGateway and try again."
-      );
-    }
-
-    await this.leaveGame(leaveGameDetails);
-    await this.leaveGameCallback(leaveGameDetails);
   }
 
   private leaveGame = async (leaveGame: LeaveGame) => {
