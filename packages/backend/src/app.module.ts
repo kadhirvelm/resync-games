@@ -1,13 +1,14 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import { ScheduleModule } from "@nestjs/schedule";
 import { GamesModule } from "./games/games.module";
+import { GameStateModule } from "./gameState/gameState.module";
+import { GameStateGarbageCollectionModule } from "./gameState/garbageCollector/gameStateGarbageCollector.module";
+import { GameStateTickerModule } from "./gameState/ticker/gameStateTicker.module";
 import { HealthModule } from "./health/health.module";
 import { AllExceptionsFilter } from "./library/AllExceptions.filter";
 import { AppLoggerMiddleware } from "./library/AppLogger.middleware";
-import { GameStateModule } from "./gameState/gameState.module";
+import { CustomWsExceptionFilter } from "./library/WsExceptions.filter";
 import { UserModule } from "./user/user.module";
-import { ScheduleModule } from "@nestjs/schedule";
-import { GameStateTickerModule } from "./gameState/ticker/gameStateTicker.module";
-import { GameStateGarbageCollectionModule } from "./gameState/garbageCollector/gameStateGarbageCollector.module";
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { GameStateGarbageCollectionModule } from "./gameState/garbageCollector/g
     GameStateGarbageCollectionModule,
     ScheduleModule.forRoot()
   ],
-  providers: [AllExceptionsFilter]
+  providers: [AllExceptionsFilter, CustomWsExceptionFilter]
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {

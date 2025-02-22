@@ -9,7 +9,7 @@ export class UserService {
   public async getUser(playerId: PlayerId) {
     const maybeUser = await this.prismaModule.client.player.findFirst({
       where: {
-        playerId
+        playerId: `${playerId}`
       }
     });
 

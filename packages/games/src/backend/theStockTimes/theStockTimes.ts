@@ -245,7 +245,7 @@ export class TheStockTimesServer
       gameState: {
         cycle: {
           dayTime: 60 * 1_000, // 60 seconds
-          endDay: 11, // 10 full days = 13 minute game,
+          endDay: 11000, // 10 full days = 13 minute game,
           lastUpdatedAt: new Date().toISOString(),
           nightTime: 20 * 1_000, // 20 seconds
           seedTime: 0,

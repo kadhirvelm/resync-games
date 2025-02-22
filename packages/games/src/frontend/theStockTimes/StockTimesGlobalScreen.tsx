@@ -31,8 +31,13 @@ export const StockTimesGlobalScreen = () => {
 
   if (gameInfo?.currentGameState === "finished") {
     return (
-      <Flex flex="1">
-        <EndGameGraph />
+      <Flex flex="1" gap="2">
+        <Flex flex="1">
+          <FinalScoreboard />
+        </Flex>
+        <Flex flex="2">
+          <EndGameGraph />
+        </Flex>
       </Flex>
     );
   }
@@ -40,9 +45,6 @@ export const StockTimesGlobalScreen = () => {
   return (
     <DisplayType.Provider value={{ displayType: "global-screen" }}>
       <Flex flex="1" gap="2">
-        <Flex flex="1">
-          <FinalScoreboard />
-        </Flex>
         <Flex flex="1">
           <Clock cycle={gameState?.cycle} size={window.innerWidth / 2} />
         </Flex>

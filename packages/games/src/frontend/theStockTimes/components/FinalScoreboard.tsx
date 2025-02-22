@@ -7,6 +7,8 @@ import styles from "./FinalScoreboard.module.scss";
 import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
 import { motion } from "motion/react";
 import Confetti from "react-confetti";
+import { useContext } from "react";
+import { DisplayType } from "../utils/DisplayType";
 
 export const FinalScoreboard = () => {
   const currentGameState = useStockTimesSelector(
@@ -14,6 +16,9 @@ export const FinalScoreboard = () => {
   );
   const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
   const teams = useStockTimesSelector(selectTotalTeamValue);
+
+  const displayType = useContext(DisplayType);
+  const isGlobalScreen = displayType.displayType === "global-screen";
 
   // When the last day's articles come out, this should trigger
   const isLastDayOfTrading = (() => {
@@ -43,10 +48,18 @@ export const FinalScoreboard = () => {
   }
 
   return (
-    <Flex direction="column" flex="1" gap="3" justify="center" px="5">
-      <Flex justify="center" mb="5">
-        <Text size="9">Final scoreboard</Text>
-      </Flex>
+    <Flex
+      direction="column"
+      flex="1"
+      gap="3"
+      justify={isGlobalScreen ? "center" : undefined}
+      px="5"
+    >
+      {isGlobalScreen && (
+        <Flex justify="center" mb="5">
+          <Text size="9">Final scoreboard</Text>
+        </Flex>
+      )}
       {hasGameEnded && (
         <Confetti height={window.innerHeight} width={window.innerWidth} />
       )}
