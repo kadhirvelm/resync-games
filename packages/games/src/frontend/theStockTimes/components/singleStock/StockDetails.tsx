@@ -6,6 +6,8 @@ import {
   useStockTimesGameStateDispatch
 } from "../../store/theStockTimesRedux";
 import styles from "./StockDetails.module.scss";
+import { DisplayType } from "../../utils/DisplayType";
+import { useContext } from "react";
 
 export const StockDetails = ({
   thisStock,
@@ -20,14 +22,19 @@ export const StockDetails = ({
     dispatch(updateTheStockTimesLocalState({ viewingStockSymbol: undefined }));
   };
 
+  const displayType = useContext(DisplayType);
+  const isGlobalScreen = displayType.displayType === "global-screen";
+
   return (
     <Flex className={styles.details} direction="column" p="3">
       <Flex align="center" gap="4">
-        <Flex>
-          <Button onClick={onGoBack} variant="outline">
-            <ArrowLeftIcon /> <Text>Back</Text>
-          </Button>
-        </Flex>
+        {!isGlobalScreen && (
+          <Flex>
+            <Button onClick={onGoBack} variant="outline">
+              <ArrowLeftIcon /> <Text>Back</Text>
+            </Button>
+          </Flex>
+        )}
         <Text size="4" weight="bold">
           {viewingStockSymbol} - {thisStock.title}
         </Text>
