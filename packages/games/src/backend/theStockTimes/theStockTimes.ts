@@ -270,7 +270,7 @@ export class TheStockTimesServer
       gameState: {
         cycle: {
           dayTime: 60 * 1_000, // 60 seconds
-          endDay: 11000, // 10 full days = 13 minute game,
+          endDay: 11, // 10 full days = 13 minute game,
           lastUpdatedAt: new Date().toISOString(),
           nightTime: 20 * 1_000, // 20 seconds
           seedTime: 0,
@@ -376,7 +376,7 @@ export class TheStockTimesServer
 
     newGameState.cycle.startTime = new Date().toISOString();
 
-    const stockFocusCycleTime = game.gameConfiguration.stockCycleTime * 1_000;
+    const stockFocusCycleTime = game.gameConfiguration.stockCycleTime * 990;
     newGameState.stockInFocus.nextFocusIn = stockFocusCycleTime;
     newGameState.stockInFocus.stockOrder = Object.keys(newGameState.stocks);
 

@@ -41,13 +41,7 @@ export const DayArticles = () => {
   };
 
   return (
-    <Flex
-      className={styles.articlesContainer}
-      direction="column"
-      flex="1"
-      gap="3"
-      p="3"
-    >
+    <Flex className={styles.articlesContainer} direction="column" gap="3" p="3">
       {renderArticle()}
     </Flex>
   );
