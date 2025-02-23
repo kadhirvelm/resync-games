@@ -4,7 +4,7 @@ const RECENT_DATAPOINTS = 20;
 
 export function getRecentStockHistory(stockPriceHistory: StockPriceHistory[]) {
   const latestDataPoints = stockPriceHistory
-    .map((h) => [new Date(h.lastUpdatedAt).valueOf(), h.price])
+    .map((h) => [h.currentClockTime, h.price])
     .slice(0, RECENT_DATAPOINTS)
     .reverse();
 

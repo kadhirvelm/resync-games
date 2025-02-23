@@ -1,10 +1,14 @@
 import { motion } from "motion/react";
 import { Flex, Text } from "../../../components";
-import { selectPlayerPortfolio } from "../../store/selectors";
+import {
+  selectFocusedStock,
+  selectPlayerPortfolio
+} from "../../store/selectors";
 import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import { displayDollar } from "../../utils/displayDollar";
 import styles from "./PlayerStocks.module.scss";
 import { SellPlayerStock } from "./SellPlayerStock";
+import clsx from "clsx";
 
 export const PlayerStocks = () => {
   const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
@@ -14,6 +18,7 @@ export const PlayerStocks = () => {
   const stockOrder = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.stockInFocus.stockOrder
   );
+  const focusedStock = useStockTimesSelector(selectFocusedStock);
 
   if (playerPortfolio === undefined) {
     return;
@@ -72,7 +77,9 @@ export const PlayerStocks = () => {
                     style={{ display: "flex", flex: "1" }}
                   >
                     <Flex
-                      className={styles.holding}
+                      className={clsx(styles.holding, {
+                        [styles.active ?? ""]: focusedStock === symbol
+                      })}
                       direction="column"
                       flex="1"
                       gap="1"

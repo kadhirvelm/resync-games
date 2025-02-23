@@ -10,6 +10,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "BrightSun Solar Solutions specializes in advanced solar panel technologies and renewable energy solutions for a sustainable future.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: new Date().toISOString(),
         price: 123.45
       }
@@ -23,6 +24,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "CalmOcean Cruises provides luxury oceanic travel experiences, focusing on sustainability and relaxation for travelers.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: new Date().toISOString(),
         price: 45.67
       }
@@ -36,6 +38,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "DarkForest Innovations develops cutting-edge AI-driven cybersecurity solutions inspired by nature's complexity.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: new Date().toISOString(),
         price: 89.23
       }
@@ -49,6 +52,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "FreshBreeze Aromatics creates eco-friendly air fresheners and home fragrances with nature-inspired scents.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: new Date().toISOString(),
         price: 21.34
       }
@@ -62,6 +66,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "AncientRuins Expeditions offers archaeological tourism and immersive historical experiences for culture enthusiasts.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: new Date().toISOString(),
         price: 15.89
       }
@@ -75,6 +80,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "PeacefulMeadow Retreats provides high-end wellness retreats in serene locations to promote relaxation and mental well-being.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: new Date().toISOString(),
         price: 33.12
       }
@@ -88,6 +94,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "ColorfulRainbow Media is a leading content creator focused on diverse, family-friendly entertainment across multiple platforms.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: new Date().toISOString(),
         price: 67.45
       }
@@ -101,6 +108,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "SparklingGem Jewels crafts bespoke, high-quality jewelry, incorporating ethically sourced gemstones and modern designs.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: new Date().toISOString(),
         price: 54.76
       }
@@ -114,6 +122,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "GentleRiver Hydropower harnesses river energy to provide clean and reliable electricity for sustainable development.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: new Date().toISOString(),
         price: 78.34
       }
@@ -127,6 +136,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "FierceStorm Technologies develops robust and scalable infrastructure solutions for businesses facing extreme data demands.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: new Date().toISOString(),
         price: 142.56
       }
@@ -140,6 +150,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "Bright Futures Co. creates educational toys and learning platforms that promote joyful learning for children worldwide.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T12:00:00Z",
         price: 45.67
       }
@@ -153,6 +164,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "SwiftWings Inc. manufactures high-performance drones and cutting-edge bird-inspired robotics for aviation and research.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T12:00:00Z",
         price: 125.34
       }
@@ -166,6 +178,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "Tranquil Reads Ltd. designs state-of-the-art silent library systems and serene reading environments for institutions.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T12:00:00Z",
         price: 78.9
       }
@@ -179,6 +192,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "Polished Earth Co. specializes in crafting premium stone-based home decor and construction materials with a sleek finish.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T12:00:00Z",
         price: 38.12
       }
@@ -192,6 +206,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "Skyline Growth Partners innovates in sustainable forestry, planting tall trees that balance profitability and environmental care.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T12:00:00Z",
         price: 112.45
       }
@@ -205,6 +220,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "Edge Precision Ltd. develops cutting-edge knives and surgical tools with unmatched sharpness and durability.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T12:00:00Z",
         price: 92.88
       }
@@ -218,6 +234,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "Valor Ventures invests in heroic startups and innovations that aim to change the world with bold ideas.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T12:00:00Z",
         price: 150.75
       }
@@ -231,6 +248,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "Polar Breezes Inc. delivers energy-efficient cooling systems inspired by the natural flow of cold winds.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T12:00:00Z",
         price: 65.22
       }
@@ -244,6 +262,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "CloudComfort Co. produces luxurious and ultra-soft blankets made from sustainable and eco-friendly materials.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T12:00:00Z",
         price: 54.43
       }
@@ -257,6 +276,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "IronSpan Industries engineers and constructs robust bridges and infrastructure solutions to connect communities worldwide.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T12:00:00Z",
         price: 140.68
       }
@@ -270,6 +290,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A company specializing in eco-friendly fire-based heating solutions for homes and businesses.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 75.32
       }
@@ -283,6 +304,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "Designs and manufactures autonomous robotic ants for industrial and environmental applications.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 48.75
       }
@@ -296,6 +318,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "Develops innovative solutions for recycling and repurposing broken glass into new materials.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 22.19
       }
@@ -309,6 +332,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "An outdoor company specializing in guided mountain expeditions and adventure gear.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 130.5
       }
@@ -322,6 +346,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "An online platform for trading and authenticating rare and collectible coins.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 95.88
       }
@@ -335,6 +360,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A company providing water-saving technologies and sustainable agriculture solutions for dry regions.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 61.42
       }
@@ -348,6 +374,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "Specializes in crowd control and event safety technologies for large gatherings.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 87.33
       }
@@ -361,6 +388,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "Develops smart devices and products inspired by feline curiosity for pet owners.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 42.8
       }
@@ -374,6 +402,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "Manufactures advanced rainwater harvesting systems for urban and rural areas.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 54.9
       }
@@ -387,6 +416,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A platform for digital and physical colorful art commissions by global artists.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 77.65
       }
@@ -400,6 +430,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A crypto token claiming to harness the power of starlight to generate blockchain rewards. Totally not a pyramid scheme!",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 3.37
       }
@@ -413,6 +444,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "An NFT marketplace selling unique GIFs of animated breezes for the discerning collector. 'Feel the breeze in your wallet!'",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 1.48
       }
@@ -426,6 +458,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A crypto mining operation promising insane returns by 'mining' on virtual mountains. Returns may vary (or vanish).",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 4.12
       }
@@ -439,6 +472,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A meme coin inspired by lions, roaring through the crypto jungle. Community-driven and 'totally serious.'",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 6.21
       }
@@ -452,6 +486,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A multi-level marketing scheme selling miracle water filters that 'purify your life' (and empty your bank account).",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 5.75
       }
@@ -465,6 +500,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A decentralized blockchain promising to 'flap its wings' and cause financial hurricanes across the crypto market.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 10.89
       }
@@ -478,6 +514,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A scammy crypto token 'planting virtual trees' while planting doubts in your investment choices.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 1.15
       }
@@ -491,6 +528,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A mystical, meme-based cryptocurrency promising to take you to the 'next dimension' of investing. Good vibes only!",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 3.42
       }
@@ -504,6 +542,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A luxurious Ponzi scheme masked as an exclusive crypto 'investment club' for swan enthusiasts. Gracefully taking your money!",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 5.23
       }
@@ -517,6 +556,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A 'community-run' decentralized autonomous organization promising to fund ocean exploration but mainly funds someone's yacht.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-11-30T10:00:00Z",
         price: 2.67
       }
@@ -530,6 +570,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A Japanese courier service known for its ultra-fast and reliable deliveries, using advanced AI for route optimization.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-12-26T10:00:00Z",
         price: 178.45
       }
@@ -543,6 +584,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A Swiss manufacturer of state-of-the-art armor and equipment for modern military and personal safety.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-12-26T10:00:00Z",
         price: 324.75
       }
@@ -556,6 +598,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A British firm specializing in restoring and commercializing ancient technologies for modern applications.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-12-26T10:00:00Z",
         price: 98.67
       }
@@ -569,6 +612,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A French fashion house crafting swan-inspired luxury apparel and accessories for high-end clients.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-12-26T10:00:00Z",
         price: 452.1
       }
@@ -582,6 +626,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "An Indian company pioneering sustainable timber and herbal medicines sourced from untapped forest ecosystems.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-12-26T10:00:00Z",
         price: 63.89
       }
@@ -595,6 +640,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A Chinese enterprise focusing on renewable energy solutions inspired by celestial physics and star energy models.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-12-26T10:00:00Z",
         price: 210.33
       }
@@ -608,6 +654,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A South African mining conglomerate extracting rare gems and metals with cutting-edge technology.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-12-26T10:00:00Z",
         price: 389.12
       }
@@ -621,6 +668,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A Brazilian company developing ferocious immune-boosting biopharmaceuticals derived from jungle flora.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-12-26T10:00:00Z",
         price: 275.88
       }
@@ -634,6 +682,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "A Norwegian firm creating luxury yachts and eco-friendly maritime technologies for a calmer sea experience.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-12-26T10:00:00Z",
         price: 186.22
       }
@@ -647,6 +696,7 @@ export const AVAILABLE_STOCKS: StockWithSymbol[] = [
       "An Italian atelier specializing in handcrafted, elegant dresses with a focus on timeless aesthetics.",
     history: [
       {
+        currentClockTime: 0,
         lastUpdatedAt: "2024-12-26T10:00:00Z",
         price: 520.15
       }

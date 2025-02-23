@@ -4,7 +4,7 @@ import { useFocusedStockTimer } from "../../hooks/focusedStockTimer";
 export const FocusedStockTimer = () => {
   const { timeLeft } = useFocusedStockTimer();
 
-  const totalTimeLeft = 100 - timeLeft;
+  const totalTimeLeft = Math.min(100 - timeLeft, 100);
 
   return (
     <Flex>

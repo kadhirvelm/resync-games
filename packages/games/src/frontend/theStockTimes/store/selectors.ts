@@ -130,7 +130,7 @@ export const selectTotalTeamValue = createSelector(
   }
 );
 
-const selectFocusedStock = createSelector(
+export const selectFocusedStock = createSelector(
   [
     (state: TheStockTimesReduxState) =>
       state.gameStateSlice.gameState?.stockInFocus.stockOrder[

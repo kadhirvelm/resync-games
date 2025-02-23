@@ -1,9 +1,9 @@
+import { cycleTimeFromNormalized } from "@resync-games/games-shared/theStockTimes/cycleTime";
 import { useMemo } from "react";
-import { useStockTimesSelector } from "../../store/theStockTimesRedux";
-import { TimeSeries } from "../graph/TimeSeries";
-import { getRecentStockHistory } from "../../utils/getRecentHistory";
-import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
 import { Stock } from "../../../../backend/theStockTimes/theStockTimes";
+import { useStockTimesSelector } from "../../store/theStockTimesRedux";
+import { getRecentStockHistory } from "../../utils/getRecentHistory";
+import { TimeSeries } from "../graph/TimeSeries";
 
 export const PriceGraph = ({ stock }: { stock: Stock }) => {
   const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
@@ -20,15 +20,18 @@ export const PriceGraph = ({ stock }: { stock: Stock }) => {
     return;
   }
 
-  const xAxisLabel = (value: number) =>
-    cycle === undefined ? undefined : cycleTime(cycle, value).day.toString();
+  const xAxisLabel = (value: number) => {
+    return cycle === undefined
+      ? undefined
+      : cycleTimeFromNormalized(cycle, value).day.toString();
+  };
 
   const xAxisCursor = (value: number) => {
     if (cycle === undefined) {
       return;
     }
 
-    const { day, timeFraction } = cycleTime(cycle, value);
+    const { day, timeFraction } = cycleTimeFromNormalized(cycle, value);
     return `Day ${day} at ${Math.round(timeFraction * 100)}%`;
   };
 

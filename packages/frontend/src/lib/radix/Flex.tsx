@@ -4,8 +4,17 @@ import {
 } from "@radix-ui/themes";
 import React from "react";
 
-export type FlexProps = { flex?: string } & RadixComponentProps;
+export type FlexProps = {
+  flex?: string;
+  ref?: React.Ref<HTMLDivElement>;
+} & RadixComponentProps;
 
 export const Flex = ({ flex, ...props }: FlexProps) => {
-  return <RadixComponent {...props} style={{ ...props.style, flex }} />;
+  return (
+    <RadixComponent
+      ref={props.ref}
+      {...props}
+      style={{ ...props.style, flex }}
+    />
+  );
 };

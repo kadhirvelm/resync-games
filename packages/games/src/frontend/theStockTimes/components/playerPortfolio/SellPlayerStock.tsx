@@ -4,6 +4,7 @@ import {
   TransactionHistory
 } from "../../../../backend/theStockTimes/theStockTimes";
 import { Button, Flex, Progress, Text } from "../../../components";
+import { useStockLock } from "../../hooks/stockLock";
 import { selectPlayerPortfolio } from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
@@ -11,7 +12,6 @@ import {
   useStockTimesSelector
 } from "../../store/theStockTimesRedux";
 import { ActivateStorePower } from "../store/ActivateStorePower";
-import { useStockLock } from "../../hooks/stockLock";
 
 export const SELL_INTO_GAIN_COOLDOWN = 1.5;
 
@@ -27,6 +27,7 @@ export const SellPlayerStock = ({
   symbol: string;
 }) => {
   const dispatch = useStockTimesGameStateDispatch();
+
   const player = useStockTimesSelector((s) => s.playerSlice.player);
   const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
   const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
