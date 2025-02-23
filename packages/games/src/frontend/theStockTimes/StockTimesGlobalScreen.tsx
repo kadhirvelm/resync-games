@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Flex, Text } from "../components";
 import { Clock } from "./components/cycle/Clock";
 import { FinalScoreboard } from "./components/FinalScoreboard";
@@ -7,6 +8,8 @@ import { useStockTimesSelector } from "./store/theStockTimesRedux";
 import { DisplayType } from "./utils/DisplayType";
 
 export const StockTimesGlobalScreen = () => {
+  const clockRef = useRef<HTMLDivElement>(null);
+
   const gameInfo = useStockTimesSelector((s) => s.gameStateSlice.gameInfo);
   const gameState = useStockTimesSelector((s) => s.gameStateSlice.gameState);
 
@@ -33,7 +36,7 @@ export const StockTimesGlobalScreen = () => {
   if (gameInfo?.currentGameState === "finished") {
     return (
       <Flex flex="1" gap="2">
-        <Flex flex="1">
+        <Flex align="center" flex="1">
           <FinalScoreboard />
         </Flex>
         <Flex flex="2">
@@ -45,10 +48,17 @@ export const StockTimesGlobalScreen = () => {
 
   return (
     <DisplayType.Provider value={{ displayType: "global-screen" }}>
-      <Flex flex="1" gap="2">
-        <Flex align="center" direction="column" flex="1" justify="center" p="3">
-          <Clock cycle={gameState?.cycle} size={window.innerWidth / 3} />
-          <FinalScoreboard />
+      <Flex flex="1">
+        <Flex direction="column" flex="1" gap="3" p="3">
+          <Flex align="center" flex="1" justify="center" ref={clockRef}>
+            <Clock
+              cycle={gameState?.cycle}
+              size={(clockRef.current?.clientWidth ?? 100) - 20}
+            />
+          </Flex>
+          <Flex flex="1">
+            <FinalScoreboard />
+          </Flex>
         </Flex>
         <Flex flex="2" p="3">
           <FocusedStock />

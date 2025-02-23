@@ -29,11 +29,13 @@ export const DesktopGame = ({
         <Flex flex="1">
           <PlayerPortfolio />
         </Flex>
-        <Flex flex="1" ml="2">
-          <FocusedStock />
-        </Flex>
-        <Flex flex="1" mr="5">
-          <FinalScoreboard />
+        <Flex direction="column" flex="1" ml="2" mr="7">
+          <Flex flex="1">
+            <FocusedStock />
+          </Flex>
+          <Flex flex="1">
+            <FinalScoreboard />
+          </Flex>
         </Flex>
       </Flex>
     </DisplayType.Provider>

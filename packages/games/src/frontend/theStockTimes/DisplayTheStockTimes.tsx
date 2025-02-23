@@ -16,7 +16,11 @@ export const DisplayTheStockTimes = ({
   const gameState = useStockTimesSelector((s) => s.gameStateSlice.gameState);
 
   if (gameInfo?.currentGameState === "finished") {
-    return <FinalScoreboard />;
+    return (
+      <Flex align="center" flex="1">
+        <FinalScoreboard />
+      </Flex>
+    );
   }
 
   if (gameState === undefined) {

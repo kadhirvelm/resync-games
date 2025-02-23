@@ -42,6 +42,13 @@ export interface StockTimesCycle extends WithTimestamp {
 }
 
 export interface StockPriceHistory extends WithTimestamp {
+  /**
+   * The current time on the clock when the stock was at this price.
+   */
+  currentClockTime: number;
+  /**
+   * The price of the stock at the time of the history.
+   */
   price: number;
 }
 
@@ -405,7 +412,8 @@ export class TheStockTimesServer
     newGameState.stocks = this.tickStockPrices(
       gameStateAndInfo.gameState.stocks,
       gameStateAndInfo.gameState.newsArticles.articles,
-      currentCycle
+      currentCycle,
+      currentTime
     );
     newGameState.newsArticles = this.tickNewsArticles(
       gameStateAndInfo.gameState.newsArticles,
@@ -472,7 +480,8 @@ export class TheStockTimesServer
   private tickStockPrices(
     stocks: TheStockTimesGame["stocks"],
     newsArticles: StockTimesNewsArticle["articles"],
-    currentCycle: CurentCyle
+    currentCycle: CurentCyle,
+    currentTime: number
   ) {
     const newStocks = { ...stocks };
     if (currentCycle === "night") {
@@ -505,6 +514,7 @@ export class TheStockTimesServer
         0.01
       );
       stock.history.unshift({
+        currentClockTime: currentTime,
         lastUpdatedAt: new Date().toISOString(),
         price: newPrice
       });

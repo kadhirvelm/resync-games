@@ -80,6 +80,9 @@ export const TimeSeries = ({
           ]
         },
         id: "price",
+        legend: {
+          show: false
+        },
         series: [
           {
             value: (_, value) => {
