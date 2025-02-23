@@ -11,6 +11,9 @@ export const PlayerStocks = () => {
   const stocks = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.stocks
   );
+  const stockOrder = useStockTimesSelector(
+    (s) => s.gameStateSlice.gameState?.stockInFocus.stockOrder
+  );
 
   if (playerPortfolio === undefined) {
     return;
@@ -43,10 +46,14 @@ export const PlayerStocks = () => {
             (a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf()
           );
 
+        const stockIndex = (stockOrder ?? []).indexOf(symbol);
+
         return (
           <Flex direction="column" key={symbol}>
             <Flex align="center" className={styles.stockSymbol} gap="3">
-              <Text>{symbol}</Text>
+              <Text>
+                {symbol} ({stockIndex + 1} / {stockOrder?.length})
+              </Text>
               <Flex className={styles.divider} flex="1" />
               <Text color="green">{displayDollar(totalPrice)}</Text>
             </Flex>

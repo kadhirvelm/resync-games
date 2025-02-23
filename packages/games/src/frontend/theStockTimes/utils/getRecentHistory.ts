@@ -1,6 +1,6 @@
 import { StockPriceHistory } from "../../../backend/theStockTimes/theStockTimes";
 
-const RECENT_DATAPOINTS = 50;
+const RECENT_DATAPOINTS = 20;
 
 export function getRecentStockHistory(stockPriceHistory: StockPriceHistory[]) {
   const latestDataPoints = stockPriceHistory

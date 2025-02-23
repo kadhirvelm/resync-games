@@ -8,6 +8,7 @@ import { PriceGraph } from "./PriceGraph";
 import { PurchaseStock } from "./PurchaseStock";
 import { StockDetails } from "./StockDetails";
 import { selectFocusedStockData } from "../../store/selectors";
+import { FocusedStockTimer } from "./FocusedStockTimer";
 
 export const FocusedStock = () => {
   const stocks = useStockTimesSelector(selectFocusedStockData);
@@ -27,10 +28,9 @@ export const FocusedStock = () => {
       style={{ display: "flex", flex: "1" }}
     >
       <Flex direction="column" flex="1" gap="3" mx="4">
+        <FocusedStockTimer />
         <StockDetails thisStock={stock} viewingStockSymbol={symbol} />
-        <Flex>
-          <DayArticles />
-        </Flex>
+        {isGlobalScreen && <DayArticles />}
         {!isGlobalScreen && <PurchaseStock viewingStockSymbol={symbol} />}
         {isGlobalScreen && <PriceGraph stock={stock} />}
       </Flex>

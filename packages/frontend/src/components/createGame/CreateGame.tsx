@@ -6,7 +6,7 @@ import { NavigationButton } from "@/lib/resync-components/NavigationButton";
 import { getFrontendGame } from "@/lib/utils/getFrontendGame";
 import { ClientServiceCallers } from "@/services/serviceCallers";
 import { ExitIcon } from "@radix-ui/react-icons";
-import { Button, Text } from "@radix-ui/themes";
+import { Button, ScrollArea, Text } from "@radix-ui/themes";
 import { isServiceError } from "@resync-games/api";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
@@ -52,44 +52,49 @@ export default function CreateGame() {
   };
 
   return (
-    <Flex className={styles.formBoxContainer} direction="column" p="2">
-      <Flex className={styles.goHome}>
-        <NavigationButton href="/" variant="outline">
-          <ExitIcon />
-        </NavigationButton>
-      </Flex>
-      <Flex className={styles.formBox} direction="column" gap="3">
-        <Text>Hi, {player.displayName}! Pick game to create</Text>
-        <Flex direction="column" gap="2">
-          <Flex>
-            <Text color="gray" size="2">
-              Game type
-            </Text>
+    <ScrollArea>
+      <Flex className={styles.formBoxContainer} direction="column" p="2">
+        <Flex className={styles.goHome}>
+          <NavigationButton href="/" variant="outline">
+            <ExitIcon />
+          </NavigationButton>
+        </Flex>
+        <Flex className={styles.formBox} direction="column" gap="3">
+          <Text>Hi, {player.displayName}! Pick game to create</Text>
+          <Flex direction="column" gap="2">
+            <Flex>
+              <Text color="gray" size="2">
+                Game type
+              </Text>
+            </Flex>
+            <SelectGame
+              onSelectGame={onSelectGame}
+              selectedGame={selectedGame}
+            />
           </Flex>
-          <SelectGame onSelectGame={onSelectGame} selectedGame={selectedGame} />
-        </Flex>
-        <Flex direction="column" gap="2" my="2">
-          <Flex>
-            <Text color="gray" size="2">
-              Game name
-            </Text>
+          <Flex direction="column" gap="2" my="2">
+            <Flex>
+              <Text color="gray" size="2">
+                Game name
+              </Text>
+            </Flex>
+            <TextField
+              onChange={setGameName}
+              placeholder="Set the name of your game here..."
+              value={gameName}
+            />
           </Flex>
-          <TextField
-            onChange={setGameName}
-            placeholder="Set the name of your game here..."
-            value={gameName}
-          />
-        </Flex>
-        <Flex justify="end">
-          <Button
-            disabled={gameName === "" || selectedGame === undefined}
-            loading={isLoading}
-            onClick={onCreateGame}
-          >
-            Create game
-          </Button>
+          <Flex justify="end">
+            <Button
+              disabled={gameName === "" || selectedGame === undefined}
+              loading={isLoading}
+              onClick={onCreateGame}
+            >
+              Create game
+            </Button>
+          </Flex>
         </Flex>
       </Flex>
-    </Flex>
+    </ScrollArea>
   );
 }
