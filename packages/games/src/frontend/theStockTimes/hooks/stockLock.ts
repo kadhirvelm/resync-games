@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { OwnedStock } from "../../../backend/theStockTimes/theStockTimes";
 import { selectPlayerPortfolio } from "../store/selectors";
 import { useStockTimesSelector } from "../store/theStockTimesRedux";
-import { isAvailable, IsAvailable } from "./utils/isAvailable";
+import {
+  isAvailableAgainstClock,
+  IsAvailable
+} from "../../../shared/theStockTimes/isAvailableAgainstClock";
 
 export function useStockLock(
   ownedStock: OwnedStock,
@@ -31,13 +34,13 @@ export function useStockLock(
     };
   }
 
-  const availableLockedUntil = isAvailable(
+  const availableLockedUntil = isAvailableAgainstClock(
     cycle,
     ownedStock.lockedUntil?.lockedAt,
     ownedStock.lockedUntil?.availabilityTime
   );
 
-  const availableStockLock = isAvailable(
+  const availableStockLock = isAvailableAgainstClock(
     cycle,
     maybeStockLock?.lockedAt,
     maybeStockLock?.availabilityTime

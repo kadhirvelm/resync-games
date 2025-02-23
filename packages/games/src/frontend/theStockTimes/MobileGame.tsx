@@ -1,11 +1,11 @@
 import { motion } from "motion/react";
 import { TheStockTimesGame } from "../../backend/theStockTimes/theStockTimes";
 import { Flex, Tabs } from "../components";
-import { AvailableStocks } from "./components/AvailableStocks";
 import { Clock } from "./components/cycle/Clock";
 import { PauseAndPlay } from "./components/cycle/PauseAndPlay";
 import { FinalScoreboard } from "./components/FinalScoreboard";
 import { PlayerPortfolio } from "./components/playerPortfolio/PlayerPortfolio";
+import { FocusedStock } from "./components/singleStock/FocusedStock";
 import styles from "./MobileGame.module.scss";
 import {
   updateTheStockTimesLocalState,
@@ -68,7 +68,7 @@ export const MobileGame = ({ gameState }: { gameState: TheStockTimesGame }) => {
               style={{ display: "flex", flex: "1", height: "100%" }}
             >
               <Flex flex="1" mt="2">
-                <AvailableStocks />
+                <FocusedStock />
               </Flex>
             </motion.div>
           </Tabs.Content>

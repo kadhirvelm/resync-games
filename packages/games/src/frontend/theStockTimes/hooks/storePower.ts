@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { StockTimesPlayer } from "../../../backend/theStockTimes/theStockTimes";
 import { selectPlayerPortfolio } from "../store/selectors";
 import { useStockTimesSelector } from "../store/theStockTimesRedux";
-import { IsAvailable, isAvailable } from "./utils/isAvailable";
+import {
+  IsAvailable,
+  isAvailableAgainstClock
+} from "../../../shared/theStockTimes/isAvailableAgainstClock";
 
 export function useStorePower(
   storePower: keyof StockTimesPlayer["storePowers"]
@@ -37,7 +40,7 @@ export function useStorePower(
     };
   }
 
-  return isAvailable(
+  return isAvailableAgainstClock(
     cycle,
     accordingStorePower.usedAt,
     accordingStorePower.cooldownTime

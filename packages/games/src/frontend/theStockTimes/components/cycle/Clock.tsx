@@ -5,7 +5,7 @@ import { useCycleTime } from "../../hooks/cycleTime";
 import styles from "./Clock.module.scss";
 import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import { selectPlayerPortfolio } from "../../store/selectors";
-import { isAvailable } from "../../hooks/utils/isAvailable";
+import { isAvailableAgainstClock } from "../../../../shared/theStockTimes/isAvailableAgainstClock";
 import { motion } from "motion/react";
 
 const DEFAULT_SIZE = 75;
@@ -58,7 +58,7 @@ export const Clock = ({
   const finalSize = size ?? DEFAULT_SIZE;
 
   const { day, timeFraction } = calculatedCycleTime;
-  const isLocked = !isAvailable(
+  const isLocked = !isAvailableAgainstClock(
     cycle,
     lockCashSpending?.lockedAt,
     lockCashSpending?.availabilityTime

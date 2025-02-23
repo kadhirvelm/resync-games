@@ -3,27 +3,20 @@ import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import { TimeSeries } from "../graph/TimeSeries";
 import { getRecentStockHistory } from "../../utils/getRecentHistory";
 import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { Stock } from "../../../../backend/theStockTimes/theStockTimes";
 
-export const PriceGraph = ({
-  viewingStockSymbol
-}: {
-  viewingStockSymbol: string;
-}) => {
+export const PriceGraph = ({ stock }: { stock: Stock }) => {
   const cycle = useStockTimesSelector((s) => s.gameStateSlice.gameState?.cycle);
-  const stocks = useStockTimesSelector(
-    (s) => s.gameStateSlice.gameState?.stocks
-  );
-  const thisStock = stocks?.[viewingStockSymbol];
 
   const { x, y } = useMemo(() => {
-    if (thisStock === undefined) {
+    if (stock === undefined) {
       return { x: [], y: [] };
     }
 
-    return getRecentStockHistory(thisStock.history);
-  }, [thisStock]);
+    return getRecentStockHistory(stock.history);
+  }, [stock]);
 
-  if (thisStock === undefined) {
+  if (stock === undefined) {
     return;
   }
 

@@ -130,17 +130,42 @@ export const selectTotalTeamValue = createSelector(
   }
 );
 
-export const selectArticles = createSelector(
+const selectFocusedStock = createSelector(
   [
+    (state: TheStockTimesReduxState) =>
+      state.gameStateSlice.gameState?.stockInFocus.stockOrder[
+        state.gameStateSlice.gameState.stockInFocus.symbolIndex
+      ]
+  ],
+  (focusedStock) => focusedStock
+);
+
+export const selectFocusedStockData = createSelector(
+  [
+    selectFocusedStock,
+    (state: TheStockTimesReduxState) => state.gameStateSlice.gameState?.stocks
+  ],
+  (focusedStock, stocks) => {
+    if (focusedStock === undefined) {
+      return;
+    }
+
+    return { stock: stocks?.[focusedStock], symbol: focusedStock };
+  }
+);
+
+export const selectFocusedStockArticle = createSelector(
+  [
+    selectFocusedStock,
     (state: TheStockTimesReduxState) =>
       state.gameStateSlice.gameState?.newsArticles.articles
   ],
-  (articlesByStock) => {
-    const articles = Object.values(articlesByStock ?? {});
-    return {
-      articles,
-      lastestAddedOn: articles[0]?.[0]?.addedOn
-    };
+  (focusedStock, articlesByStock) => {
+    if (focusedStock === undefined) {
+      return;
+    }
+
+    return (articlesByStock?.[focusedStock] ?? [])[0];
   }
 );
 
@@ -200,9 +225,13 @@ export const selectEndGameGraph = createSelector(
 
       for (const transaction of player.transactionHistory) {
         const amount = transaction.quantity * transaction.price;
-        const delta = transaction.type === "buy" ? -amount : amount;
+        if (transaction.type === "buy") {
+          continue;
+        }
+
+        // const delta = transaction.type === "buy" ? -amount : amount; -> see if this is a more interesting graph
         teams[player.team]![transaction.clockTime] =
-          (teams[player.team]![transaction.clockTime] ?? 0) + delta;
+          (teams[player.team]![transaction.clockTime] ?? 0) + amount;
       }
 
       const heldStockValue = Object.entries(player.ownedStocks ?? {}).reduce(

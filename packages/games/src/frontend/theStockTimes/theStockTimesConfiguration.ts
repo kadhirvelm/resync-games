@@ -11,6 +11,14 @@ export const TheStockTimesConfiguration: MapGameConfiguration<TheStockTimesGameC
       required: true,
       type: "number"
     },
+    stockCycleTime: {
+      default: 6,
+      label: "Stock cycle time (seconds)",
+      max: 12,
+      min: 3,
+      required: true,
+      type: "number"
+    },
     totalStocks: {
       default: 4,
       label: "Total stocks",

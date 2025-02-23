@@ -55,11 +55,6 @@ export const FinalScoreboard = () => {
       justify={isGlobalScreen ? "center" : undefined}
       px="5"
     >
-      {isGlobalScreen && (
-        <Flex justify="center" mb="5">
-          <Text size="9">Final scoreboard</Text>
-        </Flex>
-      )}
       {hasGameEnded && (
         <Confetti height={window.innerHeight} width={window.innerWidth} />
       )}
