@@ -8,6 +8,7 @@ import {
   CurentCyle,
   cycleTime
 } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { isAvailableAgainstClock } from "@resync-games/games-shared/theStockTimes/isAvailableAgainstClock";
 import _ from "lodash";
 import { ICanChangeToState, IGameServer } from "../base";
 import { AVAILABLE_STOCKS } from "./stocks/availableStocks";
@@ -42,6 +43,25 @@ export interface StockTimesCycle extends WithTimestamp {
 
 export interface StockPriceHistory extends WithTimestamp {
   price: number;
+}
+
+export interface StockInFocus extends WithTimestamp {
+  /**
+   * The current time on the clock when the stock was in focus.
+   */
+  focusedAt: number;
+  /**
+   * The time in milliseconds when the focus stock should be changed, after the focusedAt time.
+   */
+  nextFocusIn: number;
+  /**
+   * The order of the symbols.
+   */
+  stockOrder: string[];
+  /**
+   * The symbol of the stock in focus.
+   */
+  symbolIndex: number;
 }
 
 export interface Stock extends WithTimestamp {
@@ -222,6 +242,10 @@ export interface TheStockTimesGame {
     [playerId: PlayerId]: StockTimesPlayer;
   };
   /**
+   * The symbol of the stock that is available for purchase. This will be changed every 6 seconds.
+   */
+  stockInFocus: StockInFocus;
+  /**
    * The stocks in the game. This is set when the game starts, not when it's created.
    */
   stocks: {
@@ -231,6 +255,7 @@ export interface TheStockTimesGame {
 
 export interface TheStockTimesGameConfiguration {
   startingCash: number;
+  stockCycleTime: number;
   totalStocks: number;
 }
 
@@ -259,6 +284,13 @@ export class TheStockTimesServer
         },
         pendingPlayerActions: {},
         players: {},
+        stockInFocus: {
+          focusedAt: 0,
+          lastUpdatedAt: new Date().toISOString(),
+          nextFocusIn: 0,
+          stockOrder: [],
+          symbolIndex: 0
+        },
         stocks: {}
       },
       version: "1.0.0"
@@ -344,6 +376,15 @@ export class TheStockTimesServer
 
     newGameState.cycle.startTime = new Date().toISOString();
 
+    const stockFocusCycleTime = game.gameConfiguration.stockCycleTime * 1_000;
+    newGameState.stockInFocus.nextFocusIn = stockFocusCycleTime;
+    newGameState.stockInFocus.stockOrder = Object.keys(newGameState.stocks);
+
+    newGameState.cycle.nightTime =
+      stockFocusCycleTime * game.gameConfiguration.totalStocks;
+    newGameState.cycle.dayTime =
+      stockFocusCycleTime * game.gameConfiguration.totalStocks * 3;
+
     return newGameState;
   }
 
@@ -358,7 +399,8 @@ export class TheStockTimesServer
     }
 
     const newGameState = { ...gameStateAndInfo.gameState };
-    const { day, currentCycle } = cycleTime(newGameState.cycle);
+    const cycle = cycleTime(newGameState.cycle);
+    const { day, currentCycle, currentTime } = cycle;
 
     newGameState.stocks = this.tickStockPrices(
       gameStateAndInfo.gameState.stocks,
@@ -368,6 +410,12 @@ export class TheStockTimesServer
     newGameState.newsArticles = this.tickNewsArticles(
       gameStateAndInfo.gameState.newsArticles,
       day
+    );
+
+    // Check if the time has elapsed for the focused stock to change
+    newGameState.stockInFocus = this.maybeTickStockInFocus(
+      newGameState,
+      currentTime
     );
 
     return {
@@ -507,5 +555,27 @@ export class TheStockTimesServer
       percentOfLastPrice: 0.025,
       probabilityOfIncrease: 0.6
     };
+  }
+
+  private maybeTickStockInFocus(
+    newGameState: TheStockTimesGame,
+    currentTime: number
+  ): StockInFocus {
+    const { isAvailable: shouldSwitchStock } = isAvailableAgainstClock(
+      newGameState.cycle,
+      newGameState.stockInFocus.focusedAt,
+      newGameState.stockInFocus.nextFocusIn
+    );
+    if (!shouldSwitchStock) {
+      return newGameState.stockInFocus;
+    }
+
+    const newStockInFocus = { ...newGameState.stockInFocus };
+    newStockInFocus.focusedAt = currentTime;
+    newStockInFocus.symbolIndex =
+      (newStockInFocus.symbolIndex + 1) % newStockInFocus.stockOrder.length;
+    newStockInFocus.lastUpdatedAt = new Date().toISOString();
+
+    return newStockInFocus;
   }
 }

@@ -1,18 +1,12 @@
+import { motion } from "motion/react";
 import { Flex, Text } from "../../../components";
 import { selectPlayerPortfolio } from "../../store/selectors";
-import {
-  updateTheStockTimesLocalState,
-  useStockTimesGameStateDispatch,
-  useStockTimesSelector
-} from "../../store/theStockTimesRedux";
+import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import { displayDollar } from "../../utils/displayDollar";
 import styles from "./PlayerStocks.module.scss";
 import { SellPlayerStock } from "./SellPlayerStock";
-import { motion } from "motion/react";
 
 export const PlayerStocks = () => {
-  const dispatch = useStockTimesGameStateDispatch();
-
   const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
   const stocks = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.stocks
@@ -25,12 +19,6 @@ export const PlayerStocks = () => {
   const playerStocksSorted = Object.keys(playerPortfolio.ownedStocks)
     .slice()
     .sort();
-
-  const setViewingStockSymbol = (stockSymbol: string) => () => {
-    dispatch(
-      updateTheStockTimesLocalState({ viewingStockSymbol: stockSymbol })
-    );
-  };
 
   return (
     <Flex direction="column" gap="3">
@@ -57,12 +45,7 @@ export const PlayerStocks = () => {
 
         return (
           <Flex direction="column" key={symbol}>
-            <Flex
-              align="center"
-              className={styles.stockSymbol}
-              gap="3"
-              onClick={setViewingStockSymbol(symbol)}
-            >
+            <Flex align="center" className={styles.stockSymbol} gap="3">
               <Text>{symbol}</Text>
               <Flex className={styles.divider} flex="1" />
               <Text color="green">{displayDollar(totalPrice)}</Text>

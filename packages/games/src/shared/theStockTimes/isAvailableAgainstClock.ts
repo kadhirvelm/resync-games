@@ -1,12 +1,12 @@
 import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
-import { StockTimesCycle } from "../../../../backend/theStockTimes/theStockTimes";
+import { StockTimesCycle } from "../../backend/theStockTimes/theStockTimes";
 
 export interface IsAvailable {
   isAvailable: boolean;
   timeLeft: number;
 }
 
-export function isAvailable(
+export function isAvailableAgainstClock(
   cycle: StockTimesCycle,
   usedAt: number | undefined,
   availableTime: number | undefined
