@@ -137,6 +137,7 @@ class PongGameScene extends BaseScene {
         x: this.ball.x,
         y: this.ball.y
       },
+      lastUpdatedAt: new Date().toISOString(),
       paddle: {
         x: this.paddle.x,
         y: this.paddle.y

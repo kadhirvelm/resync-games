@@ -41,15 +41,15 @@ function topLevel(
 
 function closest(
   previousState: NestedTimestamp,
-  nextState: NestedTimestamp
+  nextState: NestedTimestamp,
+  fallback: NestedTimestamp
 ): ReconciledState {
   let didAcceptChange = false;
-  const reconciledState = { ...previousState };
+  const reconciledState = fallback;
 
   for (const key in nextState) {
-    // At this key, we check if the lastUpdatedAt timestamp is newer in the nextState
     const comparedDates = compareDates(
-      reconciledState[key]?.lastUpdatedAt,
+      previousState[key]?.lastUpdatedAt,
       nextState[key]?.lastUpdatedAt
     );
 
@@ -62,6 +62,7 @@ function closest(
 
     // If the previousState has a newer timestamp, we maintain that change and move to the next key
     if (comparedDates === 1) {
+      reconciledState[key] = previousState[key];
       continue;
     }
 
@@ -75,8 +76,9 @@ function closest(
 
     // We recursively check the nested object starting at this key
     const { didAcceptChange: reconciledDidAccept, newState } = closest(
-      reconciledState[key] as unknown as NestedTimestamp,
-      nextState[key] as unknown as NestedTimestamp
+      previousState[key] as unknown as NestedTimestamp,
+      nextState[key] as unknown as NestedTimestamp,
+      fallback[key] as unknown as NestedTimestamp
     );
 
     // And reconcile the recursive results with the current results
@@ -101,8 +103,18 @@ export function reconcileStates(
     return topLevel(previousState as WithTimestamp, nextState as WithTimestamp);
   }
 
-  return closest(
-    previousState as NestedTimestamp,
-    nextState as NestedTimestamp
+  const { didAcceptChange, newState: fallbackState } = topLevel(
+    previousState as WithTimestamp,
+    nextState as WithTimestamp
   );
+  const { didAcceptChange: closestChange, newState: closestState } = closest(
+    previousState as NestedTimestamp,
+    nextState as NestedTimestamp,
+    fallbackState as NestedTimestamp
+  );
+
+  return {
+    didAcceptChange: didAcceptChange || closestChange,
+    newState: closestState
+  };
 }

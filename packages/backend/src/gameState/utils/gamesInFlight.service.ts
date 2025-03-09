@@ -301,8 +301,7 @@ export class GamesInFlightService {
 
     const newGameState: GameStateAndInfo = {
       ...currentGameState,
-      gameState,
-      lastUpdatedAt: new Date().toISOString()
+      gameState
     };
 
     this.gamesInFlightCache.set(newGameState.gameId, newGameState);

@@ -1,7 +1,7 @@
-import { CreateGame } from "@resync-games/api";
+import { CreateGame, WithTimestamp } from "@resync-games/api";
 import { IGameServer } from "../base";
 
-export interface PongGameState {
+export interface PongGameState extends WithTimestamp {
   ball: {
     velocityX: number;
     velocityY: number;
@@ -31,6 +31,7 @@ export class PongGameServer
           x: 390,
           y: 290
         },
+        lastUpdatedAt: new Date().toISOString(),
         paddle: {
           x: 350,
           y: 550
