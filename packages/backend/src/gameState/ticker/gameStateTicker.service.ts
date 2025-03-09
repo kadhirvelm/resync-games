@@ -19,65 +19,77 @@ export class GameStateTicker {
 
   @Cron(EVERY_3_SECONDS)
   public async tick() {
-    const gamesInFlight = await this.prismaService.client.gameState.findMany({
-      include: {
-        PlayersInGame: {
-          include: {
-            player: true
+    this.logger.log(`Ticking on ${new Date().toLocaleString()}`);
+
+    try {
+      const gamesInFlight = await this.prismaService.client.gameState.findMany({
+        include: {
+          PlayersInGame: {
+            include: {
+              player: true
+            }
           }
+        },
+        where: {
+          currentGameState: "playing"
         }
-      },
-      where: {
-        currentGameState: "playing"
+      });
+
+      if (gamesInFlight.length === 0) {
+        this.logger.log(
+          `Ticking on ${new Date().toLocaleString()}. No games active, skipping.`
+        );
+        return;
       }
-    });
 
-    if (gamesInFlight.length === 0) {
       this.logger.log(
-        `Ticking on ${new Date().toLocaleString()}. No games active, skipping.`
+        `Ticking on ${new Date().toLocaleString()} for ${gamesInFlight.length} games`
       );
-      return;
-    }
-
-    this.logger.log(
-      `Ticking on ${new Date().toLocaleString()} for ${gamesInFlight.length} games`
-    );
-    for (const game of gamesInFlight) {
-      this.tickGame(
-        this.prismaService.converterService.convertGameState(
-          game,
-          game.PlayersInGame.map((p) => p.player),
-          game.PlayersInGame
-        )
-      );
+      for (const game of gamesInFlight) {
+        this.tickGame(
+          this.prismaService.converterService.convertGameState(
+            game,
+            game.PlayersInGame.map((p) => p.player),
+            game.PlayersInGame
+          )
+        );
+      }
+    } catch (error) {
+      this.logger.error(`Error ticking: ${JSON.stringify(error)}`);
     }
   }
 
   private tickGame = async (game: GameStateAndInfo) => {
-    const backend = this.gameRegistryService.getGameRegistry(game.gameType);
-    const maybeNewGameState = await backend?.tickGameState?.(game);
-    if (maybeNewGameState === undefined) {
-      return;
-    }
+    try {
+      const backend = this.gameRegistryService.getGameRegistry(game.gameType);
+      const maybeNewGameState = await backend?.tickGameState?.(game);
+      if (maybeNewGameState === undefined) {
+        return;
+      }
 
-    const { gameState, hasFinished } = maybeNewGameState;
+      const { gameState, hasFinished } = maybeNewGameState;
 
-    if (gameState !== undefined) {
-      await this.gameStateService.updateGame({
-        gameId: game.gameId,
-        lastUpdatedAt: new Date().toISOString(),
-        newGameState: gameState,
-        version: game.version
-      });
-    }
+      if (gameState !== undefined) {
+        await this.gameStateService.updateGame({
+          gameId: game.gameId,
+          lastUpdatedAt: new Date().toISOString(),
+          newGameState: gameState,
+          version: game.version
+        });
+      }
 
-    if (hasFinished) {
-      await this.gameStateService.changeGameState({
-        currentGameState: "finished",
-        gameId: game.gameId,
-        gameType: game.gameType,
-        playerId: "GAME_TICKER" as PlayerId
-      });
+      if (hasFinished) {
+        await this.gameStateService.changeGameState({
+          currentGameState: "finished",
+          gameId: game.gameId,
+          gameType: game.gameType,
+          playerId: "GAME_TICKER" as PlayerId
+        });
+      }
+    } catch (error) {
+      this.logger.error(
+        `Error ticking game: ${JSON.stringify(error)} on ${JSON.stringify(game)}`
+      );
     }
   };
 }
