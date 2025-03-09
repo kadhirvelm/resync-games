@@ -33,6 +33,9 @@ describe("reconcileStates", () => {
       someKeyB: {
         lastUpdatedAt: new Date("01/01/1992").toISOString(),
         valueB: "test-two"
+      },
+      someKeyC: {
+        valueC: "test-two"
       }
     };
     const nextState = {
@@ -44,6 +47,10 @@ describe("reconcileStates", () => {
       someKeyB: {
         lastUpdatedAt: new Date("01/01/1993").toISOString(),
         valueB: "test-three"
+      },
+      someKeyC: {
+        lastUpdatedAt: new Date("01/01/1993").toISOString(),
+        valueC: "test-three"
       }
     };
 
@@ -56,7 +63,7 @@ describe("reconcileStates", () => {
     expect(reconciledState).toEqual({
       didAcceptChange: true,
       newState: {
-        lastUpdatedAt: new Date("01/01/1990").toISOString(),
+        lastUpdatedAt: new Date("01/01/1991").toISOString(),
         someKeyA: {
           lastUpdatedAt: new Date("01/01/1992").toISOString(),
           valueA: "test-two"
@@ -64,6 +71,10 @@ describe("reconcileStates", () => {
         someKeyB: {
           lastUpdatedAt: new Date("01/01/1993").toISOString(),
           valueB: "test-three"
+        },
+        someKeyC: {
+          lastUpdatedAt: new Date("01/01/1993").toISOString(),
+          valueC: "test-three"
         }
       }
     });
@@ -75,6 +86,9 @@ describe("reconcileStates", () => {
       pawns: {
         pawnOne: {
           lastUpdatedAt: new Date("01/01/1992").toISOString(),
+          onTile: "tile-two"
+        },
+        pawnThree: {
           onTile: "tile-two"
         },
         pawnTwo: {
@@ -89,6 +103,9 @@ describe("reconcileStates", () => {
         pawnOne: {
           lastUpdatedAt: new Date("01/01/1991").toISOString(),
           onTile: "tile-one"
+        },
+        pawnThree: {
+          onTile: "tile-three"
         },
         pawnTwo: {
           lastUpdatedAt: new Date("01/01/1993").toISOString(),
@@ -106,11 +123,14 @@ describe("reconcileStates", () => {
     expect(reconciledState).toEqual({
       didAcceptChange: true,
       newState: {
-        lastUpdatedAt: new Date("01/01/1992").toISOString(),
+        lastUpdatedAt: new Date("01/01/1993").toISOString(),
         pawns: {
           pawnOne: {
             lastUpdatedAt: new Date("01/01/1992").toISOString(),
             onTile: "tile-two"
+          },
+          pawnThree: {
+            onTile: "tile-three"
           },
           pawnTwo: {
             lastUpdatedAt: new Date("01/01/1993").toISOString(),
@@ -121,7 +141,7 @@ describe("reconcileStates", () => {
     });
   });
 
-  it("closest more complex test", () => {
+  it("closest more complex test 2", () => {
     const previousState = {
       lastUpdatedAt: new Date("01/01/1992").toISOString(),
       pawns: {
@@ -218,6 +238,38 @@ describe("reconcileStates", () => {
           }
         }
       }
+    });
+  });
+
+  it("basic pong state not working", () => {
+    const previousState = {
+      ball: { velocityX: 150, velocityY: -150, x: 390, y: 290 },
+      lastUpdatedAt: "2025-03-09T21:08:05.746Z",
+      paddle: { x: 350, y: 550 },
+      score: 0
+    };
+
+    const nextState = {
+      ball: {
+        velocityX: 42,
+        velocityY: 150,
+        x: 580.1760000000072,
+        y: 388.39999999999907
+      },
+      lastUpdatedAt: "2025-03-09T21:13:39.101Z",
+      paddle: { x: 350, y: 550 },
+      score: 1
+    };
+
+    const reconciledState = reconcileStates(
+      previousState,
+      nextState,
+      "closest"
+    );
+
+    expect(reconciledState).toEqual({
+      didAcceptChange: true,
+      newState: nextState
     });
   });
 });
