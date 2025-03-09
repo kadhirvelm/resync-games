@@ -38,7 +38,8 @@ export interface BackendRegisteredGame {
 
 export const BACKEND_GAME_REGISTRY: BackendGameRegistry = {
   pong: {
-    gameServer: new PongGameServer()
+    gameServer: new PongGameServer(),
+    stateReconcilerMethod: "closest"
   },
   "snatch-the-snack": {
     gameServer: new SnatchTheSnackServer(),
