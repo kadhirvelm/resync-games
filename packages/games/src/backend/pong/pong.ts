@@ -8,11 +8,16 @@ export interface PongGameState extends WithTimestamp {
     x: number;
     y: number;
   };
-  paddle: {
+  leftPaddle: {
     x: number;
     y: number;
   };
-  score: number;
+  leftScore: number;
+  rightPaddle: {
+    x: number;
+    y: number;
+  };
+  rightScore: number;
 }
 
 export interface PongGameConfiguration {}
@@ -32,11 +37,16 @@ export class PongGameServer
           y: 290
         },
         lastUpdatedAt: new Date().toISOString(),
-        paddle: {
-          x: 350,
-          y: 550
+        leftPaddle: {
+          x: 50,
+          y: 400
         },
-        score: 0
+        leftScore: 0,
+        rightPaddle: {
+          x: 730,
+          y: 400
+        },
+        rightScore: 0
       },
       version: createGameRequest.version
     };
