@@ -10,6 +10,7 @@
   },
   "scripts": {
     "ci": "turbo run ci",
+    "dev": "turbo run dev --filter=@resync-games/${0}",
     "docker": "open /Applications/Docker.app && docker-compose -p resync-games -f docker-compose.yml up -d"
   },
   "monorepo": true,
