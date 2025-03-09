@@ -26,8 +26,8 @@ services:
     tty: true
     stop_grace_period: 1s
     environment:
-      - DATABASE_HOST_URL=postgresql://postgres:${POSTGRES_PASSWORD}@${LOCAL_HOST}:5432/resync-games?schema=public
-      - GAME_STATE_DATABASE_HOST_URL=postgresql://postgres:${POSTGRES_PASSWORD}@${LOCAL_HOST}:5432/game-state?schema=public
+      - GAME_STATE_DATABASE_HOST_URL=${GAME_STATE_DATABASE_HOST_URL}
+      - GAME_STATE_DIRECT_URL=${GAME_STATE_DIRECT_URL}
     command: tail -f /dev/null
   dependencies:
     container_name: dependencies
@@ -46,8 +46,8 @@ services:
     working_dir: /home/resync-games/packages/backend
     environment:
       - PORT=8080
-      - DATABASE_HOST_URL=postgresql://postgres:${POSTGRES_PASSWORD}@${LOCAL_HOST}:5432/resync-games?schema=public
-      - GAME_STATE_DATABASE_HOST_URL=postgresql://postgres:${POSTGRES_PASSWORD}@${LOCAL_HOST}:5432/game-state?schema=public
+      - GAME_STATE_DATABASE_HOST_URL=${GAME_STATE_DATABASE_HOST_URL}
+      - GAME_STATE_DIRECT_URL=${GAME_STATE_DIRECT_URL}
     command: bash -c "corepack enable && yarn && cd ../../ && yarn migrate && yarn dev backend"
   frontend:
     container_name: frontend

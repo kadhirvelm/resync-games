@@ -53,6 +53,12 @@ export default [
     }
   },
   {
-    ignores: ["**/dist/**", "**/.next/**", "**/.turbo/**", "**/next.config.js"]
+    ignores: [
+      "**/dist/**",
+      "**/.next/**",
+      "**/.turbo/**",
+      "**/next.config.js",
+      "**/ecosystem.config.js"
+    ]
   }
 ];

@@ -1,4 +1,4 @@
-import { Post } from "@nestjs/common";
+import { Get, Post } from "@nestjs/common";
 import { RemoveExtendsString, Service } from "@resync-games/api";
 
 /**
@@ -15,5 +15,9 @@ export type ServiceControllerInterface<S extends Service> = {
  * change that in the future if needed.
  */
 export function getDecorator(endpoint: string) {
+  if (endpoint === "ready") {
+    return Get(endpoint);
+  }
+
   return Post(endpoint);
 }

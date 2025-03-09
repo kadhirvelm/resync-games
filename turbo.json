@@ -23,7 +23,7 @@
       ]
     },
     "db:migrate": {
-      "env": ["DATABASE_HOST_URL", "GAME_STATE_DATABASE_HOST_URL"]
+      "env": ["GAME_STATE_DATABASE_HOST_URL", "GAME_STATE_DIRECT_URL"]
     }
   }
 }
