@@ -18,3 +18,4 @@ dist/
 .env.prod
 
 node_modules/
+.vercel
