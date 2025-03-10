@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: http://54.80.108.128:3000/
     steps:
       - uses: actions/checkout@v2 
       - name: Deploy
