@@ -4,6 +4,7 @@ import { ResyncGamesConverterService } from "./resyncGamesPrismaConverter.servic
 import ws from "ws";
 import { Pool, neonConfig } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
+import { ConfigurationService } from "@/configuration/configuration.service";
 
 neonConfig.webSocketConstructor = ws;
 
@@ -13,14 +14,16 @@ export class ResyncGamesPrismaService {
 
   public client: PrismaClient;
 
-  constructor(public converterService: ResyncGamesConverterService) {
-    this.logger.log(
-      `Creating prisma client - ${process.env.NODE_ENV} - ${process.env.GAME_STATE_DATABASE_HOST_URL}`
-    );
+  constructor(
+    public converterService: ResyncGamesConverterService,
+    private configService: ConfigurationService
+  ) {
+    const environment = this.configService.get("NODE_ENV");
+    this.logger.log(`Creating prisma client - ${environment}`);
 
-    if (process.env.NODE_ENV === "production") {
+    if (environment === "production") {
       const pool = new Pool({
-        connectionString: process.env.GAME_STATE_DATABASE_HOST_URL
+        connectionString: this.configService.get("GAME_STATE_DATABASE_HOST_URL")
       });
       const adapter = new PrismaNeon(pool);
 

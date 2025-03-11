@@ -19,10 +19,13 @@ import {
 import { reconcileStates } from "./reconcileStates";
 import { UserService } from "@/user/user.service";
 import { GameRegistryService } from "./gameRegistry.service";
+import { LRUCache } from "lru-cache";
 
 @Injectable()
 export class GamesInFlightService {
-  private gamesInFlightCache: Map<GameId, GameStateAndInfo> = new Map();
+  private gamesInFlightCache = new LRUCache<GameId, GameStateAndInfo>({
+    max: 50
+  });
 
   public constructor(
     private prismaService: ResyncGamesPrismaService,

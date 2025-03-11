@@ -45,7 +45,7 @@ services:
       - ./:/home/resync-games:rw
     working_dir: /home/resync-games/packages/backend
     environment:
-      - PORT=8080
+      - GAME_ORCHESTRATOR=true
       - GAME_STATE_DATABASE_HOST_URL=${GAME_STATE_DATABASE_HOST_URL}
       - GAME_STATE_DIRECT_URL=${GAME_STATE_DIRECT_URL}
     command: bash -c "corepack enable && yarn && cd ../../ && yarn db:migrate && yarn dev backend"
