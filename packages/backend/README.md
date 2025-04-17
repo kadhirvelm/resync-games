@@ -1,5 +1,6 @@
 # Backend
-TBD
+
+The NestJS backend. It needs socket.io for all the realtime state updating, requiring a dedicated set of instances to run (or at least that's how we've figured out how to run it so far).
 
 # Scaling
 In order to get this to properly scale, we need an nginx config (or some balancer equivalent) that can route clients back to the same instance so our in memory cache of the state can be relevant + the websockets can send the update out.

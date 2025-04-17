@@ -1,5 +1,7 @@
 # Database
 
+The prisma client for Postgres.
+
 ## Migrating
 
 1. Make changes to the prisma file

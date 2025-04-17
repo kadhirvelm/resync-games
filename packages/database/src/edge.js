@@ -163,7 +163,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/resync-games/packages/database/src",
+      "value": "/Users/kadhir/Desktop/Projects/resync-games/packages/database/src",
       "fromEnvVar": null
     },
     "config": {
@@ -182,7 +182,7 @@ const config = {
     "previewFeatures": [
       "driverAdapters"
     ],
-    "sourceFilePath": "/home/resync-games/packages/database/prisma/schema.prisma",
+    "sourceFilePath": "/Users/kadhir/Desktop/Projects/resync-games/packages/database/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

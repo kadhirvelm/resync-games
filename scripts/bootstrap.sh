@@ -8,7 +8,7 @@ nvm alias default stable
 echo "@@@ Using node version: $(node -v) @@@"
 
 corepack enable
-yarn set version 4.3.1
+yarn set version 4.7.0
 yarn install
 
 echo "@@@ All set @@@"
