@@ -2,6 +2,9 @@
     "extends": ["//"],
     "tasks": {
         "build": {
+            "outputs": [
+                "dist/**"
+            ],
             "env": [
                 "GAME_ORCHESTRATOR",
                 "GAME_STATE_DATABASE_HOST_URL",
