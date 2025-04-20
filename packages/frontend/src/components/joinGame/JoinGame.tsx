@@ -31,14 +31,11 @@ export function JoinGame() {
 
   return (
     <Flex direction="column">
-      <Text color="gray" mb="1" size="2">
-        Invite code
-      </Text>
       <Flex gap="2">
         <TextField
           maxLength={5}
           onChange={setInviteCode}
-          placeholder="Enter code..."
+          placeholder="Invite code..."
           size="3"
           value={inviteCode}
         />

@@ -19,8 +19,6 @@ export class GameStateTicker {
 
   @Cron(EVERY_3_SECONDS)
   public async tick() {
-    this.logger.log(`Ticking on ${new Date().toLocaleString()}`);
-
     try {
       const gamesInFlight = await this.prismaService.client.gameState.findMany({
         include: {
@@ -36,9 +34,6 @@ export class GameStateTicker {
       });
 
       if (gamesInFlight.length === 0) {
-        this.logger.log(
-          `Ticking on ${new Date().toLocaleString()}. No games active, skipping.`
-        );
         return;
       }
 
