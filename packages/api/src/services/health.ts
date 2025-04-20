@@ -3,7 +3,7 @@ import { Service, ServiceDefinition } from "../genericTypes/service";
 export interface HealthServiceApi extends Service {
   ready: {
     payload: Record<string, never>;
-    response: { status: "ok" };
+    response: { status: string };
   };
 }
 
