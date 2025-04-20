@@ -1,5 +1,11 @@
 @use "@/styles/variables.scss" as vars;
 
+.inviteCode {
+    border-radius: 5px;
+    background: vars.$white;
+    border: 1px solid vars.$black;
+}
+
 .players {
     border-radius: 5px;
     background: vars.$white;

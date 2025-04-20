@@ -8,6 +8,7 @@ import { GlobalScreenController } from "./globalScreen.controller";
 import { GameRegistryService } from "./utils/gameRegistry.service";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
 import { GlobalScreenService } from "./utils/globalScreen.service";
+import { InviteCodeService } from "./utils/inviteCode.service";
 
 @Module({
   controllers: [GameStateController, GlobalScreenController],
@@ -18,7 +19,8 @@ import { GlobalScreenService } from "./utils/globalScreen.service";
     GameStateSocketGateway,
     GamesInFlightService,
     GameRegistryService,
-    GlobalScreenService
+    GlobalScreenService,
+    InviteCodeService
   ]
 })
 export class GameStateModule {}

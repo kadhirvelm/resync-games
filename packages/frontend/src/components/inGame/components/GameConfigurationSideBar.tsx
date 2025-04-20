@@ -1,19 +1,18 @@
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import { Flex } from "@/lib/radix";
 import { useGameStateSelector } from "@/redux";
-import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import { Text } from "@radix-ui/themes";
+import {
+  GAME_REGISTRY,
+  GAME_SLUGS
+} from "@resync-games/games-shared/gamesRegistry";
 import copy from "copy-to-clipboard";
-import { ClipboardCopyIcon } from "@radix-ui/react-icons";
+import { CopyIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { ConfigureGame } from "./ConfigureGame";
 import styles from "./GameConfigurationSideBar.module.scss";
 import { TutorialScreen } from "./TutorialScreen";
-import {
-  GAME_REGISTRY,
-  GAME_SLUGS
-} from "@resync-games/games-shared/gamesRegistry";
 
 export const GameConfigurationSideBar = () => {
   const { isMobile } = useMediaQuery();
@@ -32,44 +31,32 @@ export const GameConfigurationSideBar = () => {
 
     const { gameName } = gameInfo;
 
-    const copyGameLink = () => copy(window.location.href);
-    const openGlobalScreen = () =>
-      window.open(`${window.location.href}/global`, "_blank");
+    const copyGlobalScreen = () => copy(`${window.location.href}/global`);
 
     const gameSlug = gameInfo.gameType as (typeof GAME_SLUGS)[number];
 
     return (
-      <Flex direction="column" gap="3">
-        <Flex align="center">
+      <Flex direction="column" gap="1">
+        <Flex direction="column">
           <Text size="8" weight="bold">
             {gameName}
           </Text>
-        </Flex>
-        <Flex>{GAME_REGISTRY[gameSlug]?.name}</Flex>
-        <Flex
-          align="center"
-          className={styles.inviteLink}
-          gap="3"
-          onClick={copyGameLink}
-        >
-          <Text>Invite link</Text>
-          <ClipboardCopyIcon />
+          <Flex align="center" gap="2">
+            <Text size="5" weight="bold">
+              {gameInfo.inviteCode.toUpperCase()}
+            </Text>
+          </Flex>
         </Flex>
         <Flex
           align="center"
           className={styles.inviteLink}
           gap="3"
-          onClick={openGlobalScreen}
+          onClick={copyGlobalScreen}
         >
-          <Text
-            onClick={() =>
-              window.open(`${window.location.href}/global`, "_blank")
-            }
-          >
-            Global screen
-          </Text>
-          <OpenInNewWindowIcon />
+          <Text>Global screen</Text>
+          <CopyIcon size={16} />
         </Flex>
+        <Flex mt="2">{GAME_REGISTRY[gameSlug]?.name}</Flex>
       </Flex>
     );
   };
@@ -84,10 +71,10 @@ export const GameConfigurationSideBar = () => {
         animate={{ opacity: 1, x: 0 }}
         initial={{ opacity: 0, x: -100 }}
       >
-        <Flex direction="column" flex="1" gap="4" mt="7" p="3">
+        <Flex direction="column" flex="1" gap="1" mt="7" p="3">
           {renderRoomName()}
           <TutorialScreen key={gameInfo?.gameId + "tutorial"} />
-          <Flex direction="column" gap="4">
+          <Flex direction="column" gap="1" mt="4">
             <Text color="gray" size="2">
               Game configuration
             </Text>

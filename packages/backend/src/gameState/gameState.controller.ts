@@ -5,7 +5,7 @@ import {
   GameStateApi,
   GameStateServiceDefinition,
   GetGameState,
-  JoinGame,
+  JoinGameWithCode,
   LeaveGame,
   UpdateGame,
   UpdateGameConfiguration,
@@ -33,19 +33,14 @@ export class GameStateController
     return this.gameStateService.createGame(request);
   }
 
-  @getDecorator(GameStateServiceDefinition.endpoints.getAvailableGames)
-  public async getAvailableGames() {
-    return this.gameStateService.getAvailableGames();
-  }
-
   @getDecorator(GameStateServiceDefinition.endpoints.getGameState)
   public async getGameState(@Body() request: GetGameState) {
     return this.gameStateService.getGameState(request);
   }
 
   @getDecorator(GameStateServiceDefinition.endpoints.joinGame)
-  public async joinGame(@Body() request: JoinGame) {
-    return this.gameStateService.joinGame(request);
+  public async joinGame(@Body() request: JoinGameWithCode) {
+    return this.gameStateService.joinGameWithCode(request);
   }
 
   @getDecorator(GameStateServiceDefinition.endpoints.leaveGame)

@@ -125,7 +125,8 @@ exports.Prisma.GameStateScalarFieldEnum = {
   gameType: 'gameType',
   gameName: 'gameName',
   version: 'version',
-  lastUpdatedAt: 'lastUpdatedAt'
+  lastUpdatedAt: 'lastUpdatedAt',
+  inviteCode: 'inviteCode'
 };
 
 exports.Prisma.PlayersInGameScalarFieldEnum = {

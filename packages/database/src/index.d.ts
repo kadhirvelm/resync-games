@@ -1160,6 +1160,7 @@ export namespace Prisma {
     gameName: string | null
     version: string | null
     lastUpdatedAt: Date | null
+    inviteCode: string | null
   }
 
   export type GameStateMaxAggregateOutputType = {
@@ -1169,6 +1170,7 @@ export namespace Prisma {
     gameName: string | null
     version: string | null
     lastUpdatedAt: Date | null
+    inviteCode: string | null
   }
 
   export type GameStateCountAggregateOutputType = {
@@ -1180,6 +1182,7 @@ export namespace Prisma {
     gameName: number
     version: number
     lastUpdatedAt: number
+    inviteCode: number
     _all: number
   }
 
@@ -1191,6 +1194,7 @@ export namespace Prisma {
     gameName?: true
     version?: true
     lastUpdatedAt?: true
+    inviteCode?: true
   }
 
   export type GameStateMaxAggregateInputType = {
@@ -1200,6 +1204,7 @@ export namespace Prisma {
     gameName?: true
     version?: true
     lastUpdatedAt?: true
+    inviteCode?: true
   }
 
   export type GameStateCountAggregateInputType = {
@@ -1211,6 +1216,7 @@ export namespace Prisma {
     gameName?: true
     version?: true
     lastUpdatedAt?: true
+    inviteCode?: true
     _all?: true
   }
 
@@ -1295,6 +1301,7 @@ export namespace Prisma {
     gameName: string
     version: string
     lastUpdatedAt: Date
+    inviteCode: string
     _count: GameStateCountAggregateOutputType | null
     _min: GameStateMinAggregateOutputType | null
     _max: GameStateMaxAggregateOutputType | null
@@ -1323,6 +1330,7 @@ export namespace Prisma {
     gameName?: boolean
     version?: boolean
     lastUpdatedAt?: boolean
+    inviteCode?: boolean
     PlayersInGame?: boolean | GameState$PlayersInGameArgs<ExtArgs>
     _count?: boolean | GameStateCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameState"]>
@@ -1336,6 +1344,7 @@ export namespace Prisma {
     gameName?: boolean
     version?: boolean
     lastUpdatedAt?: boolean
+    inviteCode?: boolean
   }, ExtArgs["result"]["gameState"]>
 
   export type GameStateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1347,6 +1356,7 @@ export namespace Prisma {
     gameName?: boolean
     version?: boolean
     lastUpdatedAt?: boolean
+    inviteCode?: boolean
   }, ExtArgs["result"]["gameState"]>
 
   export type GameStateSelectScalar = {
@@ -1358,9 +1368,10 @@ export namespace Prisma {
     gameName?: boolean
     version?: boolean
     lastUpdatedAt?: boolean
+    inviteCode?: boolean
   }
 
-  export type GameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"gameId" | "gameState" | "gameConfiguration" | "currentGameState" | "gameType" | "gameName" | "version" | "lastUpdatedAt", ExtArgs["result"]["gameState"]>
+  export type GameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"gameId" | "gameState" | "gameConfiguration" | "currentGameState" | "gameType" | "gameName" | "version" | "lastUpdatedAt" | "inviteCode", ExtArgs["result"]["gameState"]>
   export type GameStateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     PlayersInGame?: boolean | GameState$PlayersInGameArgs<ExtArgs>
     _count?: boolean | GameStateCountOutputTypeDefaultArgs<ExtArgs>
@@ -1382,6 +1393,7 @@ export namespace Prisma {
       gameName: string
       version: string
       lastUpdatedAt: Date
+      inviteCode: string
     }, ExtArgs["result"]["gameState"]>
     composites: {}
   }
@@ -1814,6 +1826,7 @@ export namespace Prisma {
     readonly gameName: FieldRef<"GameState", 'String'>
     readonly version: FieldRef<"GameState", 'String'>
     readonly lastUpdatedAt: FieldRef<"GameState", 'DateTime'>
+    readonly inviteCode: FieldRef<"GameState", 'String'>
   }
     
 
@@ -4384,7 +4397,8 @@ export namespace Prisma {
     gameType: 'gameType',
     gameName: 'gameName',
     version: 'version',
-    lastUpdatedAt: 'lastUpdatedAt'
+    lastUpdatedAt: 'lastUpdatedAt',
+    inviteCode: 'inviteCode'
   };
 
   export type GameStateScalarFieldEnum = (typeof GameStateScalarFieldEnum)[keyof typeof GameStateScalarFieldEnum]
@@ -4566,6 +4580,7 @@ export namespace Prisma {
     gameName?: StringFilter<"GameState"> | string
     version?: StringFilter<"GameState"> | string
     lastUpdatedAt?: DateTimeFilter<"GameState"> | Date | string
+    inviteCode?: StringFilter<"GameState"> | string
     PlayersInGame?: PlayersInGameListRelationFilter
   }
 
@@ -4578,6 +4593,7 @@ export namespace Prisma {
     gameName?: SortOrder
     version?: SortOrder
     lastUpdatedAt?: SortOrder
+    inviteCode?: SortOrder
     PlayersInGame?: PlayersInGameOrderByRelationAggregateInput
   }
 
@@ -4593,6 +4609,7 @@ export namespace Prisma {
     gameName?: StringFilter<"GameState"> | string
     version?: StringFilter<"GameState"> | string
     lastUpdatedAt?: DateTimeFilter<"GameState"> | Date | string
+    inviteCode?: StringFilter<"GameState"> | string
     PlayersInGame?: PlayersInGameListRelationFilter
   }, "gameId">
 
@@ -4605,6 +4622,7 @@ export namespace Prisma {
     gameName?: SortOrder
     version?: SortOrder
     lastUpdatedAt?: SortOrder
+    inviteCode?: SortOrder
     _count?: GameStateCountOrderByAggregateInput
     _max?: GameStateMaxOrderByAggregateInput
     _min?: GameStateMinOrderByAggregateInput
@@ -4622,6 +4640,7 @@ export namespace Prisma {
     gameName?: StringWithAggregatesFilter<"GameState"> | string
     version?: StringWithAggregatesFilter<"GameState"> | string
     lastUpdatedAt?: DateTimeWithAggregatesFilter<"GameState"> | Date | string
+    inviteCode?: StringWithAggregatesFilter<"GameState"> | string
   }
 
   export type PlayersInGameWhereInput = {
@@ -4729,6 +4748,7 @@ export namespace Prisma {
     gameName?: string
     version: string
     lastUpdatedAt?: Date | string
+    inviteCode?: string
     PlayersInGame?: PlayersInGameCreateNestedManyWithoutGameInput
   }
 
@@ -4741,6 +4761,7 @@ export namespace Prisma {
     gameName?: string
     version: string
     lastUpdatedAt?: Date | string
+    inviteCode?: string
     PlayersInGame?: PlayersInGameUncheckedCreateNestedManyWithoutGameInput
   }
 
@@ -4753,6 +4774,7 @@ export namespace Prisma {
     gameName?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inviteCode?: StringFieldUpdateOperationsInput | string
     PlayersInGame?: PlayersInGameUpdateManyWithoutGameNestedInput
   }
 
@@ -4765,6 +4787,7 @@ export namespace Prisma {
     gameName?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inviteCode?: StringFieldUpdateOperationsInput | string
     PlayersInGame?: PlayersInGameUncheckedUpdateManyWithoutGameNestedInput
   }
 
@@ -4777,6 +4800,7 @@ export namespace Prisma {
     gameName?: string
     version: string
     lastUpdatedAt?: Date | string
+    inviteCode?: string
   }
 
   export type GameStateUpdateManyMutationInput = {
@@ -4788,6 +4812,7 @@ export namespace Prisma {
     gameName?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inviteCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type GameStateUncheckedUpdateManyInput = {
@@ -4799,6 +4824,7 @@ export namespace Prisma {
     gameName?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inviteCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlayersInGameCreateInput = {
@@ -4962,6 +4988,7 @@ export namespace Prisma {
     gameName?: SortOrder
     version?: SortOrder
     lastUpdatedAt?: SortOrder
+    inviteCode?: SortOrder
   }
 
   export type GameStateMaxOrderByAggregateInput = {
@@ -4971,6 +4998,7 @@ export namespace Prisma {
     gameName?: SortOrder
     version?: SortOrder
     lastUpdatedAt?: SortOrder
+    inviteCode?: SortOrder
   }
 
   export type GameStateMinOrderByAggregateInput = {
@@ -4980,6 +5008,7 @@ export namespace Prisma {
     gameName?: SortOrder
     version?: SortOrder
     lastUpdatedAt?: SortOrder
+    inviteCode?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -5513,6 +5542,7 @@ export namespace Prisma {
     gameName?: string
     version: string
     lastUpdatedAt?: Date | string
+    inviteCode?: string
   }
 
   export type GameStateUncheckedCreateWithoutPlayersInGameInput = {
@@ -5524,6 +5554,7 @@ export namespace Prisma {
     gameName?: string
     version: string
     lastUpdatedAt?: Date | string
+    inviteCode?: string
   }
 
   export type GameStateCreateOrConnectWithoutPlayersInGameInput = {
@@ -5566,6 +5597,7 @@ export namespace Prisma {
     gameName?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inviteCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type GameStateUncheckedUpdateWithoutPlayersInGameInput = {
@@ -5577,6 +5609,7 @@ export namespace Prisma {
     gameName?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inviteCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlayerUpsertWithoutPlayersInGameInput = {

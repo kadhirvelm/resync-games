@@ -8,6 +8,14 @@ import {
 } from "@nestjs/common";
 import { ServiceError } from "@resync-games/api";
 
+const convertToString = (exception: unknown) => {
+  if ((exception as ServiceError).message !== undefined) {
+    return (exception as ServiceError).message;
+  }
+
+  return JSON.stringify(exception);
+};
+
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
   private logger = new Logger("Exception");
@@ -24,12 +32,16 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
     const serviceError: ServiceError = {
       code: httpStatus,
-      message: JSON.stringify(exception),
+      message: convertToString(exception),
       path: request.url,
       type: "error"
     };
 
-    this.logger.error(`Error on ${request.url}: ${exception}`);
+    if (httpStatus === HttpStatus.INTERNAL_SERVER_ERROR) {
+      this.logger.error(
+        `Internal server error on ${request.url}: ${exception}`
+      );
+    }
 
     response.status(httpStatus).json(serviceError);
   }
