@@ -26,6 +26,7 @@ model GameState {
   gameName          String           @default("Example game") @map("game_name")
   version           String           @map("version")
   lastUpdatedAt     DateTime         @default(now()) @map("last_update_timestamp")
+  inviteCode        String           @default("n/a") @map("invite_code")
 
   PlayersInGame PlayersInGame[]
 }

@@ -29,15 +29,6 @@ export interface UpdateGame extends WithTimestamp {
   version: string;
 }
 
-export type AvailableGame = Pick<
-  GameStateAndInfo,
-  "gameId" | "gameName" | "gameType" | "players"
->;
-
-export interface AvailableGames {
-  games: AvailableGame[];
-}
-
 export interface ChangeGameState {
   currentGameState: CurrentGameState;
   gameId: GameId;
@@ -45,7 +36,12 @@ export interface ChangeGameState {
   playerId: PlayerId;
 }
 
-export interface JoinGame {
+export interface JoinGameWithCode {
+  inviteCode: string;
+  playerId: PlayerId;
+}
+
+export interface JoinGameWithId {
   gameId: GameId;
   gameType: GameType;
   playerId: PlayerId;
@@ -87,16 +83,12 @@ export interface GameStateApi extends Service {
     payload: CreateGame;
     response: GameStateAndInfo;
   };
-  getAvailableGames: {
-    payload: Record<string, never>;
-    response: AvailableGames;
-  };
   getGameState: {
     payload: GetGameState;
     response: GameStateAndInfo;
   };
   joinGame: {
-    payload: JoinGame;
+    payload: JoinGameWithCode;
     response: GameStateAndInfo;
   };
   leaveGame: {
@@ -122,7 +114,6 @@ export const GameStateServiceDefinition: ServiceDefinition<GameStateApi> = {
   endpoints: {
     changeGameState: "change-game-state",
     createGame: "create-game",
-    getAvailableGames: "get-available-games",
     getGameState: "get-game-state",
     joinGame: "join-game",
     leaveGame: "leave-game",

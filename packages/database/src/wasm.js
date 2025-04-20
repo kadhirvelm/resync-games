@@ -97,7 +97,8 @@ exports.Prisma.GameStateScalarFieldEnum = {
   gameType: 'gameType',
   gameName: 'gameName',
   version: 'version',
-  lastUpdatedAt: 'lastUpdatedAt'
+  lastUpdatedAt: 'lastUpdatedAt',
+  inviteCode: 'inviteCode'
 };
 
 exports.Prisma.PlayersInGameScalarFieldEnum = {
@@ -163,7 +164,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/kadhir/Desktop/Projects/resync-games/packages/database/src",
+      "value": "/home/resync-games/packages/database/src",
       "fromEnvVar": null
     },
     "config": {
@@ -182,7 +183,7 @@ const config = {
     "previewFeatures": [
       "driverAdapters"
     ],
-    "sourceFilePath": "/Users/kadhir/Desktop/Projects/resync-games/packages/database/prisma/schema.prisma",
+    "sourceFilePath": "/home/resync-games/packages/database/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -204,13 +205,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  output          = \"../src\"\n  previewFeatures = [\"driverAdapters\"]\n  binaryTargets   = [\"linux-arm64-openssl-3.0.x\", \"darwin-arm64\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"GAME_STATE_DATABASE_HOST_URL\")\n  directUrl = env(\"GAME_STATE_DIRECT_URL\")\n}\n\nenum CurrentGameState {\n  waiting\n  playing\n  finished\n}\n\nmodel GameState {\n  gameId            String           @id @default(cuid()) @map(\"game_id\")\n  gameState         Json             @map(\"game_state\")\n  gameConfiguration Json             @map(\"game_configuration\")\n  currentGameState  CurrentGameState @map(\"current_game_state\")\n  gameType          String           @map(\"game_type\")\n  gameName          String           @default(\"Example game\") @map(\"game_name\")\n  version           String           @map(\"version\")\n  lastUpdatedAt     DateTime         @default(now()) @map(\"last_update_timestamp\")\n\n  PlayersInGame PlayersInGame[]\n}\n\nenum ConnectionStatus {\n  connected\n  disconnected\n}\n\nmodel PlayersInGame {\n  gameId   String @map(\"game_id\")\n  playerId String @map(\"player_id\")\n  team     Int?   @map(\"team\")\n\n  game             GameState        @relation(fields: [gameId], references: [gameId])\n  player           Player           @relation(fields: [playerId], references: [playerId])\n  connectionStatus ConnectionStatus @default(connected) @map(\"connection_status\")\n\n  @@id([gameId, playerId])\n  @@unique([gameId, playerId])\n}\n\nmodel Player {\n  playerId    String @id @default(cuid()) @map(\"player_id\")\n  displayName String @map(\"display_name\")\n\n  PlayersInGame PlayersInGame[]\n}\n",
-  "inlineSchemaHash": "4cfe26c31620ad09de762c694c25d19fe8f252ef0aabce383eb88e96b53165b7",
+  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  output          = \"../src\"\n  previewFeatures = [\"driverAdapters\"]\n  binaryTargets   = [\"linux-arm64-openssl-3.0.x\", \"darwin-arm64\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"GAME_STATE_DATABASE_HOST_URL\")\n  directUrl = env(\"GAME_STATE_DIRECT_URL\")\n}\n\nenum CurrentGameState {\n  waiting\n  playing\n  finished\n}\n\nmodel GameState {\n  gameId            String           @id @default(cuid()) @map(\"game_id\")\n  gameState         Json             @map(\"game_state\")\n  gameConfiguration Json             @map(\"game_configuration\")\n  currentGameState  CurrentGameState @map(\"current_game_state\")\n  gameType          String           @map(\"game_type\")\n  gameName          String           @default(\"Example game\") @map(\"game_name\")\n  version           String           @map(\"version\")\n  lastUpdatedAt     DateTime         @default(now()) @map(\"last_update_timestamp\")\n  inviteCode        String           @default(\"n/a\") @map(\"invite_code\")\n\n  PlayersInGame PlayersInGame[]\n}\n\nenum ConnectionStatus {\n  connected\n  disconnected\n}\n\nmodel PlayersInGame {\n  gameId   String @map(\"game_id\")\n  playerId String @map(\"player_id\")\n  team     Int?   @map(\"team\")\n\n  game             GameState        @relation(fields: [gameId], references: [gameId])\n  player           Player           @relation(fields: [playerId], references: [playerId])\n  connectionStatus ConnectionStatus @default(connected) @map(\"connection_status\")\n\n  @@id([gameId, playerId])\n  @@unique([gameId, playerId])\n}\n\nmodel Player {\n  playerId    String @id @default(cuid()) @map(\"player_id\")\n  displayName String @map(\"display_name\")\n\n  PlayersInGame PlayersInGame[]\n}\n",
+  "inlineSchemaHash": "9ca5d7a26d0474b2eae3cb3ae0e036e1f6fe79138686fb29a343781018549f7f",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"GameState\":{\"fields\":[{\"name\":\"gameId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"game_id\"},{\"name\":\"gameState\",\"kind\":\"scalar\",\"type\":\"Json\",\"dbName\":\"game_state\"},{\"name\":\"gameConfiguration\",\"kind\":\"scalar\",\"type\":\"Json\",\"dbName\":\"game_configuration\"},{\"name\":\"currentGameState\",\"kind\":\"enum\",\"type\":\"CurrentGameState\",\"dbName\":\"current_game_state\"},{\"name\":\"gameType\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"game_type\"},{\"name\":\"gameName\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"game_name\"},{\"name\":\"version\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"version\"},{\"name\":\"lastUpdatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"last_update_timestamp\"},{\"name\":\"PlayersInGame\",\"kind\":\"object\",\"type\":\"PlayersInGame\",\"relationName\":\"GameStateToPlayersInGame\"}],\"dbName\":null},\"PlayersInGame\":{\"fields\":[{\"name\":\"gameId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"game_id\"},{\"name\":\"playerId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"player_id\"},{\"name\":\"team\",\"kind\":\"scalar\",\"type\":\"Int\",\"dbName\":\"team\"},{\"name\":\"game\",\"kind\":\"object\",\"type\":\"GameState\",\"relationName\":\"GameStateToPlayersInGame\"},{\"name\":\"player\",\"kind\":\"object\",\"type\":\"Player\",\"relationName\":\"PlayerToPlayersInGame\"},{\"name\":\"connectionStatus\",\"kind\":\"enum\",\"type\":\"ConnectionStatus\",\"dbName\":\"connection_status\"}],\"dbName\":null},\"Player\":{\"fields\":[{\"name\":\"playerId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"player_id\"},{\"name\":\"displayName\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"display_name\"},{\"name\":\"PlayersInGame\",\"kind\":\"object\",\"type\":\"PlayersInGame\",\"relationName\":\"PlayerToPlayersInGame\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"GameState\":{\"fields\":[{\"name\":\"gameId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"game_id\"},{\"name\":\"gameState\",\"kind\":\"scalar\",\"type\":\"Json\",\"dbName\":\"game_state\"},{\"name\":\"gameConfiguration\",\"kind\":\"scalar\",\"type\":\"Json\",\"dbName\":\"game_configuration\"},{\"name\":\"currentGameState\",\"kind\":\"enum\",\"type\":\"CurrentGameState\",\"dbName\":\"current_game_state\"},{\"name\":\"gameType\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"game_type\"},{\"name\":\"gameName\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"game_name\"},{\"name\":\"version\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"version\"},{\"name\":\"lastUpdatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"last_update_timestamp\"},{\"name\":\"inviteCode\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"invite_code\"},{\"name\":\"PlayersInGame\",\"kind\":\"object\",\"type\":\"PlayersInGame\",\"relationName\":\"GameStateToPlayersInGame\"}],\"dbName\":null},\"PlayersInGame\":{\"fields\":[{\"name\":\"gameId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"game_id\"},{\"name\":\"playerId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"player_id\"},{\"name\":\"team\",\"kind\":\"scalar\",\"type\":\"Int\",\"dbName\":\"team\"},{\"name\":\"game\",\"kind\":\"object\",\"type\":\"GameState\",\"relationName\":\"GameStateToPlayersInGame\"},{\"name\":\"player\",\"kind\":\"object\",\"type\":\"Player\",\"relationName\":\"PlayerToPlayersInGame\"},{\"name\":\"connectionStatus\",\"kind\":\"enum\",\"type\":\"ConnectionStatus\",\"dbName\":\"connection_status\"}],\"dbName\":null},\"Player\":{\"fields\":[{\"name\":\"playerId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"player_id\"},{\"name\":\"displayName\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"display_name\"},{\"name\":\"PlayersInGame\",\"kind\":\"object\",\"type\":\"PlayersInGame\",\"relationName\":\"PlayerToPlayersInGame\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: () => require('./query_engine_bg.js'),

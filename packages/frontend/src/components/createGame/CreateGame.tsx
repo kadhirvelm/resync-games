@@ -1,12 +1,12 @@
 "use client";
 
-import { TextField } from "@/lib/radix";
+import { Button, TextField } from "@/lib/radix";
 import { Flex } from "@/lib/radix/Flex";
 import { NavigationButton } from "@/lib/resync-components/NavigationButton";
 import { getFrontendGame } from "@/lib/utils/getFrontendGame";
 import { ClientServiceCallers } from "@/services/serviceCallers";
 import { ExitIcon } from "@radix-ui/react-icons";
-import { Button, ScrollArea, Text } from "@radix-ui/themes";
+import { ScrollArea, Text } from "@radix-ui/themes";
 import { isServiceError } from "@resync-games/api";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";

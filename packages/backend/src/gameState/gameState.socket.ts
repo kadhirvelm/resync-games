@@ -12,7 +12,7 @@ import {
   GameStateFromClientToServer,
   GameStateServerSocketDefinition,
   IdentifyPlayerSocket,
-  JoinGame,
+  JoinGameWithId,
   LeaveGame,
   PlayerId
 } from "@resync-games/api";
@@ -39,7 +39,7 @@ export class GameStateSocketGateway
   private clientsToGameId: Map<string, LeaveGame> = new Map();
   private playerIdToClient: Map<PlayerId, string> = new Map();
 
-  private joinGameCallback?: (joinGame: JoinGame) => Promise<unknown>;
+  private joinGameCallback?: (joinGame: JoinGameWithId) => Promise<unknown>;
   private leaveGameCallback?: (leaveGame: LeaveGame) => Promise<unknown>;
 
   private exceptionFilter = new CustomWsExceptionFilter();
@@ -47,7 +47,7 @@ export class GameStateSocketGateway
   @WebSocketServer() server: Server;
 
   public setJoinGameCallback = (
-    callback: (joinGame: JoinGame) => Promise<unknown>
+    callback: (joinGame: JoinGameWithId) => Promise<unknown>
   ) => {
     this.joinGameCallback = callback;
   };
@@ -85,7 +85,7 @@ export class GameStateSocketGateway
       socketId: identifier.socketId
     });
 
-    const joinGame: JoinGame = {
+    const joinGame: JoinGameWithId = {
       gameId: identifier.gameId,
       gameType: identifier.gameType,
       playerId: identifier.playerId
@@ -95,7 +95,7 @@ export class GameStateSocketGateway
     await this.joinGameCallback(joinGame);
   }
 
-  private joinGame = async (joinGame: JoinGame) => {
+  private joinGame = async (joinGame: JoinGameWithId) => {
     const clientId = this.playerIdToClient.get(joinGame.playerId);
     if (clientId == null) {
       return;

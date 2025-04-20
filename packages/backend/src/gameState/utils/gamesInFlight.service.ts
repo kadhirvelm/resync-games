@@ -1,25 +1,27 @@
+import { UserService } from "@/user/user.service";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import {
   GameId,
   GameStateAndInfo,
   GameType,
-  JoinGame,
+  JoinGameWithCode,
+  JoinGameWithId,
   LeaveGame,
   TimestampedState
 } from "@resync-games/api";
-import * as _ from "lodash";
-import { ResyncGamesPrismaService } from "../../database/resyncGamesPrisma.service";
-import { GameStateSocketGateway } from "../gameState.socket";
+import { GameState, Player, PlayersInGame } from "@resync-games/database";
 import {
-  BACKEND_GAME_REGISTRY,
   AvailableGameType,
+  BACKEND_GAME_REGISTRY,
   BackendRegisteredGame,
   StateReconcilerMethod
 } from "@resync-games/games/backendRegistry";
-import { reconcileStates } from "./reconcileStates";
-import { UserService } from "@/user/user.service";
-import { GameRegistryService } from "./gameRegistry.service";
+import * as _ from "lodash";
 import { LRUCache } from "lru-cache";
+import { ResyncGamesPrismaService } from "../../database/resyncGamesPrisma.service";
+import { GameStateSocketGateway } from "../gameState.socket";
+import { GameRegistryService } from "./gameRegistry.service";
+import { reconcileStates } from "./reconcileStates";
 
 @Injectable()
 export class GamesInFlightService {
@@ -33,7 +35,7 @@ export class GamesInFlightService {
     private userService: UserService,
     private gameRegistryService: GameRegistryService
   ) {
-    this.socketGateway.setJoinGameCallback(this.joinGame);
+    this.socketGateway.setJoinGameCallback(this.joinGameWithId);
     this.socketGateway.setLeaveGameCallback(this.leaveGame);
   }
 
@@ -74,9 +76,7 @@ export class GamesInFlightService {
     return convertedGame;
   };
 
-  public joinGame = async (joinGame: JoinGame) => {
-    const player = await this.userService.getUser(joinGame.playerId);
-
+  public joinGameWithCode = async (joinGame: JoinGameWithCode) => {
     const requestedGame = await this.prismaService.client.gameState.findFirst({
       include: {
         PlayersInGame: {
@@ -87,6 +87,29 @@ export class GamesInFlightService {
       },
       where: {
         currentGameState: "waiting",
+        inviteCode: joinGame.inviteCode.toLowerCase()
+      }
+    });
+
+    if (requestedGame == null) {
+      throw new BadRequestException(
+        "The requested game could not be found. Please check your invite code and try again."
+      );
+    }
+
+    return this.joinGame(requestedGame, joinGame);
+  };
+
+  public joinGameWithId = async (joinGame: JoinGameWithId) => {
+    const requestedGame = await this.prismaService.client.gameState.findFirst({
+      include: {
+        PlayersInGame: {
+          include: {
+            player: true
+          }
+        }
+      },
+      where: {
         gameId: joinGame.gameId,
         gameType: joinGame.gameType
       }
@@ -98,10 +121,21 @@ export class GamesInFlightService {
       );
     }
 
+    return this.joinGame(requestedGame, joinGame);
+  };
+
+  private joinGame = async (
+    requestedGame: GameState & {
+      PlayersInGame: Array<PlayersInGame & { player: Player }>;
+    },
+    joinGameRequest: JoinGameWithCode | JoinGameWithId
+  ) => {
+    const player = await this.userService.getUser(joinGameRequest.playerId);
+
     let newGameStateRaw = null;
 
     const playerAlreadyInGame = requestedGame.PlayersInGame.some(
-      (p) => p.playerId === joinGame.playerId
+      (p) => p.playerId === player.playerId
     );
     if (playerAlreadyInGame) {
       newGameStateRaw = await this.prismaService.client.gameState.update({
@@ -113,8 +147,8 @@ export class GamesInFlightService {
               },
               where: {
                 gameId_playerId: {
-                  gameId: joinGame.gameId,
-                  playerId: joinGame.playerId
+                  gameId: requestedGame.gameId,
+                  playerId: joinGameRequest.playerId
                 }
               }
             }
@@ -128,12 +162,12 @@ export class GamesInFlightService {
           }
         },
         where: {
-          gameId: joinGame.gameId
+          gameId: requestedGame.gameId
         }
       });
     } else {
       const backend = this.gameRegistryService.getGameRegistry(
-        joinGame.gameType
+        requestedGame.gameType
       );
       const updatedGameState =
         (await backend.onPlayerJoin?.(
@@ -148,7 +182,7 @@ export class GamesInFlightService {
         data: {
           PlayersInGame: {
             create: {
-              playerId: joinGame.playerId
+              playerId: joinGameRequest.playerId
             }
           },
           gameState: updatedGameState
@@ -161,7 +195,7 @@ export class GamesInFlightService {
           }
         },
         where: {
-          gameId: joinGame.gameId
+          gameId: requestedGame.gameId
         }
       });
     }

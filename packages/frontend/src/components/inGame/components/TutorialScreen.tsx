@@ -1,11 +1,7 @@
-import { Flex, Button } from "@/lib/radix";
+import { Button, Flex } from "@/lib/radix";
 import { getFrontendGame } from "@/lib/utils/getFrontendGame";
 import { useGameStateSelector } from "@/redux";
-import { Dialog, Text } from "@radix-ui/themes";
-import {
-  GAME_REGISTRY,
-  GAME_SLUGS
-} from "@resync-games/games-shared/gamesRegistry";
+import { Dialog } from "@radix-ui/themes";
 
 export const TutorialScreen = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -18,14 +14,8 @@ export const TutorialScreen = () => {
     return;
   }
 
-  const gameSlug = gameInfo.gameType as (typeof GAME_SLUGS)[number];
-  const accordingGameName = GAME_REGISTRY[gameSlug]?.name;
-
   return (
-    <Flex direction="column" gap="2">
-      <Text color="gray" size="2">
-        {accordingGameName} tutorial
-      </Text>
+    <Flex direction="column">
       <Dialog.Root>
         <Dialog.Trigger>
           <Button>How to play</Button>

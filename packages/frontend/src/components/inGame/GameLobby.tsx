@@ -77,6 +77,37 @@ export const GameLobby = () => {
     console.error(response);
   };
 
+  const renderInviteCode = () => {
+    if (gameInfo === undefined) {
+      return;
+    }
+
+    return (
+      <Flex align="center" direction="column" justify="center">
+        <Flex>
+          <Text color="gray" size="2">
+            Invite code
+          </Text>
+        </Flex>
+        <Flex align="center" gap="1">
+          {gameInfo.inviteCode.split("").map((character) => (
+            <Flex
+              className={styles.inviteCode}
+              direction="column"
+              gap="2"
+              key={character}
+              p="3"
+            >
+              <Text size="8" weight="bold">
+                {character.toUpperCase()}
+              </Text>
+            </Flex>
+          ))}
+        </Flex>
+      </Flex>
+    );
+  };
+
   const maybeRenderUndecided = () => {
     const undecided =
       gameInfo?.players.filter((p) => p.team === undefined) ?? [];
@@ -85,7 +116,10 @@ export const GameLobby = () => {
     }
 
     return (
-      <Flex justify="center">
+      <Flex align="center" direction="column">
+        <Text color="gray" mb="1" size="2">
+          Undecided
+        </Text>
         <Flex
           className={styles.players}
           gap="3"
@@ -94,7 +128,7 @@ export const GameLobby = () => {
         >
           {undecided.map((p) => (
             <Flex justify="center" key={p.playerId}>
-              <Text size="4">{p.displayName}</Text>
+              <DisplayPlayer key={p.playerId} player={p} />
             </Flex>
           ))}
         </Flex>
@@ -174,6 +208,7 @@ export const GameLobby = () => {
       </Flex>
       <GameConfigurationSideBar />
       <Flex direction="column" flex="4" gap="8" justify="center">
+        {renderInviteCode()}
         {maybeRenderUndecided()}
         <Flex align="baseline" gap="3" justify="center">
           {renderTeam(0)}

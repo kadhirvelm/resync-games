@@ -27,8 +27,15 @@ export const StockTimesGlobalScreen = () => {
 
   if (gameInfo?.currentGameState === "waiting") {
     return (
-      <Flex align="center" flex="1" justify="center">
-        <Text color="gray">Waiting for the game to start</Text>
+      <Flex align="center" direction="column" flex="1" justify="center">
+        <Flex>
+          <Text color="gray">Waiting for the game to start</Text>
+        </Flex>
+        <Flex align="center" gap="2">
+          <Text size="9" weight="bold">
+            {gameInfo.inviteCode.toUpperCase()}
+          </Text>
+        </Flex>
       </Flex>
     );
   }

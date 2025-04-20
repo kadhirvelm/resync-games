@@ -1,12 +1,11 @@
 import { UserService } from "@/user/user.service";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import {
-  AvailableGames,
   ChangeGameState,
   CreateGame,
   GameStateAndInfo,
   GetGameState,
-  JoinGame,
+  JoinGameWithCode,
   LeaveGame,
   UpdateGame,
   UpdateGameConfiguration,
@@ -17,6 +16,7 @@ import _ from "lodash";
 import { ResyncGamesPrismaService } from "../database/resyncGamesPrisma.service";
 import { GameRegistryService } from "./utils/gameRegistry.service";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
+import { InviteCodeService } from "./utils/inviteCode.service";
 
 @Injectable()
 export class GameStateService {
@@ -24,7 +24,8 @@ export class GameStateService {
     private prismaService: ResyncGamesPrismaService,
     private gamesInFlightService: GamesInFlightService,
     private userService: UserService,
-    private gameRegistryService: GameRegistryService
+    private gameRegistryService: GameRegistryService,
+    private inviteCodeService: InviteCodeService
   ) {}
 
   public changeGameState = async (
@@ -121,6 +122,7 @@ export class GameStateService {
     );
 
     const { gameState, version } = await backend.createGame(createGameRequest);
+    const inviteCode = await this.inviteCodeService.getAvailableInviteCode();
 
     const requestedGame = await this.prismaService.client.gameState.create({
       data: {
@@ -134,6 +136,7 @@ export class GameStateService {
         gameName: createGameRequest.gameName,
         gameState,
         gameType: createGameRequest.gameType,
+        inviteCode,
         version
       },
       include: {
@@ -150,31 +153,6 @@ export class GameStateService {
       requestedGame.PlayersInGame.map((p) => p.player),
       requestedGame.PlayersInGame
     );
-  };
-
-  public getAvailableGames = async (): Promise<AvailableGames> => {
-    const allGames = await this.prismaService.client.gameState.findMany({
-      include: {
-        PlayersInGame: {
-          include: {
-            player: true
-          }
-        }
-      },
-      where: {
-        currentGameState: "waiting"
-      }
-    });
-
-    return {
-      games: allGames.map((game) =>
-        this.prismaService.converterService.convertGameState(
-          game,
-          game.PlayersInGame.map((p) => p.player),
-          game.PlayersInGame
-        )
-      )
-    };
   };
 
   public getGameState = async (
@@ -207,10 +185,10 @@ export class GameStateService {
     );
   };
 
-  public joinGame = async (
-    joinGameRequest: JoinGame
+  public joinGameWithCode = async (
+    joinGameRequest: JoinGameWithCode
   ): Promise<GameStateAndInfo> => {
-    return this.gamesInFlightService.joinGame(joinGameRequest);
+    return this.gamesInFlightService.joinGameWithCode(joinGameRequest);
   };
 
   public leaveGame = async (leaveGame: LeaveGame) => {
