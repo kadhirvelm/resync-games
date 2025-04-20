@@ -19,7 +19,7 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
   yarn-container:
     container_name: yarn
-    image: node:22.5
+    image: node:23.11.0
     volumes:
       - ./:/home/resync-games:rw
     working_dir: /home/resync-games
@@ -31,14 +31,14 @@ services:
     command: tail -f /dev/null
   dependencies:
     container_name: dependencies
-    image: node:22.5
+    image: node:23.11.0
     volumes:
       - ./:/home/resync-games:rw
     working_dir: /home/resync-games
     command: bash -c "corepack enable && yarn && yarn run turbo run dev --filter=@resync-games/frontend^... --filter=@resync-games/backend^..."
   backend:
     container_name: backend
-    image: node:22.5
+    image: node:23.11.0
     ports:
       - '8080:8080'
     volumes:
@@ -51,7 +51,7 @@ services:
     command: bash -c "corepack enable && yarn && cd ../../ && yarn db:migrate && yarn dev backend"
   frontend:
     container_name: frontend
-    image: node:22.5-slim
+    image: node:23.11.0-slim
     ports:
       - '3000:3000'
     volumes:

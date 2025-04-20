@@ -1,4 +1,4 @@
-FROM node:22.5.1-slim AS builder
+FROM node:23.11.0-slim AS builder
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ RUN yarn
 ENV NODE_ENV=production
 RUN yarn run turbo run build --filter=@resync-games/backend && yarn workspaces focus --all --production
 
-FROM node:22.5.1-slim AS runner
+FROM node:23.11.0-slim AS runner
 
 COPY --from=builder /app/out /app/out
 

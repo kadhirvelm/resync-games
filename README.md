@@ -23,4 +23,4 @@ database -> prisma client
 frontend -> NextJS
 games -> shared between the backend and frontend packages, greatly simplifies the build tooling while still allowing the dev to share types between FE files and BE files when creating a game
 
-The repo uses yarn pnp (4.7.0) for its package management (which in turn allows us to use docker-compose for local development) and turborepo for its build system. We're aiming for a [zero-installs](https://yarnpkg.com/features/caching) setup, though we've got a few more steps to go.
+The repo uses yarn pnp (4.9.1) for its package management (which in turn allows us to use docker-compose for local development) and turborepo for its build system. We're aiming for a [zero-installs](https://yarnpkg.com/features/caching) setup, though we've got a few more steps to go.
