@@ -40,7 +40,7 @@ export function useGameStateSocket(gameId: GameId, gameType: GameType) {
       playerId: player.playerId,
       socketId: socketIdentifier
     });
-  }, [socketEmitter, socketIdentifier, gameId, player.playerId]);
+  }, [socketEmitter, gameId, gameType, player.playerId, socketIdentifier]);
 
   const disconnect = useCallback(() => {
     setConnectionStatus(false);

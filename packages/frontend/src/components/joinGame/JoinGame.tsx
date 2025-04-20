@@ -14,13 +14,17 @@ export function JoinGame() {
   const router = useRouter();
 
   const [inviteCode, setInviteCode] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
   const [inviteError, setInviteError] = useState<string | null>(null);
 
   const onJoinGame = async () => {
+    setIsLoading(true);
     const maybeGame = await ClientServiceCallers.gameState.joinGame({
       inviteCode,
       playerId: player.playerId
     });
+    setIsLoading(false);
+
     if (isServiceError(maybeGame)) {
       setInviteError(maybeGame.message);
       return;
@@ -39,7 +43,12 @@ export function JoinGame() {
           size="3"
           value={inviteCode}
         />
-        <Button disabled={inviteCode.length < 4} onClick={onJoinGame} size="3">
+        <Button
+          disabled={inviteCode.length < 4}
+          loading={isLoading}
+          onClick={onJoinGame}
+          size="3"
+        >
           Join
         </Button>
       </Flex>
