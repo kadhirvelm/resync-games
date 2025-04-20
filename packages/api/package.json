@@ -9,6 +9,6 @@
   "types": "dist/index.d.ts",
   "devDependencies": {
     "eslint": "^9.17.0",
-    "typescript": "5.5.4"
+    "typescript": "5.8.3"
   }
 }

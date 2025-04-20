@@ -96,7 +96,7 @@ export class PrismaClient<
    */
 
   constructor(optionsArg ?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>);
-  $on<V extends U>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): void;
+  $on<V extends U>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): PrismaClient;
 
   /**
    * Connect with the database
@@ -180,9 +180,9 @@ export class PrismaClient<
   $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
 
 
-  $extends: $Extensions.ExtendsHook<"extends", Prisma.TypeMapCb, ExtArgs, $Utils.Call<Prisma.TypeMapCb, {
+  $extends: $Extensions.ExtendsHook<"extends", Prisma.TypeMapCb<ClientOptions>, ExtArgs, $Utils.Call<Prisma.TypeMapCb<ClientOptions>, {
     extArgs: ExtArgs
-  }>, ClientOptions>
+  }>>
 
       /**
    * `prisma.gameState`: Exposes CRUD operations for the **GameState** model.
@@ -271,8 +271,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.4.1
-   * Query Engine version: a9055b89e58b4b5bfb59600785423b1db3d0e75d
+   * Prisma Client JS version: 6.6.0
+   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
    */
   export type PrismaVersion = {
     client: string
@@ -539,7 +539,7 @@ export namespace Prisma {
   type AtLeast<O extends object, K extends string> = NoExpand<
     O extends unknown
     ? | (K extends keyof O ? { [P in K]: O[P] } & O : O)
-      | {[P in keyof O as P extends K ? K : never]-?: O[P]} & O
+      | {[P in keyof O as P extends K ? P : never]-?: O[P]} & O
     : never>;
 
   type _Strict<U, _U = U> = U extends unknown ? U & OptionalFlat<_Record<Exclude<Keys<_U>, keyof U>, never>> : never;
@@ -665,11 +665,14 @@ export namespace Prisma {
     db?: Datasource
   }
 
-  interface TypeMapCb extends $Utils.Fn<{extArgs: $Extensions.InternalArgs, clientOptions: PrismaClientOptions }, $Utils.Record<string, any>> {
-    returns: Prisma.TypeMap<this['params']['extArgs'], this['params']['clientOptions']>
+  interface TypeMapCb<ClientOptions = {}> extends $Utils.Fn<{extArgs: $Extensions.InternalArgs }, $Utils.Record<string, any>> {
+    returns: Prisma.TypeMap<this['params']['extArgs'], ClientOptions extends { omit: infer OmitOptions } ? OmitOptions : {}>
   }
 
-  export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
+  export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> = {
+    globalOmitOptions: {
+      omit: GlobalOmitOptions
+    }
     meta: {
       modelProps: "gameState" | "playersInGame" | "player"
       txIsolationLevel: Prisma.TransactionIsolationLevel
@@ -967,7 +970,7 @@ export namespace Prisma {
     /**
      * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
      */
-    adapter?: runtime.DriverAdapter | null
+    adapter?: runtime.SqlDriverAdapterFactory | null
     /**
      * Global configuration for omitting model fields by default.
      * 
@@ -1157,7 +1160,6 @@ export namespace Prisma {
     gameId: string | null
     currentGameState: $Enums.CurrentGameState | null
     gameType: string | null
-    gameName: string | null
     version: string | null
     lastUpdatedAt: Date | null
     inviteCode: string | null
@@ -1167,7 +1169,6 @@ export namespace Prisma {
     gameId: string | null
     currentGameState: $Enums.CurrentGameState | null
     gameType: string | null
-    gameName: string | null
     version: string | null
     lastUpdatedAt: Date | null
     inviteCode: string | null
@@ -1179,7 +1180,6 @@ export namespace Prisma {
     gameConfiguration: number
     currentGameState: number
     gameType: number
-    gameName: number
     version: number
     lastUpdatedAt: number
     inviteCode: number
@@ -1191,7 +1191,6 @@ export namespace Prisma {
     gameId?: true
     currentGameState?: true
     gameType?: true
-    gameName?: true
     version?: true
     lastUpdatedAt?: true
     inviteCode?: true
@@ -1201,7 +1200,6 @@ export namespace Prisma {
     gameId?: true
     currentGameState?: true
     gameType?: true
-    gameName?: true
     version?: true
     lastUpdatedAt?: true
     inviteCode?: true
@@ -1213,7 +1211,6 @@ export namespace Prisma {
     gameConfiguration?: true
     currentGameState?: true
     gameType?: true
-    gameName?: true
     version?: true
     lastUpdatedAt?: true
     inviteCode?: true
@@ -1298,7 +1295,6 @@ export namespace Prisma {
     gameConfiguration: JsonValue
     currentGameState: $Enums.CurrentGameState
     gameType: string
-    gameName: string
     version: string
     lastUpdatedAt: Date
     inviteCode: string
@@ -1327,7 +1323,6 @@ export namespace Prisma {
     gameConfiguration?: boolean
     currentGameState?: boolean
     gameType?: boolean
-    gameName?: boolean
     version?: boolean
     lastUpdatedAt?: boolean
     inviteCode?: boolean
@@ -1341,7 +1336,6 @@ export namespace Prisma {
     gameConfiguration?: boolean
     currentGameState?: boolean
     gameType?: boolean
-    gameName?: boolean
     version?: boolean
     lastUpdatedAt?: boolean
     inviteCode?: boolean
@@ -1353,7 +1347,6 @@ export namespace Prisma {
     gameConfiguration?: boolean
     currentGameState?: boolean
     gameType?: boolean
-    gameName?: boolean
     version?: boolean
     lastUpdatedAt?: boolean
     inviteCode?: boolean
@@ -1365,13 +1358,12 @@ export namespace Prisma {
     gameConfiguration?: boolean
     currentGameState?: boolean
     gameType?: boolean
-    gameName?: boolean
     version?: boolean
     lastUpdatedAt?: boolean
     inviteCode?: boolean
   }
 
-  export type GameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"gameId" | "gameState" | "gameConfiguration" | "currentGameState" | "gameType" | "gameName" | "version" | "lastUpdatedAt" | "inviteCode", ExtArgs["result"]["gameState"]>
+  export type GameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"gameId" | "gameState" | "gameConfiguration" | "currentGameState" | "gameType" | "version" | "lastUpdatedAt" | "inviteCode", ExtArgs["result"]["gameState"]>
   export type GameStateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     PlayersInGame?: boolean | GameState$PlayersInGameArgs<ExtArgs>
     _count?: boolean | GameStateCountOutputTypeDefaultArgs<ExtArgs>
@@ -1390,7 +1382,6 @@ export namespace Prisma {
       gameConfiguration: Prisma.JsonValue
       currentGameState: $Enums.CurrentGameState
       gameType: string
-      gameName: string
       version: string
       lastUpdatedAt: Date
       inviteCode: string
@@ -1405,7 +1396,7 @@ export namespace Prisma {
       select?: GameStateCountAggregateInputType | true
     }
 
-  export interface GameStateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface GameStateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameState'], meta: { name: 'GameState' } }
     /**
      * Find zero or one GameState that matches the filter.
@@ -1418,7 +1409,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends GameStateFindUniqueArgs>(args: SelectSubset<T, GameStateFindUniqueArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends GameStateFindUniqueArgs>(args: SelectSubset<T, GameStateFindUniqueArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one GameState that matches the filter or throw an error with `error.code='P2025'`
@@ -1432,7 +1423,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends GameStateFindUniqueOrThrowArgs>(args: SelectSubset<T, GameStateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends GameStateFindUniqueOrThrowArgs>(args: SelectSubset<T, GameStateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first GameState that matches the filter.
@@ -1447,7 +1438,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends GameStateFindFirstArgs>(args?: SelectSubset<T, GameStateFindFirstArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends GameStateFindFirstArgs>(args?: SelectSubset<T, GameStateFindFirstArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first GameState that matches the filter or
@@ -1463,7 +1454,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends GameStateFindFirstOrThrowArgs>(args?: SelectSubset<T, GameStateFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends GameStateFindFirstOrThrowArgs>(args?: SelectSubset<T, GameStateFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more GameStates that matches the filter.
@@ -1481,7 +1472,7 @@ export namespace Prisma {
      * const gameStateWithGameIdOnly = await prisma.gameState.findMany({ select: { gameId: true } })
      * 
      */
-    findMany<T extends GameStateFindManyArgs>(args?: SelectSubset<T, GameStateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends GameStateFindManyArgs>(args?: SelectSubset<T, GameStateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a GameState.
@@ -1495,7 +1486,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends GameStateCreateArgs>(args: SelectSubset<T, GameStateCreateArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends GameStateCreateArgs>(args: SelectSubset<T, GameStateCreateArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many GameStates.
@@ -1533,7 +1524,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends GameStateCreateManyAndReturnArgs>(args?: SelectSubset<T, GameStateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends GameStateCreateManyAndReturnArgs>(args?: SelectSubset<T, GameStateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a GameState.
@@ -1547,7 +1538,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends GameStateDeleteArgs>(args: SelectSubset<T, GameStateDeleteArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends GameStateDeleteArgs>(args: SelectSubset<T, GameStateDeleteArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one GameState.
@@ -1564,7 +1555,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends GameStateUpdateArgs>(args: SelectSubset<T, GameStateUpdateArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends GameStateUpdateArgs>(args: SelectSubset<T, GameStateUpdateArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more GameStates.
@@ -1627,7 +1618,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends GameStateUpdateManyAndReturnArgs>(args: SelectSubset<T, GameStateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends GameStateUpdateManyAndReturnArgs>(args: SelectSubset<T, GameStateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one GameState.
@@ -1646,7 +1637,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends GameStateUpsertArgs>(args: SelectSubset<T, GameStateUpsertArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends GameStateUpsertArgs>(args: SelectSubset<T, GameStateUpsertArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -1786,9 +1777,9 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__GameStateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__GameStateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    PlayersInGame<T extends GameState$PlayersInGameArgs<ExtArgs> = {}>(args?: Subset<T, GameState$PlayersInGameArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    PlayersInGame<T extends GameState$PlayersInGameArgs<ExtArgs> = {}>(args?: Subset<T, GameState$PlayersInGameArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1816,14 +1807,13 @@ export namespace Prisma {
 
   /**
    * Fields of the GameState model
-   */ 
+   */
   interface GameStateFieldRefs {
     readonly gameId: FieldRef<"GameState", 'String'>
     readonly gameState: FieldRef<"GameState", 'Json'>
     readonly gameConfiguration: FieldRef<"GameState", 'Json'>
     readonly currentGameState: FieldRef<"GameState", 'CurrentGameState'>
     readonly gameType: FieldRef<"GameState", 'String'>
-    readonly gameName: FieldRef<"GameState", 'String'>
     readonly version: FieldRef<"GameState", 'String'>
     readonly lastUpdatedAt: FieldRef<"GameState", 'DateTime'>
     readonly inviteCode: FieldRef<"GameState", 'String'>
@@ -2512,7 +2502,7 @@ export namespace Prisma {
       select?: PlayersInGameCountAggregateInputType | true
     }
 
-  export interface PlayersInGameDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface PlayersInGameDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlayersInGame'], meta: { name: 'PlayersInGame' } }
     /**
      * Find zero or one PlayersInGame that matches the filter.
@@ -2525,7 +2515,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends PlayersInGameFindUniqueArgs>(args: SelectSubset<T, PlayersInGameFindUniqueArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends PlayersInGameFindUniqueArgs>(args: SelectSubset<T, PlayersInGameFindUniqueArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one PlayersInGame that matches the filter or throw an error with `error.code='P2025'`
@@ -2539,7 +2529,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends PlayersInGameFindUniqueOrThrowArgs>(args: SelectSubset<T, PlayersInGameFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends PlayersInGameFindUniqueOrThrowArgs>(args: SelectSubset<T, PlayersInGameFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first PlayersInGame that matches the filter.
@@ -2554,7 +2544,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends PlayersInGameFindFirstArgs>(args?: SelectSubset<T, PlayersInGameFindFirstArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends PlayersInGameFindFirstArgs>(args?: SelectSubset<T, PlayersInGameFindFirstArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first PlayersInGame that matches the filter or
@@ -2570,7 +2560,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends PlayersInGameFindFirstOrThrowArgs>(args?: SelectSubset<T, PlayersInGameFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends PlayersInGameFindFirstOrThrowArgs>(args?: SelectSubset<T, PlayersInGameFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more PlayersInGames that matches the filter.
@@ -2588,7 +2578,7 @@ export namespace Prisma {
      * const playersInGameWithGameIdOnly = await prisma.playersInGame.findMany({ select: { gameId: true } })
      * 
      */
-    findMany<T extends PlayersInGameFindManyArgs>(args?: SelectSubset<T, PlayersInGameFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends PlayersInGameFindManyArgs>(args?: SelectSubset<T, PlayersInGameFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a PlayersInGame.
@@ -2602,7 +2592,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends PlayersInGameCreateArgs>(args: SelectSubset<T, PlayersInGameCreateArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends PlayersInGameCreateArgs>(args: SelectSubset<T, PlayersInGameCreateArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many PlayersInGames.
@@ -2640,7 +2630,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends PlayersInGameCreateManyAndReturnArgs>(args?: SelectSubset<T, PlayersInGameCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends PlayersInGameCreateManyAndReturnArgs>(args?: SelectSubset<T, PlayersInGameCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a PlayersInGame.
@@ -2654,7 +2644,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends PlayersInGameDeleteArgs>(args: SelectSubset<T, PlayersInGameDeleteArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends PlayersInGameDeleteArgs>(args: SelectSubset<T, PlayersInGameDeleteArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one PlayersInGame.
@@ -2671,7 +2661,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends PlayersInGameUpdateArgs>(args: SelectSubset<T, PlayersInGameUpdateArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends PlayersInGameUpdateArgs>(args: SelectSubset<T, PlayersInGameUpdateArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more PlayersInGames.
@@ -2734,7 +2724,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends PlayersInGameUpdateManyAndReturnArgs>(args: SelectSubset<T, PlayersInGameUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends PlayersInGameUpdateManyAndReturnArgs>(args: SelectSubset<T, PlayersInGameUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one PlayersInGame.
@@ -2753,7 +2743,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends PlayersInGameUpsertArgs>(args: SelectSubset<T, PlayersInGameUpsertArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends PlayersInGameUpsertArgs>(args: SelectSubset<T, PlayersInGameUpsertArgs<ExtArgs>>): Prisma__PlayersInGameClient<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -2893,10 +2883,10 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__PlayersInGameClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__PlayersInGameClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    game<T extends GameStateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameStateDefaultArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    player<T extends PlayerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlayerDefaultArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    game<T extends GameStateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameStateDefaultArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    player<T extends PlayerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlayerDefaultArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2924,7 +2914,7 @@ export namespace Prisma {
 
   /**
    * Fields of the PlayersInGame model
-   */ 
+   */
   interface PlayersInGameFieldRefs {
     readonly gameId: FieldRef<"PlayersInGame", 'String'>
     readonly playerId: FieldRef<"PlayersInGame", 'String'>
@@ -3530,7 +3520,7 @@ export namespace Prisma {
       select?: PlayerCountAggregateInputType | true
     }
 
-  export interface PlayerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface PlayerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Player'], meta: { name: 'Player' } }
     /**
      * Find zero or one Player that matches the filter.
@@ -3543,7 +3533,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends PlayerFindUniqueArgs>(args: SelectSubset<T, PlayerFindUniqueArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends PlayerFindUniqueArgs>(args: SelectSubset<T, PlayerFindUniqueArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one Player that matches the filter or throw an error with `error.code='P2025'`
@@ -3557,7 +3547,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends PlayerFindUniqueOrThrowArgs>(args: SelectSubset<T, PlayerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends PlayerFindUniqueOrThrowArgs>(args: SelectSubset<T, PlayerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first Player that matches the filter.
@@ -3572,7 +3562,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends PlayerFindFirstArgs>(args?: SelectSubset<T, PlayerFindFirstArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends PlayerFindFirstArgs>(args?: SelectSubset<T, PlayerFindFirstArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first Player that matches the filter or
@@ -3588,7 +3578,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends PlayerFindFirstOrThrowArgs>(args?: SelectSubset<T, PlayerFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends PlayerFindFirstOrThrowArgs>(args?: SelectSubset<T, PlayerFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more Players that matches the filter.
@@ -3606,7 +3596,7 @@ export namespace Prisma {
      * const playerWithPlayerIdOnly = await prisma.player.findMany({ select: { playerId: true } })
      * 
      */
-    findMany<T extends PlayerFindManyArgs>(args?: SelectSubset<T, PlayerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends PlayerFindManyArgs>(args?: SelectSubset<T, PlayerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a Player.
@@ -3620,7 +3610,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends PlayerCreateArgs>(args: SelectSubset<T, PlayerCreateArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends PlayerCreateArgs>(args: SelectSubset<T, PlayerCreateArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many Players.
@@ -3658,7 +3648,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends PlayerCreateManyAndReturnArgs>(args?: SelectSubset<T, PlayerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends PlayerCreateManyAndReturnArgs>(args?: SelectSubset<T, PlayerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a Player.
@@ -3672,7 +3662,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends PlayerDeleteArgs>(args: SelectSubset<T, PlayerDeleteArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends PlayerDeleteArgs>(args: SelectSubset<T, PlayerDeleteArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one Player.
@@ -3689,7 +3679,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends PlayerUpdateArgs>(args: SelectSubset<T, PlayerUpdateArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends PlayerUpdateArgs>(args: SelectSubset<T, PlayerUpdateArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more Players.
@@ -3752,7 +3742,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends PlayerUpdateManyAndReturnArgs>(args: SelectSubset<T, PlayerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends PlayerUpdateManyAndReturnArgs>(args: SelectSubset<T, PlayerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Player.
@@ -3771,7 +3761,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends PlayerUpsertArgs>(args: SelectSubset<T, PlayerUpsertArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends PlayerUpsertArgs>(args: SelectSubset<T, PlayerUpsertArgs<ExtArgs>>): Prisma__PlayerClient<$Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -3911,9 +3901,9 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__PlayerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__PlayerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    PlayersInGame<T extends Player$PlayersInGameArgs<ExtArgs> = {}>(args?: Subset<T, Player$PlayersInGameArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    PlayersInGame<T extends Player$PlayersInGameArgs<ExtArgs> = {}>(args?: Subset<T, Player$PlayersInGameArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayersInGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3941,7 +3931,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Player model
-   */ 
+   */
   interface PlayerFieldRefs {
     readonly playerId: FieldRef<"Player", 'String'>
     readonly displayName: FieldRef<"Player", 'String'>
@@ -4395,7 +4385,6 @@ export namespace Prisma {
     gameConfiguration: 'gameConfiguration',
     currentGameState: 'currentGameState',
     gameType: 'gameType',
-    gameName: 'gameName',
     version: 'version',
     lastUpdatedAt: 'lastUpdatedAt',
     inviteCode: 'inviteCode'
@@ -4463,7 +4452,7 @@ export namespace Prisma {
 
 
   /**
-   * Field references 
+   * Field references
    */
 
 
@@ -4577,7 +4566,6 @@ export namespace Prisma {
     gameConfiguration?: JsonFilter<"GameState">
     currentGameState?: EnumCurrentGameStateFilter<"GameState"> | $Enums.CurrentGameState
     gameType?: StringFilter<"GameState"> | string
-    gameName?: StringFilter<"GameState"> | string
     version?: StringFilter<"GameState"> | string
     lastUpdatedAt?: DateTimeFilter<"GameState"> | Date | string
     inviteCode?: StringFilter<"GameState"> | string
@@ -4590,7 +4578,6 @@ export namespace Prisma {
     gameConfiguration?: SortOrder
     currentGameState?: SortOrder
     gameType?: SortOrder
-    gameName?: SortOrder
     version?: SortOrder
     lastUpdatedAt?: SortOrder
     inviteCode?: SortOrder
@@ -4606,7 +4593,6 @@ export namespace Prisma {
     gameConfiguration?: JsonFilter<"GameState">
     currentGameState?: EnumCurrentGameStateFilter<"GameState"> | $Enums.CurrentGameState
     gameType?: StringFilter<"GameState"> | string
-    gameName?: StringFilter<"GameState"> | string
     version?: StringFilter<"GameState"> | string
     lastUpdatedAt?: DateTimeFilter<"GameState"> | Date | string
     inviteCode?: StringFilter<"GameState"> | string
@@ -4619,7 +4605,6 @@ export namespace Prisma {
     gameConfiguration?: SortOrder
     currentGameState?: SortOrder
     gameType?: SortOrder
-    gameName?: SortOrder
     version?: SortOrder
     lastUpdatedAt?: SortOrder
     inviteCode?: SortOrder
@@ -4637,7 +4622,6 @@ export namespace Prisma {
     gameConfiguration?: JsonWithAggregatesFilter<"GameState">
     currentGameState?: EnumCurrentGameStateWithAggregatesFilter<"GameState"> | $Enums.CurrentGameState
     gameType?: StringWithAggregatesFilter<"GameState"> | string
-    gameName?: StringWithAggregatesFilter<"GameState"> | string
     version?: StringWithAggregatesFilter<"GameState"> | string
     lastUpdatedAt?: DateTimeWithAggregatesFilter<"GameState"> | Date | string
     inviteCode?: StringWithAggregatesFilter<"GameState"> | string
@@ -4745,7 +4729,6 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: $Enums.CurrentGameState
     gameType: string
-    gameName?: string
     version: string
     lastUpdatedAt?: Date | string
     inviteCode?: string
@@ -4758,7 +4741,6 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: $Enums.CurrentGameState
     gameType: string
-    gameName?: string
     version: string
     lastUpdatedAt?: Date | string
     inviteCode?: string
@@ -4771,7 +4753,6 @@ export namespace Prisma {
     gameConfiguration?: JsonNullValueInput | InputJsonValue
     currentGameState?: EnumCurrentGameStateFieldUpdateOperationsInput | $Enums.CurrentGameState
     gameType?: StringFieldUpdateOperationsInput | string
-    gameName?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviteCode?: StringFieldUpdateOperationsInput | string
@@ -4784,7 +4765,6 @@ export namespace Prisma {
     gameConfiguration?: JsonNullValueInput | InputJsonValue
     currentGameState?: EnumCurrentGameStateFieldUpdateOperationsInput | $Enums.CurrentGameState
     gameType?: StringFieldUpdateOperationsInput | string
-    gameName?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviteCode?: StringFieldUpdateOperationsInput | string
@@ -4797,7 +4777,6 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: $Enums.CurrentGameState
     gameType: string
-    gameName?: string
     version: string
     lastUpdatedAt?: Date | string
     inviteCode?: string
@@ -4809,7 +4788,6 @@ export namespace Prisma {
     gameConfiguration?: JsonNullValueInput | InputJsonValue
     currentGameState?: EnumCurrentGameStateFieldUpdateOperationsInput | $Enums.CurrentGameState
     gameType?: StringFieldUpdateOperationsInput | string
-    gameName?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviteCode?: StringFieldUpdateOperationsInput | string
@@ -4821,7 +4799,6 @@ export namespace Prisma {
     gameConfiguration?: JsonNullValueInput | InputJsonValue
     currentGameState?: EnumCurrentGameStateFieldUpdateOperationsInput | $Enums.CurrentGameState
     gameType?: StringFieldUpdateOperationsInput | string
-    gameName?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviteCode?: StringFieldUpdateOperationsInput | string
@@ -4927,7 +4904,7 @@ export namespace Prisma {
     mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
   }
-  export type JsonFilter<$PrismaModel = never> = 
+  export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
         Required<JsonFilterBase<$PrismaModel>>
@@ -4985,7 +4962,6 @@ export namespace Prisma {
     gameConfiguration?: SortOrder
     currentGameState?: SortOrder
     gameType?: SortOrder
-    gameName?: SortOrder
     version?: SortOrder
     lastUpdatedAt?: SortOrder
     inviteCode?: SortOrder
@@ -4995,7 +4971,6 @@ export namespace Prisma {
     gameId?: SortOrder
     currentGameState?: SortOrder
     gameType?: SortOrder
-    gameName?: SortOrder
     version?: SortOrder
     lastUpdatedAt?: SortOrder
     inviteCode?: SortOrder
@@ -5005,7 +4980,6 @@ export namespace Prisma {
     gameId?: SortOrder
     currentGameState?: SortOrder
     gameType?: SortOrder
-    gameName?: SortOrder
     version?: SortOrder
     lastUpdatedAt?: SortOrder
     inviteCode?: SortOrder
@@ -5028,7 +5002,7 @@ export namespace Prisma {
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
   }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> = 
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
         Required<JsonWithAggregatesFilterBase<$PrismaModel>>
@@ -5382,7 +5356,7 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
   }
-  export type NestedJsonFilter<$PrismaModel = never> = 
+  export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
         Required<NestedJsonFilterBase<$PrismaModel>>
@@ -5539,7 +5513,6 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: $Enums.CurrentGameState
     gameType: string
-    gameName?: string
     version: string
     lastUpdatedAt?: Date | string
     inviteCode?: string
@@ -5551,7 +5524,6 @@ export namespace Prisma {
     gameConfiguration: JsonNullValueInput | InputJsonValue
     currentGameState: $Enums.CurrentGameState
     gameType: string
-    gameName?: string
     version: string
     lastUpdatedAt?: Date | string
     inviteCode?: string
@@ -5594,7 +5566,6 @@ export namespace Prisma {
     gameConfiguration?: JsonNullValueInput | InputJsonValue
     currentGameState?: EnumCurrentGameStateFieldUpdateOperationsInput | $Enums.CurrentGameState
     gameType?: StringFieldUpdateOperationsInput | string
-    gameName?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviteCode?: StringFieldUpdateOperationsInput | string
@@ -5606,7 +5577,6 @@ export namespace Prisma {
     gameConfiguration?: JsonNullValueInput | InputJsonValue
     currentGameState?: EnumCurrentGameStateFieldUpdateOperationsInput | $Enums.CurrentGameState
     gameType?: StringFieldUpdateOperationsInput | string
-    gameName?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviteCode?: StringFieldUpdateOperationsInput | string

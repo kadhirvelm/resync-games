@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { ConfigureGame } from "./ConfigureGame";
 import styles from "./GameConfigurationSideBar.module.scss";
 import { TutorialScreen } from "./TutorialScreen";
+import { toast } from "react-toastify";
 
 export const GameConfigurationSideBar = () => {
   const { isMobile } = useMediaQuery();
@@ -29,18 +30,16 @@ export const GameConfigurationSideBar = () => {
       return;
     }
 
-    const { gameName } = gameInfo;
-
-    const copyGlobalScreen = () => copy(`${window.location.href}/global`);
+    const copyGlobalScreen = () => {
+      copy(`${window.location.href}/global`);
+      toast("Copied to clipboard", { autoClose: 2000, type: "success" });
+    };
 
     const gameSlug = gameInfo.gameType as (typeof GAME_SLUGS)[number];
 
     return (
       <Flex direction="column" gap="1">
         <Flex direction="column">
-          <Text size="8" weight="bold">
-            {gameName}
-          </Text>
           <Flex align="center" gap="2">
             <Text size="5" weight="bold">
               {gameInfo.inviteCode.toUpperCase()}

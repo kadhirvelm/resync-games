@@ -1,0 +1,21 @@
+@use "@/styles/variables.scss" as vars;
+
+.textFieldContainer {
+    position: relative;
+    overflow: hidden;
+}
+
+.arrowsContainer {
+    position: absolute;
+    border-left: 1px solid vars.$muted-font;
+}
+
+.arrow {
+    cursor: pointer;
+    padding: 0 5px;
+    user-select: none;
+
+    &:hover {
+        background-color: rgba(vars.$muted-font, 0.25);
+    }
+}

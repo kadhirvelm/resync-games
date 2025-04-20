@@ -4,6 +4,7 @@ import clsx from "clsx";
 import type { Metadata } from "next";
 import { Dosis } from "next/font/google";
 import styles from "./layout.module.scss";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   description: "Games that bring people together",
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={clsx(styles.body, font.className)}>
         <Theme className={styles.entryPoint} hasBackground={false}>
+          <ToastContainer />
           {children}
         </Theme>
       </body>

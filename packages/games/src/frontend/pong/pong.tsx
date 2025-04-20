@@ -209,9 +209,9 @@ class PongGameScene extends BaseScene {
 
   subscribeToGameStateChanges() {
     this.store.subscribeToGameStateUpdates((newState: PongGameState) => {
-      console.log(
-        `Received an update: ${JSON.stringify(newState)} Current score: ${this.scoreText}`
-      );
+      // console.log(
+      //   `Received an update: ${JSON.stringify(newState)} Current score: ${this.scoreText}`
+      // );
       this.ball.setData("velocityX", newState.ball.velocityX);
       this.ball.setData("velocityY", newState.ball.velocityY);
       this.ball.x = newState.ball.x;

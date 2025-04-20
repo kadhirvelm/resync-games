@@ -133,7 +133,6 @@ export class GameStateService {
         },
         currentGameState: "waiting",
         gameConfiguration: createGameRequest.gameConfiguration,
-        gameName: createGameRequest.gameName,
         gameState,
         gameType: createGameRequest.gameType,
         inviteCode,
