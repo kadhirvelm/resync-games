@@ -13,6 +13,8 @@ export interface BaseGameConfigurationField {
 export interface GameConfigurationFieldNumber
   extends BaseGameConfigurationField {
   default?: number;
+  defaultChange?: number;
+  divisibleBy?: number;
   max?: number;
   min?: number;
   type: "number";

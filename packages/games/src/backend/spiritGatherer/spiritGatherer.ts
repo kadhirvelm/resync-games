@@ -44,7 +44,7 @@ export class SpiritGathererServer
       SpiritGathererGameConfiguration
     >
   ) {
-    console.log("Ticking game state", gameStateAndInfo);
+    // console.log("Ticking game state", gameStateAndInfo);
     return {
       gameState: gameStateAndInfo.gameState,
       hasFinished: false

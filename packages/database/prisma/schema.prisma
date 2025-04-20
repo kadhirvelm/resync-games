@@ -23,7 +23,6 @@ model GameState {
   gameConfiguration Json             @map("game_configuration")
   currentGameState  CurrentGameState @map("current_game_state")
   gameType          String           @map("game_type")
-  gameName          String           @default("Example game") @map("game_name")
   version           String           @map("version")
   lastUpdatedAt     DateTime         @default(now()) @map("last_update_timestamp")
   inviteCode        String           @default("n/a") @map("invite_code")

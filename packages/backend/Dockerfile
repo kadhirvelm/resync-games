@@ -8,6 +8,8 @@ RUN cp -r packages/games out/packages/games && cp .env out/packages/backend/
 
 WORKDIR /app/out
 
+RUN apt-get update -y && apt-get install -y openssl
+
 RUN corepack enable
 RUN yarn
 

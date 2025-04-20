@@ -16,7 +16,6 @@ export interface GetGameState {
 
 export interface CreateGame<GameConfiguration = object> {
   gameConfiguration: GameConfiguration;
-  gameName: string;
   gameType: GameType;
   playerId: PlayerId;
   version: string;

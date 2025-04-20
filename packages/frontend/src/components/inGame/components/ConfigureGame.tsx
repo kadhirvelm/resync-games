@@ -12,6 +12,7 @@ import {
 import { useContext, useState } from "react";
 import { Text } from "@radix-ui/themes";
 import { TextField } from "@/lib/radix/TextField";
+import { NumberInput } from "@/lib/resync-components/NumberInput";
 
 export const ConfigureGame = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -60,12 +61,15 @@ export const ConfigureGame = () => {
           {configurationValue.label}
           {configurationValue.required ? "*" : ""}
         </Text>
-        <TextField
-          onBlur={onSaveConfiguration}
+        <NumberInput
+          defaultChange={configurationValue.defaultChange}
+          divisibleBy={configurationValue.divisibleBy}
+          maximum={configurationValue.max}
+          minimum={configurationValue.min}
           onChange={(newValue) =>
             setCurrentGameConfiguration({
               ...currentGameConfiguration,
-              [key]: parseFloat(newValue)
+              [key]: newValue
             })
           }
           value={currentValue?.toString() ?? ""}

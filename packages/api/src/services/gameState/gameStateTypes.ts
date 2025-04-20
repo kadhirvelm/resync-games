@@ -15,7 +15,6 @@ export interface GameInfo<GameConfiguration = object> extends WithTimestamp {
   currentGameState: CurrentGameState;
   gameConfiguration: GameConfiguration;
   gameId: GameId;
-  gameName: string;
   gameType: GameType;
   inviteCode: string;
   players: PlayerInGame[];

@@ -276,10 +276,10 @@ export class TheStockTimesServer
     return {
       gameState: {
         cycle: {
-          dayTime: 60 * 1_000, // 60 seconds
-          endDay: 11, // 10 full days = 13 minute game,
+          dayTime: 60 * 1_000, // Default that gets overridden when the game starts
+          endDay: 11, // Default that gets overridden when the game starts
           lastUpdatedAt: new Date().toISOString(),
-          nightTime: 20 * 1_000, // 20 seconds
+          nightTime: 20 * 1_000, // Default that gets overridden when the game starts
           seedTime: 0,
           startTime: new Date().toISOString(),
           state: "playing"

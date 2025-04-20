@@ -5,6 +5,7 @@ export const TheStockTimesConfiguration: MapGameConfiguration<TheStockTimesGameC
   {
     startingCash: {
       default: 1_000,
+      defaultChange: 100,
       label: "Starting cash",
       max: 50_000,
       min: 100,
@@ -12,10 +13,11 @@ export const TheStockTimesConfiguration: MapGameConfiguration<TheStockTimesGameC
       type: "number"
     },
     stockCycleTime: {
-      default: 6,
-      label: "Stock cycle time (seconds)",
-      max: 12,
-      min: 3,
+      default: 12,
+      divisibleBy: 3,
+      label: "Stock cycle time (seconds, ÷ 3)",
+      max: 21,
+      min: 6,
       required: true,
       type: "number"
     },
