@@ -7,7 +7,7 @@ import { GameId, GameType } from "@resync-games/api";
 import { useRouter } from "next/navigation";
 import { InitializeGlobalScreen } from "./InitializeGlobalScreen";
 
-export const GlobalScreen = ({
+const GlobalScreen = ({
   gameId,
   gameSlug
 }: {
@@ -47,3 +47,5 @@ export const GlobalScreen = ({
     </ReduxGate>
   );
 };
+
+export default GlobalScreen;

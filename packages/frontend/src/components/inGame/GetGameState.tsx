@@ -15,7 +15,7 @@ import {
 import { UnknownAction } from "@reduxjs/toolkit";
 import { getFrontendGame } from "@/lib/utils/getFrontendGame";
 
-export const GetGameState = ({
+const GetGameState = ({
   gameId,
   gameSlug
 }: {
@@ -62,3 +62,5 @@ export const GetGameState = ({
     </ReduxGate>
   );
 };
+
+export default GetGameState;

@@ -1,5 +1,3 @@
-"use client";
-
 import { useNetworkCall } from "@/lib/hooks/useNetworkCall";
 import { ClientServiceCallers } from "@/services/serviceCallers";
 import { GameId, Player } from "@resync-games/api";

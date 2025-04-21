@@ -1,14 +1,18 @@
-import { useMemo, useState } from "react";
-import { selectOpponents, selectPlayerPortfolio } from "../../store/selectors";
+import { PlayerId } from "@resync-games/api";
+import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { useState } from "react";
+import { Flex, Select, Text } from "../../../components";
+import {
+  selectOpponents,
+  selectPlayerPortfolio,
+  selectStocksWithOrder
+} from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
   useStockTimesGameStateDispatch,
   useStockTimesSelector
 } from "../../store/theStockTimesRedux";
-import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
-import { Flex, Select, Text } from "../../../components";
 import { ActivateStorePower } from "../store/ActivateStorePower";
-import { PlayerId } from "@resync-games/api";
 
 export const STOCK_LOCK_DURATION = 0.75;
 export const STOCK_LOCK_COOLDOWN = 1.5;
@@ -24,18 +28,10 @@ export const StockLock = () => {
 
   const playerPortfolio = useStockTimesSelector(selectPlayerPortfolio);
   const opponents = useStockTimesSelector(selectOpponents);
-  const stocks = useStockTimesSelector(
-    (s) => s.gameStateSlice.gameState?.stocks ?? {}
-  );
-
-  const sortedStock = useMemo(() => {
-    return Object.entries(stocks).sort(([aSymbol], [bSymbol]) => {
-      return aSymbol.localeCompare(bSymbol);
-    });
-  }, [stocks]);
+  const stocks = useStockTimesSelector(selectStocksWithOrder);
 
   const [playerSelector, setPlayerSelector] = useState(opponents[0]?.playerId);
-  const [stockSelector, setStockSelector] = useState(sortedStock[0]?.[0]);
+  const [stockSelector, setStockSelector] = useState(stocks[0]?.symbol);
 
   if (playerPortfolio === undefined || opponents.length === 0) {
     return <Text color="gray">No opponents available</Text>;
@@ -114,8 +110,8 @@ export const StockLock = () => {
           Stock
         </Text>
         <Select
-          items={sortedStock.map(([symbol, stock]) => ({
-            label: `[${symbol}] ${stock.title}`,
+          items={stocks.map(({ title, symbol, orderIndex }) => ({
+            label: `(${orderIndex}) [${symbol}] ${title}`,
             value: symbol
           }))}
           onChange={setStockSelector}

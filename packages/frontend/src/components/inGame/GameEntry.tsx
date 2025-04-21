@@ -1,5 +1,3 @@
-"use client";
-
 import { GameStateHandler, GameStateReduxStore } from "@/redux";
 import { GameId, GameType } from "@resync-games/api";
 import { lazy, useContext, useMemo } from "react";

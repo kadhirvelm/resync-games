@@ -12,17 +12,12 @@ const nextConfig = {
       }
     ]
   },
+  devIndicators: false,
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")]
   },
   experimental: {
     cpus: 1
-  },
-  webpack(config, { isServer }) {
-    if (!isServer) {
-      config.devtool = 'source-map';
-    }
-    return config;
   }
 };
 

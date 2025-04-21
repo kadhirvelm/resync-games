@@ -1,13 +1,16 @@
 import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
-import { useMemo, useState } from "react";
-import { selectPlayerPortfolio } from "../../store/selectors";
+import { useState } from "react";
+import { Flex, Select } from "../../../components";
+import {
+  selectPlayerPortfolio,
+  selectStocksWithOrder
+} from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
   useStockTimesGameStateDispatch,
   useStockTimesSelector
 } from "../../store/theStockTimesRedux";
 import { ActivateStorePower } from "../store/ActivateStorePower";
-import { Flex, Select } from "../../../components";
 
 export const CORRUPT_STOCK_COOLDOWN = 3;
 
@@ -21,17 +24,9 @@ export const CorruptStock = () => {
   const newsArticles = useStockTimesSelector(
     (s) => s.gameStateSlice.gameState?.newsArticles
   );
-  const stocks = useStockTimesSelector(
-    (s) => s.gameStateSlice.gameState?.stocks ?? {}
-  );
+  const stocks = useStockTimesSelector(selectStocksWithOrder);
 
-  const sortedStock = useMemo(() => {
-    return Object.entries(stocks).sort(([aSymbol], [bSymbol]) => {
-      return aSymbol.localeCompare(bSymbol);
-    });
-  }, [stocks]);
-
-  const [stockSelector, setStockSelector] = useState(sortedStock[0]?.[0]);
+  const [stockSelector, setStockSelector] = useState(stocks[0]?.symbol);
 
   const onCorruptStock = () => {
     if (
@@ -97,8 +92,8 @@ export const CorruptStock = () => {
   return (
     <Flex direction="column" flex="1" gap="2">
       <Select
-        items={sortedStock.map(([symbol, stock]) => ({
-          label: `[${symbol}] ${stock.title}`,
+        items={stocks.map(({ title, symbol, orderIndex }) => ({
+          label: `(${orderIndex}) [${symbol}] ${title}`,
           value: symbol
         }))}
         onChange={setStockSelector}

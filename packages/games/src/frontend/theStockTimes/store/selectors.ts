@@ -193,6 +193,34 @@ export const selectStocksAndSymbols = createSelector(
   }
 );
 
+export const selectStocksWithOrder = createSelector(
+  [
+    (state: TheStockTimesReduxState) =>
+      state.gameStateSlice.gameState?.stocks ?? {},
+    (state: TheStockTimesReduxState) =>
+      state.gameStateSlice.gameState?.stockInFocus.stockOrder
+  ],
+  (stocks, stockOrder) => {
+    if (stocks === undefined) {
+      return [];
+    }
+
+    const stocksWithOrder = Object.entries(stocks).map(([symbol, stock]) => {
+      const orderIndex = (stockOrder ?? []).indexOf(symbol);
+
+      return {
+        ...stock,
+        orderIndex: `${orderIndex + 1} / ${(stockOrder ?? []).length}`,
+        symbol
+      };
+    });
+
+    return stocksWithOrder.sort((a, b) =>
+      a.orderIndex < b.orderIndex ? -1 : 1
+    );
+  }
+);
+
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 export const selectEndGameGraph = createSelector(
