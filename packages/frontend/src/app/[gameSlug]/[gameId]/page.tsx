@@ -1,10 +1,15 @@
 "use client";
 
-import { GetGameState } from "@/components/inGame/GetGameState";
 import { PlayerContextProvider } from "@/components/player/PlayerContext";
 import { ClientGate } from "@/lib/ClientGate";
 import { GameId, GameType } from "@resync-games/api";
+import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
+
+const GetGameStateWithoutSSR = dynamic(
+  () => import("@/components/inGame/GetGameState"),
+  { ssr: false }
+);
 
 export default function Page() {
   const { gameSlug, gameId } = useParams<{
@@ -15,7 +20,7 @@ export default function Page() {
   return (
     <ClientGate>
       <PlayerContextProvider gameId={gameId}>
-        <GetGameState gameId={gameId} gameSlug={gameSlug} />
+        <GetGameStateWithoutSSR gameId={gameId} gameSlug={gameSlug} />
       </PlayerContextProvider>
     </ClientGate>
   );

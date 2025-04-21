@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 
 export const ClientGate = ({ children }: { children: React.ReactNode }) => {
@@ -8,6 +6,10 @@ export const ClientGate = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  if (typeof window === "undefined") {
+    return null;
+  }
 
   return isClient ? <>{children}</> : null;
 };

@@ -1,5 +1,3 @@
-"use client";
-
 import { Flex } from "@/lib/radix/Flex";
 import { useContext, useState } from "react";
 import { PlayerContext } from "../player/PlayerContext";
@@ -44,7 +42,7 @@ export function JoinGame() {
           value={inviteCode}
         />
         <Button
-          disabled={inviteCode.length < 4}
+          disabled={inviteCode.length < 3}
           loading={isLoading}
           onClick={onJoinGame}
           size="3"

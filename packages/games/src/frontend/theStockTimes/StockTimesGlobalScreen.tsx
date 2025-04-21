@@ -53,17 +53,21 @@ export const StockTimesGlobalScreen = () => {
     );
   }
 
+  const clockSize = Math.min(
+    clockRef.current?.clientWidth ?? 100,
+    clockRef.current?.clientHeight ?? 100
+  );
+
+  console.log(clockRef.current?.clientWidth, clockRef.current?.clientHeight);
+
   return (
     <DisplayType.Provider value={{ displayType: "global-screen" }}>
       <Flex flex="1">
-        <Flex direction="column" flex="1" gap="3" p="3">
-          <Flex align="center" flex="1" justify="center" ref={clockRef}>
-            <Clock
-              cycle={gameState?.cycle}
-              size={(clockRef.current?.clientWidth ?? 100) - 20}
-            />
+        <Flex direction="column" flex="1" gap="5" p="3">
+          <Flex align="center" flex="2" justify="center" ref={clockRef}>
+            <Clock cycle={gameState?.cycle} size={clockSize - 20} />
           </Flex>
-          <Flex flex="1">
+          <Flex align="center" flex="1">
             <FinalScoreboard />
           </Flex>
         </Flex>

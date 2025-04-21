@@ -1,5 +1,3 @@
-"use client";
-
 import { GameStateReduxStore, useGameStateSelector } from "@/redux";
 import { useGameStateSocket } from "@/socket/useGameStateSocket";
 import { GameId, GameType } from "@resync-games/api";

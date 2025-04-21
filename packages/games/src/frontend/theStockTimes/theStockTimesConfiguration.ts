@@ -13,10 +13,10 @@ export const TheStockTimesConfiguration: MapGameConfiguration<TheStockTimesGameC
       type: "number"
     },
     stockCycleTime: {
-      default: 12,
+      default: 15,
       divisibleBy: 3,
       label: "Stock cycle time (seconds, ÷ 3)",
-      max: 21,
+      max: 30,
       min: 6,
       required: true,
       type: "number"

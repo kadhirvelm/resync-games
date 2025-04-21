@@ -1,5 +1,3 @@
-"use client";
-
 import { PlayerContext } from "@/components/player/PlayerContext";
 import { getSocketEmitter, registerSocketHandler } from "@/services/socket";
 import {
@@ -40,7 +38,7 @@ export function useGameStateSocket(gameId: GameId, gameType: GameType) {
       playerId: player.playerId,
       socketId: socketIdentifier
     });
-  }, [socketEmitter, gameId, gameType, player.playerId, socketIdentifier]);
+  }, [socketEmitter, gameId, player.playerId, socketIdentifier]);
 
   const disconnect = useCallback(() => {
     setConnectionStatus(false);
