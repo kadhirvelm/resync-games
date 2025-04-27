@@ -26,7 +26,9 @@ export class GameStateService {
     private userService: UserService,
     private gameRegistryService: GameRegistryService,
     private inviteCodeService: InviteCodeService
-  ) {}
+  ) {
+    this.gamesInFlightService.changeGameStateCallback = this.changeGameState;
+  }
 
   public changeGameState = async (
     changeGameState: ChangeGameState

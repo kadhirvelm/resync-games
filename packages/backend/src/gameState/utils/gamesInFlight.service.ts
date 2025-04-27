@@ -1,12 +1,14 @@
 import { UserService } from "@/user/user.service";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import {
+  ChangeGameState,
   GameId,
   GameStateAndInfo,
   GameType,
   JoinGameWithCode,
   JoinGameWithId,
   LeaveGame,
+  PlayerId,
   TimestampedState
 } from "@resync-games/api";
 import { GameState, Player, PlayersInGame } from "@resync-games/database";
@@ -25,6 +27,8 @@ import { reconcileStates } from "./reconcileStates";
 
 @Injectable()
 export class GamesInFlightService {
+  public changeGameStateCallback?: (changeGameState: ChangeGameState) => void;
+
   private gamesInFlightCache = new LRUCache<GameId, GameStateAndInfo>({
     max: 50
   });
@@ -368,6 +372,24 @@ export class GamesInFlightService {
       ...previousGameState,
       gameState: newState
     };
+
+    const backend = this.gameRegistryService.getGameRegistry(
+      previousGameState.gameType
+    );
+
+    const maybeNewGameState = await backend.onGameStateChange?.(newGameState);
+    if (maybeNewGameState != null) {
+      newGameState.gameState = maybeNewGameState?.gameState ?? newState;
+
+      if (maybeNewGameState.hasFinished) {
+        this.changeGameStateCallback?.({
+          currentGameState: "finished",
+          gameId: nextGameState.gameId,
+          gameType: nextGameState.gameType,
+          playerId: "GAME_TICKER" as PlayerId
+        });
+      }
+    }
 
     this.gamesInFlightCache.set(newGameState.gameId, newGameState);
     this.socketGateway.updateGameState(newGameState, newGameState.gameId);

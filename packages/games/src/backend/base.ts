@@ -66,6 +66,16 @@ export interface IGameServer<GameState, GameConfiguration> {
     newCurrentGameState: CurrentGameState
   ) => Promise<GameState | undefined> | GameState | undefined;
   /**
+   * When the game state changes, this callback is called with the next game state after reconcilliation.
+   * Return undefined if you don't want to update the game state.
+   */
+  onGameStateChange?: (
+    nextGameState: GameStateAndInfo<any, any>
+  ) =>
+    | Promise<TickGameState<GameState> | undefined>
+    | TickGameState<GameState>
+    | undefined;
+  /**
    * Callback on when a player joins the game. Useful if you want to initialize the player's state.
    */
   onPlayerJoin?: (
@@ -82,7 +92,7 @@ export interface IGameServer<GameState, GameConfiguration> {
     player: PlayerInGame
   ) => Promise<GameState | undefined> | GameState | undefined;
   /**
-   * Callback every 5 seconds that allows the backend to modify the game state as required. If it returns
+   * Callback every 3 seconds that allows the backend to modify the game state as required. If it returns
    * undefined, the server will leave the current game state alone. The resulting game state will be reconciled
    * with the existing game state, which will then be be broadcast to all players.
    */
