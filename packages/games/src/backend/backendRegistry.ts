@@ -3,8 +3,6 @@
 import { GAME_SLUGS } from "../shared/gamesRegistry";
 import { IGameServer } from "./base";
 import { PongGameServer } from "./pong/pong";
-import { SnatchTheSnackServer } from "./snatch-the-snack/snatchTheSnack";
-import { SpiritGathererServer } from "./spiritGatherer/spiritGatherer";
 import { TheStockTimesServer } from "./theStockTimes/theStockTimes";
 
 export type BackendGameRegistry = {
@@ -39,14 +37,6 @@ export interface BackendRegisteredGame {
 export const BACKEND_GAME_REGISTRY: BackendGameRegistry = {
   pong: {
     gameServer: new PongGameServer(),
-    stateReconcilerMethod: "closest"
-  },
-  "snatch-the-snack": {
-    gameServer: new SnatchTheSnackServer(),
-    stateReconcilerMethod: "closest"
-  },
-  "spirit-gatherer": {
-    gameServer: new SpiritGathererServer(),
     stateReconcilerMethod: "closest"
   },
   "the-stock-times": {

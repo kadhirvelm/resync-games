@@ -2,12 +2,7 @@ export type GameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: RegisteredGame;
 };
 
-export const GAME_SLUGS = [
-  "pong",
-  "snatch-the-snack",
-  "the-stock-times",
-  "spirit-gatherer"
-] as const;
+export const GAME_SLUGS = ["pong", "the-stock-times"] as const;
 
 export interface GameTags {
   /**
@@ -31,20 +26,6 @@ export const GAME_REGISTRY: GameRegistry = {
     description: "Classic pong, with a multiplayer twist.",
     gameTags: {},
     name: "Pong",
-    version: "1.0.0"
-  },
-  "snatch-the-snack": {
-    description:
-      "A game of speed and strategy to see which team can capture the snacks first.",
-    gameTags: {},
-    name: "Snatch the Snack",
-    version: "1.0.0"
-  },
-  "spirit-gatherer": {
-    description:
-      "Work with your team to gather as many spirit herbs as possible while defending yourself from the other team.",
-    gameTags: {},
-    name: "Battle for Spirit Herbs",
     version: "1.0.0"
   },
   "the-stock-times": {
