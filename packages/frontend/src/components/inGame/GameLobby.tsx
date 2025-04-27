@@ -7,15 +7,15 @@ import {
 } from "@/lib/stableIdentifiers/teamIdentifier";
 import { useGameStateSelector } from "@/redux";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { Text } from "@radix-ui/themes";
+import { ScrollArea, Text } from "@radix-ui/themes";
 import { isServiceError } from "@resync-games/api";
 import { motion } from "motion/react";
 import { useContext, useState } from "react";
 import { PlayerContext } from "../player/PlayerContext";
+import { GameConfigurationSideBar } from "./components/GameConfigurationSideBar";
 import { GoHome } from "./components/GoHome";
 import styles from "./GameLobby.module.scss";
 import { canStartGame } from "./utils/canStartGame";
-import { GameConfigurationSideBar } from "./components/GameConfigurationSideBar";
 
 export const GameLobby = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -83,7 +83,7 @@ export const GameLobby = () => {
     }
 
     return (
-      <Flex align="center" direction="column" justify="center">
+      <Flex align="center" direction="column" justify="center" py="6">
         <Flex>
           <Text color="gray" size="2">
             Invite code
@@ -202,31 +202,33 @@ export const GameLobby = () => {
   };
 
   return (
-    <Flex flex="1">
-      <Flex>
-        <GoHome />
-      </Flex>
-      <GameConfigurationSideBar />
-      <Flex direction="column" flex="4" gap="8" justify="center">
-        {renderInviteCode()}
-        {maybeRenderUndecided()}
-        <Flex align="baseline" gap="3" justify="center">
-          {renderTeam(0)}
-          <Text>VS</Text>
-          {renderTeam(1)}
+    <ScrollArea>
+      <Flex flex="1" py="9">
+        <Flex>
+          <GoHome />
         </Flex>
-        <Flex justify="center">
-          <Flex height="200px" width="25vw">
-            <Button
-              disabled={!maybeCheckCanStartGame()}
-              loading={isLoading}
-              onClick={onStartGame}
-            >
-              Start game!
-            </Button>
+        <GameConfigurationSideBar />
+        <Flex align="center" direction="column" flex="4" gap="8">
+          {renderInviteCode()}
+          {maybeRenderUndecided()}
+          <Flex align="center" direction="column" flex="1" gap="3">
+            {renderTeam(0)}
+            <Text>VS</Text>
+            {renderTeam(1)}
+          </Flex>
+          <Flex justify="center">
+            <Flex height="200px" width="25vw">
+              <Button
+                disabled={!maybeCheckCanStartGame()}
+                loading={isLoading}
+                onClick={onStartGame}
+              >
+                Start!
+              </Button>
+            </Flex>
           </Flex>
         </Flex>
       </Flex>
-    </Flex>
+    </ScrollArea>
   );
 };

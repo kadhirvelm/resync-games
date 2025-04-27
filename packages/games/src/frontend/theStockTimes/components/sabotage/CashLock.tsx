@@ -11,7 +11,7 @@ import {
 import { ActivateStorePower } from "../store/ActivateStorePower";
 
 export const CASH_LOCK_DURATION = 0.75;
-export const CASH_LOCK_COOLDOWN = 3.5;
+export const CASH_LOCK_COOLDOWN = 3;
 
 export const CashLock = () => {
   const dispatch = useStockTimesGameStateDispatch();

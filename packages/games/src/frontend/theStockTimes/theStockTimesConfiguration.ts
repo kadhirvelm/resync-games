@@ -4,16 +4,16 @@ import { MapGameConfiguration } from "../baseConfiguration";
 export const TheStockTimesConfiguration: MapGameConfiguration<TheStockTimesGameConfiguration> =
   {
     startingCash: {
-      default: 1_000,
-      defaultChange: 100,
+      default: 100_000,
+      defaultChange: 10_000,
       label: "Starting cash",
-      max: 50_000,
-      min: 100,
+      max: 500_000,
+      min: 10_000,
       required: true,
       type: "number"
     },
     stockCycleTime: {
-      default: 15,
+      default: 12,
       divisibleBy: 3,
       label: "Stock cycle time (seconds, ÷ 3)",
       max: 30,

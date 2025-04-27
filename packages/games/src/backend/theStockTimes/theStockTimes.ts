@@ -277,7 +277,7 @@ export class TheStockTimesServer
       gameState: {
         cycle: {
           dayTime: 60 * 1_000, // Default that gets overridden when the game starts
-          endDay: 11, // Default that gets overridden when the game starts
+          endDay: 6, // Default that gets overridden when the game starts
           lastUpdatedAt: new Date().toISOString(),
           nightTime: 20 * 1_000, // Default that gets overridden when the game starts
           seedTime: 0,
@@ -390,7 +390,7 @@ export class TheStockTimesServer
     newGameState.cycle.nightTime =
       stockFocusCycleTime * game.gameConfiguration.totalStocks;
     newGameState.cycle.dayTime =
-      stockFocusCycleTime * game.gameConfiguration.totalStocks * 3;
+      stockFocusCycleTime * game.gameConfiguration.totalStocks * 2;
 
     return newGameState;
   }

@@ -48,6 +48,7 @@ services:
       - GAME_ORCHESTRATOR=true
       - GAME_STATE_DATABASE_HOST_URL=${GAME_STATE_DATABASE_HOST_URL}
       - GAME_STATE_DIRECT_URL=${GAME_STATE_DIRECT_URL}
+      - PUBLIC_URL=${PUBLIC_URL}
     command: bash -c "corepack enable && yarn && cd ../../ && yarn db:migrate && yarn dev backend"
   frontend:
     container_name: frontend

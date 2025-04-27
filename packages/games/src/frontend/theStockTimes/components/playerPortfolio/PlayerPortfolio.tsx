@@ -1,4 +1,5 @@
-import { Flex, Tabs, Text } from "../../../components";
+import { motion } from "motion/react";
+import { Flex, Text } from "../../../components";
 import {
   selectPlayerPortfolio,
   selectTeams,
@@ -6,11 +7,8 @@ import {
 } from "../../store/selectors";
 import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import { displayDollar } from "../../utils/displayDollar";
-import { Sabotage } from "../sabotage/Sabotage";
-import { StockTimesStore } from "../store/StockTimesStore";
 import styles from "./PlayerPortfolio.module.scss";
 import { PlayerStocks } from "./PlayerStocks";
-import { motion } from "motion/react";
 
 export const PlayerPortfolio = () => {
   const { player } = useStockTimesSelector((s) => s.playerSlice);
@@ -116,47 +114,10 @@ export const PlayerPortfolio = () => {
       p="3"
     >
       {renderTeamValue()}
-      <Tabs.Root defaultValue="your-portfolio">
-        <Tabs.List>
-          <Tabs.Trigger value="your-portfolio">Your portfolio</Tabs.Trigger>
-          <Tabs.Trigger value="store">Store</Tabs.Trigger>
-          <Tabs.Trigger value="sabotage">Sabotage</Tabs.Trigger>
-        </Tabs.List>
-        <Tabs.Content value="your-portfolio">
-          <motion.div
-            animate={{ opacity: 1, x: 0 }}
-            initial={{ opacity: 0, x: -100 }}
-            style={{ display: "flex", flex: "1" }}
-          >
-            <Flex direction="column" flex="1" gap="2" mt="2">
-              {renderYourPortfolio()}
-              <PlayerStocks />
-            </Flex>
-          </motion.div>
-        </Tabs.Content>
-        <Tabs.Content value="store">
-          <motion.div
-            animate={{ opacity: 1, x: 0 }}
-            initial={{ opacity: 0, x: -100 }}
-            style={{ display: "flex", flex: "1" }}
-          >
-            <Flex direction="column" flex="1" mt="2">
-              <StockTimesStore />
-            </Flex>
-          </motion.div>
-        </Tabs.Content>
-        <Tabs.Content value="sabotage">
-          <motion.div
-            animate={{ opacity: 1, x: 0 }}
-            initial={{ opacity: 0, x: -100 }}
-            style={{ display: "flex", flex: "1" }}
-          >
-            <Flex direction="column" flex="1" mt="2">
-              <Sabotage />
-            </Flex>
-          </motion.div>
-        </Tabs.Content>
-      </Tabs.Root>
+      <Flex direction="column" flex="1" gap="2" mt="2">
+        {renderYourPortfolio()}
+        <PlayerStocks />
+      </Flex>
     </Flex>
   );
 };
