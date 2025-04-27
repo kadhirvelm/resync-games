@@ -1,20 +1,14 @@
+import { IGameStateHandler } from "@/redux";
+import { JSX } from "react";
 import { GAME_SLUGS } from "../shared/gamesRegistry";
 import { MapGameConfiguration } from "./baseConfiguration";
 import { PongHomePage } from "./pong/pong";
 import { PongConfiguration } from "./pong/pongConfiguration";
-import { DisplayMagicMazeGame } from "./snatchTheSnack/snatchTheSnack";
-import { IGameStateHandler } from "@/redux";
-import { SnatchTheSnackConfiguration } from "./snatchTheSnack/snatchTheSnackConfiguration";
-import { TheStockTimesConfiguration } from "./theStockTimes/theStockTimesConfiguration";
 import { DisplayTheStockTimes } from "./theStockTimes/DisplayTheStockTimes";
-import { JSX } from "react";
-import { INITIAL_SNATCH_THE_SNACK_LOCAL_STATE } from "./snatchTheSnack/store/snatchTheSnackLocalState";
-import { INITIAL_THE_STOCK_TIMES_LOCAL_STATE } from "./theStockTimes/store/theStockTimesLocalState";
 import { StockTimesGlobalScreen } from "./theStockTimes/StockTimesGlobalScreen";
 import { StockTimesTutorial } from "./theStockTimes/StockTimesTutorial";
-import { DisplaySpiritGatherer } from "./spiritGatherer/DisplaySpiritGatherer";
-import { INITIAL_SPIRIT_GATHERER_LOCAL_STATE } from "./spiritGatherer/store/spiritGathererLocalState";
-import { SpiritGathererConfiguration } from "./spiritGatherer/spiritGathererConfiguration";
+import { INITIAL_THE_STOCK_TIMES_LOCAL_STATE } from "./theStockTimes/store/theStockTimesLocalState";
+import { TheStockTimesConfiguration } from "./theStockTimes/theStockTimesConfiguration";
 
 export type FrontendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: FrontendRegisteredGame;
@@ -69,16 +63,6 @@ export const GAME_REGISTRY: FrontendGameRegistry = {
     gameConfiguration: PongConfiguration,
     gameEntry: PongHomePage,
     initialLocalState: undefined
-  },
-  "snatch-the-snack": {
-    gameConfiguration: SnatchTheSnackConfiguration,
-    gameEntry: DisplayMagicMazeGame,
-    initialLocalState: INITIAL_SNATCH_THE_SNACK_LOCAL_STATE
-  },
-  "spirit-gatherer": {
-    gameConfiguration: SpiritGathererConfiguration,
-    gameEntry: DisplaySpiritGatherer,
-    initialLocalState: INITIAL_SPIRIT_GATHERER_LOCAL_STATE
   },
   "the-stock-times": {
     gameConfiguration: TheStockTimesConfiguration,

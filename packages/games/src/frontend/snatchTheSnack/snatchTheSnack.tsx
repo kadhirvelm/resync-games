@@ -146,7 +146,7 @@ class MagicMazeGame extends BaseGame {
   }
 }
 
-export const DisplayMagicMazeGame = ({
+export const SnatchTheSnack = ({
   gameStateHandler
 }: FrontendGameComponentProps) => {
   const dispatch = useGameStateDispatch();
