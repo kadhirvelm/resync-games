@@ -7,7 +7,7 @@ import {
   GAME_SLUGS
 } from "@resync-games/games-shared/gamesRegistry";
 import copy from "copy-to-clipboard";
-import { CopyIcon } from "lucide-react";
+import { CopyIcon, SettingsIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { ConfigureGame } from "./ConfigureGame";
@@ -92,11 +92,12 @@ export const GameConfigurationSideBar = () => {
     setIsCollapsed(false);
   };
 
-  return (
-    <>
-      {!isCollapsed && isMobile && (
-        <Flex className={styles.overlay} onClick={() => setIsCollapsed(true)} />
-      )}
+  const renderSideBar = () => {
+    if (isMobile && isCollapsed) {
+      return;
+    }
+
+    return (
       <Flex
         className={styles.configuration}
         direction="column"
@@ -106,6 +107,20 @@ export const GameConfigurationSideBar = () => {
       >
         {maybeRenderContent()}
       </Flex>
+    );
+  };
+
+  return (
+    <>
+      {!isCollapsed && isMobile && (
+        <Flex className={styles.overlay} onClick={() => setIsCollapsed(true)} />
+      )}
+      {isMobile && (
+        <Flex className={styles.mobileCollapsed} onClick={maybeExpand} p="2">
+          <SettingsIcon size={16} />
+        </Flex>
+      )}
+      {renderSideBar()}
     </>
   );
 };

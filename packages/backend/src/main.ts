@@ -13,6 +13,6 @@ async function bootstrap() {
 
   app.use(compression());
 
-  await app.listen(8080, "0.0.0.0");
+  await app.listen(8080, process.env.PUBLIC_URL ?? "0.0.0.0");
 }
 bootstrap();

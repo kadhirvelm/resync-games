@@ -52,6 +52,7 @@ export const FinalScoreboard = () => {
           gravity={0.025}
           height={window.innerHeight}
           initialVelocityY={15}
+          style={{ zIndex: 0 }}
           width={window.innerWidth}
         />
       )}
@@ -79,10 +80,10 @@ export const FinalScoreboard = () => {
               p="3"
             >
               <Flex align="center" gap="2">
-                <Text size="8">{index + 1})</Text>
-                <Text size="8">{team.teamName}</Text>
+                <Text size="6">{index + 1})</Text>
+                <Text size="6">{team.teamName}</Text>
                 <Flex className={styles.divider} flex="1" mx="2" />
-                <Text size="8">{displayDollar(team.averageTeamValue)}</Text>
+                <Text size="6">{displayDollar(team.averageTeamValue)}</Text>
               </Flex>
               <Flex direction="column" gap="2">
                 {sortedPlayers.map((player) => (

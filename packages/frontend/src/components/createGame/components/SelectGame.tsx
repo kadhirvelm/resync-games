@@ -23,6 +23,7 @@ const SelectGame = ({
   const completedGames = Object.entries(GAME_REGISTRY)
     .filter((game) => game[1].gameTags.completed)
     .sort((a, b) => a[1].name.localeCompare(b[1].name));
+
   const inDevelopmentGames = Object.entries(GAME_REGISTRY)
     .filter((game) => !game[1].gameTags.completed)
     .sort((a, b) => a[1].name.localeCompare(b[1].name));

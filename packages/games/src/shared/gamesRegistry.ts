@@ -49,11 +49,11 @@ export const GAME_REGISTRY: GameRegistry = {
   },
   "the-stock-times": {
     description:
-      "Bet on generated stocks using the daily news to guess which stocks are going to shoot. Which team can make the most money?",
+      "YOLO bet on generated stocks using 'the daily news' to guess which stocks are going to the moon. Which team can make the most money?",
     gameTags: {
       completed: true
     },
-    name: "YOLO Bet on Stocks",
+    name: "The Stock Times",
     version: "1.0.0"
   }
 };

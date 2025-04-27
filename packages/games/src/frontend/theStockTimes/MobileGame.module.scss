@@ -3,12 +3,10 @@
 .mainContainer {
     margin: 70px 15px 60px;
     z-index: 1;
-    overflow: auto;
+    position: relative;
+    padding: 20px 0;
 }
 
 .clock {
-    position: fixed;
-    top: 5px;
-    right: 5px;
     z-index: -1;
 }
