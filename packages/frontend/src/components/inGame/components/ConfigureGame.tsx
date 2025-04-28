@@ -115,7 +115,9 @@ export const ConfigureGame = () => {
       return renderNumberField(key, currentValue, configurationValue);
     }
 
-    return renderStringField(key, currentValue, configurationValue);
+    if (configurationValue.type === "string") {
+      return renderStringField(key, currentValue, configurationValue);
+    }
   };
 
   return (

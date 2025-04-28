@@ -14,6 +14,8 @@ import { ConfigureGame } from "./ConfigureGame";
 import styles from "./GameConfigurationSideBar.module.scss";
 import { TutorialScreen } from "./TutorialScreen";
 import { toast } from "react-toastify";
+import { getFrontendGame } from "@/lib/utils/getFrontendGame";
+import { GameInfo } from "@resync-games/api";
 
 export const GameConfigurationSideBar = () => {
   const { isMobile } = useMediaQuery();
@@ -25,8 +27,9 @@ export const GameConfigurationSideBar = () => {
     setIsCollapsed(isMobile);
   }, [isMobile]);
 
-  const renderRoomName = () => {
-    if (gameInfo === undefined) {
+  const maybeRenderGlobalScreen = (gameInformation: GameInfo<object>) => {
+    const frontend = getFrontendGame(gameInformation.gameType);
+    if (frontend.globalScreen === undefined) {
       return;
     }
 
@@ -34,6 +37,24 @@ export const GameConfigurationSideBar = () => {
       copy(`${window.location.href}/global`);
       toast("Copied to clipboard", { autoClose: 2000, type: "success" });
     };
+
+    return (
+      <Flex
+        align="center"
+        className={styles.inviteLink}
+        gap="3"
+        onClick={copyGlobalScreen}
+      >
+        <Text>Global screen</Text>
+        <CopyIcon size={16} />
+      </Flex>
+    );
+  };
+
+  const renderRoomName = () => {
+    if (gameInfo === undefined) {
+      return;
+    }
 
     const gameSlug = gameInfo.gameType as (typeof GAME_SLUGS)[number];
 
@@ -46,15 +67,7 @@ export const GameConfigurationSideBar = () => {
             </Text>
           </Flex>
         </Flex>
-        <Flex
-          align="center"
-          className={styles.inviteLink}
-          gap="3"
-          onClick={copyGlobalScreen}
-        >
-          <Text>Global screen</Text>
-          <CopyIcon size={16} />
-        </Flex>
+        {maybeRenderGlobalScreen(gameInfo)}
         <Flex mt="2">{GAME_REGISTRY[gameSlug]?.name}</Flex>
       </Flex>
     );
