@@ -2,6 +2,7 @@
  * The base game configuration object. This will be used to map the backend configuration onto a frontend
  */
 export interface BaseGameConfigurationField {
+  default?: unknown;
   label: string;
   required: boolean;
   type: string;
@@ -30,12 +31,18 @@ export interface GameConfigurationFieldString
   type: "string";
 }
 
+export interface GameConfigurationNoopField extends BaseGameConfigurationField {
+  default: object | string | number;
+  type: "noop";
+}
+
 /**
  * A field in the game configuration. It will create an object with [key]: field value.
  */
 export type GameConfigurationField =
   | GameConfigurationFieldNumber
-  | GameConfigurationFieldString;
+  | GameConfigurationFieldString
+  | GameConfigurationNoopField;
 
 /**
  * The game configuration object interface. This will be used to map the backend configuration onto a frontend

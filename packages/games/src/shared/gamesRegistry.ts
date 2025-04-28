@@ -2,7 +2,7 @@ export type GameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: RegisteredGame;
 };
 
-export const GAME_SLUGS = ["pong", "the-stock-times"] as const;
+export const GAME_SLUGS = ["pong", "fishbowl", "the-stock-times"] as const;
 
 export interface GameTags {
   /**
@@ -22,6 +22,13 @@ export interface RegisteredGame {
 }
 
 export const GAME_REGISTRY: GameRegistry = {
+  fishbowl: {
+    description:
+      "A game where you have to guess words based on the clues given by your teammates. The kinds of clues given by your teammates changes every round.",
+    gameTags: {},
+    name: "Fishbowl",
+    version: "1.0.0"
+  },
   pong: {
     description: "Classic pong, with a multiplayer twist.",
     gameTags: {},

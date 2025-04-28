@@ -2,6 +2,7 @@
 
 import { GAME_SLUGS } from "../shared/gamesRegistry";
 import { IGameServer } from "./base";
+import { FishbowlServer } from "./fishbowl/fishbowl";
 import { PongGameServer } from "./pong/pong";
 import { TheStockTimesServer } from "./theStockTimes/theStockTimes";
 
@@ -35,6 +36,10 @@ export interface BackendRegisteredGame {
 }
 
 export const BACKEND_GAME_REGISTRY: BackendGameRegistry = {
+  fishbowl: {
+    gameServer: new FishbowlServer(),
+    stateReconcilerMethod: "closest"
+  },
   pong: {
     gameServer: new PongGameServer(),
     stateReconcilerMethod: "closest"
