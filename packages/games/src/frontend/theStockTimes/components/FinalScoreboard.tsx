@@ -1,8 +1,8 @@
-import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { cycleTime } from "@/imports/games-shared";
 import clsx from "clsx";
 import { motion } from "motion/react";
 import Confetti from "react-confetti";
-import { Flex, Text } from "../../components";
+import { Flex, DisplayText } from "@/lib/radix";
 import { selectTotalTeamValue } from "../store/selectors";
 import { useStockTimesSelector } from "../store/theStockTimesRedux";
 import { displayDollar } from "../utils/displayDollar";
@@ -39,7 +39,7 @@ export const FinalScoreboard = () => {
           justify="center"
           py="4"
         >
-          <Text color="gray">Last day of trading!</Text>
+          <DisplayText color="gray">Last day of trading!</DisplayText>
         </Flex>
       </Flex>
     );
@@ -80,10 +80,12 @@ export const FinalScoreboard = () => {
               p="3"
             >
               <Flex align="center" gap="2">
-                <Text size="6">{index + 1})</Text>
-                <Text size="6">{team.teamName}</Text>
+                <DisplayText size="6">{index + 1})</DisplayText>
+                <DisplayText size="6">{team.teamName}</DisplayText>
                 <Flex className={styles.divider} flex="1" mx="2" />
-                <Text size="6">{displayDollar(team.averageTeamValue)}</Text>
+                <DisplayText size="6">
+                  {displayDollar(team.averageTeamValue)}
+                </DisplayText>
               </Flex>
               <Flex direction="column" gap="2">
                 {sortedPlayers.map((player) => (
@@ -92,8 +94,8 @@ export const FinalScoreboard = () => {
                     gap="1"
                     key={player.playerId + player.cash}
                   >
-                    <Text>{player.displayName} - </Text>
-                    <Text>{displayDollar(player.cash ?? 0)}</Text>
+                    <DisplayText>{player.displayName} - </DisplayText>
+                    <DisplayText>{displayDollar(player.cash ?? 0)}</DisplayText>
                   </Flex>
                 ))}
               </Flex>

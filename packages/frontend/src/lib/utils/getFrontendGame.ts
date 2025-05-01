@@ -1,8 +1,5 @@
-import { GameType } from "@resync-games/api";
-import {
-  GAME_REGISTRY,
-  FrontendRegisteredGame
-} from "@resync-games/games/frontendRegistry";
+import { GameType } from "@/imports/api";
+import { GAME_REGISTRY, FrontendRegisteredGame } from "@/imports/games";
 
 export function getFrontendGame(gameType: GameType) {
   const maybeGame = (GAME_REGISTRY as Record<string, FrontendRegisteredGame>)[

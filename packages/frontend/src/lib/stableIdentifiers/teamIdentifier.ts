@@ -1,4 +1,4 @@
-import { PlayerInGame } from "@resync-games/api";
+import { PlayerInGame } from "@/imports/api";
 import createHash from "create-hash";
 import { capitalize } from "lodash-es";
 

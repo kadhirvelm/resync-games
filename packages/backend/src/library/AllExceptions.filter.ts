@@ -6,7 +6,7 @@ import {
   HttpStatus,
   Logger
 } from "@nestjs/common";
-import { ServiceError } from "@resync-games/api";
+import { ServiceError } from "@/imports/api";
 
 const convertToString = (exception: unknown) => {
   if ((exception as ServiceError).message !== undefined) {

@@ -4,7 +4,7 @@ import {
   updateGameState,
   updateLocalState
 } from "@/redux";
-import { Player } from "@resync-games/api";
+import { Player } from "@/imports/api";
 import { SnatchTheSnackGame } from "../../../backend/snatch-the-snack/snatchTheSnack";
 import { SnatchTheSnackLocalState } from "./snatchTheSnackLocalState";
 

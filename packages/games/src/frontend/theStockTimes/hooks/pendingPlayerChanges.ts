@@ -1,4 +1,4 @@
-import { PlayerId } from "@resync-games/api";
+import { PlayerId } from "@/imports/api";
 import {
   updateTheStockTimesGameState,
   useStockTimesGameStateDispatch,

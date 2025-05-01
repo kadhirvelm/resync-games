@@ -4,7 +4,7 @@ import style from "./GoHome.module.scss";
 import { PlayerContext } from "@/components/player/PlayerContext";
 import { useGameStateSelector } from "@/redux";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { isServiceError } from "@resync-games/api";
+import { isServiceError } from "@/imports/api";
 import { useContext } from "react";
 
 export const GoHome = () => {

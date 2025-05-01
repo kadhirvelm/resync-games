@@ -1,4 +1,4 @@
-import { GameId } from "@resync-games/api";
+import { GameId } from "@/imports/api";
 import { getGlobalScreenIdentifier } from "../player/browserIdentifier";
 import { useMemo } from "react";
 import { PlayerContext } from "../player/PlayerContext";

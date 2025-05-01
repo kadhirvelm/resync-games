@@ -1,7 +1,4 @@
-import {
-  IsAvailable,
-  isAvailableAgainstClock
-} from "@resync-games/games-shared/theStockTimes/isAvailableAgainstClock";
+import { IsAvailable, isAvailableAgainstClock } from "@/imports/games-shared";
 import { useEffect, useState } from "react";
 import { useStockTimesSelector } from "../store/theStockTimesRedux";
 

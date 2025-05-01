@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { useContext } from "react";
-import { Flex } from "../../../components";
+import { Flex } from "@/lib/radix";
 import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import { DisplayType } from "../../utils/DisplayType";
 import { DayArticles } from "../DayArticles";

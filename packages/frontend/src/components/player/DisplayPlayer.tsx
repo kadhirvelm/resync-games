@@ -1,8 +1,7 @@
-import { Button, Flex } from "@/lib/radix";
+import { PlayerInGame } from "@/imports/api";
+import { Button, DisplayText, Flex } from "@/lib/radix";
 import { useGameStateSelector } from "@/redux";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { Text } from "@radix-ui/themes";
-import { PlayerInGame } from "@resync-games/api";
 import { SkullIcon, UnplugIcon } from "lucide-react";
 import { useState } from "react";
 import styles from "./DisplayPlayer.module.scss";
@@ -42,7 +41,7 @@ export const DisplayPlayer = ({ player }: { player: PlayerInGame }) => {
         </Button>
       )}
       <PlayerIcon dimension={30} name={player.displayName} />
-      <Text size="4">{player.displayName}</Text>
+      <DisplayText size="4">{player.displayName}</DisplayText>
       {isDisconnected && (
         <UnplugIcon className={styles.disconnected} size={18} />
       )}

@@ -7,7 +7,7 @@ import {
   GlobalScreenServiceDefinition,
   GlobalScreenApi,
   GlobalGetGameState
-} from "@resync-games/api";
+} from "@/imports/api";
 import { GlobalScreenService } from "./utils/globalScreen.service";
 
 @Controller(GlobalScreenServiceDefinition.controller)

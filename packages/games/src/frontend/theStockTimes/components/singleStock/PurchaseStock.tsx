@@ -4,7 +4,6 @@ import {
   OwnedStock,
   TransactionHistory
 } from "../../../../backend/theStockTimes/theStockTimes";
-import { Button, Flex, Progress, Text, TextField } from "../../../components";
 import { selectPlayerPortfolio } from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
@@ -14,8 +13,9 @@ import {
 import { displayDollar } from "../../utils/displayDollar";
 import styles from "./PurchaseStock.module.scss";
 import { ActivateStorePower } from "../store/ActivateStorePower";
-import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { cycleTime } from "@/imports/games-shared";
 import { useCashSpendLock } from "../../hooks/cashSpendLock";
+import { Button, DisplayText, Flex, Progress, TextField } from "@/lib/radix";
 
 export const LOCK_UP_TIME = 2;
 export const DISCOUNT_BUY_COOLDOWN = 1.5;
@@ -218,7 +218,7 @@ export const PurchaseStock = ({
     if (!isAvailable) {
       return (
         <Flex align="center" flex="1" gap="2">
-          <Text color="gray">Locked</Text>
+          <DisplayText color="gray">Locked</DisplayText>
           <Progress color="red" value={timeLeft} />
         </Flex>
       );
@@ -247,7 +247,7 @@ export const PurchaseStock = ({
   return (
     <Flex className={styles.purchase} direction="column">
       <Flex align="center" gap="2" pt="4" px="4" wrap="wrap">
-        <Text>Buy</Text>
+        <DisplayText>Buy</DisplayText>
         <Flex gap="1">
           <TextField
             onChange={setTotalPurchase}
@@ -261,21 +261,23 @@ export const PurchaseStock = ({
             0.5
           </Button>
         </Flex>
-        <Text>{viewingStockSymbol}</Text>
-        <Text>at</Text>
-        <Text color="green">{displayDollar(currentStockPrice)}</Text>
-        <Text>=</Text>
-        <Text color="red">{displayDollar(totalCost)}</Text>
-        <Text color="gray" size="2">
+        <DisplayText>{viewingStockSymbol}</DisplayText>
+        <DisplayText>at</DisplayText>
+        <DisplayText color="green">
+          {displayDollar(currentStockPrice)}
+        </DisplayText>
+        <DisplayText>=</DisplayText>
+        <DisplayText color="red">{displayDollar(totalCost)}</DisplayText>
+        <DisplayText color="gray" size="2">
           (cost)
-        </Text>
+        </DisplayText>
         <ArrowRightIcon />
-        <Text color={leftOverCash > 0 ? "green" : "red"}>
+        <DisplayText color={leftOverCash > 0 ? "green" : "red"}>
           {displayDollar(leftOverCash)}
-        </Text>
-        <Text color="gray" size="2">
+        </DisplayText>
+        <DisplayText color="gray" size="2">
           (cash left)
-        </Text>
+        </DisplayText>
       </Flex>
       <Flex flex="1" justify="end" p="2">
         <Flex style={{ width: "60%" }}>{maybeRenderBuy()}</Flex>

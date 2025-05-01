@@ -1,13 +1,12 @@
 "use client";
 
-import { Button } from "@/lib/radix";
+import { Button, ScrollArea } from "@/lib/radix";
 import { Flex } from "@/lib/radix/Flex";
 import { NavigationButton } from "@/lib/resync-components/NavigationButton";
 import { getFrontendGame } from "@/lib/utils/getFrontendGame";
 import { ClientServiceCallers } from "@/services/serviceCallers";
 import { ExitIcon } from "@radix-ui/react-icons";
-import { ScrollArea } from "@radix-ui/themes";
-import { isServiceError } from "@resync-games/api";
+import { isServiceError } from "@/imports/api";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { PlayerContext } from "../player/PlayerContext";

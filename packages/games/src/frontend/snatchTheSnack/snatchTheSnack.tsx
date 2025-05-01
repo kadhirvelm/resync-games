@@ -3,7 +3,7 @@ import {
   updateLocalState,
   useGameStateDispatch
 } from "@/redux";
-import { Tile } from "@resync-games/api";
+import { Tile } from "@/imports/api";
 import { useEffect, useRef } from "react";
 import { SnatchTheSnackGame } from "../../backend/snatch-the-snack/snatchTheSnack";
 import { FrontendGameComponentProps } from "../frontendRegistry";

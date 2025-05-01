@@ -15,7 +15,7 @@ import {
   JoinGameWithId,
   LeaveGame,
   PlayerId
-} from "@resync-games/api";
+} from "@/imports/api";
 import { Server, Socket } from "socket.io";
 import {
   getSocketDecorator,

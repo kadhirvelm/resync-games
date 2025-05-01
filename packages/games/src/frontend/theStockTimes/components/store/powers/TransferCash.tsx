@@ -1,8 +1,8 @@
 import { RocketIcon } from "@radix-ui/react-icons";
-import { PlayerId } from "@resync-games/api";
-import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { PlayerId } from "@/imports/api";
+import { cycleTime } from "@/imports/games-shared";
 import { useState } from "react";
-import { Button, Flex, Select, Text, TextField } from "../../../../components";
+import { Button, Flex, Select, DisplayText, TextField } from "@/lib/radix";
 import {
   selectPlayerPortfolio,
   selectTeammates
@@ -34,7 +34,7 @@ export const TransferCash = () => {
   const [cashSelector, setCashSelector] = useState<string>("0");
 
   if (playerPortfolio === undefined || teammates.length === 0) {
-    return <Text color="gray">No teammates available</Text>;
+    return <DisplayText color="gray">No teammates available</DisplayText>;
   }
 
   const totalCash = parseFloat(cashSelector);

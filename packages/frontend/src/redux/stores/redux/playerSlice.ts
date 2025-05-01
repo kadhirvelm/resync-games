@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Player } from "@resync-games/api";
+import { Player } from "@/imports/api";
 
 export interface PlayerSlice {
   player: Player | undefined;

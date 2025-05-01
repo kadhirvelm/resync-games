@@ -1,8 +1,8 @@
 "use client";
 
 import { PlayerContextProvider } from "@/components/player/PlayerContext";
+import { GameId, GameType } from "@/imports/api";
 import { ClientGate } from "@/lib/ClientGate";
-import { GameId, GameType } from "@resync-games/api";
 import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
 

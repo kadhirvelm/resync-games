@@ -2,6 +2,8 @@ import { IGameStateHandler } from "@/redux";
 import { JSX } from "react";
 import { GAME_SLUGS } from "../shared/gamesRegistry";
 import { MapGameConfiguration } from "./baseConfiguration";
+import { DisplayFishbowl } from "./fishbowl/DisplayFishbowl";
+import { FishbowlConfiguration } from "./fishbowl/FishbowlConfiguration";
 import { PongHomePage } from "./pong/pong";
 import { PongConfiguration } from "./pong/pongConfiguration";
 import { DisplayTheStockTimes } from "./theStockTimes/DisplayTheStockTimes";
@@ -9,8 +11,6 @@ import { StockTimesGlobalScreen } from "./theStockTimes/StockTimesGlobalScreen";
 import { StockTimesTutorial } from "./theStockTimes/StockTimesTutorial";
 import { INITIAL_THE_STOCK_TIMES_LOCAL_STATE } from "./theStockTimes/store/theStockTimesLocalState";
 import { TheStockTimesConfiguration } from "./theStockTimes/theStockTimesConfiguration";
-import { FishbowlConfiguration } from "./fishbowl/FishbowlConfiguration";
-import { DisplayFishbowl } from "./fishbowl/DisplayFishbowl";
 
 export type FrontendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: FrontendRegisteredGame;

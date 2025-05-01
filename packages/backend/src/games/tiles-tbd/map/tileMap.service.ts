@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { TileMapId } from "@resync-games/api";
+import { TileMapId } from "@/imports/api";
 import { writeFileSync } from "fs";
 import { BaseTileMapGenerator } from "../generators/baseGenerator";
 import { MagicMazeLikeMapGenerator } from "../generators/gridMapGenerator";

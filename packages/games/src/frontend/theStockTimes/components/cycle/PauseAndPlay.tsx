@@ -1,5 +1,5 @@
-import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
-import { Button } from "../../../components";
+import { cycleTime } from "@/imports/games-shared";
+import { Button } from "@/lib/radix";
 import {
   updateTheStockTimesGameState,
   useStockTimesGameStateDispatch,

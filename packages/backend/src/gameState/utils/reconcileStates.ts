@@ -1,5 +1,5 @@
-import { WithTimestamp, NestedTimestamp } from "@resync-games/api";
-import { StateReconcilerMethod } from "@resync-games/games/backendRegistry";
+import { WithTimestamp, NestedTimestamp } from "@/imports/api";
+import { StateReconcilerMethod } from "@/imports/games";
 
 function compareDates(
   dateOne: string | undefined,

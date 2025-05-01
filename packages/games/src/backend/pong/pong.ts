@@ -1,4 +1,4 @@
-import { CreateGame, WithTimestamp } from "@resync-games/api";
+import { CreateGame, WithTimestamp } from "@/imports/api";
 import { IGameServer } from "../base";
 
 export interface PongGameState extends WithTimestamp {

@@ -8,7 +8,7 @@ import {
   Player,
   UserServiceApi,
   UserServiceDefinition
-} from "@resync-games/api";
+} from "@/imports/api";
 import { UserService } from "./user.service";
 
 @Controller(UserServiceDefinition.controller)

@@ -2,7 +2,7 @@
 
 import { GlobalScreenPlayerContextProvider } from "@/components/globalScreen/GlobalScreenPlayerContextProvider";
 import { ClientGate } from "@/lib/ClientGate";
-import { GameId, GameType } from "@resync-games/api";
+import { GameId, GameType } from "@/imports/api";
 import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
 

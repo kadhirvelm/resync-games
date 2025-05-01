@@ -1,4 +1,4 @@
-import { Flex, Progress } from "../../../components";
+import { Flex, Progress } from "@/lib/radix";
 import { useFocusedStockTimer } from "../../hooks/focusedStockTimer";
 
 export const FocusedStockTimer = () => {

@@ -1,4 +1,4 @@
-import { HealthServiceApi, HealthServiceDefinition } from "@resync-games/api";
+import { HealthServiceApi, HealthServiceDefinition } from "@/imports/api";
 import {
   getDecorator,
   ServiceControllerInterface

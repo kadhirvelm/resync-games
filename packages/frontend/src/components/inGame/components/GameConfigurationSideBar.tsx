@@ -1,11 +1,7 @@
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
-import { Flex } from "@/lib/radix";
+import { DisplayText, Flex } from "@/lib/radix";
 import { useGameStateSelector } from "@/redux";
-import { Text } from "@radix-ui/themes";
-import {
-  GAME_REGISTRY,
-  GAME_SLUGS
-} from "@resync-games/games-shared/gamesRegistry";
+import { GAME_REGISTRY } from "@/imports/games-shared";
 import copy from "copy-to-clipboard";
 import { CopyIcon, SettingsIcon } from "lucide-react";
 import { motion } from "motion/react";
@@ -15,7 +11,8 @@ import styles from "./GameConfigurationSideBar.module.scss";
 import { TutorialScreen } from "./TutorialScreen";
 import { toast } from "react-toastify";
 import { getFrontendGame } from "@/lib/utils/getFrontendGame";
-import { GameInfo } from "@resync-games/api";
+import { GameInfo } from "@/imports/api";
+import { GAME_SLUGS } from "@/imports/games-shared";
 
 export const GameConfigurationSideBar = () => {
   const { isMobile } = useMediaQuery();
@@ -45,7 +42,7 @@ export const GameConfigurationSideBar = () => {
         gap="3"
         onClick={copyGlobalScreen}
       >
-        <Text>Global screen</Text>
+        <DisplayText>Global screen</DisplayText>
         <CopyIcon size={16} />
       </Flex>
     );
@@ -62,9 +59,9 @@ export const GameConfigurationSideBar = () => {
       <Flex direction="column" gap="1">
         <Flex direction="column">
           <Flex align="center" gap="2">
-            <Text size="5" weight="bold">
+            <DisplayText size="5" weight="bold">
               {gameInfo.inviteCode.toUpperCase()}
-            </Text>
+            </DisplayText>
           </Flex>
         </Flex>
         {maybeRenderGlobalScreen(gameInfo)}
@@ -87,9 +84,9 @@ export const GameConfigurationSideBar = () => {
           {renderRoomName()}
           <TutorialScreen key={gameInfo?.gameId + "tutorial"} />
           <Flex direction="column" gap="1" mt="4">
-            <Text color="gray" size="2">
+            <DisplayText color="gray" size="2">
               Game configuration
-            </Text>
+            </DisplayText>
             <ConfigureGame key={gameInfo?.gameId + "configure"} />
           </Flex>
         </Flex>

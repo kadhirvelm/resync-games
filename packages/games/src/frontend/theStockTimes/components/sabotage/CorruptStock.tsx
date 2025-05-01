@@ -1,6 +1,6 @@
-import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { cycleTime } from "@/imports/games-shared";
 import { useState } from "react";
-import { Flex, Select } from "../../../components";
+import { Flex, Select } from "@/lib/radix";
 import {
   selectPlayerPortfolio,
   selectStocksWithOrder

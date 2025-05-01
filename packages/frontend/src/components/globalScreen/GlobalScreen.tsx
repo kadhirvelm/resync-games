@@ -3,7 +3,7 @@ import { ReduxGate } from "@/lib/resync-components/ReduxGate";
 import { initializeGameStateStore, setGame } from "@/redux";
 import { ClientServiceCallers } from "@/services/serviceCallers";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { GameId, GameType } from "@resync-games/api";
+import { GameId, GameType } from "@/imports/api";
 import { useRouter } from "next/navigation";
 import { InitializeGlobalScreen } from "./InitializeGlobalScreen";
 

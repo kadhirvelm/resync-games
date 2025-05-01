@@ -4,7 +4,7 @@ import {
   GenerateTileMapResponse,
   TileMapServiceApi,
   TileMapServiceDefinition
-} from "@resync-games/api";
+} from "@/imports/api";
 import {
   getDecorator,
   ServiceControllerInterface

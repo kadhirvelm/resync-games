@@ -1,4 +1,4 @@
-import { Flex } from "../../../components";
+import { Flex } from "@/lib/radix";
 import { selectEndGameGraph, selectTeams } from "../../store/selectors";
 import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import { MultiTimeSeries } from "../graph/MultiTimeSeries";

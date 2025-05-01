@@ -4,7 +4,7 @@ import {
   CurrentGameState,
   PlayerInGame,
   TileId
-} from "@resync-games/api";
+} from "@/imports/api";
 import { ICanChangeToState, IGameServer } from "../base";
 import { completedMap1 } from "./map1";
 import { v4 } from "uuid";

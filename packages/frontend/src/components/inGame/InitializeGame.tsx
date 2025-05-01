@@ -1,6 +1,6 @@
 import { GameStateReduxStore, useGameStateSelector } from "@/redux";
 import { useGameStateSocket } from "@/socket/useGameStateSocket";
-import { GameId, GameType } from "@resync-games/api";
+import { GameId, GameType } from "@/imports/api";
 import { GameEntry } from "./GameEntry";
 import { GameLobby } from "./GameLobby";
 import { SocketStatus } from "./components/SocketStatus";

@@ -7,8 +7,7 @@ import {
 } from "@/lib/stableIdentifiers/teamIdentifier";
 import { useGameStateSelector } from "@/redux";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { ScrollArea, Text } from "@radix-ui/themes";
-import { isServiceError } from "@resync-games/api";
+import { isServiceError } from "@/imports/api";
 import { motion } from "motion/react";
 import { useContext, useState } from "react";
 import { PlayerContext } from "../player/PlayerContext";
@@ -16,6 +15,7 @@ import { GameConfigurationSideBar } from "./components/GameConfigurationSideBar"
 import { GoHome } from "./components/GoHome";
 import styles from "./GameLobby.module.scss";
 import { canStartGame } from "./utils/canStartGame";
+import { ScrollArea, DisplayText } from "@/lib/radix";
 
 export const GameLobby = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -85,9 +85,9 @@ export const GameLobby = () => {
     return (
       <Flex align="center" direction="column" justify="center" py="6">
         <Flex>
-          <Text color="gray" size="2">
+          <DisplayText color="gray" size="2">
             Invite code
-          </Text>
+          </DisplayText>
         </Flex>
         <Flex align="center" gap="1">
           {gameInfo.inviteCode.split("").map((character) => (
@@ -98,9 +98,9 @@ export const GameLobby = () => {
               key={character}
               p="3"
             >
-              <Text size="8" weight="bold">
+              <DisplayText size="8" weight="bold">
                 {character.toUpperCase()}
-              </Text>
+              </DisplayText>
             </Flex>
           ))}
         </Flex>
@@ -117,9 +117,9 @@ export const GameLobby = () => {
 
     return (
       <Flex align="center" direction="column">
-        <Text color="gray" mb="1" size="2">
+        <DisplayText color="gray" mb="1" size="2">
           Undecided
-        </Text>
+        </DisplayText>
         <Flex
           className={styles.players}
           gap="3"
@@ -144,9 +144,9 @@ export const GameLobby = () => {
       if (playersInTeam.length === 0) {
         return (
           <Flex align="center" justify="center">
-            <Text color="gray" size="2">
+            <DisplayText color="gray" size="2">
               No players yet
-            </Text>
+            </DisplayText>
           </Flex>
         );
       }
@@ -174,9 +174,9 @@ export const GameLobby = () => {
           transition={{ delay: 0.5 }}
         >
           <Flex justify="center" mb="1">
-            <Text size="4" weight="bold">
+            <DisplayText size="4" weight="bold">
               {teamName}
-            </Text>
+            </DisplayText>
           </Flex>
         </motion.div>
         <Flex
@@ -213,7 +213,7 @@ export const GameLobby = () => {
           {maybeRenderUndecided()}
           <Flex align="center" direction="column" flex="1" gap="3">
             {renderTeam(0)}
-            <Text>VS</Text>
+            <DisplayText>VS</DisplayText>
             {renderTeam(1)}
           </Flex>
           <Flex justify="center">

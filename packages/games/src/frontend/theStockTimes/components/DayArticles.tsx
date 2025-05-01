@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Flex, Text } from "../../components";
+import { Flex, DisplayText } from "@/lib/radix";
 import { selectFocusedStockArticle } from "../store/selectors";
 import { useStockTimesSelector } from "../store/theStockTimesRedux";
 import styles from "./DayArticles.module.scss";
@@ -28,12 +28,12 @@ export const DayArticles = () => {
       >
         <Flex direction="column" flex="1" p="3">
           <Flex justify="between">
-            <Text size="4" weight="bold">
+            <DisplayText size="4" weight="bold">
               {title}
-            </Text>
+            </DisplayText>
           </Flex>
           <Flex>
-            <Text color="gray">{description}</Text>
+            <DisplayText color="gray">{description}</DisplayText>
           </Flex>
         </Flex>
       </motion.div>

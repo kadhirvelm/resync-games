@@ -1,9 +1,6 @@
 import { getFrontendGame } from "@/lib/utils/getFrontendGame";
-import { GameInfo } from "@resync-games/api";
-import {
-  GameConfigurationField,
-  MapGameConfiguration
-} from "@resync-games/games/baseConfiguration";
+import { GameInfo } from "@/imports/api";
+import { GameConfigurationField, MapGameConfiguration } from "@/imports/games";
 
 export function canStartGame(gameInfo: GameInfo) {
   const accordingGame = getFrontendGame(gameInfo.gameType);

@@ -1,4 +1,4 @@
-import { ServiceError, isServiceError } from "@resync-games/api";
+import { ServiceError, isServiceError } from "@/imports/api";
 import { useState, useEffect, useCallback, useRef } from "react";
 
 export function useNetworkCall<T>(

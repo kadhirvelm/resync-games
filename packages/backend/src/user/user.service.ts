@@ -1,6 +1,6 @@
 import { ResyncGamesPrismaService } from "@/database/resyncGamesPrisma.service";
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { Player, PlayerId } from "@resync-games/api";
+import { Player, PlayerId } from "@/imports/api";
 
 @Injectable()
 export class UserService {

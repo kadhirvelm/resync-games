@@ -1,6 +1,6 @@
 import { emitGameStateUpdate } from "@/redux/utils/emitGameStateUpdate";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { GameInfo, GameStateAndInfo, Player } from "@resync-games/api";
+import { GameInfo, GameStateAndInfo, Player } from "@/imports/api";
 import { omit } from "lodash-es";
 
 export interface GameStateReduxSlice<GameState extends object = object> {

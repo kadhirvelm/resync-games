@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { TheStockTimesGame } from "../../backend/theStockTimes/theStockTimes";
-import { Flex, Tabs } from "../components";
+import { Flex, Tabs } from "@/lib/radix";
 import { Clock } from "./components/cycle/Clock";
 import { PauseAndPlay } from "./components/cycle/PauseAndPlay";
 import { FinalScoreboard } from "./components/FinalScoreboard";

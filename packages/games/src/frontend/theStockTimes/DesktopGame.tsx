@@ -1,5 +1,5 @@
+import { Flex } from "@/lib/radix";
 import { TheStockTimesGame } from "../../backend/theStockTimes/theStockTimes";
-import { Flex } from "../components";
 import { Clock } from "./components/cycle/Clock";
 import { PauseAndPlay } from "./components/cycle/PauseAndPlay";
 import { FinalScoreboard } from "./components/FinalScoreboard";

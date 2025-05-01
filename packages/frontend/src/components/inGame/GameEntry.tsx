@@ -1,5 +1,5 @@
 import { GameStateHandler, GameStateReduxStore } from "@/redux";
-import { GameId, GameType } from "@resync-games/api";
+import { GameId, GameType } from "@/imports/api";
 import { lazy, useContext, useMemo } from "react";
 import { PlayerContext } from "../player/PlayerContext";
 import { GoHome } from "./components/GoHome";

@@ -3,16 +3,16 @@ import { Flex } from "@/lib/radix/Flex";
 import { getFrontendGame } from "@/lib/utils/getFrontendGame";
 import { useGameStateSelector } from "@/redux";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { isServiceError } from "@resync-games/api";
+import { isServiceError } from "@/imports/api";
 import {
   GameConfigurationField,
   GameConfigurationFieldNumber,
   GameConfigurationFieldString
-} from "@resync-games/games/baseConfiguration";
+} from "@/imports/games";
 import { useContext, useState } from "react";
-import { Text } from "@radix-ui/themes";
 import { TextField } from "@/lib/radix/TextField";
 import { NumberInput } from "@/lib/resync-components/NumberInput";
+import { DisplayText } from "@/lib/radix";
 
 export const ConfigureGame = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -57,10 +57,10 @@ export const ConfigureGame = () => {
   ) => {
     return (
       <Flex direction="column" gap="1" key={key}>
-        <Text>
+        <DisplayText>
           {configurationValue.label}
           {configurationValue.required ? "*" : ""}
-        </Text>
+        </DisplayText>
         <NumberInput
           defaultChange={configurationValue.defaultChange}
           divisibleBy={configurationValue.divisibleBy}
@@ -85,10 +85,10 @@ export const ConfigureGame = () => {
   ) => {
     return (
       <Flex direction="column" gap="1" key={key}>
-        <Text>
+        <DisplayText>
           {configurationValue.label}
           {configurationValue.required ? "*" : ""}
-        </Text>
+        </DisplayText>
         <TextField
           onBlur={onSaveConfiguration}
           onChange={(newValue) =>

@@ -4,7 +4,7 @@ import {
   RemoveExtendsString,
   SocketDefinition,
   SocketEmitter
-} from "@resync-games/api";
+} from "@/imports/api";
 import { Socket } from "socket.io";
 
 /**

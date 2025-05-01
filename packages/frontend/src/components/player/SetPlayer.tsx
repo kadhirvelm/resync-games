@@ -1,9 +1,9 @@
+import { GameId, isServiceError, Player } from "@/imports/api";
+import { DisplayText } from "@/lib/radix";
 import { Dialog } from "@/lib/radix/Dialog";
 import { Flex } from "@/lib/radix/Flex";
 import { TextField } from "@/lib/radix/TextField";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { Text } from "@radix-ui/themes";
-import { GameId, isServiceError, Player } from "@resync-games/api";
 import { useMemo, useState } from "react";
 import { getBrowserIdentifier } from "./browserIdentifier";
 import { PlayerIcon } from "./PlayerIcon";
@@ -110,7 +110,7 @@ export const SetPlayer = ({
     return (
       <Flex align="center" className={styles.trigger} gap="2" px="3" py="1">
         <PlayerIcon dimension={25} name={existingPlayer.displayName} />
-        <Text>{existingPlayer.displayName}</Text>
+        <DisplayText>{existingPlayer.displayName}</DisplayText>
       </Flex>
     );
   };
@@ -123,9 +123,9 @@ export const SetPlayer = ({
       trigger={maybeRenderTrigger()}
     >
       <Flex direction="column" gap="2" my="5">
-        <Text color="gray" size="2">
+        <DisplayText color="gray" size="2">
           Player name
-        </Text>
+        </DisplayText>
         <Flex align="center" flex="1" gap="2">
           <PlayerIcon dimension={25} name={displayName} />
           <TextField

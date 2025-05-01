@@ -1,5 +1,5 @@
 import { Stock } from "../../../../backend/theStockTimes/theStockTimes";
-import { Flex, Text } from "../../../components";
+import { Flex, DisplayText } from "@/lib/radix";
 import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import styles from "./StockDetails.module.scss";
 
@@ -20,23 +20,23 @@ export const StockDetails = ({
     }
 
     return (
-      <Text size="4" weight="bold">
+      <DisplayText size="4" weight="bold">
         ({maybeFocusedStock.symbolIndex + 1} /{" "}
         {maybeFocusedStock.stockOrder.length})
-      </Text>
+      </DisplayText>
     );
   };
 
   return (
     <Flex className={styles.details} direction="column" p="3">
       <Flex align="center" gap="4">
-        <Text size="4" weight="bold">
+        <DisplayText size="4" weight="bold">
           {maybeRenderIndex()} {viewingStockSymbol} - {thisStock.title}
-        </Text>
+        </DisplayText>
       </Flex>
-      <Text color="gray" mt="2" size="2">
+      <DisplayText color="gray" mt="2" size="2">
         {thisStock.description}
-      </Text>
+      </DisplayText>
     </Flex>
   );
 };

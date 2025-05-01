@@ -1,4 +1,4 @@
-import { cycleTimeFromNormalized } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { cycleTimeFromNormalized } from "@/imports/games-shared";
 import { useMemo } from "react";
 import { Stock } from "../../../../backend/theStockTimes/theStockTimes";
 import { useStockTimesSelector } from "../../store/theStockTimesRedux";

@@ -29,13 +29,6 @@ services:
       - GAME_STATE_DATABASE_HOST_URL=${GAME_STATE_DATABASE_HOST_URL}
       - GAME_STATE_DIRECT_URL=${GAME_STATE_DIRECT_URL}
     command: tail -f /dev/null
-  dependencies:
-    container_name: dependencies
-    image: node:23.11.0
-    volumes:
-      - ./:/home/resync-games:rw
-    working_dir: /home/resync-games
-    command: bash -c "corepack enable && yarn && yarn run turbo run dev --filter=@resync-games/frontend^... --filter=@resync-games/backend^..."
   backend:
     container_name: backend
     image: node:23.11.0

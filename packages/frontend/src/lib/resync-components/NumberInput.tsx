@@ -2,8 +2,8 @@ import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { Flex } from "../radix/Flex";
-import { TextField } from "../radix/TextField";
 import styles from "./NumberInput.module.scss";
+import { TextField } from "@/lib/radix";
 
 export interface NumberInputProps {
   className?: string;

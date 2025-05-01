@@ -20,9 +20,10 @@
     "esModuleInterop": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@resync-games/games/*": ["../games/src/backend/*"],
-      "@resync-games/games-shared/*": ["../games/src/shared/*"]
+      "@resync-games/api": ["../api/index.ts"],
+      "@resync-games/games": ["../games/src/backend/index.ts"],
+      "@resync-games/games-shared": ["../games/src/shared/index.ts"],
     },
   },
-  "include": ["**/*.ts", "../games/src/backend/**/*.ts", "../games/src/shared/**/*.ts"],
+  "include": ["**/*.ts", "../api/**/*.ts", "../games/src/backend/**/*.ts", "../games/src/shared/**/*.ts"],
 }

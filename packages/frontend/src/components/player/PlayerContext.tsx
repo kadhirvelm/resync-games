@@ -1,12 +1,11 @@
 import { useNetworkCall } from "@/lib/hooks/useNetworkCall";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { GameId, Player } from "@resync-games/api";
+import { GameId, Player } from "@/imports/api";
 import { createContext, useMemo } from "react";
 import { getBrowserIdentifier } from "./browserIdentifier";
 import { SetPlayer } from "./SetPlayer";
-import { Flex } from "@/lib/radix/Flex";
+import { Spinner, Flex } from "@/lib/radix";
 import styles from "./PlayerContext.module.scss";
-import { Spinner } from "@radix-ui/themes";
 
 export const PlayerContext = createContext<Player>({
   displayName: "",

@@ -7,7 +7,7 @@ import {
   DoubleArrowUpIcon,
   MinusIcon
 } from "@radix-ui/react-icons";
-import { Flex, Text } from "../../../components";
+import { Flex, DisplayText } from "@/lib/radix";
 import { useStockTimesSelector } from "../../store/theStockTimesRedux";
 import styles from "./StockArticles.module.scss";
 import clsx from "clsx";
@@ -93,13 +93,15 @@ export const StockArticles = ({
         </Flex>
         <Flex direction="column" flex="1">
           <Flex justify="between">
-            <Text size="4" weight="bold">
+            <DisplayText size="4" weight="bold">
               {requestedArticle.title}
-            </Text>
-            <Text>Day {requestedArticle.addedOn}</Text>
+            </DisplayText>
+            <DisplayText>Day {requestedArticle.addedOn}</DisplayText>
           </Flex>
           <Flex>
-            <Text color="gray">{requestedArticle.description}</Text>
+            <DisplayText color="gray">
+              {requestedArticle.description}
+            </DisplayText>
           </Flex>
         </Flex>
       </Flex>

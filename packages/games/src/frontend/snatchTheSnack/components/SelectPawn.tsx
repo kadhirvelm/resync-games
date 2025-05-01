@@ -1,5 +1,3 @@
-import { Flex } from "@/lib/radix/Flex";
-import { Text } from "@radix-ui/themes";
 import styles from "./SelectPawn.module.scss";
 import {
   updateSnatchTheSnackLocalState,
@@ -11,6 +9,7 @@ import { SnatchTheSnackPawn } from "../../../backend/snatch-the-snack/snatchTheS
 import clsx from "clsx";
 import { capitalize } from "lodash-es";
 import { Crosshair1Icon } from "@radix-ui/react-icons";
+import { DisplayText, Flex } from "@/lib/radix";
 
 export const SelectPawn = () => {
   const dispatch = useGameStateDispatch();
@@ -50,9 +49,11 @@ export const SelectPawn = () => {
           })}
           justify="center"
         >
-          <Text style={{ color: pawn.color === "yellow" ? "black" : "white" }}>
+          <DisplayText
+            style={{ color: pawn.color === "yellow" ? "black" : "white" }}
+          >
             {capitalize(pawn.color)}
-          </Text>
+          </DisplayText>
         </Flex>
         {isSelected && (
           <Crosshair1Icon className={styles.crossHair} height={30} width={30} />

@@ -1,7 +1,7 @@
-import { PlayerId } from "@resync-games/api";
-import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { PlayerId } from "@/imports/api";
+import { cycleTime } from "@/imports/games-shared";
 import { useState } from "react";
-import { Flex, Select, Text } from "../../../components";
+import { Flex, Select, DisplayText } from "@/lib/radix";
 import {
   selectOpponents,
   selectPlayerPortfolio,
@@ -34,7 +34,7 @@ export const StockLock = () => {
   const [stockSelector, setStockSelector] = useState(stocks[0]?.symbol);
 
   if (playerPortfolio === undefined || opponents.length === 0) {
-    return <Text color="gray">No opponents available</Text>;
+    return <DisplayText color="gray">No opponents available</DisplayText>;
   }
 
   const lockPlayerStock = () => {
@@ -93,9 +93,9 @@ export const StockLock = () => {
   return (
     <Flex direction="column" flex="1" gap="2">
       <Flex align="center" gap="2">
-        <Text color="gray" size="2">
+        <DisplayText color="gray" size="2">
           Player
-        </Text>
+        </DisplayText>
         <Select<PlayerId>
           items={opponents.map((player) => ({
             label: player.displayName,
@@ -106,9 +106,9 @@ export const StockLock = () => {
         />
       </Flex>
       <Flex align="center" gap="2">
-        <Text color="gray" size="2">
+        <DisplayText color="gray" size="2">
           Stock
-        </Text>
+        </DisplayText>
         <Select
           items={stocks.map(({ title, symbol, orderIndex }) => ({
             label: `(${orderIndex}) [${symbol}] ${title}`,
