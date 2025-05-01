@@ -7,7 +7,7 @@ import {
   WsExceptionFilter
 } from "@nestjs/common";
 import { WsException } from "@nestjs/websockets";
-import { ServiceError } from "@resync-games/api";
+import { ServiceError } from "@/imports/api";
 import { Socket } from "socket.io";
 
 @Catch()

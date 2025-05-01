@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Flex, Text } from "../../../components";
+import { Flex, DisplayText } from "@/lib/radix";
 import {
   selectPlayerPortfolio,
   selectTeams,
@@ -29,33 +29,33 @@ export const PlayerPortfolio = () => {
       <>
         <Flex align="center" gap="3">
           <Flex>
-            <Text>{player?.displayName}</Text>
+            <DisplayText>{player?.displayName}</DisplayText>
           </Flex>
           <Flex className={styles.divider} flex="1" />
           <Flex>
-            <Text>{playerTeam?.teamName}</Text>
+            <DisplayText>{playerTeam?.teamName}</DisplayText>
           </Flex>
         </Flex>
         <Flex align="center" gap="3">
           <Flex>
-            <Text>Team cash</Text>
+            <DisplayText>Team cash</DisplayText>
           </Flex>
           <Flex className={styles.divider} flex="1" />
           <Flex>
-            <Text className={styles.cash}>
+            <DisplayText className={styles.cash}>
               {displayDollar(playerTeam?.teamCash)}
-            </Text>
+            </DisplayText>
           </Flex>
         </Flex>
         <Flex align="center" gap="3">
           <Flex>
-            <Text>Average team value</Text>
+            <DisplayText>Average team value</DisplayText>
           </Flex>
           <Flex className={styles.divider} flex="1" />
           <Flex>
-            <Text className={styles.cash}>
+            <DisplayText className={styles.cash}>
               {displayDollar(playerTeamValue?.averageTeamValue)}
-            </Text>
+            </DisplayText>
           </Flex>
         </Flex>
       </>
@@ -67,7 +67,7 @@ export const PlayerPortfolio = () => {
       <>
         <Flex align="center" gap="3">
           <Flex>
-            <Text>Cash</Text>
+            <DisplayText>Cash</DisplayText>
           </Flex>
           <Flex className={styles.divider} flex="1" />
           <Flex>
@@ -77,15 +77,15 @@ export const PlayerPortfolio = () => {
               key={playerPortfolio.cash}
               style={{ display: "flex", flex: "1" }}
             >
-              <Text className={styles.cash} weight="bold">
+              <DisplayText className={styles.cash} weight="bold">
                 {displayDollar(playerPortfolio.cash)}
-              </Text>
+              </DisplayText>
             </motion.span>
           </Flex>
         </Flex>
         <Flex align="center" gap="3">
           <Flex>
-            <Text>Debt</Text>
+            <DisplayText>Debt</DisplayText>
           </Flex>
           <Flex className={styles.divider} flex="1" />
           <Flex>
@@ -95,9 +95,9 @@ export const PlayerPortfolio = () => {
               key={playerPortfolio.cash}
               style={{ display: "flex", flex: "1" }}
             >
-              <Text className={styles.debt}>
+              <DisplayText className={styles.debt}>
                 {displayDollar(playerPortfolio.debt)}
-              </Text>
+              </DisplayText>
             </motion.span>
           </Flex>
         </Flex>

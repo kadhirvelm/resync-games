@@ -1,5 +1,5 @@
 import { StockTimesPlayer } from "../../../../backend/theStockTimes/theStockTimes";
-import { Button, Flex, Text, Progress } from "../../../components";
+import { Button, Flex, DisplayText, Progress } from "@/lib/radix";
 import { useStorePower } from "../../hooks/storePower";
 
 export const ActivateStorePower = ({
@@ -33,7 +33,7 @@ export const ActivateStorePower = ({
 
   return (
     <Flex direction="column" flex="1" gap="2">
-      <Text color="gray">{text}</Text>
+      <DisplayText color="gray">{text}</DisplayText>
       <Progress color="blue" value={timeLeft} />
     </Flex>
   );

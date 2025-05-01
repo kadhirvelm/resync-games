@@ -1,7 +1,7 @@
 import { ResyncGamesPrismaService } from "@/database/resyncGamesPrisma.service";
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
-import { GameStateAndInfo, PlayerId } from "@resync-games/api";
+import { GameStateAndInfo, PlayerId } from "@/imports/api";
 import { GameStateService } from "../gameState.service";
 import { GameRegistryService } from "../utils/gameRegistry.service";
 

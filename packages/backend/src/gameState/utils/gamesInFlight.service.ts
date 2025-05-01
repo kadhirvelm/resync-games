@@ -10,20 +10,20 @@ import {
   LeaveGame,
   PlayerId,
   TimestampedState
-} from "@resync-games/api";
+} from "@/imports/api";
 import { GameState, Player, PlayersInGame } from "@resync-games/database";
-import {
-  AvailableGameType,
-  BACKEND_GAME_REGISTRY,
-  BackendRegisteredGame,
-  StateReconcilerMethod
-} from "@resync-games/games/backendRegistry";
 import * as _ from "lodash";
 import { LRUCache } from "lru-cache";
 import { ResyncGamesPrismaService } from "../../database/resyncGamesPrisma.service";
 import { GameStateSocketGateway } from "../gameState.socket";
 import { GameRegistryService } from "./gameRegistry.service";
 import { reconcileStates } from "./reconcileStates";
+import {
+  StateReconcilerMethod,
+  BackendRegisteredGame,
+  BACKEND_GAME_REGISTRY,
+  AvailableGameType
+} from "@/imports/games";
 
 @Injectable()
 export class GamesInFlightService {

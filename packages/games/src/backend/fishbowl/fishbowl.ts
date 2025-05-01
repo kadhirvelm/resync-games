@@ -1,4 +1,4 @@
-import { PlayerId, WithTimestamp } from "@resync-games/api";
+import { PlayerId, WithTimestamp } from "@/imports/api";
 import { IGameServer } from "../base";
 
 export interface FishbowlPlayer {

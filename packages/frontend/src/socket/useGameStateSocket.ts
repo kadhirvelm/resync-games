@@ -4,7 +4,7 @@ import {
   GameId,
   GameStateClientSocketDefinition,
   GameType
-} from "@resync-games/api";
+} from "@/imports/api";
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 import { v4 } from "uuid";

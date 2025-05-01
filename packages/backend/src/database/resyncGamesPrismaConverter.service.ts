@@ -1,13 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import {
-  CurrentGameState,
   GameId,
-  GameStateAndInfo,
   GameType,
+  PlayerInGame,
   PlayerId,
-  PlayerInGame
-} from "@resync-games/api";
+  GameStateAndInfo
+} from "@/imports/api";
 import {
+  CurrentGameState,
   PlayersInGame,
   GameState as PrismaGameState,
   Player as PrismaPlayer,

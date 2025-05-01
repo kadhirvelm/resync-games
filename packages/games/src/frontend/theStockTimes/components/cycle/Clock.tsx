@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { StockTimesCycle } from "../../../../backend/theStockTimes/theStockTimes";
-import { Flex } from "../../../components";
+import { Flex } from "@/lib/radix";
 import { useCycleTime } from "../../hooks/cycleTime";
 import styles from "./Clock.module.scss";
 import { useStockTimesSelector } from "../../store/theStockTimesRedux";

@@ -1,4 +1,3 @@
-import { Flex } from "@/lib/radix/Flex";
 import styles from "./PawnMovement.module.scss";
 import {
   updateSnatchTheSnackGameState,
@@ -7,16 +6,16 @@ import {
 } from "../store/snatchTheSnackRedux";
 import { useContext, useMemo } from "react";
 import { indexTileMap } from "./utils/indexTileMap";
-import { Edge } from "@resync-games/api";
+import { Edge } from "@/imports/api";
 import {
   CaretDownIcon,
   CaretLeftIcon,
   CaretRightIcon,
   CaretUpIcon
 } from "@radix-ui/react-icons";
-import { IconButton } from "@radix-ui/themes";
 import clsx from "clsx";
-import { PlayerContext } from "@/components/player/PlayerContext";
+import { PlayerContext } from "@resync-games/frontend/components/player/PlayerContext";
+import { Flex, IconButton } from "@/lib/radix";
 
 const flavorTextToIcon = {
   DOWN: <CaretDownIcon height={50} width={50} />,

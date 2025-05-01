@@ -1,4 +1,4 @@
-import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { cycleTime } from "@/imports/games-shared";
 import { StockTimesCycle } from "../../backend/theStockTimes/theStockTimes";
 
 export interface IsAvailable {

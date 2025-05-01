@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Flex, Text } from "../../../components";
+import { Flex, DisplayText } from "@/lib/radix";
 import {
   selectFocusedStock,
   selectPlayerPortfolio
@@ -56,11 +56,13 @@ export const PlayerStocks = () => {
         return (
           <Flex direction="column" key={symbol}>
             <Flex align="center" className={styles.stockSymbol} gap="3">
-              <Text>
+              <DisplayText>
                 {symbol} ({stockIndex + 1} / {stockOrder?.length})
-              </Text>
+              </DisplayText>
               <Flex className={styles.divider} flex="1" />
-              <Text color="green">{displayDollar(totalPrice)}</Text>
+              <DisplayText color="green">
+                {displayDollar(totalPrice)}
+              </DisplayText>
             </Flex>
             <Flex direction="column" gap="4" ml="3" mt="2">
               {sortedQuantity.map((ownedStock, index) => {
@@ -93,12 +95,16 @@ export const PlayerStocks = () => {
                       >
                         <Flex align="center" gap="2">
                           <Flex>
-                            <Text>{quantity.toLocaleString()}</Text>
+                            <DisplayText>
+                              {quantity.toLocaleString()}
+                            </DisplayText>
                           </Flex>
-                          <Text color="gray" size="2">
+                          <DisplayText color="gray" size="2">
                             at
-                          </Text>
-                          <Text color="green">{displayDollar(price)}</Text>
+                          </DisplayText>
+                          <DisplayText color="green">
+                            {displayDollar(price)}
+                          </DisplayText>
                         </Flex>
                         <Flex width="50%">
                           <SellPlayerStock
@@ -110,27 +116,31 @@ export const PlayerStocks = () => {
                         </Flex>
                       </Flex>
                       <Flex align="center" gap="1" px="2" py="1" wrap="wrap">
-                        <Text color="green">{displayDollar(revenue)}</Text>
-                        <Text color="gray" size="2">
+                        <DisplayText color="green">
+                          {displayDollar(revenue)}
+                        </DisplayText>
+                        <DisplayText color="gray" size="2">
                           (revenue)
-                        </Text>
-                        <Text>-</Text>
-                        <Text color="red">{displayDollar(costBasis)}</Text>
-                        <Text color="gray" size="2">
+                        </DisplayText>
+                        <DisplayText>-</DisplayText>
+                        <DisplayText color="red">
+                          {displayDollar(costBasis)}
+                        </DisplayText>
+                        <DisplayText color="gray" size="2">
                           (cost basis)
-                        </Text>
+                        </DisplayText>
                       </Flex>
                       <Flex align="center" gap="1" px="2" py="1" wrap="wrap">
-                        <Text>=</Text>
-                        <Text
+                        <DisplayText>=</DisplayText>
+                        <DisplayText
                           color={totalProfit > 0 ? "green" : "red"}
                           size="4"
                         >
                           {displayDollar(totalProfit)}
-                        </Text>
-                        <Text color="gray" size="2">
+                        </DisplayText>
+                        <DisplayText color="gray" size="2">
                           (profit)
-                        </Text>
+                        </DisplayText>
                       </Flex>
                     </Flex>
                   </motion.div>

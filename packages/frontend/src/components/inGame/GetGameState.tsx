@@ -1,6 +1,6 @@
 import { useNetworkCall } from "@/lib/hooks/useNetworkCall";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { GameId, GameType } from "@resync-games/api";
+import { GameId, GameType } from "@/imports/api";
 import { useRouter } from "next/navigation";
 import { Dispatch, useContext } from "react";
 import { PlayerContext } from "../player/PlayerContext";

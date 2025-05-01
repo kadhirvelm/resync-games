@@ -1,4 +1,4 @@
-import { Flex, Text } from "../components";
+import { Flex, DisplayText } from "@/lib/radix";
 import { FrontendGameComponentProps } from "../frontendRegistry";
 import { PauseAndPlay } from "./components/cycle/PauseAndPlay";
 import { FinalScoreboard } from "./components/FinalScoreboard";
@@ -30,7 +30,7 @@ export const DisplayTheStockTimes = ({
   if (gameState.cycle.state === "paused") {
     return (
       <Flex align="center" flex="1" gap="3" justify="center">
-        <Text color="gray">The game is paused</Text>
+        <DisplayText color="gray">The game is paused</DisplayText>
         <Flex>
           <PauseAndPlay />
         </Flex>

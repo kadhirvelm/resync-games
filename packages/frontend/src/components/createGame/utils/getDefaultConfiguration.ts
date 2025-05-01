@@ -1,4 +1,4 @@
-import { MapGameConfiguration } from "@resync-games/games/baseConfiguration";
+import { MapGameConfiguration } from "@/imports/games";
 
 export function getDefaultConfiguration(
   gameConfiguration: MapGameConfiguration<object>

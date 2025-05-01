@@ -1,9 +1,9 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
 import {
+  AvailableGameType,
   BACKEND_GAME_REGISTRY,
-  AvailableGameType
-} from "@resync-games/games/backendRegistry";
-import { IGameServer } from "@resync-games/games/base";
+  IGameServer
+} from "@/imports/games";
+import { BadRequestException, Injectable } from "@nestjs/common";
 
 @Injectable()
 export class GameRegistryService {

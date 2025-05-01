@@ -1,12 +1,8 @@
-import { Flex } from "@/lib/radix";
-import { Badge, Text } from "@radix-ui/themes";
-import { GameType } from "@resync-games/api";
-import {
-  GAME_REGISTRY,
-  RegisteredGame
-} from "@resync-games/games-shared/gamesRegistry";
+import { Badge, DisplayText, Flex } from "@/lib/radix";
+import { GameType } from "@/imports/api";
 import clsx from "clsx";
 import styles from "./SelectGame.module.scss";
+import { GAME_REGISTRY, RegisteredGame } from "@/imports/games-shared";
 
 export interface SelectedGame {
   gameType: GameType;
@@ -42,13 +38,13 @@ const SelectGame = ({
         p="3"
       >
         <Flex>
-          <Text weight="bold">{name}</Text>
+          <DisplayText weight="bold">{name}</DisplayText>
         </Flex>
         <Flex align="start" flex="1" gap="3">
           <Flex flex="1">
-            <Text color="gray" size="2">
+            <DisplayText color="gray" size="2">
               {description}
-            </Text>
+            </DisplayText>
           </Flex>
         </Flex>
         <Flex justify="end">

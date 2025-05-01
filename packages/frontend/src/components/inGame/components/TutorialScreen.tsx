@@ -1,7 +1,7 @@
 import { Button, Flex } from "@/lib/radix";
 import { getFrontendGame } from "@/lib/utils/getFrontendGame";
 import { useGameStateSelector } from "@/redux";
-import { Dialog } from "@radix-ui/themes";
+import { Dialog } from "@radix-ui/themes"; // TODO: migrate this
 
 export const TutorialScreen = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);

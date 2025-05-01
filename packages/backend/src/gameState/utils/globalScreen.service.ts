@@ -1,6 +1,6 @@
 import { ResyncGamesPrismaService } from "@/database/resyncGamesPrisma.service";
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { GlobalGetGameState } from "@resync-games/api";
+import { GlobalGetGameState } from "@/imports/api";
 
 @Injectable()
 export class GlobalScreenService {

@@ -1,6 +1,6 @@
 import { getTeamName } from "@/lib/stableIdentifiers/teamIdentifier";
 import { createSelector } from "@reduxjs/toolkit";
-import { PlayerInGame } from "@resync-games/api";
+import { PlayerInGame } from "@/imports/api";
 import { TheStockTimesReduxState } from "./theStockTimesRedux";
 import { TheStockTimesGameConfiguration } from "../../../backend/theStockTimes/theStockTimes";
 

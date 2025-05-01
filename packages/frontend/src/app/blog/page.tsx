@@ -1,7 +1,7 @@
 "use client";
 
+import { Flex } from "@/lib/radix";
 import { NavigationButton } from "@/lib/resync-components/NavigationButton";
-import { Flex } from "@radix-ui/themes";
 import { HomeIcon } from "lucide-react";
 
 export default function Blog() {

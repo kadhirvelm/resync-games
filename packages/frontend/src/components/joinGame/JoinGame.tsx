@@ -1,11 +1,10 @@
+import { isServiceError } from "@/imports/api";
+import { Button, DisplayText, TextField } from "@/lib/radix";
 import { Flex } from "@/lib/radix/Flex";
+import { ClientServiceCallers } from "@/services/serviceCallers";
+import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { PlayerContext } from "../player/PlayerContext";
-import { ClientServiceCallers } from "@/services/serviceCallers";
-import { isServiceError } from "@resync-games/api";
-import { Button, TextField } from "@/lib/radix";
-import { Text } from "@radix-ui/themes";
-import { useRouter } from "next/navigation";
 
 export function JoinGame() {
   const player = useContext(PlayerContext);
@@ -52,9 +51,9 @@ export function JoinGame() {
       </Flex>
       {inviteError && (
         <Flex style={{ maxWidth: "275px" }}>
-          <Text color="red" mt="1" size="2">
+          <DisplayText color="red" mt="1" size="2">
             {inviteError}
-          </Text>
+          </DisplayText>
         </Flex>
       )}
     </Flex>

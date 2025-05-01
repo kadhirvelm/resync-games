@@ -4,7 +4,7 @@ import {
   AvailableServices,
   ServiceDefinition,
   ServiceError
-} from "@resync-games/api";
+} from "@/imports/api";
 import { AvailableServiceCaller, ServiceCaller } from "./types";
 
 function makeFetchRequest<ReturnValue>(

@@ -1,7 +1,4 @@
-import {
-  CycleTime,
-  cycleTime
-} from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { CycleTime, cycleTime } from "@/imports/games-shared";
 import { StockTimesCycle } from "../../../backend/theStockTimes/theStockTimes";
 import { useEffect, useState } from "react";
 

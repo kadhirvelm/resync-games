@@ -10,7 +10,7 @@ import {
   UpdateGame,
   UpdateGameConfiguration,
   UpdatePlayerInGame
-} from "@resync-games/api";
+} from "@/imports/api";
 import {
   ServiceControllerInterface,
   getDecorator

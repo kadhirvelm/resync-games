@@ -1,7 +1,7 @@
 import { GameStateStoreWithStates } from "@/redux/gameStateStore";
 import { emitGameStateUpdate } from "@/redux/utils/emitGameStateUpdate";
 import { EnhancedStore } from "@reduxjs/toolkit";
-import { GameInfo, Player } from "@resync-games/api";
+import { GameInfo, Player } from "@/imports/api";
 import { deepEqual } from "./utils/deepEqual";
 
 type SeparatedGameStateAndInfo<GameState extends object> = {

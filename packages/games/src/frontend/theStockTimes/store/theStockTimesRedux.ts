@@ -5,7 +5,7 @@ import {
   updateGameState,
   updateLocalState
 } from "@/redux";
-import { Player } from "@resync-games/api";
+import { Player } from "@/imports/api";
 import { TheStockTimesGame } from "../../../backend/theStockTimes/theStockTimes";
 import { TheStockTimesLocalState } from "./theStockTimesLocalState";
 

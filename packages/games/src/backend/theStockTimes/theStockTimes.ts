@@ -1,18 +1,18 @@
+import _ from "lodash";
+import { ICanChangeToState, IGameServer } from "../base";
+import { AVAILABLE_STOCKS } from "./stocks/availableStocks";
+import { NEWS_ARTICLES } from "./stocks/stockArticles";
 import {
   CurrentGameState,
   GameStateAndInfo,
   PlayerId,
   WithTimestamp
-} from "@resync-games/api";
+} from "@/imports/api";
 import {
   CurentCyle,
-  cycleTime
-} from "@resync-games/games-shared/theStockTimes/cycleTime";
-import { isAvailableAgainstClock } from "@resync-games/games-shared/theStockTimes/isAvailableAgainstClock";
-import _ from "lodash";
-import { ICanChangeToState, IGameServer } from "../base";
-import { AVAILABLE_STOCKS } from "./stocks/availableStocks";
-import { NEWS_ARTICLES } from "./stocks/stockArticles";
+  cycleTime,
+  isAvailableAgainstClock
+} from "@/imports/games-shared";
 
 export interface StockTimesCycle extends WithTimestamp {
   /**

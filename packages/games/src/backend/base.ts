@@ -5,7 +5,7 @@ import {
   CurrentGameState,
   GameStateAndInfo,
   PlayerInGame
-} from "@resync-games/api";
+} from "@/imports/api";
 
 export interface ICanChangeToState<
   GameState = object,

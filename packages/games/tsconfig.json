@@ -20,9 +20,11 @@
     "jsx": "react-jsx",
     "resolveJsonModule": true,
     "paths": {
-      "@/*": ["../frontend/src/*"],
-      "@resync-games/games-shared/*": ["./src/shared/*"],
+      "@/*": ["./*", "../frontend/src/*"],
+      "@resync-games/frontend/*": ["../frontend/src/*"],
+      "@resync-games/api": ["../api/index.ts"],
+      "@resync-games/games-shared": ["./src/shared/index.ts"],
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "../frontend/src/**/*.tsx", "../frontend/src/**/*.ts", "../backend/src/**/*.ts"],
+  "include": ["**/*.ts", "**/*.tsx", "../api/**/*.ts", "../frontend/src/**/*.tsx", "../frontend/src/**/*.ts", "../backend/src/**/*.ts"],
 }

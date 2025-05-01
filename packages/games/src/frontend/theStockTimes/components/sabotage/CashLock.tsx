@@ -1,7 +1,7 @@
-import { PlayerId } from "@resync-games/api";
-import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { PlayerId } from "@/imports/api";
+import { cycleTime } from "@/imports/games-shared";
 import { useState } from "react";
-import { Flex, Select, Text } from "../../../components";
+import { Flex, Select, DisplayText } from "@/lib/radix";
 import { selectOpponents, selectPlayerPortfolio } from "../../store/selectors";
 import {
   updateTheStockTimesGameState,
@@ -28,7 +28,7 @@ export const CashLock = () => {
   const [playerSelector, setPlayerSelector] = useState(opponents[0]?.playerId);
 
   if (playerPortfolio === undefined || opponents.length === 0) {
-    return <Text color="gray">No opponents available</Text>;
+    return <DisplayText color="gray">No opponents available</DisplayText>;
   }
 
   const lockPlayerCash = () => {

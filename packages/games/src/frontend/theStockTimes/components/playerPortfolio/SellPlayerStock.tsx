@@ -1,9 +1,9 @@
-import { cycleTime } from "@resync-games/games-shared/theStockTimes/cycleTime";
+import { cycleTime } from "@/imports/games-shared";
 import {
   OwnedStock,
   TransactionHistory
 } from "../../../../backend/theStockTimes/theStockTimes";
-import { Button, Flex, Progress, Text } from "../../../components";
+import { Button, Flex, Progress, DisplayText } from "@/lib/radix";
 import { useStockLock } from "../../hooks/stockLock";
 import { selectPlayerPortfolio } from "../../store/selectors";
 import {
@@ -159,7 +159,7 @@ export const SellPlayerStock = ({
   if (!isAvailable) {
     return (
       <Flex align="center" flex="1" gap="2">
-        <Text color="gray">Locked</Text>
+        <DisplayText color="gray">Locked</DisplayText>
         <Progress color="red" value={timeLeft} />
       </Flex>
     );

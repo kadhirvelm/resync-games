@@ -11,7 +11,7 @@ import {
   UpdateGameConfiguration,
   UpdateGameResponse,
   UpdatePlayerInGame
-} from "@resync-games/api";
+} from "@/imports/api";
 import _ from "lodash";
 import { ResyncGamesPrismaService } from "../database/resyncGamesPrisma.service";
 import { GameRegistryService } from "./utils/gameRegistry.service";

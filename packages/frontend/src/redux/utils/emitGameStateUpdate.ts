@@ -1,5 +1,5 @@
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { Player } from "@resync-games/api";
+import { Player } from "@/imports/api";
 import { GameStateReduxSlice } from "../stores/redux/gameStateSlice";
 
 export function emitGameStateUpdate(

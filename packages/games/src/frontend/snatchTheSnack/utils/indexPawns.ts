@@ -1,4 +1,4 @@
-import { TileId } from "@resync-games/api";
+import { TileId } from "@/imports/api";
 import {
   PawnId,
   SnatchTheSnackPawn

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Flex, Text } from "../components";
+import { Flex, DisplayText } from "@/lib/radix";
 import { Clock } from "./components/cycle/Clock";
 import { FinalScoreboard } from "./components/FinalScoreboard";
 import { EndGameGraph } from "./components/globalScreen/EndGameGraph";
@@ -20,7 +20,7 @@ export const StockTimesGlobalScreen = () => {
   if (gameState.cycle.state === "paused") {
     return (
       <Flex align="center" flex="1" justify="center">
-        <Text color="gray">The game is paused</Text>
+        <DisplayText color="gray">The game is paused</DisplayText>
       </Flex>
     );
   }
@@ -29,12 +29,12 @@ export const StockTimesGlobalScreen = () => {
     return (
       <Flex align="center" direction="column" flex="1" justify="center">
         <Flex>
-          <Text color="gray">Waiting for the game to start</Text>
+          <DisplayText color="gray">Waiting for the game to start</DisplayText>
         </Flex>
         <Flex align="center" gap="2">
-          <Text size="9" weight="bold">
+          <DisplayText size="9" weight="bold">
             {gameInfo.inviteCode.toUpperCase()}
-          </Text>
+          </DisplayText>
         </Flex>
       </Flex>
     );

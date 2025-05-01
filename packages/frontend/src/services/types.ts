@@ -3,7 +3,7 @@ import {
   RemoveExtendsString,
   Service,
   ServiceError
-} from "@resync-games/api";
+} from "@/imports/api";
 
 /**
  * Used to call on the backend services from the browser for a specific service.
