@@ -1,0 +1,18 @@
+@use "@/styles/variables.scss" as vars;
+
+.noneContainer {
+    width: 80vw;
+}
+
+.container {
+    border-radius: 5px;
+    border: 1px solid vars.$black;
+    cursor: pointer;
+    background: vars.$white;
+    max-width: 1000px;
+    width: 80vw;
+
+    &:hover {
+        background: vars.$hover;
+    }
+}

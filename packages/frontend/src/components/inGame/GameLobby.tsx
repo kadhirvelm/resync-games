@@ -1,4 +1,6 @@
 import { DisplayPlayer } from "@/components/player/DisplayPlayer";
+import { isServiceError } from "@/imports/api";
+import { DisplayText } from "@/lib/radix";
 import { Button } from "@/lib/radix/Button";
 import { Flex } from "@/lib/radix/Flex";
 import {
@@ -7,7 +9,6 @@ import {
 } from "@/lib/stableIdentifiers/teamIdentifier";
 import { useGameStateSelector } from "@/redux";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { isServiceError } from "@/imports/api";
 import { motion } from "motion/react";
 import { useContext, useState } from "react";
 import { PlayerContext } from "../player/PlayerContext";
@@ -15,7 +16,6 @@ import { GameConfigurationSideBar } from "./components/GameConfigurationSideBar"
 import { GoHome } from "./components/GoHome";
 import styles from "./GameLobby.module.scss";
 import { canStartGame } from "./utils/canStartGame";
-import { ScrollArea, DisplayText } from "@/lib/radix";
 
 export const GameLobby = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -202,33 +202,31 @@ export const GameLobby = () => {
   };
 
   return (
-    <ScrollArea>
-      <Flex flex="1" py="9">
-        <Flex>
-          <GoHome />
+    <Flex flex="1" py="9">
+      <Flex>
+        <GoHome />
+      </Flex>
+      <GameConfigurationSideBar />
+      <Flex align="center" direction="column" flex="4" gap="8">
+        {renderInviteCode()}
+        {maybeRenderUndecided()}
+        <Flex align="center" direction="column" flex="1" gap="3">
+          {renderTeam(0)}
+          <DisplayText>VS</DisplayText>
+          {renderTeam(1)}
         </Flex>
-        <GameConfigurationSideBar />
-        <Flex align="center" direction="column" flex="4" gap="8">
-          {renderInviteCode()}
-          {maybeRenderUndecided()}
-          <Flex align="center" direction="column" flex="1" gap="3">
-            {renderTeam(0)}
-            <DisplayText>VS</DisplayText>
-            {renderTeam(1)}
-          </Flex>
-          <Flex justify="center">
-            <Flex height="200px" width="25vw">
-              <Button
-                disabled={!maybeCheckCanStartGame()}
-                loading={isLoading}
-                onClick={onStartGame}
-              >
-                Start!
-              </Button>
-            </Flex>
+        <Flex justify="center">
+          <Flex height="200px" width="25vw">
+            <Button
+              disabled={!maybeCheckCanStartGame()}
+              loading={isLoading}
+              onClick={onStartGame}
+            >
+              Start!
+            </Button>
           </Flex>
         </Flex>
       </Flex>
-    </ScrollArea>
+    </Flex>
   );
 };
