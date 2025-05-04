@@ -29,9 +29,9 @@
     "paths": {
       "@/*": ["./src/*"],
       "@resync-games/frontend/*": ["./src/*"],
-      "@resync-games/api": ["../api/index.ts"],
-      "@resync-games/games": ["../games/src/frontend/index.ts"],
-      "@resync-games/games-shared": ["../games/src/shared/index.ts"]
+      "@resync-games/api": ["../api"],
+      "@resync-games/games": ["../games/src/frontend"],
+      "@resync-games/games-shared": ["../games/src/shared"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../api/**/*.ts", "../games/src/frontend/**/*.tsx", "../games/src/shared/**/*.ts", ".next/types/**/*.ts"],
