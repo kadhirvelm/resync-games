@@ -1,0 +1,9 @@
+@use "@/styles/variables.scss" as vars;
+
+.blogText {
+    white-space: wrap;
+    word-break: break-word;
+    min-width: 200px;
+    max-width: 1000px;
+    width: 80vw;
+}

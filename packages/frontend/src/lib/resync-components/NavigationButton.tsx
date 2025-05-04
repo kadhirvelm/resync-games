@@ -23,6 +23,7 @@ export const NavigationButton = ({
       router.push(href);
     } catch (error) {
       console.error(`Failed to navigate to ${href}`, error);
+    } finally {
       setIsNavigating(false);
     }
   };
