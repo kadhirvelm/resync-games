@@ -67,7 +67,7 @@ export interface IGameServer<GameState, GameConfiguration> {
   ) => Promise<GameState | undefined> | GameState | undefined;
   /**
    * When the game state changes, this callback is called with the next game state after reconcilliation.
-   * Return undefined if you don't want to update the game state.
+   * Return undefined if you don't want to response to the updated the game state.
    */
   onGameStateChange?: (
     nextGameState: GameStateAndInfo<any, any>

@@ -19,6 +19,7 @@ export const GoHome = () => {
     const result = await ClientServiceCallers.gameState.leaveGame({
       gameId: gameInfo.gameId,
       gameType: gameInfo.gameType,
+      hasExited: true,
       playerId: player.playerId
     });
 

@@ -132,6 +132,7 @@ exports.Prisma.PlayersInGameScalarFieldEnum = {
   gameId: 'gameId',
   playerId: 'playerId',
   team: 'team',
+  hasExited: 'hasExited',
   connectionStatus: 'connectionStatus'
 };
 

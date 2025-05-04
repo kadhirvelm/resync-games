@@ -147,7 +147,8 @@ export class GamesInFlightService {
           PlayersInGame: {
             update: {
               data: {
-                connectionStatus: "connected"
+                connectionStatus: "connected",
+                hasExited: false
               },
               where: {
                 gameId_playerId: {
@@ -173,6 +174,8 @@ export class GamesInFlightService {
       const backend = this.gameRegistryService.getGameRegistry(
         requestedGame.gameType
       );
+
+      // TODO: there's a subtle race condition here where if a player joins in the middle of a game, it could override something someone did
       const updatedGameState =
         (await backend.onPlayerJoin?.(
           (requestedGame.gameState ?? {}) as object,
@@ -288,7 +291,8 @@ export class GamesInFlightService {
           PlayersInGame: {
             update: {
               data: {
-                connectionStatus: "disconnected"
+                connectionStatus: "disconnected",
+                hasExited: leaveGame.hasExited
               },
               where: {
                 gameId_playerId: {

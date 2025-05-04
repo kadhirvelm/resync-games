@@ -29,7 +29,7 @@ export const DesktopGame = ({
         <Flex flex="1">
           <PlayerPortfolio />
         </Flex>
-        <Flex direction="column" flex="1" ml="2" mr="7">
+        <Flex direction="column" flex="1" gap="5" ml="2" mr="7">
           <Flex flex="1">
             <FocusedStock />
           </Flex>
