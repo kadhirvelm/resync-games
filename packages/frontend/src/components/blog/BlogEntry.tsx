@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export const BlogEntry = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Flex direction="column">
+    <Flex className={styles.content} direction="column">
       <BlogHeader />
       <Flex className={styles.dividerLine} flex="1" />
       {children}

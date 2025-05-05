@@ -8,3 +8,7 @@ export const BlogText = ({ children }: { children: React.ReactNode }) => {
     </DisplayText>
   );
 };
+
+export const PlainBlogText = ({ children }: { children: React.ReactNode }) => {
+  return <DisplayText className={styles.blogText}>{children}</DisplayText>;
+};
