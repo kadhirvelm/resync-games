@@ -31,6 +31,22 @@ export const BLOG_LINKS: BlogLink[] = [
     description: "Initial thoughts on what we think we've found so far.",
     href: "/blog/resync/what-have-we-learned",
     title: "What have we learned?"
+  },
+  {
+    author: "Kadhir",
+    category: "art",
+    date: "10/01/2019, 12:00 PM",
+    description: "Where all of these art pieces came from.",
+    href: "/blog/art/background",
+    title: "Background"
+  },
+  {
+    author: "Kadhir",
+    category: "art",
+    date: "08/01/2020, 12:00 PM",
+    description: "A king's message to his people.",
+    href: "/blog/art/royalty",
+    title: "Royalty - To my loyal kingdom"
   }
 ];
 
