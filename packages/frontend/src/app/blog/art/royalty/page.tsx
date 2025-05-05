@@ -1,6 +1,6 @@
 import { BlogEntry } from "@/components/blog/BlogEntry";
+import { BlogImage } from "@/lib/resync-components/BlogImage";
 import { BlogText, PlainBlogText } from "@/lib/resync-components/BlogText";
-import Image from "next/image";
 
 export default function Royalty() {
   return (
@@ -10,17 +10,7 @@ export default function Royalty() {
         "To my loyal kingdom." I ran out of time on this one and only created a
         single image, but had a lot of fun with the story.
       </BlogText>
-      <PlainBlogText>
-        <Image
-          alt="Royalty"
-          height={1} // Aspect ratio height
-          layout="responsive"
-          objectFit="contain" // or 'cover' depending on your needs
-          src="/art/royalty.jpg"
-          width={1} // Aspect ratio width
-        />
-        <br />
-      </PlainBlogText>
+      <BlogImage href="/art/royalty.jpg" />
       <BlogText>To my loyal kingdom,</BlogText>
       <BlogText>
         Hum, actually no, that sounds awfully pretentious. I don't want to go
