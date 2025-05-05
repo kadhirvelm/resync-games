@@ -52,9 +52,17 @@ export const BLOG_LINKS: BlogLink[] = [
     author: "Kadhir",
     category: "art",
     date: "05/01/2021, 12:00 PM",
-    description: "No description.",
+    description: "A group of lemons come to visit.",
     href: "/blog/art/when-life-gives-you-lemons",
     title: "When life gives you lemons"
+  },
+  {
+    author: "Kadhir",
+    category: "art",
+    date: "03/01/2021, 12:00 PM",
+    description: "The robots saved us.",
+    href: "/blog/art/a-blank-in-disguise",
+    title: "A ___ in disguise"
   }
 ];
 

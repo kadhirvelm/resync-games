@@ -7,8 +7,7 @@ export default function WhenLifeGivesYouLemons() {
     <BlogEntry>
       <BlogText>
         The theme this month was "When life gives you lemons". My interpretation
-        didn't have a particular title. I put a representative image of each GIF
-        to save some space on the server.
+        didn't have a particular title.
       </BlogText>
       <BlogText>When life gives you lemons</BlogText>
       <BlogText>
