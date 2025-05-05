@@ -1,12 +1,17 @@
 import { ResyncGamesPrismaService } from "@/database/resyncGamesPrisma.service";
+import {
+  GameId,
+  Player,
+  PlayerId,
+  PlayerInGameWithDetails
+} from "@/imports/api";
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { Player, PlayerId } from "@/imports/api";
 
 @Injectable()
 export class UserService {
   constructor(private prismaModule: ResyncGamesPrismaService) {}
 
-  public async getUser(playerId: PlayerId) {
+  public async getUser(playerId: PlayerId): Promise<PlayerInGameWithDetails> {
     const maybeUser = await this.prismaModule.client.player.findFirst({
       where: {
         playerId: `${playerId}`
@@ -17,7 +22,36 @@ export class UserService {
       throw new BadRequestException(`User with playerId ${playerId} not found`);
     }
 
-    return this.prismaModule.converterService.convertPlayer(maybeUser);
+    const inGame = await this.prismaModule.client.playersInGame.findFirst({
+      include: {
+        game: {
+          select: {
+            gameId: true,
+            gameType: true
+          }
+        }
+      },
+      where: {
+        game: {
+          currentGameState: {
+            in: ["playing", "waiting"]
+          }
+        },
+        playerId: playerId
+      }
+    });
+
+    const playerInGame = this.prismaModule.converterService.convertPlayer(
+      maybeUser,
+      inGame ?? undefined
+    );
+
+    return {
+      ...playerInGame,
+      gameId: inGame?.gameId as GameId | undefined,
+      gameType: inGame?.game.gameType,
+      hasExited: inGame?.hasExited ?? true
+    };
   }
 
   public async update(newPlayerDetails: Player) {

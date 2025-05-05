@@ -1,4 +1,5 @@
 import { Service, ServiceDefinition } from "../genericTypes/service";
+import { GameId, PlayerInGame } from "./gameState";
 
 export type PlayerId = string & { __brand: "player-id" };
 
@@ -11,10 +12,16 @@ export interface Player {
   playerId: PlayerId;
 }
 
+export interface PlayerInGameWithDetails extends PlayerInGame {
+  gameId?: GameId;
+  gameType?: string;
+  hasExited?: boolean;
+}
+
 export interface UserServiceApi extends Service {
   me: {
     payload: BrowserIdentifier;
-    response: Player;
+    response: PlayerInGameWithDetails;
   };
   register: {
     payload: Player;

@@ -6,6 +6,7 @@ import { getBrowserIdentifier } from "./browserIdentifier";
 import { SetPlayer } from "./SetPlayer";
 import { Spinner, Flex } from "@/lib/radix";
 import styles from "./PlayerContext.module.scss";
+import { useNavigateToGame } from "@/lib/hooks/useNavigateToGame";
 
 export const PlayerContext = createContext<Player>({
   displayName: "",
@@ -31,6 +32,8 @@ export const PlayerContextProvider = ({
     })
   );
 
+  const { isLoading } = useNavigateToGame(player);
+
   if (!hasInitialized) {
     return (
       <Flex align="center" flex="1" justify="center">
@@ -45,7 +48,7 @@ export const PlayerContextProvider = ({
 
   return (
     <PlayerContext.Provider value={player}>
-      {children}
+      {isLoading ? <Spinner /> : children}
       <Flex className={styles.playerContainer}>
         <SetPlayer
           existingPlayer={player}

@@ -1,4 +1,9 @@
-import { GameId, isServiceError, Player } from "@/imports/api";
+import {
+  GameId,
+  isServiceError,
+  Player,
+  PlayerInGameWithDetails
+} from "@/imports/api";
 import { DisplayText } from "@/lib/radix";
 import { Dialog } from "@/lib/radix/Dialog";
 import { Flex } from "@/lib/radix/Flex";
@@ -16,7 +21,7 @@ export const SetPlayer = ({
 }: {
   existingPlayer?: Player;
   gameId?: GameId;
-  onSetPlayer: (player: Player) => void;
+  onSetPlayer: (player: PlayerInGameWithDetails) => void;
 }) => {
   const browserIdentifier = useMemo(() => getBrowserIdentifier(), []);
 
@@ -117,6 +122,7 @@ export const SetPlayer = ({
 
   return (
     <Dialog
+      canExit={existingPlayer !== undefined}
       defaultOpen={existingPlayer === undefined}
       onConfirm={onSavePlayer}
       title={existingPlayer === undefined ? "New player" : "Update player"}

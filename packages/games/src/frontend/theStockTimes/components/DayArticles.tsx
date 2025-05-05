@@ -28,12 +28,14 @@ export const DayArticles = () => {
       >
         <Flex direction="column" flex="1" p="3">
           <Flex justify="between">
-            <DisplayText size="4" weight="bold">
+            <DisplayText size="6" weight="bold">
               {title}
             </DisplayText>
           </Flex>
           <Flex>
-            <DisplayText color="gray">{description}</DisplayText>
+            <DisplayText color="gray" size="5">
+              {description}
+            </DisplayText>
           </Flex>
         </Flex>
       </motion.div>

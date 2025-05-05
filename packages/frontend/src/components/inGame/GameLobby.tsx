@@ -90,12 +90,12 @@ export const GameLobby = () => {
           </DisplayText>
         </Flex>
         <Flex align="center" gap="1">
-          {gameInfo.inviteCode.split("").map((character) => (
+          {gameInfo.inviteCode.split("").map((character, index) => (
             <Flex
               className={styles.inviteCode}
               direction="column"
               gap="2"
-              key={character}
+              key={character + index}
               p="3"
             >
               <DisplayText size="8" weight="bold">

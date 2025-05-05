@@ -2579,7 +2579,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:^6.6.0":
+"@prisma/client@npm:6.6.0, @prisma/client@npm:^6.6.0":
   version: 6.6.0
   resolution: "@prisma/client@npm:6.6.0"
   peerDependencies:
@@ -4046,9 +4046,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@resync-games/database@workspace:packages/database"
   dependencies:
-    "@prisma/client": "npm:^6.6.0"
+    "@prisma/client": "npm:6.6.0"
     "@yarnpkg/pnpify": "npm:^4.1.4"
-    prisma: "npm:^6.6.0"
+    prisma: "npm:6.6.0"
   languageName: unknown
   linkType: soft
 
@@ -12724,7 +12724,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prisma@npm:^6.6.0":
+"prisma@npm:6.6.0":
   version: 6.6.0
   resolution: "prisma@npm:6.6.0"
   dependencies:

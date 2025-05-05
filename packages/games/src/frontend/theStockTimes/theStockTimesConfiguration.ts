@@ -21,6 +21,14 @@ export const TheStockTimesConfiguration: MapGameConfiguration<TheStockTimesGameC
       required: true,
       type: "number"
     },
+    totalDaysOfTrading: {
+      default: 5,
+      label: "Total days of trading",
+      max: 10,
+      min: 1,
+      required: true,
+      type: "number"
+    },
     totalStocks: {
       default: 4,
       label: "Total stocks",

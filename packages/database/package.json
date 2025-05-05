@@ -9,10 +9,10 @@
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "dependencies": {
-    "@prisma/client": "^6.6.0"
+    "@prisma/client": "6.6.0"
   },
   "devDependencies": {
     "@yarnpkg/pnpify": "^4.1.4",
-    "prisma": "^6.6.0"
+    "prisma": "6.6.0"
   }
 }

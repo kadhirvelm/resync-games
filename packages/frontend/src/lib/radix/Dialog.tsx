@@ -5,6 +5,7 @@ import { Button } from "./Button";
 export const Dialog = ({
   trigger,
   defaultOpen,
+  canExit = true,
   title,
   confirmText,
   onConfirm,
@@ -12,6 +13,7 @@ export const Dialog = ({
   open,
   children
 }: {
+  canExit?: boolean;
   children: React.ReactNode;
   confirmText?: string;
   defaultOpen?: boolean;
@@ -22,7 +24,7 @@ export const Dialog = ({
   trigger?: React.ReactNode;
 }) => {
   return (
-    <RadixDialog.Root defaultOpen={defaultOpen} open={open}>
+    <RadixDialog.Root defaultOpen={defaultOpen} open={canExit ? open : true}>
       {trigger !== undefined && (
         <RadixDialog.Trigger>{trigger}</RadixDialog.Trigger>
       )}
@@ -32,11 +34,13 @@ export const Dialog = ({
         {children}
         <Flex justify="end">
           <Flex gap="2">
-            <RadixDialog.Close>
-              <Button color="gray" variant="soft">
-                Cancel
-              </Button>
-            </RadixDialog.Close>
+            {canExit && (
+              <RadixDialog.Close>
+                <Button color="gray" variant="soft">
+                  Cancel
+                </Button>
+              </RadixDialog.Close>
+            )}
             <RadixDialog.Close>
               <Button onClick={onConfirm}>{confirmText ?? "Save"}</Button>
             </RadixDialog.Close>

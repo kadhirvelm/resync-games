@@ -36,9 +36,10 @@ enum ConnectionStatus {
 }
 
 model PlayersInGame {
-  gameId   String @map("game_id")
-  playerId String @map("player_id")
-  team     Int?   @map("team")
+  gameId    String   @map("game_id")
+  playerId  String   @map("player_id")
+  team      Int?     @map("team")
+  hasExited Boolean? @map("has_exited")
 
   game             GameState        @relation(fields: [gameId], references: [gameId])
   player           Player           @relation(fields: [playerId], references: [playerId])

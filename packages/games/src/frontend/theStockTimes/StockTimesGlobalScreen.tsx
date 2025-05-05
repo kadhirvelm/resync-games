@@ -58,8 +58,6 @@ export const StockTimesGlobalScreen = () => {
     clockRef.current?.clientHeight ?? 100
   );
 
-  console.log(clockRef.current?.clientWidth, clockRef.current?.clientHeight);
-
   return (
     <DisplayType.Provider value={{ displayType: "global-screen" }}>
       <Flex flex="1">

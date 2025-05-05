@@ -49,6 +49,7 @@ export interface JoinGameWithId {
 export interface LeaveGame {
   gameId: GameId;
   gameType: GameType;
+  hasExited?: boolean;
   kick?: boolean;
   playerId: PlayerId;
 }

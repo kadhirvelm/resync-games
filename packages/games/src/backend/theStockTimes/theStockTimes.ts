@@ -6,6 +6,7 @@ import {
   CurrentGameState,
   GameStateAndInfo,
   PlayerId,
+  PlayerInGame,
   WithTimestamp
 } from "@/imports/api";
 import {
@@ -263,6 +264,7 @@ export interface TheStockTimesGame {
 export interface TheStockTimesGameConfiguration {
   startingCash: number;
   stockCycleTime: number;
+  totalDaysOfTrading: number;
   totalStocks: number;
 }
 
@@ -277,7 +279,7 @@ export class TheStockTimesServer
       gameState: {
         cycle: {
           dayTime: 60 * 1_000, // Default that gets overridden when the game starts
-          endDay: 6, // Default that gets overridden when the game starts
+          endDay: 6, // Default that gets overriden when the game starts
           lastUpdatedAt: new Date().toISOString(),
           nightTime: 20 * 1_000, // Default that gets overridden when the game starts
           seedTime: 0,
@@ -308,6 +310,17 @@ export class TheStockTimesServer
     return { canChange: true as const };
   }
 
+  public onPlayerJoin(
+    game: TheStockTimesGame,
+    gameConfiguration: TheStockTimesGameConfiguration,
+    player: PlayerInGame
+  ) {
+    const newGameState = { ...game };
+    // This will handle situations where a player joins in the middle of a game
+    this.initializePlayerPortfolio(newGameState, player, gameConfiguration);
+    return newGameState;
+  }
+
   public onChangeState(
     game: ICanChangeToState<TheStockTimesGame, TheStockTimesGameConfiguration>,
     newCurrentGameState: CurrentGameState
@@ -318,49 +331,11 @@ export class TheStockTimesServer
 
     const newGameState = { ...game.gameState };
     for (const player of game.players) {
-      newGameState.players[player.playerId] = {
-        cash: game.gameConfiguration.startingCash,
-        debt: 0,
-        lastUpdatedAt: new Date().toISOString(),
-        ownedStocks: {},
-        stockLocks: {},
-        storePowers: {
-          corruptedStock: {
-            cooldownTime: undefined,
-            usedAt: undefined
-          },
-          discountBuy: {
-            cooldownTime: undefined,
-            usedAt: undefined
-          },
-          loan: {
-            cooldownTime: undefined,
-            usedAt: undefined
-          },
-          lockCashSpending: {
-            cooldownTime: undefined,
-            usedAt: undefined
-          },
-          lossIntoGain: {
-            cooldownTime: undefined,
-            usedAt: undefined
-          },
-          stockLock: {
-            cooldownTime: undefined,
-            usedAt: undefined
-          },
-          transferCash: {
-            cooldownTime: undefined,
-            usedAt: undefined
-          }
-        },
-        team: player.team ?? 0,
-        transactionHistory: []
-      };
-
-      newGameState.pendingPlayerActions[player.playerId] = {
-        lastUpdatedAt: new Date().toISOString()
-      };
+      this.initializePlayerPortfolio(
+        newGameState,
+        player,
+        game.gameConfiguration
+      );
     }
 
     const randomStocks = _.sampleSize(
@@ -383,7 +358,7 @@ export class TheStockTimesServer
 
     newGameState.cycle.startTime = new Date().toISOString();
 
-    const stockFocusCycleTime = game.gameConfiguration.stockCycleTime * 990;
+    const stockFocusCycleTime = game.gameConfiguration.stockCycleTime * 999;
     newGameState.stockInFocus.nextFocusIn = stockFocusCycleTime;
     newGameState.stockInFocus.stockOrder = Object.keys(newGameState.stocks);
 
@@ -392,7 +367,59 @@ export class TheStockTimesServer
     newGameState.cycle.dayTime =
       stockFocusCycleTime * game.gameConfiguration.totalStocks * 2;
 
+    newGameState.cycle.endDay = game.gameConfiguration.totalDaysOfTrading + 1;
+
     return newGameState;
+  }
+
+  private initializePlayerPortfolio(
+    inputGameState: TheStockTimesGame,
+    player: PlayerInGame,
+    gameConfiguration: TheStockTimesGameConfiguration
+  ) {
+    inputGameState.players[player.playerId] = {
+      cash: gameConfiguration.startingCash,
+      debt: 0,
+      lastUpdatedAt: new Date().toISOString(),
+      ownedStocks: {},
+      stockLocks: {},
+      storePowers: {
+        corruptedStock: {
+          cooldownTime: undefined,
+          usedAt: undefined
+        },
+        discountBuy: {
+          cooldownTime: undefined,
+          usedAt: undefined
+        },
+        loan: {
+          cooldownTime: undefined,
+          usedAt: undefined
+        },
+        lockCashSpending: {
+          cooldownTime: undefined,
+          usedAt: undefined
+        },
+        lossIntoGain: {
+          cooldownTime: undefined,
+          usedAt: undefined
+        },
+        stockLock: {
+          cooldownTime: undefined,
+          usedAt: undefined
+        },
+        transferCash: {
+          cooldownTime: undefined,
+          usedAt: undefined
+        }
+      },
+      team: player.team ?? 0,
+      transactionHistory: []
+    };
+
+    inputGameState.pendingPlayerActions[player.playerId] = {
+      lastUpdatedAt: new Date().toISOString()
+    };
   }
 
   public tickGameState(
