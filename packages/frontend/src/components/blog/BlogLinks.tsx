@@ -47,6 +47,14 @@ export const BLOG_LINKS: BlogLink[] = [
     description: "A king's message to his people.",
     href: "/blog/art/royalty",
     title: "Royalty - To my loyal kingdom"
+  },
+  {
+    author: "Kadhir",
+    category: "art",
+    date: "05/01/2021, 12:00 PM",
+    description: "No description.",
+    href: "/blog/art/when-life-gives-you-lemons",
+    title: "When life gives you lemons"
   }
 ];
 
