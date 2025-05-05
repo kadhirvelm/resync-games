@@ -18,17 +18,27 @@ export const BLOG_LINKS: BlogLink[] = [
   {
     author: "Kadhir",
     category: "resync",
-    date: "2025-05-04",
+    date: "05/04/2025, 12:00 PM",
     description:
       "Some thoughts on the goals we're trying to achieve with these games and some insight into our explorations.",
     href: "/blog/resync/what-is-this",
     title: "What is this?"
+  },
+  {
+    author: "Kadhir",
+    category: "resync",
+    date: "05/04/2025, 7:00 PM",
+    description: "Initial thoughts on what we think we've found so far.",
+    href: "/blog/resync/what-have-we-learned",
+    title: "What have we learned?"
   }
 ];
 
 export const BlogLinks = ({ category }: { category: BlogCategory }) => {
   const router = useRouter();
-  const links = BLOG_LINKS.filter((link) => link.category === category);
+  const links = BLOG_LINKS.filter((link) => link.category === category)
+    .slice()
+    .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
 
   if (links.length === 0) {
     return (
