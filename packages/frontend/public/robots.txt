@@ -1,6 +1,3 @@
 User-agent: *
-Disallow: /
-
-User-agent: *
-Allow: /blog/
+Disallow:
 Sitemap: https://resync-games.com/sitemap.xml
