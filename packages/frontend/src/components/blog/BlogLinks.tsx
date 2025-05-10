@@ -63,6 +63,15 @@ export const BLOG_LINKS: BlogLink[] = [
     description: "The robots saved us.",
     href: "/blog/art/a-blank-in-disguise",
     title: "A ___ in disguise"
+  },
+  {
+    author: "Kadhir",
+    category: "engineering",
+    date: "05/09/2025, 5:00 PM",
+    description:
+      "The positive effects of a monorepo on engineering team culture.",
+    href: "/blog/engineering/monorepo-culture",
+    title: "The monorepo culture"
   }
 ];
 
