@@ -152,38 +152,57 @@ export default function MonorepoCulture() {
       <PlainBlogText>
         <ol>
           <li>
-            <a href="https://en.wikipedia.org/wiki/Monorepo">
-              https://en.wikipedia.org/wiki/Monorepo
+            <a href="https://en.wikipedia.org/wiki/Monorepo" target="_blank">
+              Monorepo - Wikipedia
             </a>
           </li>
           <li>
-            <a href="https://en.wikipedia.org/wiki/Dependency_hell">
-              https://en.wikipedia.org/wiki/Dependency_hell
+            <a
+              href="https://en.wikipedia.org/wiki/Dependency_hell"
+              target="_blank"
+            >
+              Dependency hell - Wikipedia
             </a>
           </li>
           <li>
-            <a href="https://github.com/joelparkerhenderson/monorepo-vs-polyrepo">
-              https://github.com/joelparkerhenderson/monorepo-vs-polyrepo
+            <a
+              href="https://github.com/joelparkerhenderson/monorepo-vs-polyrepo"
+              target="_blank"
+            >
+              Monorepo vs. polyrepo - joelparkerhenderson
             </a>
           </li>
           <li>
-            <a href="https://medium.com/@cfryerdev/monorepo-vs-polyrepo-the-great-debate-7b71068e005c">
-              https://medium.com/@cfryerdev/monorepo-vs-polyrepo-the-great-debate-7b71068e005c
+            <a
+              href="https://medium.com/@cfryerdev/monorepo-vs-polyrepo-the-great-debate-7b71068e005c"
+              target="_blank"
+            >
+              Monorepo vs Polyrepo: The great debate - Chris Fryer
             </a>
           </li>
           <li>
-            <a href="https://graphite.dev/guides/monorepo-vs-polyrepo-pros-cons-tools">
-              https://graphite.dev/guides/monorepo-vs-polyrepo-pros-cons-tools
+            <a
+              href="https://graphite.dev/guides/monorepo-vs-polyrepo-pros-cons-tools"
+              target="_blank"
+            >
+              Monorepo vs. polyrepo pros, cons, and tools - Greg Foster
+              (Graphite)
             </a>
           </li>
           <li>
-            <a href="https://earthly.dev/blog/monorepo-vs-polyrepo/">
-              https://earthly.dev/blog/monorepo-vs-polyrepo/
+            <a
+              href="https://earthly.dev/blog/monorepo-vs-polyrepo/"
+              target="_blank"
+            >
+              Monorepo vs Polyrepo - Vlad A. Ionescu (Earthly)
             </a>
           </li>
           <li>
-            <a href="https://greatergood.berkeley.edu/article/item/what_is_emotional_labor_and_why_does_it_matter">
-              https://greatergood.berkeley.edu/article/item/what_is_emotional_labor_and_why_does_it_matter
+            <a
+              href="https://greatergood.berkeley.edu/article/item/what_is_emotional_labor_and_why_does_it_matter"
+              target="_blank"
+            >
+              What Is Emotional Labor, and Why Does It Matter? - Hope Reese
             </a>
           </li>
         </ol>
