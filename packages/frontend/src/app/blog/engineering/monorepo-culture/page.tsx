@@ -38,10 +38,8 @@ export default function MonorepoCulture() {
       <PlainBlogText>
         <ul>
           <li>Development tools are standardized</li>
-          <li>
-            There is one release cycle for the entire repo
-            <li>Everyone is responsible for keeping main working</li>
-          </li>
+          <li>There is one release cycle for the entire repo</li>
+          <li>Everyone is responsible for keeping main working</li>
         </ul>
       </PlainBlogText>
       <BlogText>
@@ -51,8 +49,7 @@ export default function MonorepoCulture() {
         together toward the same shared goals.
       </BlogText>
       <BlogText>
-        Diving into more detail, some of the monorepos I've been a part of have
-        led to:
+        Let's dive into some specific aspects of good that I particularly love.
       </BlogText>
       <BlogText>
         <br />
@@ -67,7 +64,15 @@ export default function MonorepoCulture() {
       <BlogText>
         When team members can contribute to many initiatives, it's a massive win
         in my books. I think that feels more like the team is doing something
-        good rather than a specific individual within the team.
+        valuable rather than a specific individual within the team, even if in
+        practice that's true.
+      </BlogText>
+      <BlogText>
+        In other words, I think the best teams are those where it's tough to
+        identify where a good idea came from. Rather, the idea came about from
+        many interactions and conversations. When engineers can easily
+        contribute to many projects, I think they're more likely to have
+        interaction patterns that result in natural collaboration.
       </BlogText>
       <BlogText>
         <br />
@@ -86,14 +91,19 @@ export default function MonorepoCulture() {
       </BlogText>
       <BlogText>
         <br />
-        <b>It's nice to see the changes roll in</b>
+        <b>It's nice to see all the changes in one place</b>
       </BlogText>
       <BlogText>
-        Even if your project is not progressing as much as you want, seeing all
-        the commits roll in and the systems update can be energizing. You can
-        point to a concrete, singular code artifact and say I'm a part of that.
-        That's our entire team, both past and present, represented in code.
-        That's a community I belong to.
+        Seeing all the commits roll in and the systems continually update can be
+        energizing, especially if those changes reflect in your day-to-day,
+        local development experience. You can see how everyone's work is coming
+        together and how it's (ideally) getting better daily, without having to
+        go out of your way.
+      </BlogText>
+      <BlogText>
+        But more than that, I can point to a concrete, singular code artifact
+        and say I'm a part of that. That's my team, both past and present,
+        represented in code. That's a community I belong to.
       </BlogText>
       <BlogText>
         <br />
@@ -111,11 +121,11 @@ export default function MonorepoCulture() {
       </BlogText>
       <BlogText>
         In the monorepo world, it is my responsibility as the writer to ensure
-        that my breaking change lands safely and does not break the build. I
-        have a vested interest in either doing the migration myself or getting
-        help from everyone to land my change. Specifically, the onus of
-        completing the migration of the breaking change has moved from the
-        consumer to the author.
+        that my breaking change lands safely and does not break main. I have a
+        vested interest in either doing the migration myself or getting help
+        from everyone to land my change. Specifically, the onus of completing
+        the migration of the breaking change has moved from the consumer to the
+        author.
       </BlogText>
       <BlogText>
         Let's go on a tangent for a second and discuss breaking changes that
@@ -138,18 +148,32 @@ export default function MonorepoCulture() {
       <BlogText>
         You know what would be even better? If the authors of those breaking
         changes went around and upgraded everyone! That way, when they come to
-        upgrade my package, I can ask them questions. I can understand why the
-        change is necessary and know what direction they're heading in. And just
-        as importantly, the author can know how I'm using their stuff. They're
-        forced to stay close to their customers.
+        upgrade my package, I can ask them questions. Now let's tie this back
+        into our monorepo culture.
       </BlogText>
       <BlogText>
-        That's a fantastic team interaction right there! Way less frustrating
-        than having something semi-random tossed over the fence to me. And one
-        that we can force in a monorepo world.
+        When an author creates a breaking change, they can go around upgrading
+        all the consumers. When they come to upgrade my package, as a consumer,
+        I can understand why the change is necessary and know what direction
+        they're heading in. I can make sure my continued usage aligns with where
+        they're heading. And just as importantly, the author can know how I'm
+        using their package so they can continue to stay aligned to what I need.
+        They're forced to stay close to their customers.
       </BlogText>
-
+      <BlogText>
+        That's a fantastic team interaction right there! It results in better
+        long alignment between authors and consumers. Way less frustrating than
+        having something perceived as semi-random, tossed over a fence. I love
+        this, this is an interaction that we can force in a monorepo world.
+      </BlogText>
+      <BlogText>
+        <br />
+        This is all to say that when debating between polyrepos and monorepos, I
+        have often found much healthier engineering cultures in the monorepo
+        world that better result in feeling like a team.
+      </BlogText>
       <PlainBlogText>
+        <br />
         <ol>
           <li>
             <a href="https://en.wikipedia.org/wiki/Monorepo" target="_blank">
