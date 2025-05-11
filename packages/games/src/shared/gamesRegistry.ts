@@ -41,7 +41,7 @@ export const GAME_REGISTRY: GameRegistry = {
     gameTags: {
       completed: true
     },
-    name: "The Stock Times",
+    name: "Stonks Market",
     version: "1.0.0"
   }
 };

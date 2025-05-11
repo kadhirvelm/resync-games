@@ -1,0 +1,7 @@
+@use "@/styles/variables.scss" as vars;
+
+.previousWord {
+    border-radius: 5px;
+    border: 1px solid vars.$black;
+    background: vars.$white;
+}
