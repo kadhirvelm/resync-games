@@ -5,3 +5,8 @@
     border: 1px solid vars.$black;
     background: vars.$white;
 }
+
+.word {
+    max-width: 20vw;
+    word-break: break-all;
+}

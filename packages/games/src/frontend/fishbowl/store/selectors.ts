@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { FishbowlReduxState } from "./fishbowlRedux";
-import { FishbowlPlayer } from "../../../backend";
+import { FishbowlGameConfiguration, FishbowlPlayer } from "../../../backend";
 
 const selectPlayerTeam = createSelector(
   [
@@ -42,5 +42,17 @@ export const selectPlayerContributions = createSelector(
     }
 
     return contributions?.[player.playerId];
+  }
+);
+
+export const selectExpectedWordContributionCount = createSelector(
+  [
+    (state: FishbowlReduxState) =>
+      state.gameStateSlice.gameInfo?.gameConfiguration as
+        | FishbowlGameConfiguration
+        | undefined
+  ],
+  (gameConfiguration) => {
+    return gameConfiguration?.wordsPerPlayer ?? 0;
   }
 );

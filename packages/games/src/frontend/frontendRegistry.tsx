@@ -4,7 +4,6 @@ import { GAME_SLUGS } from "../shared/gamesRegistry";
 import { MapGameConfiguration } from "./baseConfiguration";
 import { DisplayFishbowl } from "./fishbowl/DisplayFishbowl";
 import { FishbowlConfiguration } from "./fishbowl/FishbowlConfiguration";
-import { PongHomePage } from "./pong/pong";
 import { PongConfiguration } from "./pong/pongConfiguration";
 import { DisplayTheStockTimes } from "./theStockTimes/DisplayTheStockTimes";
 import { StockTimesGlobalScreen } from "./theStockTimes/StockTimesGlobalScreen";
@@ -12,6 +11,8 @@ import { StockTimesTutorial } from "./theStockTimes/StockTimesTutorial";
 import { INITIAL_THE_STOCK_TIMES_LOCAL_STATE } from "./theStockTimes/store/theStockTimesLocalState";
 import { TheStockTimesConfiguration } from "./theStockTimes/theStockTimesConfiguration";
 import { INITIAL_FISHBOWL_LOCAL_STATE } from "./fishbowl/store/fishbowlLocalState";
+import dynamic from "next/dynamic";
+import { FishbowlGlobalScreen } from "./fishbowl/FishbowlGlobalScreen";
 
 export type FrontendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: FrontendRegisteredGame;
@@ -61,15 +62,26 @@ export interface FrontendRegisteredGame {
   }) => JSX.Element | undefined | null;
 }
 
+/**
+ * For games that require phaser, we cannot use SSR. They require the window variable and need to be ommitted from the nextjs server load.
+ */
+const PongHomePageWithoutSSR = dynamic<FrontendGameComponentProps>(
+  () => import("./pong/pong"),
+  {
+    ssr: false
+  }
+);
+
 export const GAME_REGISTRY: FrontendGameRegistry = {
   fishbowl: {
     gameConfiguration: FishbowlConfiguration,
     gameEntry: DisplayFishbowl,
+    globalScreen: FishbowlGlobalScreen,
     initialLocalState: INITIAL_FISHBOWL_LOCAL_STATE
   },
   pong: {
     gameConfiguration: PongConfiguration,
-    gameEntry: PongHomePage,
+    gameEntry: (props) => <PongHomePageWithoutSSR {...props} />,
     initialLocalState: undefined
   },
   "the-stock-times": {
