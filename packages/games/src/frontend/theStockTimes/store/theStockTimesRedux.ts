@@ -1,13 +1,13 @@
-import {
-  GameStateStoreWithStates,
-  getGameHooks,
-  RecursivePartial,
-  updateGameState,
-  updateLocalState
-} from "@/redux";
 import { Player } from "@/imports/api";
 import { TheStockTimesGame } from "../../../backend/theStockTimes/theStockTimes";
 import { TheStockTimesLocalState } from "./theStockTimesLocalState";
+import {
+  RecursivePartial,
+  updateGameState,
+  updateLocalState,
+  GameStateStoreWithStates,
+  getGameHooks
+} from "@/redux";
 
 export const updateTheStockTimesGameState = (
   newGameState: RecursivePartial<TheStockTimesGame>,

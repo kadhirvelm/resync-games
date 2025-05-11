@@ -11,6 +11,7 @@ import { StockTimesGlobalScreen } from "./theStockTimes/StockTimesGlobalScreen";
 import { StockTimesTutorial } from "./theStockTimes/StockTimesTutorial";
 import { INITIAL_THE_STOCK_TIMES_LOCAL_STATE } from "./theStockTimes/store/theStockTimesLocalState";
 import { TheStockTimesConfiguration } from "./theStockTimes/theStockTimesConfiguration";
+import { INITIAL_FISHBOWL_LOCAL_STATE } from "./fishbowl/store/fishbowlLocalState";
 
 export type FrontendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: FrontendRegisteredGame;
@@ -64,7 +65,7 @@ export const GAME_REGISTRY: FrontendGameRegistry = {
   fishbowl: {
     gameConfiguration: FishbowlConfiguration,
     gameEntry: DisplayFishbowl,
-    initialLocalState: undefined
+    initialLocalState: INITIAL_FISHBOWL_LOCAL_STATE
   },
   pong: {
     gameConfiguration: PongConfiguration,
