@@ -1,12 +1,14 @@
 import { Flex } from "@/lib/radix";
 import { useFishbowlSelector } from "./store/fishbowlRedux";
 import { ContributeWords } from "./components/ContributeWords";
+import { currentPhaseSelector } from "./store/sharedSelectors";
 
 export const DisplayFishbowl = () => {
-  const state = useFishbowlSelector((s) => s.gameStateSlice.gameState);
-  if (state?.round === undefined) {
+  const phase = useFishbowlSelector(currentPhaseSelector);
+
+  if (phase === "word-contribution") {
     return <ContributeWords />;
   }
 
-  return <Flex>Hello world!</Flex>;
+  return <Flex>TODO</Flex>;
 };

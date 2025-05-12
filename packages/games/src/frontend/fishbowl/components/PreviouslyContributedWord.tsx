@@ -1,5 +1,5 @@
-import { Button, DisplayText, Flex } from "@/lib/radix";
-import { Cross1Icon } from "@radix-ui/react-icons";
+import { DisplayText, Flex } from "@/lib/radix";
+import { CrossCircledIcon } from "@radix-ui/react-icons";
 import {
   FishbowlSinglePlayerContributions,
   FishbowlWord
@@ -9,11 +9,11 @@ import {
   useFishbowlDispatch,
   useFishbowlSelector
 } from "../store/fishbowlRedux";
-import styles from "./PreviouslyContributedWord.module.scss";
 import {
   selectFishbowlPlayer,
   selectPlayerContributions
 } from "../store/selectors";
+import styles from "./PreviouslyContributedWord.module.scss";
 
 export const PreviouslyContributedWord = ({
   fishbowlWord
@@ -60,19 +60,13 @@ export const PreviouslyContributedWord = ({
       return;
     }
 
-    return (
-      <Button onClick={deleteWord} variant="ghost">
-        <Cross1Icon color="red" />
-      </Button>
-    );
+    return <CrossCircledIcon color="red" onClick={deleteWord} />;
   };
 
   return (
-    <Flex align="center" gap="2">
+    <Flex align="center" className={styles.previousWord} gap="2" px="3" py="1">
+      <DisplayText className={styles.word}>{fishbowlWord.word}</DisplayText>
       <Flex>{canEdit && renderDelete()}</Flex>
-      <Flex className={styles.previousWord} px="3" py="1">
-        <DisplayText>{fishbowlWord.word}</DisplayText>
-      </Flex>
     </Flex>
   );
 };

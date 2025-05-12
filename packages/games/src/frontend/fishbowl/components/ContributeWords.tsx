@@ -1,5 +1,5 @@
 import { lazy, useState } from "react";
-import { Button, Flex, TextField } from "../../../../lib/radix";
+import { Button, DisplayText, Flex, TextField } from "../../../../lib/radix";
 import {
   FishbowlSinglePlayerContributions,
   FishbowlWord
@@ -10,6 +10,7 @@ import {
   useFishbowlSelector
 } from "../store/fishbowlRedux";
 import {
+  selectExpectedWordContributionCount,
   selectFishbowlPlayer,
   selectPlayerContributions
 } from "../store/selectors";
@@ -23,6 +24,9 @@ export const ContributeWords = () => {
   const player = useFishbowlSelector((s) => s.playerSlice.player);
   const fishbowlPlayer = useFishbowlSelector(selectFishbowlPlayer);
   const currentContributions = useFishbowlSelector(selectPlayerContributions);
+  const expectedWordContributionCount = useFishbowlSelector(
+    selectExpectedWordContributionCount
+  );
 
   const [newWordValue, setNewWordValue] = useState("");
 
@@ -65,38 +69,56 @@ export const ContributeWords = () => {
     setNewWordValue("");
   };
 
-  return (
-    <Flex align="center" flex="1" justify="center">
-      <Flex direction="column" gap="2">
-        <Flex align="center" gap="2">
-          <TextField
-            onChange={setNewWordValue}
-            placeholder="Enter word..."
-            size="3"
-            style={{ width: "40vw" }}
-            value={newWordValue}
-          />
-          <Flex>
-            <Button
-              disabled={newWordValue === "" || newWordIsDuplicate}
-              onClick={contributeWord}
-              style={{ width: "20vw" }}
-            >
-              Submit
-            </Button>
-          </Flex>
+  const currentContributionCount = currentContributions?.words?.length ?? 0;
+  const finishedContributing =
+    currentContributionCount >= expectedWordContributionCount;
+
+  const renderWordContributorTextField = () => {
+    if (finishedContributing) {
+      return (
+        <Flex justify="center">
+          <DisplayText color="green" size="6">
+            You're ready to go!
+          </DisplayText>
         </Flex>
-        <Flex align="center" gap="2">
-          <LazyWordIdea />
+      );
+    }
+
+    return (
+      <Flex align="center" gap="2">
+        <TextField
+          onChange={setNewWordValue}
+          placeholder="Enter word..."
+          size="3"
+          style={{ width: "50vw" }}
+          value={newWordValue}
+        />
+        <Flex flex="1">
+          <Button
+            disabled={newWordValue === "" || newWordIsDuplicate}
+            onClick={contributeWord}
+          >
+            Submit ({currentContributionCount} / {expectedWordContributionCount}
+            )
+          </Button>
         </Flex>
       </Flex>
-      <Flex align="baseline" gap="2">
-        <Flex direction="column" gap="4">
-          <Flex direction="column" gap="2">
-            {currentContributions?.words.map((w, index) => (
-              <PreviouslyContributedWord fishbowlWord={w} key={index} />
-            ))}
+    );
+  };
+
+  return (
+    <Flex align="center" flex="1" gap="2" justify="center">
+      <Flex direction="column" gap="2">
+        {!finishedContributing && (
+          <Flex>
+            <LazyWordIdea />
           </Flex>
+        )}
+        {renderWordContributorTextField()}
+        <Flex align="baseline" gap="2" mt="6" wrap="wrap">
+          {currentContributions?.words.map((w, index) => (
+            <PreviouslyContributedWord fishbowlWord={w} key={index} />
+          ))}
         </Flex>
       </Flex>
     </Flex>

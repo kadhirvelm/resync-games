@@ -1,7 +1,7 @@
 import { BlogLinks } from "@/components/blog/BlogLinks";
 import { Flex, Tabs } from "@/lib/radix";
 
-export const HomePage = () => {
+export function HomePage() {
   return (
     <Flex align="center" gap="2">
       <Tabs.Root defaultValue="resync">
@@ -22,4 +22,4 @@ export const HomePage = () => {
       </Tabs.Root>
     </Flex>
   );
-};
+}

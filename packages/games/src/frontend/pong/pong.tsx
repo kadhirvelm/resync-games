@@ -235,9 +235,7 @@ class PongGame extends BaseGame {
   }
 }
 
-export const PongHomePage = ({
-  gameStateHandler
-}: FrontendGameComponentProps) => {
+const PongHomePage = ({ gameStateHandler }: FrontendGameComponentProps) => {
   const parentElement = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -256,3 +254,5 @@ export const PongHomePage = ({
 
   return <div ref={parentElement} />;
 };
+
+export default PongHomePage;

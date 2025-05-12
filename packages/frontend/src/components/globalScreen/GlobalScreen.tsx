@@ -7,7 +7,7 @@ import { GameId, GameType } from "@/imports/api";
 import { useRouter } from "next/navigation";
 import { InitializeGlobalScreen } from "./InitializeGlobalScreen";
 
-const GlobalScreen = ({
+export const GlobalScreen = ({
   gameId,
   gameSlug
 }: {
@@ -47,5 +47,3 @@ const GlobalScreen = ({
     </ReduxGate>
   );
 };
-
-export default GlobalScreen;
