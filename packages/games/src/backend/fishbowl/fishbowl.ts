@@ -1,16 +1,11 @@
-import { PlayerId, WithTimestamp } from "@/imports/api";
-import { IGameServer } from "../base";
-
-export interface FishbowlPlayer {
-  /**
-   * The player's unique ID.
-   */
-  playerId: PlayerId;
-  /**
-   * The player's team number.
-   */
-  teamNumber: string;
-}
+import {
+  CurrentGameState,
+  PlayerId,
+  PlayerInGame,
+  WithTimestamp
+} from "@/imports/api";
+import { ICanChangeToState, IGameServer } from "../base";
+import _ from "lodash";
 
 export interface FishbowlActiveTracker extends WithTimestamp {
   /**
@@ -24,7 +19,7 @@ export interface FishbowlActiveTracker extends WithTimestamp {
   /**
    * The time in milliseconds that the player's round started. This plus the seed time should equal the end time.
    */
-  startTime: string;
+  startTime: number;
   /**
    * The current state of the round. This is used to determine if the game is paused, running, or stopped.
    */
@@ -35,7 +30,7 @@ export interface FishbowlActivePlayer extends WithTimestamp {
   /**
    * The player who is currently giving clues.
    */
-  player: FishbowlPlayer;
+  player: PlayerInGame;
   /**
    * The tracker for how long the player has left in the round.
    */
@@ -46,7 +41,7 @@ export interface FishbowlSingleGuess {
   /**
    * The player who was giving clues when this guess was made.
    */
-  currentActivePlayer: FishbowlPlayer;
+  currentActivePlayer: PlayerInGame;
   /**
    * The actual guess that was made.
    */
@@ -54,7 +49,7 @@ export interface FishbowlSingleGuess {
   /**
    * The player who made the guess.
    */
-  guessingPlayer: FishbowlPlayer;
+  guessingPlayer: PlayerInGame;
   /**
    * The round number that this guess was made in.
    */
@@ -96,7 +91,7 @@ export interface FishbowlSinglePlayerGuesses extends WithTimestamp {
   /**
    * The player who made the guesses.
    */
-  player: FishbowlPlayer;
+  player: PlayerInGame;
 }
 
 /**
@@ -115,7 +110,7 @@ export interface FishbowlWord {
   /**
    * The player who contributed the word.
    */
-  contributedBy: FishbowlPlayer;
+  contributedBy: PlayerInGame;
   /**
    * The word itself.
    */
@@ -126,7 +121,7 @@ export interface FishbowlSinglePlayerContributions extends WithTimestamp {
   /**
    * The player who contributed the words.
    */
-  player: FishbowlPlayer;
+  player: PlayerInGame;
   /**
    * The words that the player has contributed.
    */
@@ -197,6 +192,23 @@ export class FishbowlServer
         turnOrder: []
       },
       version: "1.0.0"
+    };
+  }
+
+  public onChangeState(
+    game: ICanChangeToState<FishbowlGame, FishbowlGameConfiguration>,
+    newCurrentGameState: CurrentGameState
+  ): FishbowlGame | undefined {
+    if (newCurrentGameState !== "playing") {
+      return;
+    }
+
+    const allPlayers = game.players.map((player) => player.playerId);
+    const randomTurnOrder: PlayerId[] = _.shuffle(allPlayers);
+
+    return {
+      ...game.gameState,
+      turnOrder: randomTurnOrder
     };
   }
 }
