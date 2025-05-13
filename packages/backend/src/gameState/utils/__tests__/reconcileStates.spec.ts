@@ -272,4 +272,46 @@ describe("reconcileStates", () => {
       newState: nextState
     });
   });
+
+  it.only("nested edge case", () => {
+    const previousState = {
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      round: {
+        currentActivePlayer: {
+          lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+          timer: {
+            countdownTimer: 45000,
+            lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+            seedTime: 0,
+            startTime: 0,
+            state: "paused"
+          }
+        }
+      }
+    };
+
+    const nextState = {
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      round: {
+        currentActivePlayer: {
+          lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+          timer: {
+            countdownTimer: 45000,
+            lastUpdatedAt: "2025-05-13T05:08:43.440Z",
+            seedTime: 0,
+            startTime: 1747112923440,
+            state: "running"
+          }
+        }
+      }
+    };
+
+    const reconciledState = reconcileStates(
+      previousState,
+      nextState,
+      "closest"
+    );
+
+    expect(reconciledState.didAcceptChange).toBe(true);
+  });
 });

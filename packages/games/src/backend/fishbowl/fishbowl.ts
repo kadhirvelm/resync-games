@@ -9,11 +9,11 @@ import _ from "lodash";
 
 export interface FishbowlActiveTracker extends WithTimestamp {
   /**
-   * The time in milliseconds that the player has in total for the round. Combine this with the seed time and the start time to get the end time.
+   * The time in milliseconds that the player has in total for the round. (startTime + seedTime - currentTime) / countdownTimer for the current timer.
    */
   countdownTimer: number;
   /**
-   * The time in milliseconds that have elapsed before the game was paused. This is used to calculate the countdown timer when the game is resumed.
+   * The time in milliseconds that have elapsed before the game was paused. This is used when resuming a previously paused timer.
    */
   seedTime: number;
   /**

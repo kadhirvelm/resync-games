@@ -42,3 +42,21 @@ export const selectExpectedWordContributionCount = createSelector(
     return gameConfiguration?.wordsPerPlayer ?? 0;
   }
 );
+
+export const selectActiveRound = createSelector(
+  [
+    (state: FishbowlReduxState) => state.gameStateSlice.gameState?.round,
+    (state: FishbowlReduxState) => state.playerSlice.player
+  ],
+  (round, player) => {
+    if (
+      round === undefined ||
+      player === undefined ||
+      round.currentActivePlayer.player.playerId !== player.playerId
+    ) {
+      return;
+    }
+
+    return round;
+  }
+);

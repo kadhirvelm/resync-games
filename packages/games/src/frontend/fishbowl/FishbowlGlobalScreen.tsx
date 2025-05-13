@@ -9,5 +9,5 @@ export const FishbowlGlobalScreen = () => {
     return <DisplayContributionCount />;
   }
 
-  return <Flex>TODO</Flex>;
+  return <Flex>Round in progress</Flex>;
 };
