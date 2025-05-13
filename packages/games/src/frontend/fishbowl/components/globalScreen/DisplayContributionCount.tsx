@@ -1,8 +1,9 @@
-import { Button, DisplayText, Flex } from "../../../../../lib/radix";
+import { DisplayPlayer } from "@/components/player/DisplayPlayer";
+import { DisplayText, Flex } from "../../../../../lib/radix";
 import { useFishbowlSelector } from "../../store/fishbowlRedux";
 import { selectCurrentWordContribution } from "../../store/globalScreenSelectors";
-import { DisplayPlayer } from "@/components/player/DisplayPlayer";
 import styles from "./DisplayContributonCount.module.scss";
+import { StartGame } from "./StartGame";
 
 export const DisplayContributionCount = () => {
   const wordCount = useFishbowlSelector(selectCurrentWordContribution);
@@ -17,9 +18,7 @@ export const DisplayContributionCount = () => {
     if (waitingOnPlayers.length === 0) {
       return (
         <Flex>
-          <Button size="4">
-            <DisplayText size="5">Start game!</DisplayText>
-          </Button>
+          <StartGame />
         </Flex>
       );
     }

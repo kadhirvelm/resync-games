@@ -87,9 +87,11 @@ export const ContributeWords = () => {
     return (
       <Flex align="center" gap="2">
         <TextField
+          autoCorrect="on"
           onChange={setNewWordValue}
           placeholder="Enter word..."
           size="3"
+          spellCheck="true"
           style={{ width: "50vw" }}
           value={newWordValue}
         />
