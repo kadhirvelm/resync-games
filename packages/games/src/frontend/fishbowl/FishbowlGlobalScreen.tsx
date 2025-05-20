@@ -1,5 +1,5 @@
-import { Flex } from "@/lib/radix";
 import { DisplayContributionCount } from "./components/globalScreen/DisplayContributionCount";
+import { RoundInProgress } from "./components/globalScreen/RoundInProgress";
 import { useFishbowlSelector } from "./store/fishbowlRedux";
 import { currentPhaseSelector } from "./store/sharedSelectors";
 
@@ -9,5 +9,5 @@ export const FishbowlGlobalScreen = () => {
     return <DisplayContributionCount />;
   }
 
-  return <Flex>Round in progress</Flex>;
+  return <RoundInProgress />;
 };
