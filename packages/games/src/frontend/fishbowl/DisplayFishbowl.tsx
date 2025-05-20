@@ -15,5 +15,9 @@ export const DisplayFishbowl = () => {
     return <ActivePlayer />;
   }
 
-  return <Flex>Guessing</Flex>;
+  return (
+    <Flex align="center" flex="1" justify="center">
+      Guessing
+    </Flex>
+  );
 };

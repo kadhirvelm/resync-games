@@ -19,7 +19,6 @@ export const ActivePlayer = () => {
   if (timer.state !== "running") {
     return (
       <Flex align="center" flex="1" gap="2" justify="center">
-        <FishbowlTimer timer={timer} />
         <TimerControl />
       </Flex>
     );

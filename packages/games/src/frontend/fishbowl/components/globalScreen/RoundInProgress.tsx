@@ -1,10 +1,13 @@
+import { PlayerIcon } from "@/components/player/PlayerIcon";
 import { DisplayText, Flex } from "@/lib/radix";
 import { useFishbowlSelector } from "../../store/fishbowlRedux";
 import { FishbowlTimer } from "../timer/FishbowlTimer";
-import { PlayerIcon } from "@/components/player/PlayerIcon";
 import styles from "./RoundInProgress.module.scss";
+import { useAdvancePlayer } from "./hooks/useAdvancePlayer";
 
 export const RoundInProgress = () => {
+  useAdvancePlayer();
+
   const activeRound = useFishbowlSelector(
     (s) => s.gameStateSlice.gameState?.round
   );

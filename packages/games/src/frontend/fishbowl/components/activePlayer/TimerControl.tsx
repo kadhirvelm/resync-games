@@ -74,7 +74,7 @@ export const TimerControl = () => {
     );
   };
 
-  const playText = timer.seedTime !== 0 ? "Resume" : "Start";
+  const playText = timer.seedTime !== 0 ? "Resume" : "Start your turn";
 
   return (
     <Flex>
