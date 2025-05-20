@@ -141,6 +141,10 @@ export interface FishbowlGame extends WithTimestamp {
    */
   gameWords: FishbowlWord[];
   /**
+   * The rounds that have been played in the game, just for historical reference.
+   */
+  pastRounds: FishbowlRound[];
+  /**
    * All the guesses that have been made by all players in the game.
    */
   playerGuesses: FishbowlAllPlayerGuesses;
@@ -186,6 +190,7 @@ export class FishbowlServer
       gameState: {
         gameWords: [],
         lastUpdatedAt: new Date().toISOString(),
+        pastRounds: [],
         playerGuesses: {},
         playerWordContributions: {},
         round: undefined,

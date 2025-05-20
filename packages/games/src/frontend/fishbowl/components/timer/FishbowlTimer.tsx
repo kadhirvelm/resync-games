@@ -33,15 +33,9 @@ export const FishbowlTimer = ({
   const { timeFraction } = useTimer(timer);
   const finalSize = size ?? DEFAULT_SIZE;
 
-  if (timer?.state === "stopped") {
-    return <Flex>Stopped</Flex>;
+  if (timer?.state === "stopped" || timer?.state === "paused") {
+    return;
   }
-
-  if (timer?.state === "paused") {
-    return <Flex>Paused</Flex>;
-  }
-
-  console.log({ timeFraction });
 
   return (
     <>
@@ -49,7 +43,10 @@ export const FishbowlTimer = ({
       <Flex align="center" gap="1">
         <svg height={finalSize} width={finalSize}>
           <circle
-            className={styles.baseClock}
+            className={clsx(styles.clock, {
+              [styles.greenTime ?? ""]: timeFraction <= 0.8,
+              [styles.lowTime ?? ""]: timeFraction > 0.8
+            })}
             cx={centerX(finalSize)}
             cy={centerY(finalSize)}
             r={radius(finalSize)}
@@ -58,6 +55,11 @@ export const FishbowlTimer = ({
             className={styles.pointer}
             d={calculateClockPointer(timeFraction, finalSize)}
             strokeWidth={finalSize / 20}
+          />
+          <path
+            className={styles.pointer}
+            d={calculateClockPointer(0, finalSize)}
+            strokeWidth={finalSize / 15}
           />
           <circle
             cx={centerX(finalSize)}

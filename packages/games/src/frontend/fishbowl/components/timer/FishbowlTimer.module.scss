@@ -1,9 +1,16 @@
 @use "@/styles/variables.scss" as vars;
 
-.baseClock {
-    fill: vars.$yellow;
+.clock {
     stroke: vars.$black;
     stroke-width: 1;
+}
+
+.greenTime {
+    fill: vars.$green;
+}
+
+.lowTime {
+    fill: vars.$red;
 }
 
 .pointer {

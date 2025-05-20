@@ -34,7 +34,7 @@ export function JoinGame() {
     <Flex direction="column">
       <Flex gap="2">
         <TextField
-          maxLength={5}
+          maxLength={6}
           onChange={setInviteCode}
           placeholder="Invite code..."
           size="3"
