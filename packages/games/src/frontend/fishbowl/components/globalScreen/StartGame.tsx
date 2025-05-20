@@ -41,6 +41,7 @@ export const StartGame = () => {
       (p) => p.playerId === gameState.turnOrder[0]
     );
     if (activePlayer === undefined) {
+      // Something went wrong here, we should error out
       return;
     }
 
