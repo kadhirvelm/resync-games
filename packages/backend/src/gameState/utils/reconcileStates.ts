@@ -63,18 +63,18 @@ function closest(
     // If the previousState has a newer timestamp, we maintain that change and move to the next key
     if (comparedDates === 1) {
       reconciledState[key] = previousState[key];
-      continue;
     }
 
-    // If the timestamps are the same, we need to check the nested object, but only if there's an object to check
+    // If the timestamps are the same or the previousState had an older one, we need to check the nested object, but only if there's an object to check
     if (
       typeof reconciledState[key] !== "object" ||
-      Array.isArray(reconciledState[key])
+      Array.isArray(reconciledState[key]) ||
+      reconciledState[key] == null
     ) {
       continue;
     }
 
-    // We recursively check the nested object starting at this key
+    // We recursively check the nested object starting at this key - we want to use the closest timestamp to the key to decide which state to use
     const { didAcceptChange: reconciledDidAccept, newState } = closest(
       previousState[key] as unknown as NestedTimestamp,
       nextState[key] as unknown as NestedTimestamp,
