@@ -74,16 +74,20 @@ export const TimerControl = () => {
     );
   };
 
+  const playText = timer.seedTime !== 0 ? "Resume" : "Start";
+
   return (
     <Flex>
       <Button
         onClick={timer.state === "running" ? onPause : onStart}
-        variant="outline"
+        variant={timer.state === "running" ? "outline" : "solid"}
       >
         {timer.state === "running" ? (
           <PauseIcon size={16} />
         ) : (
-          <PlayIcon size={16} />
+          <>
+            {playText} <PlayIcon size={16} />
+          </>
         )}
       </Button>
     </Flex>

@@ -1,0 +1,8 @@
+@use "@/styles/variables.scss" as vars;
+
+.wordContainer {
+    background: vars.$white;
+    border-radius: 5px;
+    border: 1px solid vars.$black;
+    user-select: none;
+}

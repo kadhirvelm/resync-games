@@ -43,8 +43,8 @@ export default function MonorepoCulture() {
         </ul>
       </PlainBlogText>
       <BlogText>
-        So much incredible good happens when those two things are true. And for
-        me, it's all about that feeling of being together, which I've always
+        So much incredible good happens when those three things are true. And
+        for me, it's all about that feeling of being together, which I've always
         felt on high-functioning teams. That feeling that our team is working
         together toward the same shared goals.
       </BlogText>
