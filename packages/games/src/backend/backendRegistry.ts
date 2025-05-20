@@ -27,8 +27,8 @@ export interface BackendRegisteredGame {
    * The "closest" method will accept changes based on the most updated lastUpdatedAt
    * timestamp, recursively checking through the nested object. Doing a depth first search
    * through the object's keys, it will reconcile state changes based on which object has
-   * the most updated lastUpdatedAt. It will ignore the top level lastUpdatedAt, which is
-   * added by the server automatically.
+   * the most updated lastUpdatedAt timestamp closest to the key being checked. It will prefer
+   * the previous state if both timestamps are identical.
    *
    * See packages/backend/src/gameState/utils/__tests__/reconcileStates.spec.ts for examples.
    */

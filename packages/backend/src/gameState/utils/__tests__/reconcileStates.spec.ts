@@ -224,8 +224,8 @@ describe("reconcileStates", () => {
             lastUpdatedAt: new Date("01/01/1992").toISOString(),
             onTile: "tile-two",
             someState: {
-              lastUpdatedAt: new Date("01/01/1992").toISOString(),
-              someValue: "b"
+              lastUpdatedAt: new Date("01/01/1993").toISOString(),
+              someValue: "c"
             }
           },
           pawnTwo: {
@@ -273,7 +273,7 @@ describe("reconcileStates", () => {
     });
   });
 
-  it.only("nested edge case", () => {
+  it("nested edge case", () => {
     const previousState = {
       lastUpdatedAt: "2025-05-13T04:17:33.020Z",
       round: {
@@ -313,5 +313,247 @@ describe("reconcileStates", () => {
     );
 
     expect(reconciledState.didAcceptChange).toBe(true);
+    expect(reconciledState.newState).toEqual({
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      round: {
+        currentActivePlayer: {
+          lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+          timer: {
+            countdownTimer: 45000,
+            lastUpdatedAt: "2025-05-13T05:08:43.440Z",
+            seedTime: 0,
+            startTime: 1747112923440,
+            state: "running"
+          }
+        }
+      }
+    });
+  });
+
+  it("nested edge case 2 - with some more updated and some less updated", () => {
+    const previousState = {
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      round: {
+        currentActivePlayer: {
+          lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+          timer: {
+            countdownTimer: 45000,
+            lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+            seedTime: 0,
+            startTime: 0,
+            state: "paused"
+          },
+          value: "a"
+        }
+      }
+    };
+
+    const nextState = {
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      round: {
+        currentActivePlayer: {
+          lastUpdatedAt: "2025-05-12T04:18:06.435Z",
+          timer: {
+            countdownTimer: 45000,
+            lastUpdatedAt: "2025-05-14T05:08:43.440Z",
+            seedTime: 0,
+            startTime: 1747112923440,
+            state: "running"
+          },
+          value: "b"
+        }
+      }
+    };
+
+    const reconciledState = reconcileStates(
+      previousState,
+      nextState,
+      "closest"
+    );
+
+    expect(reconciledState.didAcceptChange).toBe(true);
+    expect(reconciledState.newState).toEqual({
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      round: {
+        currentActivePlayer: {
+          lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+          timer: {
+            countdownTimer: 45000,
+            lastUpdatedAt: "2025-05-14T05:08:43.440Z",
+            seedTime: 0,
+            startTime: 1747112923440,
+            state: "running"
+          },
+          value: "a"
+        }
+      }
+    });
+  });
+
+  it("nested edge case 3 - with some missing and some less updated", () => {
+    const previousState = {
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      round: {
+        currentActivePlayer: {
+          lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+          timer: {
+            countdownTimer: 45000,
+            lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+            seedTime: 0,
+            startTime: 0,
+            state: "paused"
+          },
+          value: "a"
+        }
+      }
+    };
+
+    const nextState = {
+      lastUpdatedAt: "2025-05-12T04:17:33.020Z",
+      round: {
+        currentActivePlayer: {
+          timer: {
+            countdownTimer: 45000,
+            lastUpdatedAt: "2025-05-14T05:08:43.440Z",
+            seedTime: 0,
+            startTime: 1747112923440,
+            state: "running"
+          },
+          value: "b"
+        }
+      }
+    };
+
+    const reconciledState = reconcileStates(
+      previousState,
+      nextState,
+      "closest"
+    );
+
+    expect(reconciledState.didAcceptChange).toBe(true);
+    expect(reconciledState.newState).toEqual({
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      round: {
+        currentActivePlayer: {
+          lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+          timer: {
+            countdownTimer: 45000,
+            lastUpdatedAt: "2025-05-14T05:08:43.440Z",
+            seedTime: 0,
+            startTime: 1747112923440,
+            state: "running"
+          },
+          value: "a"
+        }
+      }
+    });
+  });
+
+  it("should prefer previousState when identical timestamps with nextState", () => {
+    const previousState = {
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z"
+    };
+    const nextState = {
+      extra: "new",
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z"
+    };
+    const reconciledState = reconcileStates(
+      previousState,
+      nextState,
+      "closest"
+    );
+    expect(reconciledState.newState).toEqual(previousState);
+  });
+
+  it("should handle arrays", () => {
+    const previousState = {
+      items: [1, 2, 3],
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z"
+    };
+    const nextState = {
+      items: [4, 5, 6],
+      lastUpdatedAt: "2025-05-14T04:17:33.020Z"
+    };
+    const reconciledState = reconcileStates(
+      previousState,
+      nextState,
+      "closest"
+    );
+    expect(reconciledState.newState).toEqual(nextState);
+  });
+
+  it("should handle null values correctly", () => {
+    const previousState = {
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      value: null
+    };
+    const nextState = {
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      value: "not-null"
+    };
+    const reconciledState = reconcileStates(
+      previousState,
+      nextState,
+      "closest"
+    );
+    expect(reconciledState.newState).toEqual(previousState);
+  });
+
+  it("should handle deeply nested objects with mixed updates", () => {
+    const previousState = {
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      nested: {
+        deep: {
+          lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+          value: "deep-old"
+        },
+        lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+        value: "old"
+      }
+    };
+    const nextState = {
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      nested: {
+        deep: {
+          lastUpdatedAt: "2025-05-14T04:18:06.435Z",
+          value: "deep-new"
+        },
+        lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+        value: "old"
+      }
+    };
+    const reconciledState = reconcileStates(
+      previousState,
+      nextState,
+      "closest"
+    );
+    expect(reconciledState.newState).toEqual({
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      nested: {
+        deep: {
+          lastUpdatedAt: "2025-05-14T04:18:06.435Z",
+          value: "deep-new"
+        },
+        lastUpdatedAt: "2025-05-13T04:18:06.435Z",
+        value: "old"
+      }
+    });
+  });
+
+  it("should return previousState if both states are identical", () => {
+    const previousState = {
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      value: "same"
+    };
+    const nextState = {
+      lastUpdatedAt: "2025-05-13T04:17:33.020Z",
+      value: "not-the-same"
+    };
+    const reconciledState = reconcileStates(
+      previousState,
+      nextState,
+      "closest"
+    );
+    expect(reconciledState.newState).toEqual(previousState);
   });
 });
