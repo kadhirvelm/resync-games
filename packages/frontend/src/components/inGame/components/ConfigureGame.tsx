@@ -1,23 +1,24 @@
 import { PlayerContext } from "@/components/player/PlayerContext";
-import { Flex } from "@/lib/radix/Flex";
-import { getFrontendGame } from "@/lib/utils/getFrontendGame";
-import { useGameStateSelector } from "@/redux";
-import { ClientServiceCallers } from "@/services/serviceCallers";
 import { isServiceError } from "@/imports/api";
 import {
   GameConfigurationField,
   GameConfigurationFieldNumber,
   GameConfigurationFieldString
 } from "@/imports/games";
-import { useContext, useState } from "react";
+import { DisplayText } from "@/lib/radix";
+import { Flex } from "@/lib/radix/Flex";
 import { TextField } from "@/lib/radix/TextField";
 import { NumberInput } from "@/lib/resync-components/NumberInput";
-import { DisplayText } from "@/lib/radix";
+import { getFrontendGame } from "@/lib/utils/getFrontendGame";
+import { useGameStateSelector } from "@/redux";
+import { ClientServiceCallers } from "@/services/serviceCallers";
+import { useContext, useState } from "react";
 
 export const ConfigureGame = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
   const player = useContext(PlayerContext);
 
+  // We rely on key based rendering to update the game configuration when someone else updates the config
   const [currentGameConfiguration, setCurrentGameConfiguration] = useState(
     gameInfo?.gameConfiguration ?? {}
   );
@@ -28,14 +29,15 @@ export const ConfigureGame = () => {
 
   const accordingGame = getFrontendGame(gameInfo.gameType);
 
-  const onSaveConfiguration = async () => {
+  const onSaveConfiguration = async (optionalNewGameConfiguration?: object) => {
     if (gameInfo === undefined) {
       return;
     }
 
     const maybeNewState =
       await ClientServiceCallers.gameState.updateGameConfiguration({
-        gameConfiguration: currentGameConfiguration,
+        gameConfiguration:
+          optionalNewGameConfiguration ?? currentGameConfiguration,
         gameId: gameInfo.gameId,
         gameType: gameInfo.gameType,
         lastUpdatedAt: gameInfo.lastUpdatedAt,
@@ -67,7 +69,7 @@ export const ConfigureGame = () => {
           maximum={configurationValue.max}
           minimum={configurationValue.min}
           onChange={(newValue) =>
-            setCurrentGameConfiguration({
+            onSaveConfiguration({
               ...currentGameConfiguration,
               [key]: newValue
             })

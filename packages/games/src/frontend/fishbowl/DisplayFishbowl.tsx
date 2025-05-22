@@ -7,6 +7,18 @@ import { ActivePlayer } from "./components/activePlayer/ActivePlayer";
 export const DisplayFishbowl = () => {
   const phase = useFishbowlSelector(currentPhaseSelector);
 
+  if (phase === "waiting") {
+    return;
+  }
+
+  if (phase === "finished") {
+    return (
+      <Flex align="center" flex="1" justify="center">
+        Done!
+      </Flex>
+    );
+  }
+
   if (phase === "word-contribution") {
     return <ContributeWords />;
   }

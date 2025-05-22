@@ -1,18 +1,13 @@
 import { useEffect } from "react";
+import { PlayerId } from "../../../../../../imports/api";
+import { FishbowlGameConfiguration } from "../../../../../backend";
 import { useTimer } from "../../../hooks/useTimer";
+import { advanceToNextPlayer } from "../../../stateFunctions/advanceToNextPlayer";
 import {
   updateFishbowlGameState,
   useFishbowlDispatch,
   useFishbowlSelector
 } from "../../../store/fishbowlRedux";
-import {
-  FishbowlActivePlayer,
-  FishbowlActiveTracker,
-  FishbowlGameConfiguration,
-  FishbowlRound
-} from "../../../../../backend";
-import { cloneDeep } from "lodash-es";
-import { PlayerId } from "../../../../../../imports/api";
 
 export function useAdvancePlayer() {
   const dispatch = useFishbowlDispatch();
@@ -35,7 +30,7 @@ export function useAdvancePlayer() {
 
   const timer = useTimer(activeRound?.currentActivePlayer.timer);
 
-  const advanceToNextPlayer = () => {
+  const onAdvanceToNextPlayer = () => {
     if (
       activeRound === undefined ||
       turnOrder === undefined ||
@@ -45,35 +40,12 @@ export function useAdvancePlayer() {
       return;
     }
 
-    const newFishbowlRound: FishbowlRound = cloneDeep(activeRound);
-    newFishbowlRound.lastUpdatedAt = new Date().toISOString();
-
-    const currentPlayerIndex = turnOrder.findIndex(
-      (order) => order === activeRound.currentActivePlayer.player.playerId
+    const newFishbowlRound = advanceToNextPlayer(
+      activeRound,
+      turnOrder,
+      allPlayers,
+      gameConfiguration
     );
-    const nextPlayerIndex = (currentPlayerIndex + 1) % turnOrder.length;
-    const nextPlayer = allPlayers.find(
-      (player) => player.playerId === turnOrder[nextPlayerIndex]
-    );
-    if (nextPlayer === undefined) {
-      // Something went wrong here, we should error out
-      return;
-    }
-
-    const fishbowlActiveTracker: FishbowlActiveTracker = {
-      countdownTimer: (gameConfiguration.timePerPlayer[1] ?? 0) * 1000,
-      lastUpdatedAt: new Date().toISOString(),
-      seedTime: 0,
-      startTime: 0,
-      state: "paused"
-    };
-
-    const nextActivePlayer: FishbowlActivePlayer = {
-      lastUpdatedAt: new Date().toISOString(),
-      player: nextPlayer,
-      timer: fishbowlActiveTracker
-    };
-    newFishbowlRound.currentActivePlayer = nextActivePlayer;
 
     dispatch(
       updateFishbowlGameState(
@@ -97,6 +69,6 @@ export function useAdvancePlayer() {
       return;
     }
 
-    advanceToNextPlayer();
+    onAdvanceToNextPlayer();
   }, [timer]);
 }

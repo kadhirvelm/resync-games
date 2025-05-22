@@ -1,11 +1,11 @@
+import { Button, Flex } from "@/lib/radix";
 import { PauseIcon, PlayIcon } from "lucide-react";
+import { paused, running } from "../../stateFunctions/timerControl";
 import {
   updateFishbowlGameState,
   useFishbowlDispatch,
   useFishbowlSelector
 } from "../../store/fishbowlRedux";
-import { Button, Flex } from "@/lib/radix";
-import { FishbowlActiveTracker } from "../../../../backend";
 
 export const TimerControl = () => {
   const dispatch = useFishbowlDispatch();
@@ -27,13 +27,6 @@ export const TimerControl = () => {
   } = round;
 
   const onStart = () => {
-    const newTracker: FishbowlActiveTracker = {
-      ...timer,
-      lastUpdatedAt: new Date().toISOString(),
-      startTime: new Date().valueOf(),
-      state: "running"
-    };
-
     dispatch(
       updateFishbowlGameState(
         {
@@ -41,7 +34,7 @@ export const TimerControl = () => {
             ...round,
             currentActivePlayer: {
               ...currentActivePlayer,
-              timer: newTracker
+              timer: running(timer)
             }
           }
         },
@@ -51,13 +44,6 @@ export const TimerControl = () => {
   };
 
   const onPause = () => {
-    const newTracker: FishbowlActiveTracker = {
-      ...timer,
-      lastUpdatedAt: new Date().toISOString(),
-      seedTime: new Date().valueOf() - timer.startTime + timer.seedTime,
-      state: "paused"
-    };
-
     dispatch(
       updateFishbowlGameState(
         {
@@ -65,7 +51,7 @@ export const TimerControl = () => {
             ...round,
             currentActivePlayer: {
               ...currentActivePlayer,
-              timer: newTracker
+              timer: paused(timer)
             }
           }
         },
