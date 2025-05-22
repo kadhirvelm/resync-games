@@ -1,10 +1,11 @@
 import {
   CurrentGameState,
+  GameStateAndInfo,
   PlayerId,
   PlayerInGame,
   WithTimestamp
 } from "@/imports/api";
-import { ICanChangeToState, IGameServer } from "../base";
+import { ICanChangeToState, IGameServer, TickGameState } from "../base";
 import _ from "lodash";
 
 export interface FishbowlActiveTracker extends WithTimestamp {
@@ -72,7 +73,7 @@ export interface FishbowlRound extends WithTimestamp {
   /**
    * The word the player is currently giving clues for.
    */
-  currentActiveWord: FishbowlWord;
+  currentActiveWord: FishbowlWord | undefined;
   /**
    * Remaining words for the round. This is used to determine if the round is over or not.
    */
@@ -215,5 +216,17 @@ export class FishbowlServer
       ...game.gameState,
       turnOrder: randomTurnOrder
     };
+  }
+
+  public onGameStateChange(
+    nextGameState: GameStateAndInfo<FishbowlGame, FishbowlGameConfiguration>
+  ): TickGameState<FishbowlGame> | undefined {
+    const maxRounds = nextGameState.gameConfiguration.totalRounds + 1;
+    if (nextGameState.gameState.round?.roundNumber === maxRounds) {
+      return {
+        gameState: nextGameState.gameState,
+        hasFinished: true
+      };
+    }
   }
 }

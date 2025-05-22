@@ -1,0 +1,39 @@
+import { cloneDeep, isEqual, sample } from "lodash-es";
+import { FishbowlRound } from "../../../backend";
+import { PlayerInGame } from "../../../../imports/api";
+
+export function advanceWord(
+  activeRound: FishbowlRound,
+  guessingPlayer: PlayerInGame
+) {
+  const updatedRound: FishbowlRound = cloneDeep(activeRound);
+  updatedRound.lastUpdatedAt = new Date().toISOString();
+
+  if (activeRound.currentActiveWord === undefined) {
+    throw new Error("No active word found. Something went terribly wrong.");
+  }
+
+  updatedRound.correctGuesses.push({
+    ...activeRound.currentActiveWord,
+    currentActivePlayer: activeRound.currentActivePlayer.player,
+    guess: activeRound.currentActiveWord.word,
+    guessingPlayer: guessingPlayer,
+    roundNumber: activeRound.roundNumber,
+    timestamp: new Date().toISOString()
+  });
+
+  const newWord = sample(updatedRound.remainingWords);
+  if (newWord === undefined) {
+    updatedRound.currentActiveWord = undefined;
+
+    return updatedRound;
+  }
+
+  updatedRound.currentActiveWord = newWord;
+  const newWordIndex = updatedRound.remainingWords.findIndex((word) =>
+    isEqual(word, newWord)
+  );
+  updatedRound.remainingWords.splice(newWordIndex, 1);
+
+  return updatedRound;
+}

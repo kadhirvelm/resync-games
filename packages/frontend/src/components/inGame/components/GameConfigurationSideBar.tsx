@@ -87,7 +87,7 @@ export const GameConfigurationSideBar = () => {
             <DisplayText color="gray" size="2">
               Game configuration
             </DisplayText>
-            <ConfigureGame key={gameInfo?.gameId + "configure"} />
+            <ConfigureGame key={JSON.stringify(gameInfo?.gameConfiguration)} />
           </Flex>
         </Flex>
       </motion.div>
