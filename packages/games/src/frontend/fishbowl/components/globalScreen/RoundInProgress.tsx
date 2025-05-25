@@ -3,6 +3,7 @@ import { DisplayText, Flex } from "@/lib/radix";
 import { useFishbowlSelector } from "../../store/fishbowlRedux";
 import { FishbowlTimer } from "../timer/FishbowlTimer";
 import styles from "./RoundInProgress.module.scss";
+import { WordCelebration } from "./components/WordCelebration";
 import { useAdvancePlayer } from "./hooks/useAdvancePlayer";
 
 export const RoundInProgress = () => {
@@ -11,12 +12,14 @@ export const RoundInProgress = () => {
   const activeRound = useFishbowlSelector(
     (s) => s.gameStateSlice.gameState?.round
   );
+
   if (activeRound === undefined) {
     return;
   }
 
   return (
     <Flex align="center" flex="1" gap="9" justify="center">
+      <WordCelebration />
       <Flex direction="column" gap="3">
         <Flex align="center" className={styles.activePlayer} gap="5" p="5">
           <PlayerIcon
