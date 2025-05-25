@@ -55,3 +55,17 @@ export const selectCurrentWordContribution = createSelector(
     };
   }
 );
+
+export const selectPreviousWord = createSelector(
+  [
+    (state: FishbowlReduxState) =>
+      state.gameStateSlice.gameState?.round?.correctGuesses
+  ],
+  (correctGuesses) => {
+    if (correctGuesses === undefined) {
+      return;
+    }
+
+    return correctGuesses[correctGuesses.length - 1]?.guess;
+  }
+);

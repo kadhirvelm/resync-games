@@ -3,6 +3,7 @@ export * from "./Dialog";
 export * from "./Flex";
 export * from "./Select";
 export * from "./TextField";
+export * from "./SlideConfirm";
 
 export {
   Badge,

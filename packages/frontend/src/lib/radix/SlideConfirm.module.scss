@@ -1,0 +1,42 @@
+@use "@/styles/variables.scss" as vars;
+
+.container {
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid vars.$black;
+    background: vars.$white;
+}
+
+.sliderTrack {
+    z-index: 2;
+
+    :global(.rt-SliderTrack) {
+        display: none;
+    }
+
+    :global(.rt-SliderThumb) {
+        height: 20px;
+        width: 20px;
+
+        --slider-thumb-box-shadow: 0 0 0 2px #000;
+    }
+}
+
+.text {
+    color: vars.$muted-font;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    user-select: none;
+}
+
+.slideProgress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: vars.$green;
+}

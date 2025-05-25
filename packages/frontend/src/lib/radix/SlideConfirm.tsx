@@ -1,0 +1,57 @@
+"use client";
+
+import { Flex, Slider, Text } from "@radix-ui/themes";
+import { ChevronsRightIcon } from "lucide-react";
+import { useState } from "react";
+import styles from "./SlideConfirm.module.scss";
+
+export interface SlideConfirmProps {
+  confirmText?: string;
+  minimumWidth?: number;
+  onConfirm?: () => void;
+}
+
+export const SlideConfirm = ({ confirmText, onConfirm }: SlideConfirmProps) => {
+  const [value, setValue] = useState(0);
+
+  const onSetValue = ([value]: [number]) => setValue(value);
+
+  const onCommitValue = () => {
+    if (value === 100) {
+      onConfirm?.();
+    }
+
+    setValue(0);
+  };
+
+  const minimumWidth = (confirmText?.length ?? 0) * 20;
+
+  return (
+    <Flex
+      className={styles.container}
+      p="4"
+      style={{ flex: 1, minWidth: `${minimumWidth}px` }}
+    >
+      <Slider
+        className={styles.sliderTrack}
+        onPointerDown={(e) => {
+          // Only allow dragging the thumb, not clicking the track
+          if ((e.target as HTMLElement).matches('[role="slider"]')) {
+            return;
+          }
+
+          e.preventDefault();
+        }}
+        onValueChange={onSetValue}
+        onValueCommit={onCommitValue}
+        value={[value]}
+      />
+      <Flex align="center" className={styles.text} gap="1" justify="center">
+        <ChevronsRightIcon />
+        <Text>{confirmText}</Text>
+        <ChevronsRightIcon />
+      </Flex>
+      <Flex className={styles.slideProgress} style={{ width: `${value}%` }} />
+    </Flex>
+  );
+};
