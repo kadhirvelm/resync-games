@@ -1,10 +1,10 @@
-import { Flex } from "@/lib/radix";
+import { DisplayText, Flex } from "@/lib/radix";
 import { useFishbowlSelector } from "../../store/fishbowlRedux";
 import { selectActiveRound } from "../../store/selectors";
 import { FishbowlTimer } from "../timer/FishbowlTimer";
-import { TimerControl } from "./TimerControl";
 import { ActiveWord } from "./ActiveWord";
 import { SomeoneGotIt } from "./SomeoneGotIt";
+import { TimerControl } from "./TimerControl";
 
 export const ActivePlayer = () => {
   const timer = useFishbowlSelector(
@@ -19,7 +19,10 @@ export const ActivePlayer = () => {
   if (timer.state !== "running") {
     return (
       <Flex align="center" flex="1" gap="2" justify="center">
-        <TimerControl />
+        <Flex direction="column" gap="2">
+          <DisplayText size="7">It's your turn!</DisplayText>
+          <TimerControl />
+        </Flex>
       </Flex>
     );
   }

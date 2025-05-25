@@ -34,6 +34,10 @@ export const WordCelebration = () => {
     tweenDuration: 700
   };
 
+  if (activeRound?.correctGuesses.length === 0) {
+    return;
+  }
+
   return (
     <>
       <Confetti

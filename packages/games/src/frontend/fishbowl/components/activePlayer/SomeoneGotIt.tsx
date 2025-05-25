@@ -1,4 +1,4 @@
-import { Button } from "@/lib/radix";
+import { SlideConfirm } from "@/lib/radix";
 import { FishbowlGameConfiguration } from "../../../../backend";
 import { advanceWord } from "../../stateFunctions/advanceWord";
 import { newRound } from "../../stateFunctions/newRound";
@@ -66,5 +66,7 @@ export const SomeoneGotIt = () => {
     );
   };
 
-  return <Button onClick={onAdvanceWord}>Someone got it!</Button>;
+  return (
+    <SlideConfirm confirmText="Someone got it" onConfirm={onAdvanceWord} />
+  );
 };
