@@ -35,7 +35,7 @@ export const ActivePlayer = () => {
           <FishbowlTimer timer={timer} />
         </Flex>
         <Flex align="center" gap="2">
-          <SomeoneGotIt />
+          <SomeoneGotIt timer={timer} />
           <TimerControl />
         </Flex>
       </Flex>

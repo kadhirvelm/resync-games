@@ -1,5 +1,8 @@
 import { SlideConfirm } from "@/lib/radix";
-import { FishbowlGameConfiguration } from "../../../../backend";
+import {
+  FishbowlActiveTracker,
+  FishbowlGameConfiguration
+} from "../../../../backend";
 import { advanceWord } from "../../stateFunctions/advanceWord";
 import { newRound } from "../../stateFunctions/newRound";
 import {
@@ -8,9 +11,12 @@ import {
   useFishbowlSelector
 } from "../../store/fishbowlRedux";
 import { selectActiveRound, selectFishbowlPlayer } from "../../store/selectors";
+import { useTimer } from "../../hooks/useTimer";
+import { LOW_TIME_THRESHOLD } from "../timer/FishbowlTimer";
 
-export const SomeoneGotIt = () => {
+export const SomeoneGotIt = ({ timer }: { timer: FishbowlActiveTracker }) => {
   const dispatch = useFishbowlDispatch();
+  const { timeFraction } = useTimer(timer);
 
   const activePlayer = useFishbowlSelector(selectFishbowlPlayer);
   const activeRound = useFishbowlSelector(selectActiveRound);
@@ -67,6 +73,10 @@ export const SomeoneGotIt = () => {
   };
 
   return (
-    <SlideConfirm confirmText="Someone got it" onConfirm={onAdvanceWord} />
+    <SlideConfirm
+      confirmText="Someone got it"
+      onConfirm={onAdvanceWord}
+      slideColor={timeFraction <= LOW_TIME_THRESHOLD ? "green" : "red"}
+    />
   );
 };

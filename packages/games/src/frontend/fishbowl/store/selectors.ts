@@ -60,3 +60,43 @@ export const selectActiveRound = createSelector(
     return round;
   }
 );
+
+export const selectPlayerGuesses = createSelector(
+  [
+    (state: FishbowlReduxState) => state.playerSlice.player,
+    (state: FishbowlReduxState) =>
+      state.gameStateSlice.gameState?.round?.roundNumber,
+    (state: FishbowlReduxState) => state.gameStateSlice.gameState?.playerGuesses
+  ],
+  (player, roundNumber, guesses) => {
+    if (
+      player === undefined ||
+      roundNumber === undefined ||
+      guesses === undefined
+    ) {
+      return;
+    }
+
+    return guesses[player.playerId]?.[roundNumber];
+  }
+);
+
+export const selectNewPlayerGuess = createSelector(
+  [
+    (state: FishbowlReduxState) => state.playerSlice.player,
+    (state: FishbowlReduxState) => state.gameStateSlice.gameState?.round,
+    (state: FishbowlReduxState) => state.gameStateSlice.gameState?.playerGuesses
+  ],
+  (player, round, guesses) => {
+    if (player === undefined || round === undefined || guesses === undefined) {
+      return;
+    }
+
+    return {
+      activePlayer: round.currentActivePlayer.player,
+      currentRoundGuesses: guesses[player.playerId]?.[round.roundNumber],
+      player,
+      roundNumber: round.roundNumber
+    };
+  }
+);

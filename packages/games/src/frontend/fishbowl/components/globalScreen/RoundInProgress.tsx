@@ -6,7 +6,10 @@ import styles from "./RoundInProgress.module.scss";
 import { WordCelebration } from "./components/WordCelebration";
 import { useAdvancePlayer } from "./hooks/useAdvancePlayer";
 import { TimerState } from "./components/TimerState";
-import { selectPreviousWord } from "../../store/globalScreenSelectors";
+import {
+  selectCurrentWordContribution,
+  selectPreviousWord
+} from "../../store/globalScreenSelectors";
 
 export const RoundInProgress = () => {
   useAdvancePlayer();
@@ -14,6 +17,7 @@ export const RoundInProgress = () => {
   const activeRound = useFishbowlSelector(
     (s) => s.gameStateSlice.gameState?.round
   );
+  const wordCount = useFishbowlSelector(selectCurrentWordContribution);
   const previousWord = useFishbowlSelector(selectPreviousWord);
 
   if (activeRound === undefined) {
@@ -21,13 +25,13 @@ export const RoundInProgress = () => {
   }
 
   const displayWordsToGo = () => {
-    const wordsToGo = activeRound.remainingWords.length;
+    const wordsToGo = activeRound.remainingWords.length + 1;
 
     if (wordsToGo === 0) {
       return "Last word";
     }
 
-    return `${wordsToGo} word${wordsToGo === 1 ? "" : "s"} to go`;
+    return `${wordsToGo} / ${wordCount?.currentWordCount ?? 0} word${wordsToGo === 1 ? "" : "s"} to go`;
   };
 
   return (

@@ -53,8 +53,11 @@ function closest(
       nextState[key]?.lastUpdatedAt
     );
 
-    // If the nextState has a newer timestamp, we accept the change and move to the next key
-    if (comparedDates === -1) {
+    // If the nextState has a newer timestamp, or has values the previous state does not have, we accept the change and move to the next key
+    if (
+      comparedDates === -1 ||
+      (reconciledState[key] === undefined && nextState[key] !== undefined)
+    ) {
       didAcceptChange = true;
       reconciledState[key] = nextState[key];
       continue;
