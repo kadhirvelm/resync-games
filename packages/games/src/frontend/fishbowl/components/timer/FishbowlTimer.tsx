@@ -23,6 +23,8 @@ function calculateClockPointer(timeFraction: number, size: number) {
   return `M ${centerX(size)} ${centerY(size)} L ${endX} ${endY}`;
 }
 
+export const LOW_TIME_THRESHOLD = 0.8;
+
 export const FishbowlTimer = ({
   timer,
   size
@@ -44,8 +46,8 @@ export const FishbowlTimer = ({
         <svg height={finalSize} width={finalSize}>
           <circle
             className={clsx(styles.clock, {
-              [styles.greenTime ?? ""]: timeFraction <= 0.8,
-              [styles.lowTime ?? ""]: timeFraction > 0.8
+              [styles.greenTime ?? ""]: timeFraction <= LOW_TIME_THRESHOLD,
+              [styles.lowTime ?? ""]: timeFraction > LOW_TIME_THRESHOLD
             })}
             cx={centerX(finalSize)}
             cy={centerY(finalSize)}

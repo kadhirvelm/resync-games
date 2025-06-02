@@ -37,9 +37,6 @@ export class GameStateTicker {
         return;
       }
 
-      this.logger.log(
-        `Ticking on ${new Date().toLocaleString()} for ${gamesInFlight.length} games`
-      );
       for (const game of gamesInFlight) {
         this.tickGame(
           this.prismaService.converterService.convertGameState(

@@ -4,14 +4,20 @@ import { Flex, Slider, Text } from "@radix-ui/themes";
 import { ChevronsRightIcon } from "lucide-react";
 import { useState } from "react";
 import styles from "./SlideConfirm.module.scss";
+import clsx from "clsx";
 
 export interface SlideConfirmProps {
   confirmText?: string;
   minimumWidth?: number;
   onConfirm?: () => void;
+  slideColor?: "green" | "red";
 }
 
-export const SlideConfirm = ({ confirmText, onConfirm }: SlideConfirmProps) => {
+export const SlideConfirm = ({
+  confirmText,
+  onConfirm,
+  slideColor
+}: SlideConfirmProps) => {
   const [value, setValue] = useState(0);
 
   const onSetValue = ([value]: [number]) => setValue(value);
@@ -51,7 +57,14 @@ export const SlideConfirm = ({ confirmText, onConfirm }: SlideConfirmProps) => {
         <Text>{confirmText}</Text>
         <ChevronsRightIcon />
       </Flex>
-      <Flex className={styles.slideProgress} style={{ width: `${value}%` }} />
+      <Flex
+        className={clsx(styles.slideProgress, {
+          [styles.green ?? ""]:
+            slideColor === undefined || slideColor === "green",
+          [styles.red ?? ""]: slideColor === "red"
+        })}
+        style={{ width: `${value}%` }}
+      />
     </Flex>
   );
 };

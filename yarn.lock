@@ -4047,7 +4047,7 @@ __metadata:
       optional: true
     "@types/react-dom":
       optional: true
-  checksum: 10c0/7d6348520c73d7baa700582b3460b8b31b459a52fe14b97fcafd33806929556b50b28fd1d017aa17412649ea1c19b1af10cb089587722b9c1ef811850ad34a6e
+  checksum: 10c0/5c8b4156147befd6acdcb58cd4a228cf5f4f3cd866071858103951238ba90e041bda7cdd92941b9f10734fa5c789793b3c619b0b164bd638ea8cd55771910ada
   languageName: node
   linkType: hard
 

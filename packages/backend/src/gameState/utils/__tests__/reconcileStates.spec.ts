@@ -556,4 +556,175 @@ describe("reconcileStates", () => {
     );
     expect(reconciledState.newState).toEqual(previousState);
   });
+
+  it("should reconcile deeply nested objects", () => {
+    const previousState = {
+      lastUpdatedAt: "2025-05-13",
+      "some-player-id-1": {
+        "some-round-number-1": {
+          lastUpdatedAt: "2025-05-13",
+          value: "A"
+        },
+        "some-round-number-2": {
+          lastUpdatedAt: "2025-05-13",
+          value: "A"
+        }
+      },
+      "some-player-id-2": {
+        "some-round-number-1": {
+          lastUpdatedAt: "2025-05-13",
+          value: "B"
+        },
+        "some-round-number-2": {
+          lastUpdatedAt: "2025-05-13",
+          value: "B"
+        }
+      }
+    };
+    const nextState = {
+      lastUpdatedAt: "2025-05-13",
+      "some-player-id-1": {
+        "some-round-number-1": {
+          lastUpdatedAt: "2025-05-13",
+          value: "A"
+        },
+        "some-round-number-2": {
+          lastUpdatedAt: "2025-05-14",
+          value: "B"
+        }
+      },
+      "some-player-id-2": {
+        "some-round-number-1": {
+          lastUpdatedAt: "2025-05-13",
+          value: "B"
+        },
+        "some-round-number-2": {
+          lastUpdatedAt: "2025-05-13",
+          value: "B"
+        }
+      }
+    };
+
+    const reconciledState = reconcileStates(
+      previousState,
+      nextState,
+      "closest"
+    );
+    expect(reconciledState.newState).toEqual(nextState);
+  });
+
+  it("should reconcile deeply nested objects with partial updates", () => {
+    const previousState = {
+      gameState: {
+        playerGuesses: {
+          "some-player-id-1": {
+            "some-round-number-1": {
+              lastUpdatedAt: "2025-05-13",
+              value: "A"
+            },
+            "some-round-number-2": {
+              lastUpdatedAt: "2025-05-13",
+              value: "A"
+            }
+          },
+          "some-player-id-2": {
+            "some-round-number-1": {
+              lastUpdatedAt: "2025-05-13",
+              value: "B"
+            },
+            "some-round-number-2": {
+              lastUpdatedAt: "2025-05-13",
+              value: "B"
+            }
+          }
+        }
+      },
+      lastUpdatedAt: "2025-05-13"
+    };
+    const nextState = {
+      gameState: {
+        playerGuesses: {
+          "some-player-id-1": {
+            "some-round-number-2": {
+              lastUpdatedAt: "2025-05-14",
+              value: "B"
+            }
+          }
+        }
+      },
+      lastUpdatedAt: "2025-05-13"
+    };
+
+    const reconciledState = reconcileStates(
+      previousState,
+      nextState,
+      "closest"
+    );
+
+    expect(reconciledState.didAcceptChange).toBe(true);
+    expect(reconciledState.newState).toEqual({
+      gameState: {
+        playerGuesses: {
+          "some-player-id-1": {
+            "some-round-number-1": {
+              lastUpdatedAt: "2025-05-13",
+              value: "A"
+            },
+            "some-round-number-2": {
+              lastUpdatedAt: "2025-05-14",
+              value: "B"
+            }
+          },
+          "some-player-id-2": {
+            "some-round-number-1": {
+              lastUpdatedAt: "2025-05-13",
+              value: "B"
+            },
+            "some-round-number-2": {
+              lastUpdatedAt: "2025-05-13",
+              value: "B"
+            }
+          }
+        }
+      },
+      lastUpdatedAt: "2025-05-13"
+    });
+  });
+
+  it("should reconcile deeply nested objects with partial updates, with new keys", () => {
+    const previousState = {
+      lastUpdatedAt: "2025-05-13",
+      playerGuesses: {}
+    };
+    const nextState = {
+      lastUpdatedAt: "2025-05-13",
+      playerGuesses: {
+        "some-player-id-1": {
+          "some-round-number-1": {
+            lastUpdatedAt: "2025-05-13",
+            value: "A"
+          }
+        }
+      }
+    };
+
+    const reconciledState = reconcileStates(
+      previousState,
+      nextState,
+      "closest"
+    );
+
+    expect(reconciledState.didAcceptChange).toBe(true);
+    expect(reconciledState.newState).toEqual({
+      lastUpdatedAt: "2025-05-13",
+      playerGuesses: {
+        "some-player-id-1": {
+          "some-round-number-1": {
+            lastUpdatedAt: "2025-05-13",
+            value: "A"
+          }
+        }
+      }
+    });
+  });
 });

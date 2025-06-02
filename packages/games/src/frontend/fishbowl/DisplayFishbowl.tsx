@@ -3,6 +3,7 @@ import { useFishbowlSelector } from "./store/fishbowlRedux";
 import { ContributeWords } from "./components/ContributeWords";
 import { currentPhaseSelector } from "./store/sharedSelectors";
 import { ActivePlayer } from "./components/activePlayer/ActivePlayer";
+import { GuessingPlayer } from "./components/guessingPlayer/GuessingPlayer";
 
 export const DisplayFishbowl = () => {
   const phase = useFishbowlSelector(currentPhaseSelector);
@@ -29,7 +30,7 @@ export const DisplayFishbowl = () => {
 
   return (
     <Flex align="center" flex="1" justify="center">
-      Guessing
+      <GuessingPlayer />
     </Flex>
   );
 };
