@@ -31,10 +31,8 @@ export const GuessingPlayer = () => {
     );
   }
 
-  const reversedGuesses = guesses?.guesses.slice().reverse();
-
   const maybeRenderPreviousGuesses = () => {
-    if (reversedGuesses === undefined || reversedGuesses.length === 0) {
+    if (guesses?.guesses === undefined || guesses?.guesses.length === 0) {
       return (
         <Flex align="center" flex="1" justify="center">
           <DisplayText>No guesses yet</DisplayText>
@@ -42,13 +40,12 @@ export const GuessingPlayer = () => {
       );
     }
 
-    return reversedGuesses.map((guess) => (
+    return guesses?.guesses.map((guess) => (
       <Flex
         align="center"
         className={clsx({
           [styles.correctGuess ?? ""]: correctWord?.word === guess.guess
         })}
-        flex="1"
         key={guess.timestamp}
         px="2"
         py="1"

@@ -1,8 +1,8 @@
 import { getTeamName } from "@/lib/stableIdentifiers/teamIdentifier";
 import { createSelector } from "@reduxjs/toolkit";
-import { PlayerInGame } from "@/imports/api";
-import { TheStockTimesReduxState } from "./theStockTimesRedux";
 import { TheStockTimesGameConfiguration } from "../../../backend/theStockTimes/theStockTimes";
+import { selectTeamWithNames } from "../../shared/globalSelectors";
+import { TheStockTimesReduxState } from "./theStockTimesRedux";
 
 export const selectPlayerPortfolio = createSelector(
   [
@@ -20,22 +20,16 @@ export const selectPlayerPortfolio = createSelector(
 
 export const selectTeams = createSelector(
   [
-    (state: TheStockTimesReduxState) => state.gameStateSlice.gameInfo?.players,
+    selectTeamWithNames,
     (state: TheStockTimesReduxState) => state.gameStateSlice.gameState?.players
   ],
-  (players, theStockTimesPlayers) => {
-    if (players === undefined) {
+  (teams, theStockTimesPlayers) => {
+    if (teams === undefined) {
       return {};
     }
 
-    const teams: { [teamNumber: number]: PlayerInGame[] } = {};
-    for (const player of players) {
-      teams[player.team ?? 0] = teams[player.team ?? 0] ?? [];
-      teams[player.team ?? 0]?.push(player);
-    }
-
     return Object.fromEntries(
-      Object.entries(teams).map(([teamNumber, players]) => [
+      Object.entries(teams).map(([teamNumber, { players }]) => [
         teamNumber,
         {
           players,
