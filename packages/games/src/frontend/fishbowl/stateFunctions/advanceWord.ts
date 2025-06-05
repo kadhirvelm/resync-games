@@ -22,6 +22,7 @@ export function advanceWord(
   updatedRound.correctGuesses.push({
     ...activeRound.currentActiveWord,
     currentActivePlayer: activeRound.currentActivePlayer.player,
+    currentActiveWord: activeRound.currentActiveWord,
     guess: activeRound.currentActiveWord.word,
     guessingPlayer: guessingPlayer,
     roundNumber: activeRound.roundNumber,

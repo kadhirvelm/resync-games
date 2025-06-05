@@ -23,13 +23,15 @@ export const SubmitGuess = () => {
     if (
       sanitizedGuess.length === 0 ||
       maybeNewGuessDetails === undefined ||
-      maybeNewGuessDetails.player === undefined
+      maybeNewGuessDetails.player === undefined ||
+      maybeNewGuessDetails.currentActiveWord === undefined
     ) {
       return;
     }
 
     const newGuess: FishbowlSingleGuess = {
       currentActivePlayer: maybeNewGuessDetails.activePlayer,
+      currentActiveWord: maybeNewGuessDetails.currentActiveWord,
       guess: sanitizedGuess,
       guessingPlayer: maybeNewGuessDetails.player,
       roundNumber: maybeNewGuessDetails.roundNumber,

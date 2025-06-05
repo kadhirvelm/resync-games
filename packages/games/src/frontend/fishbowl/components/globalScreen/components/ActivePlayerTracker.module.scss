@@ -1,7 +1,31 @@
 @use "@/styles/variables.scss" as vars;
 
 .activePlayer {
-    background: vars.$white;
     border-radius: 5px;
     border: 1px solid vars.$black;
+    position: relative;
+    overflow: hidden;
+}
+
+.content {
+    z-index: 2;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.whiteBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    background: vars.$white;
 }

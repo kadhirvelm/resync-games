@@ -95,6 +95,7 @@ export const selectNewPlayerGuess = createSelector(
 
     return {
       activePlayer: round.currentActivePlayer.player,
+      currentActiveWord: round.currentActiveWord,
       currentRoundGuesses: guesses[player.playerId]?.[round.roundNumber],
       player: allPlayers?.find((p) => p.playerId === player.playerId),
       roundNumber: round.roundNumber

@@ -7,6 +7,7 @@ import {
   FishbowlSinglePlayerGuesses
 } from "../../../backend";
 import { FishbowlReduxState } from "./fishbowlRedux";
+import { isEqual } from "lodash-es";
 
 export const selectCurrentWordContribution = createSelector(
   [
@@ -88,10 +89,16 @@ export const selectPreviousWord = createSelector(
 export const selectGuessesByTeam = createSelector(
   [
     (state: FishbowlReduxState) => state.gameStateSlice.gameState?.round,
-    (state: FishbowlReduxState) => state.gameStateSlice.gameState?.playerGuesses
+    (state: FishbowlReduxState) =>
+      state.gameStateSlice.gameState?.playerGuesses,
+    (state: FishbowlReduxState) => state.gameStateSlice.gameState?.round
   ],
-  (round, playerGuesses) => {
-    if (round === undefined || playerGuesses === undefined) {
+  (round, playerGuesses, activeRound) => {
+    if (
+      round === undefined ||
+      playerGuesses === undefined ||
+      activeRound === undefined
+    ) {
       return;
     }
 
@@ -107,8 +114,15 @@ export const selectGuessesByTeam = createSelector(
       }
 
       const playerTeam = guessesInRound.player.team ?? 0;
+      const filteredGuesses = guessesInRound.guesses.filter(
+        (guess) =>
+          guess.currentActivePlayer.playerId ===
+            activeRound.currentActivePlayer.player.playerId &&
+          isEqual(guess.currentActiveWord, activeRound.currentActiveWord)
+      );
+
       guessesByTeam[playerTeam] = (guessesByTeam[playerTeam] ?? []).concat(
-        guessesInRound.guesses
+        filteredGuesses
       );
     });
 
