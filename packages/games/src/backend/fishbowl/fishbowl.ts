@@ -44,6 +44,10 @@ export interface FishbowlSingleGuess {
    */
   currentActivePlayer: PlayerInGame;
   /**
+   * The word that the player was giving clues for when this guess was made.
+   */
+  currentActiveWord: FishbowlWord;
+  /**
    * The actual guess that was made.
    */
   guess: string;
