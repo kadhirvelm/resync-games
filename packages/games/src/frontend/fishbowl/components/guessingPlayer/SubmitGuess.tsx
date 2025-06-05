@@ -20,7 +20,11 @@ export const SubmitGuess = () => {
 
   const onGuess = () => {
     const sanitizedGuess = guess.trim();
-    if (sanitizedGuess.length === 0 || maybeNewGuessDetails === undefined) {
+    if (
+      sanitizedGuess.length === 0 ||
+      maybeNewGuessDetails === undefined ||
+      maybeNewGuessDetails.player === undefined
+    ) {
       return;
     }
 
@@ -36,7 +40,7 @@ export const SubmitGuess = () => {
       maybeNewGuessDetails.currentRoundGuesses?.guesses ?? [];
 
     const updatedRoundGuesses: FishbowlSinglePlayerGuesses = {
-      guesses: existingGuesses.concat(newGuess),
+      guesses: [newGuess].concat(existingGuesses),
       lastUpdatedAt: new Date().toISOString(),
       player: maybeNewGuessDetails.player
     };

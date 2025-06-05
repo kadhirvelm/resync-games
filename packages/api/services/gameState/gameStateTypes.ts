@@ -8,6 +8,7 @@ export type CurrentGameState = "waiting" | "playing" | "finished";
 
 export interface PlayerInGame extends Player {
   connectionStatus?: "connected" | "disconnected";
+  // TODO: make this not optional - make team 0 undecided
   team?: number;
 }
 

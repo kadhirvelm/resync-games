@@ -84,10 +84,11 @@ export const selectPlayerGuesses = createSelector(
 export const selectNewPlayerGuess = createSelector(
   [
     (state: FishbowlReduxState) => state.playerSlice.player,
+    (state: FishbowlReduxState) => state.gameStateSlice.gameInfo?.players,
     (state: FishbowlReduxState) => state.gameStateSlice.gameState?.round,
     (state: FishbowlReduxState) => state.gameStateSlice.gameState?.playerGuesses
   ],
-  (player, round, guesses) => {
+  (player, allPlayers, round, guesses) => {
     if (player === undefined || round === undefined || guesses === undefined) {
       return;
     }
@@ -95,7 +96,7 @@ export const selectNewPlayerGuess = createSelector(
     return {
       activePlayer: round.currentActivePlayer.player,
       currentRoundGuesses: guesses[player.playerId]?.[round.roundNumber],
-      player,
+      player: allPlayers?.find((p) => p.playerId === player.playerId),
       roundNumber: round.roundNumber
     };
   }

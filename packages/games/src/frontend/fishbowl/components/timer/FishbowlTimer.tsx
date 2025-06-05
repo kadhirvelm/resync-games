@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { FishbowlActiveTracker } from "../../../../backend";
 import { useTimer } from "../../hooks/useTimer";
 import styles from "./FishbowlTimer.module.scss";
+import { PauseIcon, PlayIcon, StopCircleIcon } from "lucide-react";
 
 const DEFAULT_SIZE = 75;
 
@@ -35,14 +36,32 @@ export const FishbowlTimer = ({
   const { timeFraction } = useTimer(timer);
   const finalSize = size ?? DEFAULT_SIZE;
 
-  if (timer?.state === "stopped" || timer?.state === "paused") {
-    return;
-  }
+  const icon = () => {
+    if (timer?.state === "paused") {
+      return <PauseIcon color="orange" size={finalSize / 5} />;
+    }
+
+    if (timer?.state === "stopped") {
+      return <StopCircleIcon color="red" size={finalSize / 5} />;
+    }
+
+    return <PlayIcon color="green" size={finalSize / 5} />;
+  };
 
   return (
     <>
       <Flex className={clsx(styles.background)} />
-      <Flex align="center" gap="1">
+      <Flex align="center" gap="1" style={{ position: "relative" }}>
+        <Flex
+          style={{
+            left: "50%",
+            position: "absolute",
+            top: "50%",
+            transform: "translate(-50%, -50%)"
+          }}
+        >
+          {icon()}
+        </Flex>
         <svg height={finalSize} width={finalSize}>
           <circle
             className={clsx(styles.clock, {

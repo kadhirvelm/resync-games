@@ -6,6 +6,12 @@ export interface FishbowlCycleTime {
 
 export function timer(cycle: FishbowlActiveTracker): FishbowlCycleTime {
   const currentTime = new Date().valueOf();
+  if (cycle.state !== "running") {
+    return {
+      timeFraction: cycle.seedTime / cycle.countdownTimer
+    };
+  }
+
   const normalizedTime = currentTime - cycle.startTime + cycle.seedTime;
 
   return {
