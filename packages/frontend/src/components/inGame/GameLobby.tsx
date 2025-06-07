@@ -109,8 +109,7 @@ export const GameLobby = () => {
   };
 
   const maybeRenderUndecided = () => {
-    const undecided =
-      gameInfo?.players.filter((p) => p.team === undefined) ?? [];
+    const undecided = gameInfo?.players.filter((p) => p.team === 0) ?? [];
     if (undecided.length === 0) {
       return;
     }
@@ -124,7 +123,7 @@ export const GameLobby = () => {
           className={styles.players}
           gap="3"
           mx="3"
-          style={{ background: getTeamColor() }}
+          style={{ background: getTeamColor(0) }}
         >
           {undecided.map((p) => (
             <Flex justify="center" key={p.playerId}>
@@ -211,9 +210,9 @@ export const GameLobby = () => {
         {renderInviteCode()}
         {maybeRenderUndecided()}
         <Flex align="center" direction="column" flex="1" gap="3">
-          {renderTeam(0)}
-          <DisplayText>VS</DisplayText>
           {renderTeam(1)}
+          <DisplayText>VS</DisplayText>
+          {renderTeam(2)}
         </Flex>
         <Flex justify="center">
           <Flex height="200px" width="25vw">

@@ -40,6 +40,15 @@ export interface JoinGameWithCode {
   playerId: PlayerId;
 }
 
+export interface GetGlobalScreenUrl {
+  inviteCode: string;
+}
+
+export interface GetGlobalScreenUrlResponse {
+  gameId: GameId;
+  gameType: GameType;
+}
+
 export interface JoinGameWithId {
   gameId: GameId;
   gameType: GameType;
@@ -87,6 +96,10 @@ export interface GameStateApi extends Service {
     payload: GetGameState;
     response: GameStateAndInfo;
   };
+  getGlobalScreenUrl: {
+    payload: GetGlobalScreenUrl;
+    response: GetGlobalScreenUrlResponse;
+  };
   joinGame: {
     payload: JoinGameWithCode;
     response: GameStateAndInfo;
@@ -115,6 +128,7 @@ export const GameStateServiceDefinition: ServiceDefinition<GameStateApi> = {
     changeGameState: "change-game-state",
     createGame: "create-game",
     getGameState: "get-game-state",
+    getGlobalScreenUrl: "get-global-screen-url",
     joinGame: "join-game",
     leaveGame: "leave-game",
     updateGame: "update-game",

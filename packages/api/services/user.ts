@@ -25,11 +25,11 @@ export interface UserServiceApi extends Service {
   };
   register: {
     payload: Player;
-    response: Player;
+    response: PlayerInGame;
   };
   update: {
     payload: Player;
-    response: Player;
+    response: PlayerInGame;
   };
 }
 

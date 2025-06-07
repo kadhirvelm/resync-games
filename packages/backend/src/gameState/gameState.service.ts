@@ -3,7 +3,9 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import {
   ChangeGameState,
   CreateGame,
+  GameId,
   GameStateAndInfo,
+  GameType,
   GetGameState,
   JoinGameWithCode,
   LeaveGame,
@@ -190,6 +192,33 @@ export class GameStateService {
     joinGameRequest: JoinGameWithCode
   ): Promise<GameStateAndInfo> => {
     return this.gamesInFlightService.joinGameWithCode(joinGameRequest);
+  };
+
+  public getGlobalScreenUrl = async (inviteCode: string) => {
+    const requestedGame = await this.prismaService.client.gameState.findFirst({
+      include: {
+        PlayersInGame: {
+          include: {
+            player: true
+          }
+        }
+      },
+      where: {
+        currentGameState: "waiting",
+        inviteCode: inviteCode.toLowerCase()
+      }
+    });
+
+    if (requestedGame == null) {
+      throw new BadRequestException(
+        "The requested game could not be found. Please check your invite code and try again."
+      );
+    }
+
+    return {
+      gameId: requestedGame.gameId as GameId,
+      gameType: requestedGame.gameType as GameType
+    };
   };
 
   public leaveGame = async (leaveGame: LeaveGame) => {
