@@ -64,6 +64,7 @@ export const GameLobby = () => {
 
     setIsJoiningTeam(true);
     const response = await ClientServiceCallers.gameState.updatePlayerInGame({
+      avatarCollection: player.avatarCollection,
       gameId: gameInfo.gameId ?? "",
       playerId: player.playerId,
       team

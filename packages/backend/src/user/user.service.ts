@@ -57,6 +57,7 @@ export class UserService {
   public async update(newPlayerDetails: Player) {
     const maybeUser = await this.prismaModule.client.player.update({
       data: {
+        avatarCollection: newPlayerDetails.avatarCollection,
         displayName: newPlayerDetails.displayName
       },
       where: {
@@ -73,7 +74,11 @@ export class UserService {
     return this.prismaModule.converterService.convertPlayer(maybeUser);
   }
 
-  public async registerUser(playerId: PlayerId, displayName: string) {
+  public async registerUser({
+    playerId,
+    displayName,
+    avatarCollection
+  }: Player) {
     const maybeUser = await this.prismaModule.client.player.findFirst({
       where: {
         playerId
@@ -88,6 +93,7 @@ export class UserService {
 
     const newUser = await this.prismaModule.client.player.create({
       data: {
+        avatarCollection,
         displayName,
         playerId
       }

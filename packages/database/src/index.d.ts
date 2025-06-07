@@ -3360,16 +3360,19 @@ export namespace Prisma {
   export type PlayerMinAggregateOutputType = {
     playerId: string | null
     displayName: string | null
+    avatarCollection: string | null
   }
 
   export type PlayerMaxAggregateOutputType = {
     playerId: string | null
     displayName: string | null
+    avatarCollection: string | null
   }
 
   export type PlayerCountAggregateOutputType = {
     playerId: number
     displayName: number
+    avatarCollection: number
     _all: number
   }
 
@@ -3377,16 +3380,19 @@ export namespace Prisma {
   export type PlayerMinAggregateInputType = {
     playerId?: true
     displayName?: true
+    avatarCollection?: true
   }
 
   export type PlayerMaxAggregateInputType = {
     playerId?: true
     displayName?: true
+    avatarCollection?: true
   }
 
   export type PlayerCountAggregateInputType = {
     playerId?: true
     displayName?: true
+    avatarCollection?: true
     _all?: true
   }
 
@@ -3465,6 +3471,7 @@ export namespace Prisma {
   export type PlayerGroupByOutputType = {
     playerId: string
     displayName: string
+    avatarCollection: string
     _count: PlayerCountAggregateOutputType | null
     _min: PlayerMinAggregateOutputType | null
     _max: PlayerMaxAggregateOutputType | null
@@ -3487,6 +3494,7 @@ export namespace Prisma {
   export type PlayerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     playerId?: boolean
     displayName?: boolean
+    avatarCollection?: boolean
     PlayersInGame?: boolean | Player$PlayersInGameArgs<ExtArgs>
     _count?: boolean | PlayerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["player"]>
@@ -3494,19 +3502,22 @@ export namespace Prisma {
   export type PlayerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     playerId?: boolean
     displayName?: boolean
+    avatarCollection?: boolean
   }, ExtArgs["result"]["player"]>
 
   export type PlayerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     playerId?: boolean
     displayName?: boolean
+    avatarCollection?: boolean
   }, ExtArgs["result"]["player"]>
 
   export type PlayerSelectScalar = {
     playerId?: boolean
     displayName?: boolean
+    avatarCollection?: boolean
   }
 
-  export type PlayerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"playerId" | "displayName", ExtArgs["result"]["player"]>
+  export type PlayerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"playerId" | "displayName" | "avatarCollection", ExtArgs["result"]["player"]>
   export type PlayerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     PlayersInGame?: boolean | Player$PlayersInGameArgs<ExtArgs>
     _count?: boolean | PlayerCountOutputTypeDefaultArgs<ExtArgs>
@@ -3522,6 +3533,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       playerId: string
       displayName: string
+      avatarCollection: string
     }, ExtArgs["result"]["player"]>
     composites: {}
   }
@@ -3948,6 +3960,7 @@ export namespace Prisma {
   interface PlayerFieldRefs {
     readonly playerId: FieldRef<"Player", 'String'>
     readonly displayName: FieldRef<"Player", 'String'>
+    readonly avatarCollection: FieldRef<"Player", 'String'>
   }
     
 
@@ -4419,7 +4432,8 @@ export namespace Prisma {
 
   export const PlayerScalarFieldEnum: {
     playerId: 'playerId',
-    displayName: 'displayName'
+    displayName: 'displayName',
+    avatarCollection: 'avatarCollection'
   };
 
   export type PlayerScalarFieldEnum = (typeof PlayerScalarFieldEnum)[keyof typeof PlayerScalarFieldEnum]
@@ -4715,12 +4729,14 @@ export namespace Prisma {
     NOT?: PlayerWhereInput | PlayerWhereInput[]
     playerId?: StringFilter<"Player"> | string
     displayName?: StringFilter<"Player"> | string
+    avatarCollection?: StringFilter<"Player"> | string
     PlayersInGame?: PlayersInGameListRelationFilter
   }
 
   export type PlayerOrderByWithRelationInput = {
     playerId?: SortOrder
     displayName?: SortOrder
+    avatarCollection?: SortOrder
     PlayersInGame?: PlayersInGameOrderByRelationAggregateInput
   }
 
@@ -4730,12 +4746,14 @@ export namespace Prisma {
     OR?: PlayerWhereInput[]
     NOT?: PlayerWhereInput | PlayerWhereInput[]
     displayName?: StringFilter<"Player"> | string
+    avatarCollection?: StringFilter<"Player"> | string
     PlayersInGame?: PlayersInGameListRelationFilter
   }, "playerId">
 
   export type PlayerOrderByWithAggregationInput = {
     playerId?: SortOrder
     displayName?: SortOrder
+    avatarCollection?: SortOrder
     _count?: PlayerCountOrderByAggregateInput
     _max?: PlayerMaxOrderByAggregateInput
     _min?: PlayerMinOrderByAggregateInput
@@ -4747,6 +4765,7 @@ export namespace Prisma {
     NOT?: PlayerScalarWhereWithAggregatesInput | PlayerScalarWhereWithAggregatesInput[]
     playerId?: StringWithAggregatesFilter<"Player"> | string
     displayName?: StringWithAggregatesFilter<"Player"> | string
+    avatarCollection?: StringWithAggregatesFilter<"Player"> | string
   }
 
   export type GameStateCreateInput = {
@@ -4887,40 +4906,47 @@ export namespace Prisma {
   export type PlayerCreateInput = {
     playerId?: string
     displayName: string
+    avatarCollection?: string
     PlayersInGame?: PlayersInGameCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateInput = {
     playerId?: string
     displayName: string
+    avatarCollection?: string
     PlayersInGame?: PlayersInGameUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUpdateInput = {
     playerId?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
+    avatarCollection?: StringFieldUpdateOperationsInput | string
     PlayersInGame?: PlayersInGameUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateInput = {
     playerId?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
+    avatarCollection?: StringFieldUpdateOperationsInput | string
     PlayersInGame?: PlayersInGameUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerCreateManyInput = {
     playerId?: string
     displayName: string
+    avatarCollection?: string
   }
 
   export type PlayerUpdateManyMutationInput = {
     playerId?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
+    avatarCollection?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlayerUncheckedUpdateManyInput = {
     playerId?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
+    avatarCollection?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -5198,16 +5224,19 @@ export namespace Prisma {
   export type PlayerCountOrderByAggregateInput = {
     playerId?: SortOrder
     displayName?: SortOrder
+    avatarCollection?: SortOrder
   }
 
   export type PlayerMaxOrderByAggregateInput = {
     playerId?: SortOrder
     displayName?: SortOrder
+    avatarCollection?: SortOrder
   }
 
   export type PlayerMinOrderByAggregateInput = {
     playerId?: SortOrder
     displayName?: SortOrder
+    avatarCollection?: SortOrder
   }
 
   export type PlayersInGameCreateNestedManyWithoutGameInput = {
@@ -5606,11 +5635,13 @@ export namespace Prisma {
   export type PlayerCreateWithoutPlayersInGameInput = {
     playerId?: string
     displayName: string
+    avatarCollection?: string
   }
 
   export type PlayerUncheckedCreateWithoutPlayersInGameInput = {
     playerId?: string
     displayName: string
+    avatarCollection?: string
   }
 
   export type PlayerCreateOrConnectWithoutPlayersInGameInput = {
@@ -5665,11 +5696,13 @@ export namespace Prisma {
   export type PlayerUpdateWithoutPlayersInGameInput = {
     playerId?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
+    avatarCollection?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlayerUncheckedUpdateWithoutPlayersInGameInput = {
     playerId?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
+    avatarCollection?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlayersInGameCreateWithoutPlayerInput = {

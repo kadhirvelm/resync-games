@@ -26,7 +26,7 @@ export const ActivePlayerTracker = () => {
       <Flex align="center" className={styles.content} gap="5">
         <PlayerIcon
           dimension={100}
-          name={activeRound.currentActivePlayer.player.displayName}
+          player={activeRound.currentActivePlayer.player}
         />
         <DisplayText size="9" weight="bold">
           {activeRound.currentActivePlayer.player.displayName}

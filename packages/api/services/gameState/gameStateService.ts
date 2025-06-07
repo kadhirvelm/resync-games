@@ -64,6 +64,7 @@ export interface LeaveGame {
 }
 
 export interface UpdatePlayerInGame {
+  avatarCollection: string;
   displayName?: string;
   gameId: GameId;
   playerId: PlayerId;

@@ -53,6 +53,7 @@ export function useAdvancePlayer() {
           round: newFishbowlRound
         },
         {
+          avatarCollection: "thumbs",
           displayName: "Fishbowl global screen",
           playerId: "GLOBAL_SCREEN" as PlayerId
         }

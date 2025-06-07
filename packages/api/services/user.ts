@@ -8,6 +8,7 @@ export interface BrowserIdentifier {
 }
 
 export interface Player {
+  avatarCollection: string;
   displayName: string;
   playerId: PlayerId;
 }

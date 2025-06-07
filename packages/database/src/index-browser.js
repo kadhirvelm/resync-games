@@ -138,7 +138,8 @@ exports.Prisma.PlayersInGameScalarFieldEnum = {
 
 exports.Prisma.PlayerScalarFieldEnum = {
   playerId: 'playerId',
-  displayName: 'displayName'
+  displayName: 'displayName',
+  avatarCollection: 'avatarCollection'
 };
 
 exports.Prisma.SortOrder = {
