@@ -4,14 +4,18 @@ import {
   Player,
   PlayerInGameWithDetails
 } from "@/imports/api";
-import { DisplayText } from "@/lib/radix";
+import { DisplayText, Select } from "@/lib/radix";
 import { Dialog } from "@/lib/radix/Dialog";
 import { Flex } from "@/lib/radix/Flex";
 import { TextField } from "@/lib/radix/TextField";
 import { ClientServiceCallers } from "@/services/serviceCallers";
 import { useMemo, useState } from "react";
 import { getBrowserIdentifier } from "./browserIdentifier";
-import { PlayerIcon } from "./PlayerIcon";
+import {
+  AVATAR_COLLECTIONS,
+  DEFAULT_AVATAR_COLLECTION,
+  PlayerIcon
+} from "./PlayerIcon";
 import styles from "./SetPlayer.module.scss";
 
 export const SetPlayer = ({
@@ -28,11 +32,16 @@ export const SetPlayer = ({
   const [displayName, setDisplayName] = useState(
     existingPlayer?.displayName ?? ""
   );
+  const [avatarCollection, setAvatarCollection] = useState(
+    existingPlayer?.avatarCollection ?? DEFAULT_AVATAR_COLLECTION
+  );
+
   const [isLoading, setIsLoading] = useState(false);
 
   const createPlayer = async () => {
     setIsLoading(true);
     const player = await ClientServiceCallers.user.register({
+      avatarCollection,
       displayName,
       playerId: browserIdentifier
     });
@@ -49,6 +58,7 @@ export const SetPlayer = ({
   const updatePlayerInIsolation = async (updatePlayer: Player) => {
     setIsLoading(true);
     const player = await ClientServiceCallers.user.update({
+      avatarCollection,
       displayName,
       playerId: updatePlayer.playerId
     });
@@ -68,6 +78,7 @@ export const SetPlayer = ({
   ) => {
     setIsLoading(true);
     const player = await ClientServiceCallers.gameState.updatePlayerInGame({
+      avatarCollection,
       displayName,
       gameId: gameId,
       playerId: updatePlayer.playerId
@@ -114,7 +125,7 @@ export const SetPlayer = ({
 
     return (
       <Flex align="center" className={styles.trigger} gap="2" px="3" py="1">
-        <PlayerIcon dimension={25} name={existingPlayer.displayName} />
+        <PlayerIcon dimension={25} player={existingPlayer} />
         <DisplayText>{existingPlayer.displayName}</DisplayText>
       </Flex>
     );
@@ -133,11 +144,29 @@ export const SetPlayer = ({
           Player name
         </DisplayText>
         <Flex align="center" flex="1" gap="2">
-          <PlayerIcon dimension={25} name={displayName} />
+          <PlayerIcon
+            dimension={30}
+            player={{
+              avatarCollection,
+              displayName,
+              playerId: browserIdentifier
+            }}
+          />
+          <Flex>
+            <Select
+              items={AVATAR_COLLECTIONS.map((collection) => ({
+                label: collection,
+                value: collection
+              }))}
+              onChange={setAvatarCollection}
+              value={avatarCollection}
+            />
+          </Flex>
           <TextField
             isLoading={isLoading}
             onChange={setDisplayName}
             placeholder="Name here..."
+            size="3"
             style={{ flex: 1 }}
             value={displayName}
           />

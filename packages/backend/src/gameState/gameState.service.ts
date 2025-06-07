@@ -341,6 +341,7 @@ export class GameStateService {
 
     if (updatePlayerInGame.displayName !== undefined) {
       await this.userService.update({
+        avatarCollection: updatePlayerInGame.avatarCollection,
         displayName: updatePlayerInGame.displayName,
         playerId: updatePlayerInGame.playerId
       });

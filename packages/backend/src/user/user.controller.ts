@@ -24,7 +24,7 @@ export class UserController
 
   @getDecorator(UserServiceDefinition.endpoints.register)
   public register(@Body() body: Player) {
-    return this.userService.registerUser(body.playerId, body.displayName);
+    return this.userService.registerUser(body);
   }
 
   @getDecorator(UserServiceDefinition.endpoints.update)

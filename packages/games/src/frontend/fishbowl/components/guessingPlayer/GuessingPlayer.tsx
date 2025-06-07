@@ -24,7 +24,7 @@ export const GuessingPlayer = () => {
       <Flex align="center" gap="2" p="5">
         <DisplayText size="5">Waiting for</DisplayText>
         <Flex align="center" className={styles.player} gap="2" p="2">
-          <PlayerIcon dimension={25} name={activePlayer.player.displayName} />
+          <PlayerIcon dimension={25} player={activePlayer.player} />
           <DisplayText size="5">{activePlayer.player.displayName}</DisplayText>
         </Flex>
       </Flex>

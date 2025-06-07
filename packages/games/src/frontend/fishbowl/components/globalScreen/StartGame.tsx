@@ -44,6 +44,7 @@ export const StartGame = () => {
           round
         },
         {
+          avatarCollection: "thumbs",
           displayName: "Fishbowl global screen",
           playerId: "GLOBAL_SCREEN" as PlayerId
         }

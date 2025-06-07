@@ -50,8 +50,9 @@ model PlayersInGame {
 }
 
 model Player {
-  playerId    String @id @default(cuid()) @map("player_id")
-  displayName String @map("display_name")
+  playerId         String @id @default(cuid()) @map("player_id")
+  displayName      String @map("display_name")
+  avatarCollection String @default("thumbs") @map("avatar_collection")
 
   PlayersInGame PlayersInGame[]
 }
