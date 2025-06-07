@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 RUN --mount=type=cache,target=/app/.yarn.cache npx turbo prune @resync-games/backend --docker && cp -R .yarn .yarnrc.yml .pnp.cjs tsconfig.json out/ && mv out/full/* out/ && rm -rf out/json && rm -rf out/full
-RUN cp -r packages/games out/packages/games && cp .env out/packages/backend/
+RUN cp -r packages/games out/packages/games && cp -r packages/api out/packages/api && cp .env out/packages/backend/
 
 WORKDIR /app/out
 
