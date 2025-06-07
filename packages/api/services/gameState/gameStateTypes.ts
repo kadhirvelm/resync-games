@@ -8,8 +8,7 @@ export type CurrentGameState = "waiting" | "playing" | "finished";
 
 export interface PlayerInGame extends Player {
   connectionStatus?: "connected" | "disconnected";
-  // TODO: make this not optional - make team 0 undecided
-  team?: number;
+  team: number; // 0 is undecided, 1 is team 1, 2 is team 2
 }
 
 export interface GameInfo<GameConfiguration = object> extends WithTimestamp {

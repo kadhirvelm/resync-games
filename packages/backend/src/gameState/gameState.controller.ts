@@ -5,6 +5,7 @@ import {
   GameStateApi,
   GameStateServiceDefinition,
   GetGameState,
+  GetGlobalScreenUrl,
   JoinGameWithCode,
   LeaveGame,
   UpdateGame,
@@ -41,6 +42,11 @@ export class GameStateController
   @getDecorator(GameStateServiceDefinition.endpoints.joinGame)
   public async joinGame(@Body() request: JoinGameWithCode) {
     return this.gameStateService.joinGameWithCode(request);
+  }
+
+  @getDecorator(GameStateServiceDefinition.endpoints.getGlobalScreenUrl)
+  public async getGlobalScreenUrl(@Body() request: GetGlobalScreenUrl) {
+    return this.gameStateService.getGlobalScreenUrl(request.inviteCode);
   }
 
   @getDecorator(GameStateServiceDefinition.endpoints.leaveGame)

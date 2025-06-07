@@ -46,7 +46,7 @@ export class ResyncGamesConverterService {
       ...player,
       connectionStatus: playerInGame?.connectionStatus,
       playerId: player.playerId as PlayerId,
-      team: playerInGame?.team ?? undefined
+      team: playerInGame?.team ?? 0
     };
   };
 }

@@ -5,8 +5,13 @@ import { ClientServiceCallers } from "@/services/serviceCallers";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { PlayerContext } from "../player/PlayerContext";
+import { EarthIcon } from "lucide-react";
+import styles from "./JoinGame.module.scss";
+import { useMediaQuery } from "../../lib/hooks/useMediaQuery";
 
 export function JoinGame() {
+  const { isMobile } = useMediaQuery();
+
   const player = useContext(PlayerContext);
   const router = useRouter();
 
@@ -30,9 +35,24 @@ export function JoinGame() {
     router.push(`/${maybeGame.gameType}/${maybeGame.gameId}`);
   };
 
+  const onJoinGlobalGame = async () => {
+    setIsLoading(true);
+    const maybeGame = await ClientServiceCallers.gameState.getGlobalScreenUrl({
+      inviteCode
+    });
+    setIsLoading(false);
+
+    if (isServiceError(maybeGame)) {
+      setInviteError(maybeGame.message);
+      return;
+    }
+
+    router.push(`/${maybeGame.gameType}/${maybeGame.gameId}/global`);
+  };
+
   return (
     <Flex direction="column">
-      <Flex gap="2">
+      <Flex align="center" gap="2">
         <TextField
           maxLength={6}
           onChange={setInviteCode}
@@ -48,6 +68,17 @@ export function JoinGame() {
         >
           Join
         </Button>
+        {!isMobile && (
+          <Button
+            disabled={inviteCode.length < 3}
+            loading={isLoading}
+            onClick={onJoinGlobalGame}
+            size="3"
+            variant="ghost"
+          >
+            <EarthIcon className={styles.earth} />
+          </Button>
+        )}
       </Flex>
       {inviteError && (
         <Flex style={{ maxWidth: "275px" }}>
