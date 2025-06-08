@@ -1,9 +1,10 @@
 import { Flex } from "@/lib/radix";
 import { useFishbowlSelector } from "./store/fishbowlRedux";
-import { ContributeWords } from "./playerComponents/ContributeWords";
+import { ContributeWords } from "./playerComponents/components/ContributeWords";
 import { currentPhaseSelector } from "./store/sharedSelectors";
-import { ActivePlayer } from "./playerComponents/activePlayer/ActivePlayer";
-import { GuessingPlayer } from "./playerComponents/guessingPlayer/GuessingPlayer";
+import { ActivePlayer } from "./playerComponents/components/activePlayer/ActivePlayer";
+import { GuessingPlayer } from "./playerComponents/components/guessingPlayer/GuessingPlayer";
+import { PlayerFinalScore } from "./playerComponents/components/PlayerFinalScore";
 
 export const DisplayFishbowl = () => {
   const phase = useFishbowlSelector(currentPhaseSelector);
@@ -13,11 +14,7 @@ export const DisplayFishbowl = () => {
   }
 
   if (phase === "finished") {
-    return (
-      <Flex align="center" flex="1" justify="center">
-        Done!
-      </Flex>
-    );
+    return <PlayerFinalScore />;
   }
 
   if (phase === "word-contribution") {

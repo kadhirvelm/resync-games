@@ -1,7 +1,7 @@
 import { DisplayPlayer } from "@/components/player/DisplayPlayer";
-import { DisplayText, Flex } from "../../../../lib/radix";
-import { useFishbowlSelector } from "../store/fishbowlRedux";
-import { selectCurrentWordContribution } from "./selectors/globalScreenSelectors";
+import { DisplayText, Flex } from "../../../../../lib/radix";
+import { useFishbowlSelector } from "../../store/fishbowlRedux";
+import { selectCurrentWordContribution } from "../selectors/globalScreenSelectors";
 import styles from "./DisplayContributonCount.module.scss";
 import { StartGame } from "./StartGame";
 

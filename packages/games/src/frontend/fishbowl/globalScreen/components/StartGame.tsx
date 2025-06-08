@@ -1,12 +1,12 @@
 import { PlayerId } from "@resync-games/api";
-import { Button, DisplayText } from "../../../../lib/radix";
-import { FishbowlGameConfiguration } from "../../../backend";
-import { newRound } from "../stateFunctions/newRound";
+import { Button, DisplayText } from "../../../../../lib/radix";
+import { FishbowlGameConfiguration } from "../../../../backend";
+import { newRound } from "../../stateFunctions/newRound";
 import {
   updateFishbowlGameState,
   useFishbowlDispatch,
   useFishbowlSelector
-} from "../store/fishbowlRedux";
+} from "../../store/fishbowlRedux";
 
 export const StartGame = () => {
   const dispatch = useFishbowlDispatch();
@@ -31,7 +31,7 @@ export const StartGame = () => {
       return;
     }
 
-    const { round, gameWords } = newRound(
+    const { round, gameWords, turnOrder } = newRound(
       gameState,
       allPlayers,
       gameConfiguration
@@ -41,7 +41,8 @@ export const StartGame = () => {
       updateFishbowlGameState(
         {
           gameWords,
-          round
+          round,
+          turnOrder
         },
         {
           avatarCollection: "thumbs",

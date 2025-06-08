@@ -8,6 +8,7 @@ import {
 } from "../selectors/globalScreenSelectors";
 import { FishbowlTimer } from "../../playerComponents/timer/FishbowlTimer";
 import { ActivePlayerTracker } from "./ActivePlayerTracker";
+import { PlayerIcon } from "@/components/player/PlayerIcon";
 
 export const GlobalActivePlayer = () => {
   const activeRound = useFishbowlSelector(
@@ -65,7 +66,10 @@ export const GlobalActivePlayer = () => {
         <DisplayText size="7" weight="bold">
           Next
         </DisplayText>
-        <DisplayText size="7">{nextPlayer.displayName}</DisplayText>
+        <Flex align="center" gap="2">
+          <PlayerIcon dimension={35} player={nextPlayer} />
+          <DisplayText size="7">{nextPlayer.displayName}</DisplayText>
+        </Flex>
       </Flex>
     );
   };

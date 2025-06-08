@@ -1,5 +1,5 @@
 import { DisplayText, Flex } from "@/lib/radix";
-import { useFishbowlSelector } from "../../store/fishbowlRedux";
+import { useFishbowlSelector } from "../../../store/fishbowlRedux";
 import styles from "./ActiveWord.module.scss";
 import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";

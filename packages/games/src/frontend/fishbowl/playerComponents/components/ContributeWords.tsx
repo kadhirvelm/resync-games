@@ -1,19 +1,19 @@
-import { lazy, useState } from "react";
-import { Button, DisplayText, Flex, TextField } from "../../../../lib/radix";
+import { lazy, useRef, useState } from "react";
+import { Button, DisplayText, Flex, TextField } from "../../../../../lib/radix";
 import {
   FishbowlSinglePlayerContributions,
   FishbowlWord
-} from "../../../backend";
+} from "../../../../backend";
 import {
   updateFishbowlGameState,
   useFishbowlDispatch,
   useFishbowlSelector
-} from "../store/fishbowlRedux";
+} from "../../store/fishbowlRedux";
 import {
   selectExpectedWordContributionCount,
   selectFishbowlPlayer,
   selectPlayerContributions
-} from "./selectors/selectors";
+} from "../selectors/selectors";
 import { PreviouslyContributedWord } from "./PreviouslyContributedWord";
 
 const LazyWordIdea = lazy(() => import("./WordIdea"));
@@ -29,6 +29,7 @@ export const ContributeWords = () => {
   );
 
   const [newWordValue, setNewWordValue] = useState("");
+  const textFieldRef = useRef<HTMLInputElement>(null);
 
   const newWordIsDuplicate =
     currentContributions?.words.find(
@@ -67,6 +68,7 @@ export const ContributeWords = () => {
     );
 
     setNewWordValue("");
+    textFieldRef.current?.focus();
   };
 
   const currentContributionCount = currentContributions?.words?.length ?? 0;
@@ -84,12 +86,23 @@ export const ContributeWords = () => {
       );
     }
 
+    const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key !== "Enter") {
+        return;
+      }
+
+      contributeWord();
+      e.preventDefault();
+    };
+
     return (
       <Flex align="center" gap="2">
         <TextField
           autoCorrect="on"
           onChange={setNewWordValue}
+          onKeyDown={onKeyDown}
           placeholder="Enter word..."
+          ref={textFieldRef}
           size="3"
           spellCheck="true"
           style={{ width: "50vw" }}
