@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import { useFishbowlSelector } from "../../store/fishbowlRedux";
+import { useSound } from "../hooks/usePlaySound";
 
 export const WordCelebration = () => {
   const activeRound = useFishbowlSelector(
     (s) => s.gameStateSlice.gameState?.round
   );
+
+  const newWordSound = useSound("new-word");
 
   const [showConfetti, setShowConfetti] = useState(false);
 
@@ -16,6 +19,8 @@ export const WordCelebration = () => {
 
     // Show confetti when a new correct guess is made
     setShowConfetti(true);
+    newWordSound.play();
+
     const timer = setTimeout(() => setShowConfetti(false), 500);
     return () => clearTimeout(timer);
   }, [activeRound?.correctGuesses.length]);
