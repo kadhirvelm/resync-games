@@ -1,5 +1,9 @@
 @use "@/styles/variables.scss" as vars;
 
+.powerupList {
+    padding-bottom: 100px;
+}
+
 .storePower {
     border-radius: 3px;
     border: 1px solid vars.$muted-font;

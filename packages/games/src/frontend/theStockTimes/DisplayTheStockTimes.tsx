@@ -1,10 +1,9 @@
-import { Flex, DisplayText } from "@/lib/radix";
+import { DisplayText, Flex } from "@/lib/radix";
 import { FrontendGameComponentProps } from "../frontendRegistry";
 import { PauseAndPlay } from "./components/cycle/PauseAndPlay";
 import { FinalScoreboard } from "./components/FinalScoreboard";
-import { DesktopGame } from "./DesktopGame";
 import { usePendingPlayerChanges } from "./hooks/pendingPlayerChanges";
-import { MobileGame } from "./MobileGame";
+import { StockTimesGameEntry } from "./StockTimesGameEntry";
 import { useStockTimesSelector } from "./store/theStockTimesRedux";
 
 export const DisplayTheStockTimes = ({
@@ -38,9 +37,5 @@ export const DisplayTheStockTimes = ({
     );
   }
 
-  if (isMobile) {
-    return <MobileGame gameState={gameState} />;
-  }
-
-  return <DesktopGame gameState={gameState} />;
+  return <StockTimesGameEntry gameState={gameState} isMobile={isMobile} />;
 };

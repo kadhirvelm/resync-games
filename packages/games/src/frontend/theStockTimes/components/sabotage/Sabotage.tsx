@@ -10,7 +10,7 @@ import {
 
 export const Sabotage = () => {
   return (
-    <Flex direction="column" gap="2">
+    <Flex className={styles.sabotageList} direction="column" gap="2">
       <Flex className={styles.sabotagePower} direction="column">
         <Flex align="center" className={styles.powerName} p="2">
           <Flex flex="1">
