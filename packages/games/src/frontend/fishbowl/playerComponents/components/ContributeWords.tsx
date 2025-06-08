@@ -13,7 +13,7 @@ import {
   selectExpectedWordContributionCount,
   selectFishbowlPlayer,
   selectPlayerContributions
-} from "../selectors/selectors";
+} from "../selectors/playerSelectors";
 import { PreviouslyContributedWord } from "./PreviouslyContributedWord";
 
 const LazyWordIdea = lazy(() => import("./WordIdea"));

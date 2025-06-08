@@ -3,7 +3,7 @@ import { FishbowlActiveTracker } from "../../../../../backend";
 import { useTimer } from "../../../utils/hooks/useTimer";
 import { useAdvanceWord } from "../../../stateFunctions/advanceWord";
 import { useFishbowlSelector } from "../../../store/fishbowlRedux";
-import { selectFishbowlPlayer } from "../../selectors/selectors";
+import { selectFishbowlPlayer } from "../../selectors/playerSelectors";
 import { LOW_TIME_THRESHOLD } from "../../timer/FishbowlTimer";
 
 export const SomeoneGotIt = ({ timer }: { timer: FishbowlActiveTracker }) => {

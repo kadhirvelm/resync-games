@@ -1,4 +1,4 @@
-import { cloneDeep, shuffle } from "lodash-es";
+import { cloneDeep } from "lodash-es";
 import { PlayerId, PlayerInGame } from "../../../../imports/api";
 import {
   FishbowlActivePlayer,
@@ -9,6 +9,7 @@ import {
   FishbowlSinglePlayerContributions,
   FishbowlWord
 } from "../../../backend";
+import { randomizeTurnOrder } from "./randomizeTurnOrder";
 import { paused } from "./timerControl";
 
 function getActivePlayer(
@@ -80,8 +81,7 @@ export function newRound(
     roundNumber: (gameState.round?.roundNumber ?? 0) + 1
   };
 
-  const allPlayerIds = allPlayers.map((player) => player.playerId);
-  const randomTurnOrder: PlayerId[] = shuffle(allPlayerIds);
+  const randomTurnOrder: PlayerId[] = randomizeTurnOrder(allPlayers);
 
   return { gameWords, round: nextFishbowlRound, turnOrder: randomTurnOrder };
 }

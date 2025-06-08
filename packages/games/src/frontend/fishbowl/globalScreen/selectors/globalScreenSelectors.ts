@@ -1,6 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { PlayerInGame } from "@resync-games/api";
 import {
+  FishbowlAllPlayerGuesses,
   FishbowlGameConfiguration,
   FishbowlSingleGuess,
   FishbowlSinglePlayerContributions,
@@ -9,6 +10,7 @@ import {
 import { FishbowlReduxState } from "../../store/fishbowlRedux";
 import { isEqual } from "lodash-es";
 import { getNextPlayer } from "../../stateFunctions/advanceToNextPlayer";
+import { PlayerId } from "../../../../../imports/api";
 
 export const selectCurrentWordContribution = createSelector(
   [
@@ -153,5 +155,38 @@ export const selectNextPlayer = createSelector(
     }
 
     return getNextPlayer(turnOrder, activeRound, allPlayers);
+  }
+);
+
+export const selectShouldDisplayWords = createSelector(
+  [
+    (state: FishbowlReduxState) =>
+      state.gameStateSlice.gameState?.round?.correctGuesses,
+    (state: FishbowlReduxState) =>
+      state.gameStateSlice.gameState?.round?.currentActivePlayer.timer,
+    (state: FishbowlReduxState) =>
+      state.gameStateSlice.gameState?.round?.roundNumber,
+    (state: FishbowlReduxState) => state.gameStateSlice.gameState?.playerGuesses
+  ],
+  (correctGuesses, timer, roundNumber, playerGuesses) => {
+    if (
+      correctGuesses === undefined ||
+      timer === undefined ||
+      roundNumber === undefined ||
+      playerGuesses === undefined
+    ) {
+      return;
+    }
+
+    const hasGuessesInRound = Object.values(playerGuesses).some(
+      (guesses: FishbowlAllPlayerGuesses[PlayerId]) =>
+        (guesses[roundNumber]?.guesses.length ?? 0) > 0
+    );
+
+    return (
+      correctGuesses?.length === 0 &&
+      timer.state !== "running" &&
+      !hasGuessesInRound
+    );
   }
 );
