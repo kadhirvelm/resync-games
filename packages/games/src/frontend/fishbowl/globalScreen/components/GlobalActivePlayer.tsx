@@ -3,6 +3,7 @@ import { DisplayText, Flex } from "../../../../../lib/radix";
 import { useFishbowlSelector } from "../../store/fishbowlRedux";
 import {
   selectCurrentWordContribution,
+  selectNextPlayer,
   selectPreviousWord
 } from "../selectors/globalScreenSelectors";
 import { FishbowlTimer } from "../../playerComponents/timer/FishbowlTimer";
@@ -14,6 +15,7 @@ export const GlobalActivePlayer = () => {
   );
   const wordCount = useFishbowlSelector(selectCurrentWordContribution);
   const previousGuess = useFishbowlSelector(selectPreviousWord);
+  const nextPlayer = useFishbowlSelector(selectNextPlayer);
 
   if (activeRound === undefined) {
     return;
@@ -53,6 +55,21 @@ export const GlobalActivePlayer = () => {
     );
   };
 
+  const maybeRenderNextPlayer = () => {
+    if (nextPlayer === undefined) {
+      return;
+    }
+
+    return (
+      <Flex align="center" gap="4">
+        <DisplayText size="7" weight="bold">
+          Next
+        </DisplayText>
+        <DisplayText size="7">{nextPlayer.displayName}</DisplayText>
+      </Flex>
+    );
+  };
+
   return (
     <Flex direction="column" flex="1">
       <Flex align="center" direction="column" flex="1" gap="3" justify="center">
@@ -64,6 +81,7 @@ export const GlobalActivePlayer = () => {
           <DisplayText size="7">{displayWordsToGo()}</DisplayText>
         </Flex>
         {maybeRenderPreviousGuess()}
+        {maybeRenderNextPlayer()}
       </Flex>
       <Flex align="center" flex="1" justify="center">
         <FishbowlTimer

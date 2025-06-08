@@ -28,12 +28,13 @@ export const ActiveWord = () => {
       onTouchEnd={onHideWord}
       onTouchStart={onViewWord}
       p="4"
+      wrap="wrap"
     >
       <Flex align="center" gap="2">
-        {viewingWord ? <Eye size={20} /> : <EyeClosed size={20} />}
+        {viewingWord ? <Eye size={40} /> : <EyeClosed size={40} />}
         <DisplayText
           size="9"
-          style={{ opacity: viewingWord ? 1 : 0.05 }}
+          style={{ opacity: viewingWord ? 1 : 0.015 }}
           weight="bold"
         >
           {activeWord.word}

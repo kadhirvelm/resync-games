@@ -17,7 +17,8 @@ export function useTimer(
 
   if (cycle === undefined) {
     return {
-      timeFraction: 0
+      timeFraction: 0,
+      timeRemaining: 0
     };
   }
 

@@ -3,11 +3,11 @@ import Confetti from "react-confetti";
 import { useFishbowlSelector } from "../../store/fishbowlRedux";
 
 export const WordCelebration = () => {
-  const [showConfetti, setShowConfetti] = useState(false);
-
   const activeRound = useFishbowlSelector(
     (s) => s.gameStateSlice.gameState?.round
   );
+
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     if (activeRound == null || activeRound.correctGuesses.length === 0) {

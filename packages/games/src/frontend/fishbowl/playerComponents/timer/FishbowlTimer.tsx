@@ -1,9 +1,9 @@
-import { Flex } from "@/lib/radix";
+import { DisplayText, Flex } from "@/lib/radix";
 import clsx from "clsx";
+import { PauseIcon, StopCircleIcon } from "lucide-react";
 import { FishbowlActiveTracker } from "../../../../backend";
 import { useTimer } from "../../utils/hooks/useTimer";
 import styles from "./FishbowlTimer.module.scss";
-import { PauseIcon, PlayIcon, StopCircleIcon } from "lucide-react";
 
 const DEFAULT_SIZE = 75;
 
@@ -33,7 +33,7 @@ export const FishbowlTimer = ({
   size?: number;
   timer: FishbowlActiveTracker | undefined;
 }) => {
-  const { timeFraction } = useTimer(timer);
+  const { timeFraction, timeRemaining } = useTimer(timer);
   const finalSize = size ?? DEFAULT_SIZE;
 
   const icon = () => {
@@ -45,7 +45,11 @@ export const FishbowlTimer = ({
       return <StopCircleIcon color="red" size={finalSize / 5} />;
     }
 
-    return <PlayIcon color="green" size={finalSize / 5} />;
+    return (
+      <DisplayText style={{ fontSize: finalSize / 5 }}>
+        {timeRemaining}
+      </DisplayText>
+    );
   };
 
   return (

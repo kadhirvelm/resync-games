@@ -117,7 +117,7 @@ export const ContributeWords = () => {
           </Flex>
         )}
         {renderWordContributorTextField()}
-        <Flex align="baseline" gap="2" mt="6" wrap="wrap">
+        <Flex align="baseline" gap="2" mt="6" px="4" wrap="wrap">
           {currentContributions?.words.map((w, index) => (
             <PreviouslyContributedWord fishbowlWord={w} key={index} />
           ))}
