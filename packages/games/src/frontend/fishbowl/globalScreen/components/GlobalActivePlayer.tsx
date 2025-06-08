@@ -1,11 +1,11 @@
 import { EarIcon } from "lucide-react";
-import { DisplayText, Flex } from "../../../../../../lib/radix";
-import { useFishbowlSelector } from "../../../store/fishbowlRedux";
+import { DisplayText, Flex } from "../../../../../lib/radix";
+import { useFishbowlSelector } from "../../store/fishbowlRedux";
 import {
   selectCurrentWordContribution,
   selectPreviousWord
-} from "../../../store/globalScreenSelectors";
-import { FishbowlTimer } from "../../timer/FishbowlTimer";
+} from "../selectors/globalScreenSelectors";
+import { FishbowlTimer } from "../../playerComponents/timer/FishbowlTimer";
 import { ActivePlayerTracker } from "./ActivePlayerTracker";
 
 export const GlobalActivePlayer = () => {

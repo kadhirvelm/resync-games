@@ -1,6 +1,6 @@
 import { DisplayText, Flex } from "../../../lib/radix";
-import { DisplayContributionCount } from "./components/globalScreen/DisplayContributionCount";
-import { RoundInProgress } from "./components/globalScreen/RoundInProgress";
+import { DisplayContributionCount } from "./globalScreen/DisplayContributionCount";
+import { RoundInProgress } from "./globalScreen/RoundInProgress";
 import { useFishbowlSelector } from "./store/fishbowlRedux";
 import { currentPhaseSelector } from "./store/sharedSelectors";
 

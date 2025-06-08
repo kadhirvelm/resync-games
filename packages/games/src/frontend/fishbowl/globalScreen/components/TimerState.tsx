@@ -1,5 +1,5 @@
 import { CircleStop, LoaderCircle } from "lucide-react";
-import { useFishbowlSelector } from "../../../store/fishbowlRedux";
+import { useFishbowlSelector } from "../../store/fishbowlRedux";
 import styles from "./TimerState.module.scss";
 
 export const TimerState = () => {

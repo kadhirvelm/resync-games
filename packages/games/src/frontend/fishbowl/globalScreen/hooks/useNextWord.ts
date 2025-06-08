@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useAdvanceWord } from "../../../stateFunctions/advanceWord";
-import { useFishbowlSelector } from "../../../store/fishbowlRedux";
-import { selectGuessesByTeam } from "../../../store/globalScreenSelectors";
+import { useAdvanceWord } from "../../stateFunctions/advanceWord";
+import { useFishbowlSelector } from "../../store/fishbowlRedux";
+import { selectGuessesByTeam } from "../selectors/globalScreenSelectors";
 
 export function useNextWord() {
   const guessesByTeam = useFishbowlSelector(selectGuessesByTeam);

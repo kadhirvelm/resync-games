@@ -1,7 +1,7 @@
 import { Flex } from "@/lib/radix";
 import clsx from "clsx";
 import { FishbowlActiveTracker } from "../../../../backend";
-import { useTimer } from "../../hooks/useTimer";
+import { useTimer } from "../../utils/hooks/useTimer";
 import styles from "./FishbowlTimer.module.scss";
 import { PauseIcon, PlayIcon, StopCircleIcon } from "lucide-react";
 

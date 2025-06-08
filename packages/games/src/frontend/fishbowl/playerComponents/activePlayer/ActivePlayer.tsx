@@ -1,6 +1,6 @@
 import { DisplayText, Flex } from "@/lib/radix";
 import { useFishbowlSelector } from "../../store/fishbowlRedux";
-import { selectActiveRound } from "../../store/selectors";
+import { selectActiveRound } from "../selectors/selectors";
 import { FishbowlTimer } from "../timer/FishbowlTimer";
 import { ActiveWord } from "./ActiveWord";
 import { SomeoneGotIt } from "./SomeoneGotIt";
