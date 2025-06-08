@@ -12,7 +12,7 @@ import {
 import {
   selectFishbowlPlayer,
   selectPlayerContributions
-} from "../selectors/selectors";
+} from "../selectors/playerSelectors";
 import styles from "./PreviouslyContributedWord.module.scss";
 
 export const PreviouslyContributedWord = ({

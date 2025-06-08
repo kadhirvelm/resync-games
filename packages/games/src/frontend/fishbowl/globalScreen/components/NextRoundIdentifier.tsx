@@ -35,11 +35,12 @@ export const NextRoundIdentifier = () => {
         opacity: showIdentifier ? 0 : 1
       }}
       key={showIdentifier ? "show" : "hide"}
+      style={{ zIndex: 15 }}
     >
       <Flex className={styles.nextRoundIdentifier} p="9">
         <DisplayText size="9">Next round!</DisplayText>
       </Flex>
-      <Flex className={styles.modal} />
+      <Flex className={styles.overlay} />
     </motion.div>
   );
 };

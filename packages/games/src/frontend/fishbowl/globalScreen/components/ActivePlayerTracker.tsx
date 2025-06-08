@@ -33,7 +33,6 @@ export const ActivePlayerTracker = () => {
         </DisplayText>
         <TimerState />
       </Flex>
-
       <Flex
         className={styles.background}
         style={{
