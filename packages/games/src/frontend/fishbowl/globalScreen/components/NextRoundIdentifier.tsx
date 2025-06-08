@@ -32,7 +32,7 @@ export const NextRoundIdentifier = () => {
         y: 0
       }}
       initial={{
-        opacity: showIdentifier ? 0 : 1
+        opacity: showIdentifier ? 0 : activeRoundNumber === 1 ? 0 : 1
       }}
       key={showIdentifier ? "show" : "hide"}
       style={{ zIndex: 15 }}

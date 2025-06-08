@@ -25,6 +25,10 @@ export const ViewWords = () => {
     return () => clearTimeout(timer);
   }, [shouldDisplayWords]);
 
+  const alphabetizedWords = [...remainingWords].sort((a, b) =>
+    a.word.localeCompare(b.word)
+  );
+
   return (
     <motion.div
       animate={{
@@ -39,9 +43,9 @@ export const ViewWords = () => {
     >
       <Flex align="center" flex="1" justify="center">
         <Flex className={styles.wordsContainer} direction="column">
-          <Flex gap="8" p="9" wrap="wrap">
-            {remainingWords.map((word, index) => (
-              <DisplayText key={word.word + index} size="8">
+          <Flex gap="9" p="9" wrap="wrap">
+            {alphabetizedWords.map((word, index) => (
+              <DisplayText key={word.word + index} size="9">
                 {word.word}
               </DisplayText>
             ))}
