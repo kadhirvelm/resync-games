@@ -1,7 +1,7 @@
 import { PlayerIcon } from "@/components/player/PlayerIcon";
 import { DisplayText, Flex } from "@/lib/radix";
 import { useFishbowlSelector } from "../../store/fishbowlRedux";
-import { selectPlayerGuesses } from "../../store/selectors";
+import { selectPlayerGuesses } from "../selectors/selectors";
 import styles from "./GuessingPlayer.module.scss";
 import { SubmitGuess } from "./SubmitGuess";
 import clsx from "clsx";

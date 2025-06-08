@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { FishbowlActiveTracker } from "../../../backend";
-import { FishbowlCycleTime, timer } from "../utils/timer";
+import { FishbowlActiveTracker } from "../../../../backend";
+import { FishbowlCycleTime, timer } from "../timer";
 
 export function useTimer(
   cycle: FishbowlActiveTracker | undefined

@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { PlayerId } from "../../../../../../imports/api";
-import { FishbowlGameConfiguration } from "../../../../../backend";
-import { useTimer } from "../../../hooks/useTimer";
-import { advanceToNextPlayer } from "../../../stateFunctions/advanceToNextPlayer";
+import { PlayerId } from "../../../../../imports/api";
+import { FishbowlGameConfiguration } from "../../../../backend";
+import { useTimer } from "../../utils/hooks/useTimer";
+import { advanceToNextPlayer } from "../../stateFunctions/advanceToNextPlayer";
 import {
   updateFishbowlGameState,
   useFishbowlDispatch,
   useFishbowlSelector
-} from "../../../store/fishbowlRedux";
+} from "../../store/fishbowlRedux";
 
 export function useAdvancePlayer() {
   const dispatch = useFishbowlDispatch();

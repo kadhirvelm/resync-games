@@ -1,9 +1,9 @@
 import { DisplayText, Flex } from "@/lib/radix";
 import { getTeamColor } from "@/lib/stableIdentifiers/teamIdentifier";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-import { selectTeamWithNames } from "../../../../shared/globalSelectors";
-import { useFishbowlSelector } from "../../../store/fishbowlRedux";
-import { selectGuessesByTeam } from "../../../store/globalScreenSelectors";
+import { selectTeamWithNames } from "../../../shared/globalSelectors";
+import { useFishbowlSelector } from "../../store/fishbowlRedux";
+import { selectGuessesByTeam } from "../selectors/globalScreenSelectors";
 import styles from "./CurrentGuesses.module.scss";
 
 export const CurrentGuesses = () => {

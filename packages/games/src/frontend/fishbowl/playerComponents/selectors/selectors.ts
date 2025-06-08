@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { FishbowlGameConfiguration } from "../../../backend";
-import { FishbowlReduxState } from "./fishbowlRedux";
+import { FishbowlGameConfiguration } from "../../../../backend";
+import { FishbowlReduxState } from "../../store/fishbowlRedux";
 
 export const selectFishbowlPlayer = createSelector(
   [

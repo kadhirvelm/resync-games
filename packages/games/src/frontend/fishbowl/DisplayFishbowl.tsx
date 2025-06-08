@@ -1,9 +1,9 @@
 import { Flex } from "@/lib/radix";
 import { useFishbowlSelector } from "./store/fishbowlRedux";
-import { ContributeWords } from "./components/ContributeWords";
+import { ContributeWords } from "./playerComponents/ContributeWords";
 import { currentPhaseSelector } from "./store/sharedSelectors";
-import { ActivePlayer } from "./components/activePlayer/ActivePlayer";
-import { GuessingPlayer } from "./components/guessingPlayer/GuessingPlayer";
+import { ActivePlayer } from "./playerComponents/activePlayer/ActivePlayer";
+import { GuessingPlayer } from "./playerComponents/guessingPlayer/GuessingPlayer";
 
 export const DisplayFishbowl = () => {
   const phase = useFishbowlSelector(currentPhaseSelector);

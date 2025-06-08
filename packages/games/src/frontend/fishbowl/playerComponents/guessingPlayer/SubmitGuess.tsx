@@ -5,7 +5,7 @@ import {
   useFishbowlDispatch,
   useFishbowlSelector
 } from "../../store/fishbowlRedux";
-import { selectNewPlayerGuess } from "../../store/selectors";
+import { selectNewPlayerGuess } from "../selectors/selectors";
 import {
   FishbowlAllPlayerGuesses,
   FishbowlSingleGuess,

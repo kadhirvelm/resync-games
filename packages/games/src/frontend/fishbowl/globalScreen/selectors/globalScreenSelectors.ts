@@ -5,8 +5,8 @@ import {
   FishbowlSingleGuess,
   FishbowlSinglePlayerContributions,
   FishbowlSinglePlayerGuesses
-} from "../../../backend";
-import { FishbowlReduxState } from "./fishbowlRedux";
+} from "../../../../backend";
+import { FishbowlReduxState } from "../../store/fishbowlRedux";
 import { isEqual } from "lodash-es";
 
 export const selectCurrentWordContribution = createSelector(

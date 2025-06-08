@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
-import { useFishbowlSelector } from "../../../store/fishbowlRedux";
+import { useFishbowlSelector } from "../../store/fishbowlRedux";
 
 export const WordCelebration = () => {
   const [showConfetti, setShowConfetti] = useState(false);
