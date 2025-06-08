@@ -1,11 +1,11 @@
 import { Button, Flex } from "@/lib/radix";
 import { PauseIcon, PlayIcon } from "lucide-react";
-import { paused, running } from "../../stateFunctions/timerControl";
+import { paused, running } from "../../../stateFunctions/timerControl";
 import {
   updateFishbowlGameState,
   useFishbowlDispatch,
   useFishbowlSelector
-} from "../../store/fishbowlRedux";
+} from "../../../store/fishbowlRedux";
 
 export const TimerControl = () => {
   const dispatch = useFishbowlDispatch();

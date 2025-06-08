@@ -1,22 +1,23 @@
 import { Button, Flex, TextField } from "@/lib/radix";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   updateFishbowlGameState,
   useFishbowlDispatch,
   useFishbowlSelector
-} from "../../store/fishbowlRedux";
-import { selectNewPlayerGuess } from "../selectors/selectors";
+} from "../../../store/fishbowlRedux";
+import { selectNewPlayerGuess } from "../../selectors/selectors";
 import {
   FishbowlAllPlayerGuesses,
   FishbowlSingleGuess,
   FishbowlSinglePlayerGuesses
-} from "../../../../backend";
+} from "../../../../../backend";
 
 export const SubmitGuess = () => {
   const dispatch = useFishbowlDispatch();
   const maybeNewGuessDetails = useFishbowlSelector(selectNewPlayerGuess);
 
   const [guess, setGuess] = useState("");
+  const textFieldRef = useRef<HTMLInputElement>(null);
 
   const onGuess = () => {
     const sanitizedGuess = guess.trim();
@@ -62,12 +63,16 @@ export const SubmitGuess = () => {
     );
 
     setGuess("");
+    textFieldRef.current?.focus();
   };
 
   return (
     <Flex align="center" gap="2">
       <TextField
+        autoCorrect="on"
         onChange={(value) => setGuess(value)}
+        ref={textFieldRef}
+        spellCheck="true"
         style={{ width: "50vw" }}
         value={guess}
       />

@@ -1,6 +1,7 @@
 import { DisplayText, Flex } from "../../../lib/radix";
-import { DisplayContributionCount } from "./globalScreen/DisplayContributionCount";
-import { RoundInProgress } from "./globalScreen/RoundInProgress";
+import { DisplayContributionCount } from "./globalScreen/components/DisplayContributionCount";
+import { FinalScore } from "./globalScreen/components/FinalScore";
+import { RoundInProgress } from "./globalScreen/components/RoundInProgress";
 import { useFishbowlSelector } from "./store/fishbowlRedux";
 import { currentPhaseSelector } from "./store/sharedSelectors";
 
@@ -28,11 +29,7 @@ export const FishbowlGlobalScreen = () => {
   }
 
   if (currentPhase === "finished") {
-    return (
-      <Flex align="center" flex="1" justify="center">
-        Done!
-      </Flex>
-    );
+    return <FinalScore />;
   }
 
   return <RoundInProgress />;

@@ -1,7 +1,7 @@
 import { LightbulbIcon, RefreshCcwIcon } from "lucide-react";
-import { Button, DisplayText, Flex } from "../../../../lib/radix";
+import { Button, DisplayText, Flex } from "../../../../../lib/radix";
 import { useState } from "react";
-import { WORD_IDEAS } from "../assets/wordIdeas";
+import { WORD_IDEAS } from "../../assets/wordIdeas";
 import { sample } from "lodash-es";
 
 export default function WordIdea() {

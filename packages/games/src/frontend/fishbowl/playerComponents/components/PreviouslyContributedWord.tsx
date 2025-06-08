@@ -3,16 +3,16 @@ import { CrossCircledIcon } from "@radix-ui/react-icons";
 import {
   FishbowlSinglePlayerContributions,
   FishbowlWord
-} from "../../../backend";
+} from "../../../../backend";
 import {
   updateFishbowlGameState,
   useFishbowlDispatch,
   useFishbowlSelector
-} from "../store/fishbowlRedux";
+} from "../../store/fishbowlRedux";
 import {
   selectFishbowlPlayer,
   selectPlayerContributions
-} from "./selectors/selectors";
+} from "../selectors/selectors";
 import styles from "./PreviouslyContributedWord.module.scss";
 
 export const PreviouslyContributedWord = ({

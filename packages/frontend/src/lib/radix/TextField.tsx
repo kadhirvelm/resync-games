@@ -9,6 +9,7 @@ export interface TextFieldProps
   isLoading?: boolean;
   onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  ref?: React.RefObject<HTMLInputElement | null>;
   style?: React.CSSProperties;
   value: string;
 }
@@ -18,6 +19,7 @@ export const TextField = ({
   icon,
   isLoading,
   placeholder,
+  ref,
   value,
   style,
   onChange,
@@ -51,6 +53,7 @@ export const TextField = ({
       disabled={isLoading}
       onChange={onInputChange}
       placeholder={placeholder}
+      ref={ref}
       style={style}
       value={value}
       {...properties}

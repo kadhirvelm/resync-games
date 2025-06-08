@@ -114,7 +114,7 @@ export const selectGuessesByTeam = createSelector(
         return;
       }
 
-      const playerTeam = guessesInRound.player.team ?? 0;
+      const playerTeam = guessesInRound.player.team;
       const filteredGuesses = guessesInRound.guesses.filter(
         (guess) =>
           guess.currentActivePlayer.playerId ===

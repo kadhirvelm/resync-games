@@ -41,7 +41,7 @@ export const CurrentGuesses = () => {
               {teamGuesses.map((guess, index) => {
                 if (guess.guess === guessesByTeam.correctGuess) {
                   return (
-                    <Flex direction="column" gap="2">
+                    <Flex direction="column" gap="2" key={guess.timestamp}>
                       <DisplayText color="green" size="7" weight="bold">
                         {guess.guessingPlayer.displayName} got it!
                       </DisplayText>
@@ -56,6 +56,7 @@ export const CurrentGuesses = () => {
                     align="center"
                     gap="2"
                     justify="between"
+                    key={guess.timestamp}
                     style={{ opacity }}
                   >
                     <DisplayText size="8">{guess.guess}</DisplayText>
