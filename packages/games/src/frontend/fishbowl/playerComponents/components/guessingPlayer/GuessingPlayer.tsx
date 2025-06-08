@@ -1,15 +1,22 @@
 import { PlayerIcon } from "@/components/player/PlayerIcon";
 import { DisplayText, Flex } from "@/lib/radix";
+import { getTeamColor } from "@/lib/stableIdentifiers/teamIdentifier";
+import clsx from "clsx";
+import { EarIcon } from "lucide-react";
 import { useFishbowlSelector } from "../../../store/fishbowlRedux";
-import { selectPlayerGuesses } from "../../selectors/playerSelectors";
+import {
+  selectFishbowlPlayer,
+  selectPlayerGuesses
+} from "../../selectors/playerSelectors";
 import styles from "./GuessingPlayer.module.scss";
 import { SubmitGuess } from "./SubmitGuess";
-import clsx from "clsx";
 
 export const GuessingPlayer = () => {
   const activePlayer = useFishbowlSelector(
     (s) => s.gameStateSlice.gameState?.round?.currentActivePlayer
   );
+  const player = useFishbowlSelector(selectFishbowlPlayer);
+
   const guesses = useFishbowlSelector(selectPlayerGuesses);
   const correctWord = useFishbowlSelector(
     (state) => state.gameStateSlice.gameState?.round?.currentActiveWord
@@ -23,7 +30,13 @@ export const GuessingPlayer = () => {
     return (
       <Flex align="center" gap="2" p="5">
         <DisplayText size="5">Waiting for</DisplayText>
-        <Flex align="center" className={styles.player} gap="2" p="2">
+        <Flex
+          align="center"
+          className={styles.player}
+          gap="2"
+          p="2"
+          style={{ background: getTeamColor(activePlayer.player.team) }}
+        >
           <PlayerIcon dimension={25} player={activePlayer.player} />
           <DisplayText size="5">{activePlayer.player.displayName}</DisplayText>
         </Flex>
@@ -55,9 +68,17 @@ export const GuessingPlayer = () => {
     ));
   };
 
+  const isOnActiveTeam = player?.team === activePlayer.player.team;
+
   return (
     <Flex direction="column" gap="2">
-      <SubmitGuess />
+      {isOnActiveTeam && (
+        <Flex align="center" gap="2">
+          <DisplayText color="gray">Your team is up!</DisplayText>
+          <EarIcon color="gray" size={16} />
+        </Flex>
+      )}
+      <SubmitGuess isOnActiveTeam={isOnActiveTeam} />
       <Flex className={styles.previousGuessContainer} direction="column">
         {maybeRenderPreviousGuesses()}
       </Flex>

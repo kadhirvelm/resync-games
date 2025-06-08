@@ -122,7 +122,7 @@ export const ContributeWords = () => {
   };
 
   return (
-    <Flex align="center" flex="1" gap="2" justify="center">
+    <Flex align="center" flex="1" gap="2" justify="center" m="2">
       <Flex direction="column" gap="2">
         {!finishedContributing && (
           <Flex>

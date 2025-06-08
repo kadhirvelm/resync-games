@@ -184,6 +184,7 @@ export const selectShouldDisplayWords = createSelector(
     );
 
     return (
+      roundNumber > 1 &&
       correctGuesses?.length === 0 &&
       timer.state !== "running" &&
       !hasGuessesInRound

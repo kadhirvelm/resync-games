@@ -12,7 +12,11 @@ import {
   FishbowlSinglePlayerGuesses
 } from "../../../../../backend";
 
-export const SubmitGuess = () => {
+export const SubmitGuess = ({
+  isOnActiveTeam
+}: {
+  isOnActiveTeam: boolean;
+}) => {
   const dispatch = useFishbowlDispatch();
   const maybeNewGuessDetails = useFishbowlSelector(selectNewPlayerGuess);
 
@@ -86,7 +90,9 @@ export const SubmitGuess = () => {
         style={{ width: "50vw" }}
         value={guess}
       />
-      <Button onClick={onGuess}>Guess</Button>
+      <Button color={isOnActiveTeam ? "green" : undefined} onClick={onGuess}>
+        Guess
+      </Button>
     </Flex>
   );
 };
