@@ -8,6 +8,7 @@ import {
 } from "../../../../backend";
 import { FishbowlReduxState } from "../../store/fishbowlRedux";
 import { isEqual } from "lodash-es";
+import { getNextPlayer } from "../../stateFunctions/advanceToNextPlayer";
 
 export const selectCurrentWordContribution = createSelector(
   [
@@ -132,5 +133,25 @@ export const selectGuessesByTeam = createSelector(
       currentRound: roundNumber,
       guessesByTeam
     };
+  }
+);
+
+export const selectNextPlayer = createSelector(
+  [
+    (state: FishbowlReduxState) => state.gameStateSlice.gameState?.turnOrder,
+    (state: FishbowlReduxState) => state.gameStateSlice.gameState?.round,
+    (state: FishbowlReduxState) =>
+      state.gameStateSlice.gameInfo?.players as PlayerInGame[] | undefined
+  ],
+  (turnOrder, activeRound, allPlayers) => {
+    if (
+      turnOrder === undefined ||
+      activeRound === undefined ||
+      allPlayers === undefined
+    ) {
+      return;
+    }
+
+    return getNextPlayer(turnOrder, activeRound, allPlayers);
   }
 );

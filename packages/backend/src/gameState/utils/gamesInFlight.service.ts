@@ -414,7 +414,8 @@ export class GamesInFlightService {
   private updateInFlightGameInDb = async (newGameState: GameStateAndInfo) => {
     await this.prismaService.client.gameState.update({
       data: {
-        gameState: newGameState.gameState
+        gameState: newGameState.gameState,
+        lastUpdatedAt: new Date().toISOString()
       },
       where: {
         gameId: newGameState.gameId
