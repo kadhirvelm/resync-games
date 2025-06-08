@@ -8,7 +8,7 @@ import { PlayerPortfolio } from "./components/playerPortfolio/PlayerPortfolio";
 import { Sabotage } from "./components/sabotage/Sabotage";
 import { FocusedStock } from "./components/singleStock/FocusedStock";
 import { StockTimesStore } from "./components/store/StockTimesStore";
-import styles from "./MobileGame.module.scss";
+import styles from "./StockTimesGameEntry.module.scss";
 import {
   updateTheStockTimesLocalState,
   useStockTimesGameStateDispatch,
@@ -16,7 +16,13 @@ import {
 } from "./store/theStockTimesRedux";
 import { DisplayType } from "./utils/DisplayType";
 
-export const MobileGame = ({ gameState }: { gameState: TheStockTimesGame }) => {
+export const StockTimesGameEntry = ({
+  isMobile,
+  gameState
+}: {
+  gameState: TheStockTimesGame;
+  isMobile: boolean;
+}) => {
   const dispatch = useStockTimesGameStateDispatch();
 
   const viewingTab = useStockTimesSelector(
@@ -28,8 +34,10 @@ export const MobileGame = ({ gameState }: { gameState: TheStockTimesGame }) => {
   };
 
   return (
-    <DisplayType.Provider value={{ displayType: "mobile" }}>
-      <Flex className={styles.mainContainer} direction="column">
+    <DisplayType.Provider
+      value={{ displayType: isMobile ? "mobile" : "desktop" }}
+    >
+      <Flex className={styles.mainContainer} direction="column" flex="1">
         <Flex className={styles.clock} justify="end">
           <Flex align="center" gap="2">
             <Clock cycle={gameState.cycle} size={60} />

@@ -144,18 +144,21 @@ export const SetPlayer = ({
           Player name
         </DisplayText>
         <Flex align="center" flex="1" gap="2">
-          <PlayerIcon
-            dimension={30}
-            player={{
-              avatarCollection,
-              displayName,
-              playerId: browserIdentifier
-            }}
-          />
           <Flex>
             <Select
               items={AVATAR_COLLECTIONS.map((collection) => ({
-                label: collection,
+                label: (
+                  <Flex py="1">
+                    <PlayerIcon
+                      dimension={25}
+                      player={{
+                        avatarCollection: collection,
+                        displayName,
+                        playerId: browserIdentifier
+                      }}
+                    />
+                  </Flex>
+                ),
                 value: collection
               }))}
               onChange={setAvatarCollection}

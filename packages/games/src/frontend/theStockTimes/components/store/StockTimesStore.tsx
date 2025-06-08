@@ -77,7 +77,7 @@ export const StockTimesStore = () => {
   };
 
   return (
-    <Flex direction="column" gap="2">
+    <Flex className={styles.powerupList} direction="column" gap="2">
       <Flex className={styles.storePower} direction="column">
         <Flex align="center" className={styles.powerName} p="2">
           <Flex flex="1">
