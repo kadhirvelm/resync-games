@@ -7,9 +7,12 @@ import {
   useFishbowlDispatch,
   useFishbowlSelector
 } from "../../store/fishbowlRedux";
+import { useSound } from "../hooks/usePlaySound";
 
 export const StartGame = () => {
   const dispatch = useFishbowlDispatch();
+
+  const newRoundSound = useSound("new-round");
 
   const gameState = useFishbowlSelector((s) => s.gameStateSlice.gameState);
   const allPlayers = useFishbowlSelector(
@@ -51,6 +54,8 @@ export const StartGame = () => {
         }
       )
     );
+
+    newRoundSound.play();
   };
 
   return (

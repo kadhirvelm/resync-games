@@ -86,7 +86,6 @@ export function useAdvanceWord() {
           guessingPlayer
         )
       );
-
       return;
     }
 

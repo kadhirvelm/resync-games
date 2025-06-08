@@ -66,11 +66,21 @@ export const SubmitGuess = () => {
     textFieldRef.current?.focus();
   };
 
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter") {
+      return;
+    }
+
+    onGuess();
+    e.preventDefault();
+  };
+
   return (
     <Flex align="center" gap="2">
       <TextField
         autoCorrect="on"
         onChange={(value) => setGuess(value)}
+        onKeyDown={onKeyDown}
         ref={textFieldRef}
         spellCheck="true"
         style={{ width: "50vw" }}

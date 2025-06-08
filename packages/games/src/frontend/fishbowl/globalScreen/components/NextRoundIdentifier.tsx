@@ -3,6 +3,7 @@ import { useFishbowlSelector } from "../../store/fishbowlRedux";
 import { motion } from "motion/react";
 import { DisplayText, Flex } from "@/lib/radix";
 import styles from "./NextRoundIdentifier.module.scss";
+import { useSound } from "../hooks/usePlaySound";
 
 export const NextRoundIdentifier = () => {
   const activeRoundNumber = useFishbowlSelector(
@@ -10,6 +11,7 @@ export const NextRoundIdentifier = () => {
   );
 
   const [showIdentifier, setShowIdentifier] = useState(false);
+  const newRoundSound = useSound("new-round");
 
   useEffect(() => {
     if (activeRoundNumber === undefined || activeRoundNumber === 1) {
@@ -17,6 +19,8 @@ export const NextRoundIdentifier = () => {
     }
 
     setShowIdentifier(true);
+    newRoundSound.play();
+
     const timer = setTimeout(() => setShowIdentifier(false), 2500);
     return () => clearTimeout(timer);
   }, [activeRoundNumber]);
