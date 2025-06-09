@@ -47,7 +47,7 @@ export const ContributeWords = () => {
 
     const newWord: FishbowlWord = {
       contributedBy: fishbowlPlayer,
-      word: newWordValue.toLowerCase()
+      word: newWordValue.trim().toLowerCase()
     };
 
     const newContributions: FishbowlSinglePlayerContributions = {

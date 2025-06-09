@@ -89,7 +89,7 @@ export function useAdvanceWord() {
       return;
     }
 
-    const newHistory = [...gameState.pastRounds, updatedRound];
+    const newHistory = [...gameState.pastRounds.rounds, updatedRound];
     const { round, turnOrder } = newRound(
       gameState,
       allPlayers,
@@ -100,7 +100,10 @@ export function useAdvanceWord() {
       updateFishbowlGameState(
         {
           lastUpdatedAt: new Date().toISOString(),
-          pastRounds: newHistory,
+          pastRounds: {
+            lastUpdatedAt: new Date().toISOString(),
+            rounds: newHistory
+          },
           round,
           turnOrder
         },

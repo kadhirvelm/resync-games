@@ -72,6 +72,7 @@ export function JoinGame() {
           <Button
             disabled={inviteCode.length < 3}
             loading={isLoading}
+            ml="2"
             onClick={onJoinGlobalGame}
             size="3"
             variant="ghost"

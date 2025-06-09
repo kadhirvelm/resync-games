@@ -140,6 +140,10 @@ export interface FishbowlAllPlayerContributions {
   [playerId: PlayerId]: FishbowlSinglePlayerContributions;
 }
 
+export interface FishbowlPastRounds extends WithTimestamp {
+  rounds: FishbowlRound[];
+}
+
 export interface FishbowlGame extends WithTimestamp {
   /**
    * All the words that have been contributed by all players. These are the words that will be used for the game.
@@ -148,7 +152,7 @@ export interface FishbowlGame extends WithTimestamp {
   /**
    * The rounds that have been played in the game, just for historical reference.
    */
-  pastRounds: FishbowlRound[];
+  pastRounds: FishbowlPastRounds;
   /**
    * All the guesses that have been made by all players in the game.
    */
@@ -195,7 +199,10 @@ export class FishbowlServer
       gameState: {
         gameWords: [],
         lastUpdatedAt: new Date().toISOString(),
-        pastRounds: [],
+        pastRounds: {
+          lastUpdatedAt: new Date().toISOString(),
+          rounds: []
+        },
         playerGuesses: {},
         playerWordContributions: {},
         round: undefined,
