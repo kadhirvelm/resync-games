@@ -24,7 +24,7 @@ export const SubmitGuess = ({
   const textFieldRef = useRef<HTMLInputElement>(null);
 
   const onGuess = () => {
-    const sanitizedGuess = guess.trim();
+    const sanitizedGuess = guess.trim().toLowerCase();
     if (
       sanitizedGuess.length === 0 ||
       maybeNewGuessDetails === undefined ||

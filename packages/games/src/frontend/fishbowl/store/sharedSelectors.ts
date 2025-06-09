@@ -79,7 +79,7 @@ export const finalScoreSelector = createSelector(
     );
 
     // First get scores from the correct guesses from each round - when your team was active
-    for (const round of pastRounds) {
+    for (const round of pastRounds.rounds) {
       for (const guess of round.correctGuesses) {
         const maybeTeam = scoresByTeam[guess.guessingPlayer.team];
         if (maybeTeam === undefined) {
