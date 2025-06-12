@@ -72,6 +72,15 @@ export const BLOG_LINKS: BlogLink[] = [
       "The positive effects of a monorepo on engineering team culture.",
     href: "/blog/engineering/monorepo-culture",
     title: "The monorepo culture"
+  },
+  {
+    author: "Kadhir",
+    category: "engineering",
+    date: "06/12/2025, 10:00 AM",
+    description:
+      "Some thoughts on the causes of toxic engineering teams and what to do about it.",
+    href: "/blog/engineering/toxic-teams",
+    title: "Toxic teams"
   }
 ];
 
