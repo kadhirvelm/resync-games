@@ -19,7 +19,6 @@
     "clsx": "^2.1.1",
     "copy-to-clipboard": "^3.3.3",
     "create-hash": "^1.2.0",
-    "konva": "^9.3.20",
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.501.0",
     "motion": "^12.7.4",

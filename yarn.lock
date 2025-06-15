@@ -4153,7 +4153,6 @@ __metadata:
     clsx: "npm:^2.1.1"
     eslint: "npm:^9.25.0"
     jest: "npm:^29.7.0"
-    konva: "npm:^9.3.20"
     lodash: "npm:^4.17.21"
     lodash-es: "npm:^4.17.21"
     lucide-react: "npm:^0.501.0"
@@ -4196,7 +4195,6 @@ __metadata:
     eslint: "npm:^9.25.0"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
-    konva: "npm:^9.3.20"
     lodash-es: "npm:^4.17.21"
     lucide-react: "npm:^0.501.0"
     motion: "npm:^12.7.4"
@@ -10927,13 +10925,6 @@ __metadata:
   version: 3.0.3
   resolution: "kleur@npm:3.0.3"
   checksum: 10c0/cd3a0b8878e7d6d3799e54340efe3591ca787d9f95f109f28129bdd2915e37807bf8918bb295ab86afb8c82196beec5a1adcaf29042ce3f2bd932b038fe3aa4b
-  languageName: node
-  linkType: hard
-
-"konva@npm:^9.3.20":
-  version: 9.3.20
-  resolution: "konva@npm:9.3.20"
-  checksum: 10c0/726d52e7105c747a080ba9bfe35bf07fa9dd40c4ae122f061d55723d907b6b7a09e8476cb5277ca0bcaf5504f4f79805ae2db0c29b72c9715b96ceae5c2a1d06
   languageName: node
   linkType: hard
 
