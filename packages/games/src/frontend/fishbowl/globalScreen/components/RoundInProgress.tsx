@@ -6,6 +6,7 @@ import { useAdvancePlayer } from "../hooks/useAdvancePlayer";
 import { useNextWord } from "../hooks/useNextWord";
 import { NextRoundIdentifier } from "./NextRoundIdentifier";
 import { ViewWords } from "./ViewWords";
+import { DisplayDrawing } from "./DisplayDrawing";
 
 export const RoundInProgress = () => {
   useAdvancePlayer();
@@ -26,6 +27,7 @@ export const RoundInProgress = () => {
       {helpers()}
       <GlobalActivePlayer />
       <CurrentGuesses />
+      <DisplayDrawing />
     </Flex>
   );
 };

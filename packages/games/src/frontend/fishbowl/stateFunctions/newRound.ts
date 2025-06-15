@@ -70,6 +70,7 @@ export function newRound(
 
   const nextFishbowlRound: FishbowlRound = {
     correctGuesses: [],
+    currentActiveDrawing: undefined,
     currentActivePlayer: getActivePlayer(
       gameState,
       allPlayers,

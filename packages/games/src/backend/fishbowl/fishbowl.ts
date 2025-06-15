@@ -65,11 +65,29 @@ export interface FishbowlSingleGuess {
   timestamp: string;
 }
 
+export interface FishbowlCorrectSingleGuess extends FishbowlSingleGuess {
+  /**
+   * The current active player's drawing for the active word.
+   */
+  currentActiveDrawing: string | undefined;
+}
+
+export interface FishbowlActiveDrawing extends WithTimestamp {
+  /**
+   * The drawing that the player is currently giving clues for.
+   */
+  drawing: string | undefined;
+}
+
 export interface FishbowlRound extends WithTimestamp {
   /**
    * All correct guesses for this round. Here for player reference.
    */
-  correctGuesses: FishbowlSingleGuess[];
+  correctGuesses: FishbowlCorrectSingleGuess[];
+  /**
+   * The current active player's drawing for the active word.
+   */
+  currentActiveDrawing: FishbowlActiveDrawing | undefined;
   /**
    * The player who is currently giving clues.
    */
