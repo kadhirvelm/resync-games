@@ -21,6 +21,7 @@ export function advanceWord(
 
   updatedRound.correctGuesses.push({
     ...activeRound.currentActiveWord,
+    currentActiveDrawing: activeRound.currentActiveDrawing?.drawing,
     currentActivePlayer: activeRound.currentActivePlayer.player,
     currentActiveWord: activeRound.currentActiveWord,
     guess: activeRound.currentActiveWord.word,
@@ -28,6 +29,8 @@ export function advanceWord(
     roundNumber: activeRound.roundNumber,
     timestamp: new Date().toISOString()
   });
+
+  updatedRound.currentActiveDrawing = undefined;
 
   const newWord = sample(updatedRound.remainingWords);
   if (newWord === undefined) {

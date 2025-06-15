@@ -7,8 +7,10 @@ interface Point {
 }
 
 export const DrawingBoard = ({
-  onCavasChange
+  onCavasChange,
+  initialDataUrl
 }: {
+  initialDataUrl?: string;
   onCavasChange: (dataUrl: string) => void;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -16,6 +18,34 @@ export const DrawingBoard = ({
   const [tool, setTool] = useState<"marker" | "eraser">("marker");
   const [isDrawing, setIsDrawing] = useState(false);
   const [startPoint, setStartPoint] = useState<Point | null>(null);
+
+  const onSaveCanvas = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const dataURL = canvas.toDataURL("image/png");
+    onCavasChange(dataURL);
+  }, [onCavasChange]);
+
+  // Create throttled version of onSaveCanvas using lodash-es
+  const throttledSaveCanvas = useRef(throttle(onSaveCanvas, 300)).current;
+
+  const loadImage = useCallback((dataUrl: string) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const img = new Image();
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0);
+    };
+    img.src = dataUrl;
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -28,6 +58,11 @@ export const DrawingBoard = ({
         canvas.width = parent.clientWidth;
         canvas.height = parent.clientHeight;
       }
+
+      // Reload the image after resize if we have initial data
+      if (initialDataUrl) {
+        loadImage(initialDataUrl);
+      }
     };
 
     resizeCanvas();
@@ -36,21 +71,8 @@ export const DrawingBoard = ({
     return () => {
       window.removeEventListener("resize", resizeCanvas);
     };
-  }, []);
-
-  const onSaveCanvas = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const dataURL = canvas.toDataURL("image/png");
-    onCavasChange(dataURL);
-  }, []);
-
-  // Create throttled version of onSaveCanvas using lodash-es
-  const throttledSaveCanvas = useRef(throttle(onSaveCanvas, 300)).current;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadImage]);
 
   const clearCanvas = () => {
     const canvas = canvasRef.current;

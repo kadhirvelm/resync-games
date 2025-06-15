@@ -1,0 +1,10 @@
+@use "@/styles/variables.scss" as vars;
+
+.drawing {
+    z-index: 1;
+    position: absolute;
+    bottom: 10px;
+    right: 30vh;
+    border: 2px solid vars.$black;
+    background: vars.$white;
+}

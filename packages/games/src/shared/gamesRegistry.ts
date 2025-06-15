@@ -25,7 +25,9 @@ export const GAME_REGISTRY: GameRegistry = {
   fishbowl: {
     description:
       "A game where you have to guess words based on the clues given by your teammates. The kinds of clues given by your teammates changes every round.",
-    gameTags: {},
+    gameTags: {
+      completed: true
+    },
     name: "Fishbowl",
     version: "1.0.0"
   },

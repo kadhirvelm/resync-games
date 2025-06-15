@@ -3,14 +3,18 @@ import { useFishbowlSelector } from "../../../store/fishbowlRedux";
 import { selectActiveRound } from "../../selectors/playerSelectors";
 import { FishbowlTimer } from "../../timer/FishbowlTimer";
 import { ActiveWord } from "./ActiveWord";
+import { DrawingMode } from "./DrawingMode";
 import { SomeoneGotIt } from "./SomeoneGotIt";
 import { TimerControl } from "./TimerControl";
+import { useState } from "react";
 
 export const ActivePlayer = () => {
   const timer = useFishbowlSelector(
     (s) => s.gameStateSlice.gameState?.round?.currentActivePlayer.timer
   );
   const activeRound = useFishbowlSelector(selectActiveRound);
+
+  const [drawingMode, setDrawingMode] = useState(false);
 
   if (timer === undefined || activeRound === undefined) {
     return;
@@ -67,6 +71,12 @@ export const ActivePlayer = () => {
         <Flex align="center" gap="2">
           <SomeoneGotIt timer={timer} />
           <TimerControl />
+        </Flex>
+        <Flex flex={drawingMode ? "1" : "0"}>
+          <DrawingMode
+            drawingMode={drawingMode}
+            setDrawingMode={setDrawingMode}
+          />
         </Flex>
       </Flex>
     </Flex>

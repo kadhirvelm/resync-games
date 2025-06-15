@@ -55,6 +55,7 @@ export function advanceToNextPlayer(
     timer: fishbowlActiveTracker
   };
   newFishbowlRound.currentActivePlayer = nextActivePlayer;
+  newFishbowlRound.currentActiveDrawing = undefined;
 
   return newFishbowlRound;
 }
