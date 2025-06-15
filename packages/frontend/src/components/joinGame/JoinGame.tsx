@@ -2,12 +2,12 @@ import { isServiceError } from "@/imports/api";
 import { Button, DisplayText, TextField } from "@/lib/radix";
 import { Flex } from "@/lib/radix/Flex";
 import { ClientServiceCallers } from "@/services/serviceCallers";
+import { EarthIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
-import { PlayerContext } from "../player/PlayerContext";
-import { EarthIcon } from "lucide-react";
-import styles from "./JoinGame.module.scss";
 import { useMediaQuery } from "../../lib/hooks/useMediaQuery";
+import { PlayerContext } from "../player/PlayerContext";
+import styles from "./JoinGame.module.scss";
 
 export function JoinGame() {
   const { isMobile } = useMediaQuery();
