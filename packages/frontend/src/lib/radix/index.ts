@@ -10,6 +10,7 @@ export {
   IconButton,
   ScrollArea,
   Spinner,
+  Slider,
   Text as DisplayText,
   Tabs,
   Progress
