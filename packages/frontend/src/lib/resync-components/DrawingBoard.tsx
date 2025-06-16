@@ -1,10 +1,26 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { throttle } from "lodash-es";
+import styles from "./DrawingBoard.module.scss";
+import { Button, Flex, Slider } from "../radix";
+import { EraserIcon, Redo, Undo } from "lucide-react";
+import clsx from "clsx";
 
 interface Point {
   x: number;
   y: number;
 }
+
+const COLORS = [
+  "#cb4335",
+  "#f1c40f",
+  "#1d8348",
+  "#2e86c1",
+  "#8e44ad",
+  "#e67e22",
+  "#FFC0CB",
+  "#c5c8ca",
+  "#000000"
+];
 
 export const DrawingBoard = ({
   onCavasChange,
@@ -16,8 +32,14 @@ export const DrawingBoard = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [tool, setTool] = useState<"marker" | "eraser">("marker");
+  const [color, setColor] = useState<string>("#000000");
+  const [lineWidth, setLineWidth] = useState<number>(5);
+
   const [isDrawing, setIsDrawing] = useState(false);
   const [startPoint, setStartPoint] = useState<Point | null>(null);
+
+  const [history, setHistory] = useState<string[]>([]);
+  const [redoHistory, setRedoHistory] = useState<string[]>([]);
 
   const onSaveCanvas = useCallback(() => {
     const canvas = canvasRef.current;
@@ -28,6 +50,7 @@ export const DrawingBoard = ({
 
     const dataURL = canvas.toDataURL("image/png");
     onCavasChange(dataURL);
+    setHistory((prev) => [...prev, dataURL]);
   }, [onCavasChange]);
 
   // Create throttled version of onSaveCanvas using lodash-es
@@ -66,11 +89,6 @@ export const DrawingBoard = ({
     };
 
     resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    return () => {
-      window.removeEventListener("resize", resizeCanvas);
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadImage]);
 
@@ -131,19 +149,20 @@ export const DrawingBoard = ({
     ctx.moveTo(startPoint.x, startPoint.y);
     ctx.lineTo(currentPoint.x, currentPoint.y);
 
+    ctx.lineWidth = lineWidth;
+
     if (tool === "eraser") {
       ctx.globalCompositeOperation = "destination-out";
-      ctx.lineWidth = 20;
     } else {
       ctx.globalCompositeOperation = "source-over";
-      ctx.lineWidth = 2;
     }
 
-    ctx.strokeStyle = "#000000";
+    ctx.strokeStyle = color;
     ctx.lineCap = "round";
     ctx.stroke();
 
     setStartPoint(currentPoint);
+    setRedoHistory([]);
     throttledSaveCanvas();
   };
 
@@ -152,65 +171,112 @@ export const DrawingBoard = ({
     setStartPoint(null);
   };
 
+  const onUndo = () => {
+    const latestHistory = history[history.length - 1];
+    if (!latestHistory) return;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    loadImage(latestHistory);
+    setHistory((prev) => prev.slice(0, -1));
+    setRedoHistory((prev) => [...prev, latestHistory]);
+  };
+
+  const onRedo = () => {
+    const latestRedo = redoHistory[redoHistory.length - 1];
+    if (!latestRedo) return;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    loadImage(latestRedo);
+    setRedoHistory((prev) => prev.slice(0, -1));
+    setHistory((prev) => [...prev, latestRedo]);
+  };
+
   return (
-    <div>
-      <div style={{ marginBottom: "10px" }}>
-        <button
-          onClick={() => setTool("marker")}
-          style={{
-            backgroundColor: tool === "marker" ? "#e0e0e0" : "white",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            cursor: "pointer",
-            marginRight: "5px",
-            padding: "5px 10px"
-          }}
-        >
-          Marker
-        </button>
-        <button
-          onClick={() => setTool("eraser")}
-          style={{
-            backgroundColor: tool === "eraser" ? "#e0e0e0" : "white",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            cursor: "pointer",
-            marginRight: "5px",
-            padding: "5px 10px"
-          }}
-        >
-          Eraser
-        </button>
-        <button
-          onClick={clearCanvas}
-          style={{
-            backgroundColor: "white",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            cursor: "pointer",
-            marginRight: "5px",
-            padding: "5px 10px"
-          }}
-        >
-          Clear
-        </button>
-      </div>
+    <Flex className={styles.temp} direction="column" flex="1" gap="2">
       <canvas
+        className={styles.background}
         onMouseDown={startDrawing}
-        onMouseLeave={stopDrawing}
         onMouseMove={draw}
         onMouseUp={stopDrawing}
         onTouchEnd={stopDrawing}
         onTouchMove={draw}
         onTouchStart={startDrawing}
         ref={canvasRef}
-        style={{
-          border: "1px solid #ccc",
-          borderRadius: "4px",
-          cursor: tool === "eraser" ? "cell" : "crosshair",
-          touchAction: "none"
-        }}
       />
-    </div>
+      <Flex align="center" gap="2">
+        {COLORS.map((colorOption) => (
+          <Flex
+            className={clsx(styles.colorSelector, {
+              [styles.active ?? ""]: color === colorOption
+            })}
+            onClick={() => {
+              setTool("marker");
+              setColor(colorOption);
+            }}
+            style={{
+              background: colorOption
+            }}
+          />
+        ))}
+        <Flex>
+          <Button
+            onClick={() => setTool("eraser")}
+            variant={tool === "eraser" ? "solid" : "outline"}
+          >
+            <EraserIcon />
+          </Button>
+        </Flex>
+      </Flex>
+      <Flex align="center" gap="2">
+        <Flex flex="1">
+          <Slider
+            max={20}
+            min={2}
+            onValueChange={([value]) => setLineWidth(value ?? 5)}
+            step={5}
+            value={[lineWidth]}
+          />
+        </Flex>
+        <Flex>
+          <Button
+            disabled={history.length === 0}
+            onClick={onUndo}
+            variant="outline"
+          >
+            <Undo />
+          </Button>
+        </Flex>
+        <Flex>
+          <Button
+            disabled={redoHistory.length === 0}
+            onClick={onRedo}
+            variant="outline"
+          >
+            <Redo />
+          </Button>
+        </Flex>
+        <Flex>
+          <Button onClick={clearCanvas} variant="outline">
+            Clear
+          </Button>
+        </Flex>
+      </Flex>
+    </Flex>
   );
 };
