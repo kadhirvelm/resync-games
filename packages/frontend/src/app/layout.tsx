@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Dosis } from "next/font/google";
 import styles from "./layout.module.scss";
 import { ToastContainer } from "react-toastify";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   description: "Games that bring people together",
@@ -27,6 +28,7 @@ export default function RootLayout({
         <Theme className={styles.entryPoint} hasBackground={false}>
           <ToastContainer />
           {children}
+          <Analytics />
         </Theme>
       </body>
     </html>

@@ -1,7 +1,6 @@
-import { Badge, DisplayText, Flex } from "@/lib/radix";
+import { DisplayText, Flex } from "@/lib/radix";
 import { useRouter } from "next/navigation";
 import styles from "./BlogLinks.module.scss";
-import { capitalize } from "lodash-es";
 
 export type BlogCategory = "resync" | "engineering" | "art";
 
@@ -102,7 +101,7 @@ export const BlogLinks = ({ category }: { category: BlogCategory }) => {
 
   return (
     <Flex direction="column" gap="2" m="4">
-      {links.map(({ author, date, description, href, title }) => (
+      {links.map(({ date, description, href, title }) => (
         <Flex
           className={styles.container}
           direction="column"
@@ -124,9 +123,9 @@ export const BlogLinks = ({ category }: { category: BlogCategory }) => {
                 {new Date(date).toLocaleDateString()}
               </DisplayText>
             </Flex>
-            <Flex>
+            {/* <Flex>
               <Badge>{capitalize(author)}</Badge>
-            </Flex>
+            </Flex> */}
           </Flex>
         </Flex>
       ))}
