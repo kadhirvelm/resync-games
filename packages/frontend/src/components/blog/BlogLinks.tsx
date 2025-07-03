@@ -80,6 +80,15 @@ export const BLOG_LINKS: BlogLink[] = [
       "Some thoughts on the causes of toxic engineering teams and what to do about it.",
     href: "/blog/engineering/toxic-teams",
     title: "Toxic teams"
+  },
+  {
+    author: "Kadhir",
+    category: "engineering",
+    date: "07/02/2025, 7:00 PM",
+    description:
+      "Thoughts on a world where we transition from LLMs as assistants to compilers.",
+    href: "/blog/engineering/llms-as-compiler",
+    title: "LLMs as compilers"
   }
 ];
 
