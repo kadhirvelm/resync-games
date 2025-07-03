@@ -11,14 +11,16 @@ export default function BlogLayout({
   children: React.ReactNode;
 }) {
   const pathName = usePathname();
-  const isOnBlogHome = pathName.endsWith("/blog");
+  const currentCategory = pathName.split("/")[2];
+
+  const isOnBlogHome = pathName.split("/").length === 3;
 
   return (
     <Flex direction="column" flex="1">
       <Flex m="2">
         <Flex>
           <NavigationButton
-            href={isOnBlogHome ? "/" : "/blog"}
+            href={isOnBlogHome ? "/" : `/blog/${currentCategory}`}
             variant="outline"
           >
             {isOnBlogHome ? (

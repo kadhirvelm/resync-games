@@ -132,9 +132,6 @@ export const BlogLinks = ({ category }: { category: BlogCategory }) => {
                 {new Date(date).toLocaleDateString()}
               </DisplayText>
             </Flex>
-            {/* <Flex>
-              <Badge>{capitalize(author)}</Badge>
-            </Flex> */}
           </Flex>
         </Flex>
       ))}

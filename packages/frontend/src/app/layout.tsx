@@ -6,6 +6,7 @@ import { Dosis } from "next/font/google";
 import styles from "./layout.module.scss";
 import { ToastContainer } from "react-toastify";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   description: "Games that bring people together",
@@ -29,6 +30,7 @@ export default function RootLayout({
           <ToastContainer />
           {children}
           <Analytics />
+          <SpeedInsights />
         </Theme>
       </body>
     </html>
