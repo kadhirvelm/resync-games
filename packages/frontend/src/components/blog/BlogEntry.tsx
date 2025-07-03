@@ -6,10 +6,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Script from "next/script";
 import styles from "./BlogEntry.module.scss";
+import { useEffect } from "react";
+
+interface TwitterWindow {
+  twttr: { widgets: { load: () => void } };
+}
 
 export const BlogEntry = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const currentCategory = pathname.split("/")[2];
+
+  useEffect(() => {
+    (window as unknown as TwitterWindow).twttr?.widgets.load();
+  }, []);
 
   return (
     <Flex className={styles.content} direction="column">
@@ -27,6 +36,9 @@ export const BlogEntry = ({ children }: { children: React.ReactNode }) => {
             Follow @kadhir_velm
           </a>
           <Script
+            onLoad={() => {
+              (window as unknown as TwitterWindow).twttr?.widgets.load();
+            }}
             src="https://platform.twitter.com/widgets.js"
             strategy="afterInteractive"
           />
