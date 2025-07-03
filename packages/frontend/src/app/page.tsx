@@ -21,7 +21,7 @@ export default function Home() {
             </Flex>
           </PlayerContextProvider>
         </ClientGate>
-        <NavigationButton href="/blog" variant="ghost">
+        <NavigationButton href="/blog/resync" variant="ghost">
           <BookIcon size={16} />
           Blog
         </NavigationButton>

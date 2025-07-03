@@ -18,7 +18,16 @@ const nextConfig = {
   },
   experimental: {
     cpus: 1
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: "/blog",
+        destination: "/blog/resync",
+        permanent: false
+      }
+    ];
+  },
 };
 
 module.exports = nextConfig;
