@@ -1,6 +1,7 @@
 import { useCallback, useRef } from "react";
 
 const AVAILABLE_SOUNDS = {
+  "end-turn": "/sounds/ending-turn.mp3",
   "new-round": "/sounds/new-round.mp3",
   "new-word": "/sounds/new-word.mp3",
   "starting-gun": "/sounds/starting-gun.mp3"

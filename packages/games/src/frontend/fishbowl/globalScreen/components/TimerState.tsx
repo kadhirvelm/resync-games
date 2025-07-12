@@ -10,13 +10,16 @@ export const TimerState = () => {
   );
 
   const startingGun = useSound("starting-gun");
+  const endTurn = useSound("end-turn");
 
   useEffect(() => {
-    if (timerState !== "running") {
-      return;
+    if (timerState === "running") {
+      startingGun.play();
     }
 
-    startingGun.play();
+    if (timerState === "paused") {
+      endTurn.play();
+    }
   }, [timerState]);
 
   if (timerState === "paused") {

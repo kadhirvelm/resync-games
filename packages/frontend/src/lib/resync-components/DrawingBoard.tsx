@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { throttle } from "lodash-es";
-import styles from "./DrawingBoard.module.scss";
-import { Button, Flex, Slider } from "../radix";
-import { EraserIcon, Redo, Undo } from "lucide-react";
 import clsx from "clsx";
+import { throttle } from "lodash-es";
+import { EraserIcon, Redo, Undo } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Button, Flex } from "../radix";
+import styles from "./DrawingBoard.module.scss";
 
 interface Point {
   x: number;
@@ -22,12 +22,14 @@ const COLORS = [
   "#000000"
 ];
 
+const LINE_WIDTHS = [2, 5, 10, 15, 20];
+
 export const DrawingBoard = ({
   onCavasChange,
   initialDataUrl
 }: {
   initialDataUrl?: string;
-  onCavasChange: (dataUrl: string) => void;
+  onCavasChange?: (dataUrl: string) => void;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -49,7 +51,7 @@ export const DrawingBoard = ({
     if (!ctx) return;
 
     const dataURL = canvas.toDataURL("image/png");
-    onCavasChange(dataURL);
+    onCavasChange?.(dataURL);
     setHistory((prev) => [...prev, dataURL]);
   }, [onCavasChange]);
 
@@ -219,7 +221,7 @@ export const DrawingBoard = ({
         onTouchStart={startDrawing}
         ref={canvasRef}
       />
-      <Flex align="center" gap="2">
+      <Flex align="center">
         {COLORS.map((colorOption) => (
           <Flex
             className={clsx(styles.colorSelector, {
@@ -234,7 +236,7 @@ export const DrawingBoard = ({
             }}
           />
         ))}
-        <Flex>
+        <Flex ml="2">
           <Button
             onClick={() => setTool("eraser")}
             variant={tool === "eraser" ? "solid" : "outline"}
@@ -244,14 +246,26 @@ export const DrawingBoard = ({
         </Flex>
       </Flex>
       <Flex align="center" gap="2">
-        <Flex flex="1">
-          <Slider
-            max={20}
-            min={2}
-            onValueChange={([value]) => setLineWidth(value ?? 5)}
-            step={5}
-            value={[lineWidth]}
-          />
+        <Flex align="center" flex="1" gap="2">
+          {LINE_WIDTHS.map((width) => (
+            <svg
+              className={clsx(styles.lineWidth, {
+                [styles.activeCanvas ?? ""]: lineWidth === width
+              })}
+              height="40"
+              key={width}
+              onClick={() => setLineWidth(width)}
+              width="40"
+            >
+              <path
+                className={styles.lineWidthInactive}
+                d="M20 10 C15 15, 25 25, 20 30"
+                fill="none"
+                strokeLinecap="round"
+                strokeWidth={width / 2}
+              />
+            </svg>
+          ))}
         </Flex>
         <Flex>
           <Button
