@@ -1,9 +1,9 @@
 import { PlayerIcon } from "@/components/player/PlayerIcon";
 import { DisplayText, Flex } from "@/lib/radix";
-import { useFishbowlSelector } from "../../store/fishbowlRedux";
-import { TimerState } from "./TimerState";
-import styles from "./ActivePlayerTracker.module.scss";
 import { getTeamColor } from "@/lib/stableIdentifiers/teamIdentifier";
+import { useFishbowlSelector } from "../../store/fishbowlRedux";
+import styles from "./ActivePlayerTracker.module.scss";
+import { TimerState } from "./TimerState";
 
 const hexToRgba = (hex: string, opacity: number) => {
   const r = parseInt(hex.slice(1, 3), 16);
