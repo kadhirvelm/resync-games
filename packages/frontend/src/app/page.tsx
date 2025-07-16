@@ -3,8 +3,9 @@
 import { JoinGame } from "@/components/joinGame/JoinGame";
 import { PlayerContextProvider } from "@/components/player/PlayerContext";
 import { ClientGate } from "@/lib/ClientGate";
-import { Flex } from "@/lib/radix";
+import { DisplayText, Flex } from "@/lib/radix";
 import { NavigationButton } from "@/lib/resync-components/NavigationButton";
+import Image from "next/image";
 import { BookIcon } from "lucide-react";
 
 export default function Home() {
@@ -14,6 +15,17 @@ export default function Home() {
         <ClientGate>
           <PlayerContextProvider>
             <Flex direction="column" gap="3">
+              <Flex align="center" justify="center" mb="4">
+                <Image
+                  alt="Resync logo"
+                  height={50}
+                  src="/resync-games.png"
+                  width={50}
+                />
+                <DisplayText size="6" weight="bold">
+                  Resync games
+                </DisplayText>
+              </Flex>
               <JoinGame />
               <NavigationButton href="/games/create" variant="outline">
                 Create new game
