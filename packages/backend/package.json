@@ -6,6 +6,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "check": "tsc --noEmit",
     "dev": "nest start --entryFile backend/src/main.js --debug --watch",
     "start": "nest start --entryFile backend/src/main.js",
     "serve": "pm2-runtime start ecosystem.config.js",

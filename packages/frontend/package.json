@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "check:build": "tsc --noEmit",
+    "check": "tsc --noEmit",
     "start": "next start",
     "lint": "eslint .",
     "test": "jest --colors"
