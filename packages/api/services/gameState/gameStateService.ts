@@ -84,16 +84,6 @@ export interface UpdateGameResponse {
   newGameState: GameStateAndInfo;
 }
 
-export interface SnapshotState {
-  description: string;
-  gameStateSlice: object;
-  gameType: GameType;
-  localStateSlice: object;
-  playerSlice: object;
-}
-
-export type SnapshotId = string & { __brand: "snapshot-id" };
-
 export interface GameStateApi extends Service {
   changeGameState: {
     payload: ChangeGameState;
@@ -119,10 +109,7 @@ export interface GameStateApi extends Service {
     payload: LeaveGame;
     response: GameStateAndInfo;
   };
-  snapshotState: {
-    payload: SnapshotState;
-    response: { snapshotId: SnapshotId };
-  };
+
   updateGame: {
     payload: UpdateGame;
     response: UpdateGameResponse;
@@ -146,7 +133,6 @@ export const GameStateServiceDefinition: ServiceDefinition<GameStateApi> = {
     getGlobalScreenUrl: "get-global-screen-url",
     joinGame: "join-game",
     leaveGame: "leave-game",
-    snapshotState: "snapshot-state",
     updateGame: "update-game",
     updateGameConfiguration: "update-game-configuration",
     updatePlayerInGame: "update-player-in-game"

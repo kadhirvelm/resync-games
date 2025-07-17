@@ -10,7 +10,7 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
   pgAdmin:
     container_name: pg_admin
-    image: dpage/pgadmin4:8.11
+    image: dpage/pgadmin4:latest
     ports:
       - "2000:80"
     environment:
