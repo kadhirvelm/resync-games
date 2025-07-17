@@ -4,14 +4,17 @@ import {
   GameType,
   PlayerInGame,
   PlayerId,
-  GameStateAndInfo
+  GameStateAndInfo,
+  SnapshotState,
+  SnapshotStateDisplay
 } from "@/imports/api";
 import {
   CurrentGameState,
   PlayersInGame,
   GameState as PrismaGameState,
   Player as PrismaPlayer,
-  PlayersInGame as PrismaPlayerInGame
+  PlayersInGame as PrismaPlayerInGame,
+  SnapshotState as PrismaSnapshotState
 } from "@resync-games/database";
 import _ from "lodash";
 
@@ -47,6 +50,29 @@ export class ResyncGamesConverterService {
       connectionStatus: playerInGame?.connectionStatus,
       playerId: player.playerId as PlayerId,
       team: playerInGame?.team ?? 0
+    };
+  };
+
+  public convertSnapshotState = (
+    snapshotState: PrismaSnapshotState
+  ): SnapshotState => {
+    return {
+      description: snapshotState.description,
+      gameStateSlice: snapshotState.gameSlice as object,
+      gameType: snapshotState.gameType as GameType,
+      localStateSlice: snapshotState.localSlice as object,
+      playerSlice: snapshotState.playerSlice as object,
+      timestamp: snapshotState.timestamp.toISOString()
+    };
+  };
+
+  public convertSnapshotDisplay = (
+    snapshotState: Partial<PrismaSnapshotState>
+  ): SnapshotStateDisplay => {
+    return {
+      description: snapshotState.description ?? "",
+      gameType: snapshotState.gameType as GameType,
+      timestamp: snapshotState.timestamp?.toISOString() ?? ""
     };
   };
 }

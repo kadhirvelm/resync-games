@@ -9,6 +9,7 @@ import { AllExceptionsFilter } from "./library/AllExceptions.filter";
 import { AppLoggerMiddleware } from "./library/AppLogger.middleware";
 import { CustomWsExceptionFilter } from "./library/WsExceptions.filter";
 import { OrchestratorModule } from "./orchestrator/orchestrator.module";
+import { SnapshotStateModule } from "./snapshotState/snapshotState.module";
 import { UserModule } from "./user/user.module";
 
 @Module({
@@ -19,7 +20,8 @@ import { UserModule } from "./user/user.module";
     UserModule,
     GameStateGarbageCollectionModule,
     OrchestratorModule.registerAsync(new ConfigurationService()),
-    ScheduleModule.forRoot()
+    ScheduleModule.forRoot(),
+    SnapshotStateModule
   ],
   providers: [AllExceptionsFilter, CustomWsExceptionFilter]
 })

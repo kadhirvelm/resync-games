@@ -23,7 +23,7 @@ export const SnapshotState = () => {
     }
 
     setIsLoading(true);
-    ClientServiceCallers.gameState.snapshotState({
+    ClientServiceCallers.snapshotState.snapshotState({
       description,
       gameStateSlice: state.gameStateSlice,
       gameType,

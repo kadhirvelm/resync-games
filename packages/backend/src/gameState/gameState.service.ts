@@ -9,8 +9,6 @@ import {
   GetGameState,
   JoinGameWithCode,
   LeaveGame,
-  SnapshotId,
-  SnapshotState,
   UpdateGame,
   UpdateGameConfiguration,
   UpdateGameResponse,
@@ -390,19 +388,5 @@ export class GameStateService {
     await this.gamesInFlightService.updateGameInfo(newGameState);
 
     return newGameState;
-  };
-
-  public snapshotState = async (snapshotState: SnapshotState) => {
-    const newEntry = await this.prismaService.client.snapshotState.create({
-      data: {
-        description: snapshotState.description,
-        gameSlice: snapshotState.gameStateSlice,
-        gameType: snapshotState.gameType,
-        localSlice: snapshotState.localStateSlice,
-        playerSlice: snapshotState.playerSlice
-      }
-    });
-
-    return { snapshotId: newEntry.snapshotId as SnapshotId };
   };
 }
