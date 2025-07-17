@@ -30,6 +30,16 @@ model GameState {
   PlayersInGame PlayersInGame[]
 }
 
+model SnapshotState {
+  snapshotId  String   @id @default(cuid()) @map("snapshot_id")
+  description String   @map("description")
+  gameSlice   Json     @map("game_slice")
+  gameType    String   @map("game_type")
+  localSlice  Json     @map("local_slice")
+  playerSlice Json     @map("player_slice")
+  timestamp   DateTime @default(now()) @map("timestamp")
+}
+
 enum ConnectionStatus {
   connected
   disconnected

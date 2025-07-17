@@ -128,6 +128,16 @@ exports.Prisma.GameStateScalarFieldEnum = {
   inviteCode: 'inviteCode'
 };
 
+exports.Prisma.SnapshotStateScalarFieldEnum = {
+  snapshotId: 'snapshotId',
+  description: 'description',
+  gameSlice: 'gameSlice',
+  gameType: 'gameType',
+  localSlice: 'localSlice',
+  playerSlice: 'playerSlice',
+  timestamp: 'timestamp'
+};
+
 exports.Prisma.PlayersInGameScalarFieldEnum = {
   gameId: 'gameId',
   playerId: 'playerId',
@@ -179,6 +189,7 @@ exports.ConnectionStatus = exports.$Enums.ConnectionStatus = {
 
 exports.Prisma.ModelName = {
   GameState: 'GameState',
+  SnapshotState: 'SnapshotState',
   PlayersInGame: 'PlayersInGame',
   Player: 'Player'
 };

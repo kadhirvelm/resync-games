@@ -1,0 +1,12 @@
+@use "@/styles/variables.scss" as vars;
+
+.snapshotState {
+    position: fixed;
+    bottom: 5px;
+    right: 25px;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.6;
+    }
+}

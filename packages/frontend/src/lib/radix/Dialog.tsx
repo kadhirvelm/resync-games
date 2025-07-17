@@ -11,20 +11,28 @@ export const Dialog = ({
   onConfirm,
   description,
   open,
-  children
+  isLoading,
+  children,
+  onOpenChange
 }: {
   canExit?: boolean;
   children: React.ReactNode;
   confirmText?: string;
   defaultOpen?: boolean;
   description?: string;
-  onConfirm: () => void;
+  isLoading?: boolean;
+  onConfirm?: () => void;
+  onOpenChange?: (open: boolean) => void;
   open?: boolean;
   title: string;
   trigger?: React.ReactNode;
 }) => {
   return (
-    <RadixDialog.Root defaultOpen={defaultOpen} open={canExit ? open : true}>
+    <RadixDialog.Root
+      defaultOpen={defaultOpen}
+      onOpenChange={onOpenChange}
+      open={canExit ? open : true}
+    >
       {trigger !== undefined && (
         <RadixDialog.Trigger>{trigger}</RadixDialog.Trigger>
       )}
@@ -42,7 +50,9 @@ export const Dialog = ({
               </RadixDialog.Close>
             )}
             <RadixDialog.Close>
-              <Button onClick={onConfirm}>{confirmText ?? "Save"}</Button>
+              <Button loading={isLoading} onClick={onConfirm}>
+                {confirmText ?? "Save"}
+              </Button>
             </RadixDialog.Close>
           </Flex>
         </Flex>
