@@ -8,6 +8,7 @@ import {
   GetGlobalScreenUrl,
   JoinGameWithCode,
   LeaveGame,
+  SnapshotState,
   UpdateGame,
   UpdateGameConfiguration,
   UpdatePlayerInGame
@@ -69,5 +70,10 @@ export class GameStateController
   @getDecorator(GameStateServiceDefinition.endpoints.updatePlayerInGame)
   public async updatePlayerInGame(@Body() request: UpdatePlayerInGame) {
     return this.gameStateService.updatePlayerInGame(request);
+  }
+
+  @getDecorator(GameStateServiceDefinition.endpoints.snapshotState)
+  public async snapshotState(@Body() request: SnapshotState) {
+    return this.gameStateService.snapshotState(request);
   }
 }

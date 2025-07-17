@@ -3,6 +3,7 @@ import { GameId, GameType } from "@/imports/api";
 import { lazy, useContext, useMemo } from "react";
 import { PlayerContext } from "../player/PlayerContext";
 import { GoHome } from "./components/GoHome";
+import { SnapshotState } from "./components/SnapshotState";
 
 const FetchGameEntry = lazy(() => import("./components/FetchGameEntry"));
 
@@ -26,6 +27,7 @@ export const GameEntry = ({
     <>
       <FetchGameEntry gameSlug={gameSlug} gameStateHandler={gameStateHandler} />
       <GoHome />
+      <SnapshotState />
     </>
   );
 };

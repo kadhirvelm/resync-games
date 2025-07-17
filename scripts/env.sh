@@ -42,3 +42,30 @@ echo -e "\033[33mStarting Docker containers\033[0m"
 docker-compose -p resync-games -f docker-compose.yml up -d
 
 rm .env.bak
+
+echo -e "\033[33mWaiting for frontend to be ready...\033[0m"
+
+# Function to check if the frontend is available
+check_frontend() {
+    curl -s "http://$ip_address:3000" > /dev/null
+    return $?
+}
+
+# Wait until frontend is available, checking every 2 seconds
+while ! check_frontend; do
+    sleep 2
+done
+
+echo -e "\033[33mFrontend is ready. Opening in browser...\033[0m"
+
+# Open browser based on OS
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS
+    open "http://$ip_address:3000"
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    # Linux
+    xdg-open "http://$ip_address:3000"
+else
+    echo "Unsupported OS for automatic browser opening"
+fi
+
