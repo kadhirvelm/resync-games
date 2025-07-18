@@ -16,12 +16,14 @@ import { getBrowserIdentifier } from "../../player/browserIdentifier";
 import { PlayerContext } from "../../player/PlayerContext";
 import styles from "./DeveloperTools.module.scss";
 import { setPlayer as dispatchSetPlayer } from "../../../redux/stores/redux/playerSlice";
+import { EnvironmentContext } from "../../../context/Environment";
 
 export const DeveloperTools = () => {
   const dispatch = useGameStateDispatch();
 
   const browserIdentifier = useMemo(() => getBrowserIdentifier(), []);
   const { player, setPlayer } = useContext(PlayerContext);
+  const { developmentMode } = useContext(EnvironmentContext);
 
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +34,7 @@ export const DeveloperTools = () => {
     (state) => state.gameStateSlice.gameInfo?.players ?? []
   );
 
-  if (process.env.NEXT_PUBLIC_DEVELOPMENT_MODE !== "true") {
+  if (!developmentMode) {
     return;
   }
 

@@ -5,6 +5,7 @@ import { GlobalScreenPlayerContextProvider } from "@/components/globalScreen/Glo
 import { GameId, GameType } from "@/imports/api";
 import { ClientGate } from "@/lib/ClientGate";
 import { useParams } from "next/navigation";
+import { EnvironmentContextProvider } from "../../../../context/Environment";
 
 export default function Page() {
   const { gameSlug, gameId } = useParams<{
@@ -14,9 +15,11 @@ export default function Page() {
 
   return (
     <ClientGate>
-      <GlobalScreenPlayerContextProvider gameId={gameId}>
-        <GlobalScreen gameId={gameId} gameSlug={gameSlug} />
-      </GlobalScreenPlayerContextProvider>
+      <EnvironmentContextProvider>
+        <GlobalScreenPlayerContextProvider gameId={gameId}>
+          <GlobalScreen gameId={gameId} gameSlug={gameSlug} />
+        </GlobalScreenPlayerContextProvider>
+      </EnvironmentContextProvider>
     </ClientGate>
   );
 }
