@@ -12,7 +12,7 @@ import styles from "./JoinGame.module.scss";
 export function JoinGame() {
   const { isMobile } = useMediaQuery();
 
-  const player = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext);
   const router = useRouter();
 
   const [inviteCode, setInviteCode] = useState<string>("");

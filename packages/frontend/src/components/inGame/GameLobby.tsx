@@ -19,7 +19,7 @@ import { canStartGame } from "./utils/canStartGame";
 
 export const GameLobby = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
-  const player = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isJoiningTeam, setIsJoiningTeam] = useState(false);

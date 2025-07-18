@@ -8,7 +8,7 @@ import { isServiceError } from "@/imports/api";
 import { useContext } from "react";
 
 export const GoHome = () => {
-  const player = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext);
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
 
   const onLeave = async () => {

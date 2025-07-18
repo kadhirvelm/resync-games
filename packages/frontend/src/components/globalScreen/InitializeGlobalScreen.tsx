@@ -17,7 +17,7 @@ export const InitializeGlobalScreen = ({
   gameSlug: GameType;
   store: GameStateReduxStore;
 }) => {
-  const player = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext);
 
   const { connectionStatus } = useGameStateSocket(gameId, gameSlug);
   const { isMobile } = useMediaQuery();

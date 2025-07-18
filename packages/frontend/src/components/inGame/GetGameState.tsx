@@ -23,7 +23,7 @@ const GetGameState = ({
   gameSlug: GameType;
 }) => {
   const router = useRouter();
-  const player = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext);
 
   const { result: gameStateAndInfo } = useNetworkCall(
     () =>
