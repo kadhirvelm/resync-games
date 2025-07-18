@@ -6,7 +6,8 @@ import {
   PlayerId,
   GameStateAndInfo,
   SnapshotState,
-  SnapshotStateDisplay
+  SnapshotStateDisplay,
+  SnapshotId
 } from "@/imports/api";
 import {
   CurrentGameState,
@@ -62,6 +63,7 @@ export class ResyncGamesConverterService {
       gameType: snapshotState.gameType as GameType,
       localStateSlice: snapshotState.localSlice as object,
       playerSlice: snapshotState.playerSlice as object,
+      snapshotId: snapshotState.snapshotId as SnapshotId,
       timestamp: snapshotState.timestamp.toISOString()
     };
   };
@@ -72,6 +74,7 @@ export class ResyncGamesConverterService {
     return {
       description: snapshotState.description ?? "",
       gameType: snapshotState.gameType as GameType,
+      snapshotId: snapshotState.snapshotId as SnapshotId,
       timestamp: snapshotState.timestamp?.toISOString() ?? ""
     };
   };

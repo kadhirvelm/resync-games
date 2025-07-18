@@ -2,6 +2,7 @@ import { Body, Controller } from "@nestjs/common";
 import {
   SnapshotState,
   SnapshotStateApi,
+  SnapshotStateDisplay,
   SnapshotStateServiceDefinition
 } from "@/imports/api";
 import {
@@ -24,5 +25,12 @@ export class SnapshotStateController
   @getDecorator(SnapshotStateServiceDefinition.endpoints.getSnapshotStates)
   public async getSnapshotStates(@Body() _request: Record<string, never>) {
     return this.snapshotStateService.getSnapshotStates();
+  }
+
+  @getDecorator(
+    SnapshotStateServiceDefinition.endpoints.initiateGameFromSnapshot
+  )
+  public async initiateGameFromSnapshot(@Body() request: SnapshotStateDisplay) {
+    return this.snapshotStateService.initiateGameFromSnapshot(request);
   }
 }
