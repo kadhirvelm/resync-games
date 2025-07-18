@@ -15,9 +15,11 @@ import styles from "./CreateGame.module.scss";
 import { getDefaultConfiguration } from "./utils/getDefaultConfiguration";
 import { SettingsIcon } from "lucide-react";
 import { OpenSnapshotState } from "./components/OpenSnapshotState";
+import { EnvironmentContext } from "../../context/Environment";
 
 export default function CreateGame() {
   const { player } = useContext(PlayerContext);
+  const { developmentMode } = useContext(EnvironmentContext);
   const router = useRouter();
 
   const [selectedGame, onSelectGame] = useState<SelectedGame | undefined>();
@@ -70,7 +72,7 @@ export default function CreateGame() {
           )}
         </Flex>
         <Flex align="center" justify="end" mt="2">
-          {process.env.NEXT_PUBLIC_DEVELOPMENT_MODE === "true" && (
+          {developmentMode && (
             <Flex flex="1" mr="2">
               <SettingsIcon
                 className={styles.snapshot}
