@@ -135,6 +135,11 @@ export class GamesInFlightService {
     joinGameRequest: JoinGameWithCode | JoinGameWithId
   ) => {
     const player = await this.userService.getUser(joinGameRequest.playerId);
+    if (player == null) {
+      throw new BadRequestException(
+        "The requested player is not registered. Please check your request and try again."
+      );
+    }
 
     let newGameStateRaw = null;
 
@@ -219,6 +224,11 @@ export class GamesInFlightService {
 
   public leaveGame = async (leaveGame: LeaveGame) => {
     const player = await this.userService.getUser(leaveGame.playerId);
+    if (player == null) {
+      throw new BadRequestException(
+        "The requested player is not registered. Please check your request and try again."
+      );
+    }
 
     const requestedGame = await this.prismaService.client.gameState.findFirst({
       include: {

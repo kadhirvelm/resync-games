@@ -35,7 +35,7 @@ export const PlayerContextProvider = ({
   const browserIdentifier = useMemo(() => getBrowserIdentifier(), []);
 
   const {
-    result: player,
+    result: maybePlayer,
     setResult,
     hasInitialized
   } = useNetworkCall(() =>
@@ -44,7 +44,7 @@ export const PlayerContextProvider = ({
     })
   );
 
-  const { isLoading } = useNavigateToGame(player);
+  const { isLoading } = useNavigateToGame(maybePlayer?.player);
 
   if (!hasInitialized) {
     return (
@@ -54,18 +54,22 @@ export const PlayerContextProvider = ({
     );
   }
 
-  if (player == null) {
-    return <SetPlayer onSetPlayer={setResult} />;
+  const setPlayer = (player: PlayerInGameWithDetails) =>
+    setResult({ player: player });
+
+  if (maybePlayer?.player == null) {
+    return <SetPlayer onSetPlayer={setPlayer} />;
   }
 
   return (
-    <PlayerContext.Provider value={{ player, setPlayer: setResult }}>
+    <PlayerContext.Provider value={{ player: maybePlayer.player, setPlayer }}>
       {isLoading ? <Spinner /> : children}
       <Flex className={styles.playerContainer}>
         <SetPlayer
-          existingPlayer={player}
+          existingPlayer={maybePlayer.player}
           gameId={gameId}
-          onSetPlayer={setResult}
+          key={maybePlayer.player.playerId}
+          onSetPlayer={setPlayer}
         />
       </Flex>
     </PlayerContext.Provider>

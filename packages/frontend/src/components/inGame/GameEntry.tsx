@@ -25,7 +25,11 @@ export const GameEntry = ({
 
   return (
     <>
-      <FetchGameEntry gameSlug={gameSlug} gameStateHandler={gameStateHandler} />
+      <FetchGameEntry
+        gameSlug={gameSlug}
+        gameStateHandler={gameStateHandler}
+        key={player.playerId}
+      />
       <GoHome />
       <DeveloperTools />
     </>

@@ -22,7 +22,7 @@ export default function CreateGame() {
 
   const [selectedGame, onSelectGame] = useState<SelectedGame | undefined>();
   const [isLoading, setIsLoading] = useState(false);
-  const [openSnapshot, setOpenSnapshot] = useState(true);
+  const [openSnapshot, setOpenSnapshot] = useState(false);
 
   const onCreateGame = async () => {
     if (selectedGame === undefined) {

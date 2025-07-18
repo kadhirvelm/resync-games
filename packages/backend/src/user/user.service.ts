@@ -11,7 +11,9 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 export class UserService {
   constructor(private prismaModule: ResyncGamesPrismaService) {}
 
-  public async getUser(playerId: PlayerId): Promise<PlayerInGameWithDetails> {
+  public async getUser(
+    playerId: PlayerId
+  ): Promise<PlayerInGameWithDetails | null> {
     const maybeUser = await this.prismaModule.client.player.findFirst({
       where: {
         playerId: `${playerId}`
@@ -19,7 +21,7 @@ export class UserService {
     });
 
     if (maybeUser == null) {
-      throw new BadRequestException(`User with playerId ${playerId} not found`);
+      return null;
     }
 
     const inGame = await this.prismaModule.client.playersInGame.findFirst({

@@ -19,4 +19,8 @@
     &:hover {
         background-color: vars.$hover;
     }
+
+    &.active {
+        border: 3px solid vars.$blue;
+    }
 }

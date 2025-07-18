@@ -22,7 +22,7 @@ export interface PlayerInGameWithDetails extends PlayerInGame {
 export interface UserServiceApi extends Service {
   me: {
     payload: BrowserIdentifier;
-    response: PlayerInGameWithDetails;
+    response: { player: PlayerInGameWithDetails | null };
   };
   register: {
     payload: Player;
