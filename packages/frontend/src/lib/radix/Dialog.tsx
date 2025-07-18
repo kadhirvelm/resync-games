@@ -49,11 +49,13 @@ export const Dialog = ({
                 </Button>
               </RadixDialog.Close>
             )}
-            <RadixDialog.Close>
-              <Button loading={isLoading} onClick={onConfirm}>
-                {confirmText ?? "Save"}
-              </Button>
-            </RadixDialog.Close>
+            {onConfirm && (
+              <RadixDialog.Close>
+                <Button loading={isLoading} onClick={onConfirm}>
+                  {confirmText ?? "Save"}
+                </Button>
+              </RadixDialog.Close>
+            )}
           </Flex>
         </Flex>
       </RadixDialog.Content>

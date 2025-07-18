@@ -15,9 +15,12 @@ export const GlobalScreenPlayerContextProvider = ({
   return (
     <PlayerContext.Provider
       value={{
-        avatarCollection: "thumbs",
-        displayName: `Global screen - ${gameId}`,
-        playerId: browserIdentifier
+        player: {
+          avatarCollection: "thumbs",
+          displayName: `Global screen - ${gameId}`,
+          playerId: browserIdentifier
+        },
+        setPlayer: () => {}
       }}
     >
       {children}

@@ -17,7 +17,7 @@ import { SettingsIcon } from "lucide-react";
 import { OpenSnapshotState } from "./components/OpenSnapshotState";
 
 export default function CreateGame() {
-  const player = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext);
   const router = useRouter();
 
   const [selectedGame, onSelectGame] = useState<SelectedGame | undefined>();

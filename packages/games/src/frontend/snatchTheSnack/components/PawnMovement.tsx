@@ -33,7 +33,7 @@ const flavorTextToPosition = {
 
 export function PawnMovement() {
   const dispatch = useGameStateDispatch();
-  const player = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext);
 
   const gameInfo = useGameStateSelector((s) => s.gameStateSlice.gameInfo);
   const gameState = useGameStateSelector((s) => s.gameStateSlice.gameState);

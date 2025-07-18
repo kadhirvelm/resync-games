@@ -15,7 +15,7 @@ import { useGameStateCallbacks } from "./useGameStateCallbacks";
  * are connected.
  */
 export function useGameStateSocket(gameId: GameId, gameType: GameType) {
-  const player = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext);
 
   const [connectionStatus, setConnectionStatus] = useState(false);
   const socketIdentifier = useMemo(() => v4(), []);

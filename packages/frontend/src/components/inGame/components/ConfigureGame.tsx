@@ -16,7 +16,7 @@ import { useContext, useState } from "react";
 
 export const ConfigureGame = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
-  const player = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext);
 
   // We rely on key based rendering to update the game configuration when someone else updates the config
   const [currentGameConfiguration, setCurrentGameConfiguration] = useState(
