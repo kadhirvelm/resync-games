@@ -1,5 +1,6 @@
 import { Service, ServiceDefinition } from "../../genericTypes/service";
-import { GameType } from "../gameState";
+import { GameId, GameType } from "../gameState";
+import { Player } from "../user";
 
 export interface SnapshotState {
   description: string;
@@ -7,13 +8,22 @@ export interface SnapshotState {
   gameType: GameType;
   localStateSlice: object;
   playerSlice: object;
+  snapshotId: SnapshotId;
   timestamp: string;
 }
 
 export type SnapshotStateDisplay = Pick<
   SnapshotState,
-  "description" | "gameType" | "timestamp"
+  "description" | "gameType" | "snapshotId" | "timestamp"
 >;
+
+export interface InitiateGameFromSnapshotResponse {
+  gameId: GameId;
+  gameStateSlice: object;
+  localStateSlice: object;
+  playerSlice: object;
+  players: Player[];
+}
 
 export type SnapshotId = string & { __brand: "snapshot-id" };
 
@@ -24,8 +34,12 @@ export interface SnapshotStateApi extends Service {
       snapshotStates: SnapshotStateDisplay[];
     };
   };
+  initiateGameFromSnapshot: {
+    payload: SnapshotStateDisplay;
+    response: InitiateGameFromSnapshotResponse;
+  };
   snapshotState: {
-    payload: Omit<SnapshotState, "timestamp">;
+    payload: Omit<SnapshotState, "snapshotId" | "timestamp">;
     response: { snapshotId: SnapshotId };
   };
 }
@@ -35,6 +49,7 @@ export const SnapshotStateServiceDefinition: ServiceDefinition<SnapshotStateApi>
     controller: "snapshot-state",
     endpoints: {
       getSnapshotStates: "get-snapshot-states",
+      initiateGameFromSnapshot: "initiate-game-from-snapshot",
       snapshotState: "snapshot-state"
     }
   };

@@ -13,6 +13,8 @@ import { PlayerContext } from "../player/PlayerContext";
 import SelectGame, { SelectedGame } from "./components/SelectGame";
 import styles from "./CreateGame.module.scss";
 import { getDefaultConfiguration } from "./utils/getDefaultConfiguration";
+import { SettingsIcon } from "lucide-react";
+import { OpenSnapshotState } from "./components/OpenSnapshotState";
 
 export default function CreateGame() {
   const player = useContext(PlayerContext);
@@ -20,6 +22,7 @@ export default function CreateGame() {
 
   const [selectedGame, onSelectGame] = useState<SelectedGame | undefined>();
   const [isLoading, setIsLoading] = useState(false);
+  const [openSnapshot, setOpenSnapshot] = useState(true);
 
   const onCreateGame = async () => {
     if (selectedGame === undefined) {
@@ -57,9 +60,26 @@ export default function CreateGame() {
       </Flex>
       <Flex className={styles.formBox} direction="column" gap="3">
         <Flex direction="column" gap="2">
-          <SelectGame onSelectGame={onSelectGame} selectedGame={selectedGame} />
+          {openSnapshot ? (
+            <OpenSnapshotState />
+          ) : (
+            <SelectGame
+              onSelectGame={onSelectGame}
+              selectedGame={selectedGame}
+            />
+          )}
         </Flex>
-        <Flex justify="end" mt="2">
+        <Flex align="center" justify="end" mt="2">
+          {process.env.NEXT_PUBLIC_DEVELOPMENT_MODE === "true" && (
+            <Flex flex="1" mr="2">
+              <SettingsIcon
+                className={styles.snapshot}
+                color={openSnapshot ? "blue" : undefined}
+                onClick={() => setOpenSnapshot(!openSnapshot)}
+                size={16}
+              />
+            </Flex>
+          )}
           <Flex>
             <Button
               disabled={selectedGame === undefined}

@@ -1,0 +1,11 @@
+@use "@/styles/variables.scss" as vars;
+
+.snapshot {
+    border: 1px solid vars.$border-color;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+        background: vars.$hover;
+    }
+}

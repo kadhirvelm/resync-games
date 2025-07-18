@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
+import { ResyncGamesPrismaModule } from "../database/resyncGamesPrisma.module";
 import { SnapshotStateController } from "./snapshotState.controller";
 import { SnapshotStateService } from "./snapshotState.service";
-import { ResyncGamesPrismaModule } from "../database/resyncGamesPrisma.module";
 
 @Module({
   controllers: [SnapshotStateController],
