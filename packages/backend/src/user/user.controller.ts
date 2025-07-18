@@ -18,8 +18,8 @@ export class UserController
   constructor(private userService: UserService) {}
 
   @getDecorator(UserServiceDefinition.endpoints.me)
-  public me(@Body() body: BrowserIdentifier) {
-    return this.userService.getUser(body.playerId);
+  public async me(@Body() body: BrowserIdentifier) {
+    return { player: await this.userService.getUser(body.playerId) };
   }
 
   @getDecorator(UserServiceDefinition.endpoints.register)

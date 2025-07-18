@@ -1,6 +1,7 @@
 import { PlayerInGame } from "@resync-games/api";
+import clsx from "clsx";
 import { SettingsIcon } from "lucide-react";
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import {
   Button,
   Dialog,
@@ -8,13 +9,18 @@ import {
   Flex,
   TextField
 } from "../../../lib/radix";
-import { useGameStateSelector } from "../../../redux";
+import { useGameStateDispatch, useGameStateSelector } from "../../../redux";
 import { ClientServiceCallers } from "../../../services/serviceCallers";
 import { DisplayPlayer } from "../../player";
+import { getBrowserIdentifier } from "../../player/browserIdentifier";
 import { PlayerContext } from "../../player/PlayerContext";
 import styles from "./DeveloperTools.module.scss";
+import { setPlayer as dispatchSetPlayer } from "../../../redux/stores/redux/playerSlice";
 
 export const DeveloperTools = () => {
+  const dispatch = useGameStateDispatch();
+
+  const browserIdentifier = useMemo(() => getBrowserIdentifier(), []);
   const { player, setPlayer } = useContext(PlayerContext);
 
   const [open, setOpen] = useState(false);
@@ -54,9 +60,12 @@ export const DeveloperTools = () => {
       ...player,
       avatarCollection: assumePlayer.avatarCollection,
       connectionStatus: "connected",
+      displayName: assumePlayer.displayName,
       playerId: assumePlayer.playerId,
       team: assumePlayer.team
     });
+
+    dispatch(dispatchSetPlayer(assumePlayer));
 
     setOpen(false);
   };
@@ -96,20 +105,27 @@ export const DeveloperTools = () => {
           <DisplayText color="gray" size="2">
             Assume player
           </DisplayText>
-          {players.map((player) => (
-            <Flex
-              className={styles.assumePlayer}
-              direction="column"
-              key={player.playerId}
-              onClick={() => onAssumePlayer(player)}
-              p="2"
-            >
-              <DisplayPlayer player={player} />
-              <DisplayText color="gray" size="2">
-                {player.playerId} ({player.team})
-              </DisplayText>
-            </Flex>
-          ))}
+          {players
+            .filter((p) => p.playerId !== browserIdentifier)
+            .map((p) => (
+              <Flex
+                className={clsx(styles.assumePlayer, {
+                  [styles.active ?? ""]: player.playerId === p.playerId
+                })}
+                direction="column"
+                flex="1"
+                key={p.playerId}
+                onClick={() => onAssumePlayer(p)}
+                p="2"
+              >
+                <Flex>
+                  <DisplayPlayer player={p} />
+                </Flex>
+                <DisplayText color="gray" size="2">
+                  {p.playerId} ({p.team})
+                </DisplayText>
+              </Flex>
+            ))}
         </Flex>
       </Flex>
     </Dialog>
