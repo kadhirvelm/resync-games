@@ -1,4 +1,4 @@
-import { Flex } from "@/lib/radix";
+import { DisplayText, Flex } from "@/lib/radix";
 import { useFishbowlSelector } from "../../store/fishbowlRedux";
 import styles from "./DisplayDrawing.module.scss";
 
@@ -15,7 +15,13 @@ export const DisplayDrawing = () => {
     activeDrawing.drawing === undefined ||
     timerState !== "running"
   ) {
-    return;
+    return (
+      <Flex align="center" flex="1" justify="center">
+        <DisplayText color="gray" size="5">
+          No drawing
+        </DisplayText>
+      </Flex>
+    );
   }
 
   const width = window.innerWidth * 0.6;
@@ -24,7 +30,13 @@ export const DisplayDrawing = () => {
   const dimension = Math.min(width, height);
 
   return (
-    <Flex className={styles.drawing}>
+    <Flex
+      align="center"
+      className={styles.drawing}
+      flex="1"
+      justify="center"
+      py="2"
+    >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         alt="Drawing"

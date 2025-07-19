@@ -1,3 +1,4 @@
+import { PlayerIcon } from "@/components/player/PlayerIcon";
 import { EarIcon } from "lucide-react";
 import { DisplayText, Flex } from "../../../../../lib/radix";
 import { useFishbowlSelector } from "../../store/fishbowlRedux";
@@ -6,9 +7,7 @@ import {
   selectNextPlayer,
   selectPreviousWord
 } from "../selectors/globalScreenSelectors";
-import { FishbowlTimer } from "../../playerComponents/timer/FishbowlTimer";
 import { ActivePlayerTracker } from "./ActivePlayerTracker";
-import { PlayerIcon } from "@/components/player/PlayerIcon";
 
 export const GlobalActivePlayer = () => {
   const activeRound = useFishbowlSelector(
@@ -75,24 +74,16 @@ export const GlobalActivePlayer = () => {
   };
 
   return (
-    <Flex direction="column" flex="1">
-      <Flex align="center" direction="column" flex="1" gap="3" justify="center">
-        <ActivePlayerTracker />
-        <Flex align="center" gap="4">
-          <DisplayText size="7" weight="bold">
-            Round {activeRound.roundNumber}
-          </DisplayText>
-          <DisplayText size="7">{displayWordsToGo()}</DisplayText>
-        </Flex>
-        {maybeRenderPreviousGuess()}
-        {maybeRenderNextPlayer()}
+    <Flex align="center" direction="column" flex="1" gap="2">
+      <ActivePlayerTracker />
+      <Flex align="center" gap="4">
+        <DisplayText size="7" weight="bold">
+          Round {activeRound.roundNumber}
+        </DisplayText>
+        <DisplayText size="7">{displayWordsToGo()}</DisplayText>
       </Flex>
-      <Flex align="center" flex="1" justify="center">
-        <FishbowlTimer
-          size={250}
-          timer={activeRound.currentActivePlayer.timer}
-        />
-      </Flex>
+      {maybeRenderPreviousGuess()}
+      {maybeRenderNextPlayer()}
     </Flex>
   );
 };

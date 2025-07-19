@@ -16,6 +16,7 @@ export interface SlideConfirmProps {
 export const SlideConfirm = ({
   confirmText,
   onConfirm,
+  minimumWidth,
   slideColor
 }: SlideConfirmProps) => {
   const [value, setValue] = useState(0);
@@ -30,13 +31,14 @@ export const SlideConfirm = ({
     setValue(0);
   };
 
-  const minimumWidth = (confirmText?.length ?? 0) * 20;
+  const calculatedMinimumWidth =
+    minimumWidth ?? (confirmText?.length ?? 0) * 20;
 
   return (
     <Flex
       className={styles.container}
       p="4"
-      style={{ flex: 1, minWidth: `${minimumWidth}px` }}
+      style={{ flex: 1, minWidth: `${calculatedMinimumWidth}px` }}
     >
       <Slider
         className={styles.sliderTrack}
