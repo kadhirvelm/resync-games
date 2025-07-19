@@ -24,6 +24,8 @@ const COLORS = [
 
 const LINE_WIDTHS = [2, 5, 10, 15, 20];
 
+const THROTTLE_TIME_IN_MS = 50;
+
 export const DrawingBoard = ({
   onCavasChange,
   initialDataUrl
@@ -56,7 +58,9 @@ export const DrawingBoard = ({
   }, [onCavasChange]);
 
   // Create throttled version of onSaveCanvas using lodash-es
-  const throttledSaveCanvas = useRef(throttle(onSaveCanvas, 300)).current;
+  const throttledSaveCanvas = useRef(
+    throttle(onSaveCanvas, THROTTLE_TIME_IN_MS)
+  ).current;
 
   const loadImage = useCallback((dataUrl: string) => {
     const canvas = canvasRef.current;

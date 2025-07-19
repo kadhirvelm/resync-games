@@ -23,11 +23,17 @@ export const RoundInProgress = () => {
   };
 
   return (
-    <Flex flex="1" gap="2">
+    <Flex flex="1">
       {helpers()}
-      <GlobalActivePlayer />
+      <Flex direction="column" flex="1" p="2">
+        <Flex flex="1">
+          <GlobalActivePlayer />
+        </Flex>
+        <Flex flex="2">
+          <DisplayDrawing />
+        </Flex>
+      </Flex>
       <CurrentGuesses />
-      <DisplayDrawing />
     </Flex>
   );
 };

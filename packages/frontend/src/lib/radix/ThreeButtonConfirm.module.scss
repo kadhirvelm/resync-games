@@ -1,0 +1,62 @@
+@use "@/styles/variables.scss" as vars;
+
+.container {
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid vars.$black;
+    background: vars.$white;
+}
+
+.text {
+    color: vars.$black;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    user-select: none;
+    pointer-events: none;
+}
+
+.slideProgress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.green {
+    background: vars.$green;
+}
+
+.red {
+    background: vars.$red;
+}
+
+%circleConfirm {
+    min-width: 40px;
+    min-height: 25px;
+    color: vars.$white;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.one {
+    @extend %circleConfirm;
+
+    background: vars.$red;
+}
+
+.two {
+    @extend %circleConfirm;
+
+    background: vars.$yellow;
+}
+
+.three {
+    @extend %circleConfirm;
+
+    background: vars.$green;
+}

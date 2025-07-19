@@ -33,9 +33,6 @@ export const CurrentGuesses = () => {
           gap="4"
           justify="center"
         >
-          <DisplayText color="gray" size="7">
-            {teamGuesses.length} guess{teamGuesses.length === 1 ? "" : "es"}
-          </DisplayText>
           {players.map((p) => (
             <Flex align="center" gap="2" key={p.playerId}>
               <PlayerIcon dimension={25} player={p} />
@@ -75,7 +72,7 @@ export const CurrentGuesses = () => {
   };
 
   return (
-    <Flex flex="2">
+    <Flex direction="column" flex="1">
       {Object.entries(teams).map(([teamNumber, { teamName, players }]) => {
         const teamGuesses =
           guessesByTeam.guessesByTeam[parseFloat(teamNumber)] ?? [];
@@ -93,7 +90,7 @@ export const CurrentGuesses = () => {
           >
             <Flex align="center" gap="2" justify="center" mb="5">
               {isActiveTeam && <ArrowRightIcon size={30} />}
-              <DisplayText size="7" weight="bold">
+              <DisplayText size="9" weight="bold">
                 {teamName}
               </DisplayText>
               {isActiveTeam && <ArrowLeftIcon size={30} />}

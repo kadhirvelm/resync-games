@@ -1,12 +1,10 @@
 import {
-  CurrentGameState,
   GameStateAndInfo,
   PlayerId,
   PlayerInGame,
   WithTimestamp
 } from "@/imports/api";
-import { ICanChangeToState, IGameServer, TickGameState } from "../base";
-import _ from "lodash";
+import { IGameServer, TickGameState } from "../base";
 
 export interface FishbowlActiveTracker extends WithTimestamp {
   /**
@@ -227,23 +225,6 @@ export class FishbowlServer
         turnOrder: []
       },
       version: "1.0.0"
-    };
-  }
-
-  public onChangeState(
-    game: ICanChangeToState<FishbowlGame, FishbowlGameConfiguration>,
-    newCurrentGameState: CurrentGameState
-  ): FishbowlGame | undefined {
-    if (newCurrentGameState !== "playing") {
-      return;
-    }
-
-    const allPlayers = game.players.map((player) => player.playerId);
-    const randomTurnOrder: PlayerId[] = _.shuffle(allPlayers);
-
-    return {
-      ...game.gameState,
-      turnOrder: randomTurnOrder
     };
   }
 

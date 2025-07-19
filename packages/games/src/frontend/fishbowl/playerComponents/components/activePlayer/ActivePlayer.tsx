@@ -34,6 +34,7 @@ export const ActivePlayer = () => {
             </DisplayText>
           </Flex>
           <TimerControl />
+          <SomeoneGotIt timer={timer} />
         </Flex>
       </Flex>
     );
