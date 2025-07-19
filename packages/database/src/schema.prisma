@@ -26,6 +26,8 @@ model GameState {
   version           String           @map("version")
   lastUpdatedAt     DateTime         @default(now()) @map("last_update_timestamp")
   inviteCode        String           @default("n/a") @map("invite_code")
+  snapshotState     Json?            @map("snapshot_state")
+  snapshotId        String?          @map("snapshot_id")
 
   PlayersInGame PlayersInGame[]
 }

@@ -1254,6 +1254,7 @@ export namespace Prisma {
     version: string | null
     lastUpdatedAt: Date | null
     inviteCode: string | null
+    snapshotId: string | null
   }
 
   export type GameStateMaxAggregateOutputType = {
@@ -1263,6 +1264,7 @@ export namespace Prisma {
     version: string | null
     lastUpdatedAt: Date | null
     inviteCode: string | null
+    snapshotId: string | null
   }
 
   export type GameStateCountAggregateOutputType = {
@@ -1274,6 +1276,8 @@ export namespace Prisma {
     version: number
     lastUpdatedAt: number
     inviteCode: number
+    snapshotState: number
+    snapshotId: number
     _all: number
   }
 
@@ -1285,6 +1289,7 @@ export namespace Prisma {
     version?: true
     lastUpdatedAt?: true
     inviteCode?: true
+    snapshotId?: true
   }
 
   export type GameStateMaxAggregateInputType = {
@@ -1294,6 +1299,7 @@ export namespace Prisma {
     version?: true
     lastUpdatedAt?: true
     inviteCode?: true
+    snapshotId?: true
   }
 
   export type GameStateCountAggregateInputType = {
@@ -1305,6 +1311,8 @@ export namespace Prisma {
     version?: true
     lastUpdatedAt?: true
     inviteCode?: true
+    snapshotState?: true
+    snapshotId?: true
     _all?: true
   }
 
@@ -1389,6 +1397,8 @@ export namespace Prisma {
     version: string
     lastUpdatedAt: Date
     inviteCode: string
+    snapshotState: JsonValue | null
+    snapshotId: string | null
     _count: GameStateCountAggregateOutputType | null
     _min: GameStateMinAggregateOutputType | null
     _max: GameStateMaxAggregateOutputType | null
@@ -1417,6 +1427,8 @@ export namespace Prisma {
     version?: boolean
     lastUpdatedAt?: boolean
     inviteCode?: boolean
+    snapshotState?: boolean
+    snapshotId?: boolean
     PlayersInGame?: boolean | GameState$PlayersInGameArgs<ExtArgs>
     _count?: boolean | GameStateCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameState"]>
@@ -1430,6 +1442,8 @@ export namespace Prisma {
     version?: boolean
     lastUpdatedAt?: boolean
     inviteCode?: boolean
+    snapshotState?: boolean
+    snapshotId?: boolean
   }, ExtArgs["result"]["gameState"]>
 
   export type GameStateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1441,6 +1455,8 @@ export namespace Prisma {
     version?: boolean
     lastUpdatedAt?: boolean
     inviteCode?: boolean
+    snapshotState?: boolean
+    snapshotId?: boolean
   }, ExtArgs["result"]["gameState"]>
 
   export type GameStateSelectScalar = {
@@ -1452,9 +1468,11 @@ export namespace Prisma {
     version?: boolean
     lastUpdatedAt?: boolean
     inviteCode?: boolean
+    snapshotState?: boolean
+    snapshotId?: boolean
   }
 
-  export type GameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"gameId" | "gameState" | "gameConfiguration" | "currentGameState" | "gameType" | "version" | "lastUpdatedAt" | "inviteCode", ExtArgs["result"]["gameState"]>
+  export type GameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"gameId" | "gameState" | "gameConfiguration" | "currentGameState" | "gameType" | "version" | "lastUpdatedAt" | "inviteCode" | "snapshotState" | "snapshotId", ExtArgs["result"]["gameState"]>
   export type GameStateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     PlayersInGame?: boolean | GameState$PlayersInGameArgs<ExtArgs>
     _count?: boolean | GameStateCountOutputTypeDefaultArgs<ExtArgs>
@@ -1476,6 +1494,8 @@ export namespace Prisma {
       version: string
       lastUpdatedAt: Date
       inviteCode: string
+      snapshotState: Prisma.JsonValue | null
+      snapshotId: string | null
     }, ExtArgs["result"]["gameState"]>
     composites: {}
   }
@@ -1908,6 +1928,8 @@ export namespace Prisma {
     readonly version: FieldRef<"GameState", 'String'>
     readonly lastUpdatedAt: FieldRef<"GameState", 'DateTime'>
     readonly inviteCode: FieldRef<"GameState", 'String'>
+    readonly snapshotState: FieldRef<"GameState", 'Json'>
+    readonly snapshotId: FieldRef<"GameState", 'String'>
   }
     
 
@@ -5513,7 +5535,9 @@ export namespace Prisma {
     gameType: 'gameType',
     version: 'version',
     lastUpdatedAt: 'lastUpdatedAt',
-    inviteCode: 'inviteCode'
+    inviteCode: 'inviteCode',
+    snapshotState: 'snapshotState',
+    snapshotId: 'snapshotId'
   };
 
   export type GameStateScalarFieldEnum = (typeof GameStateScalarFieldEnum)[keyof typeof GameStateScalarFieldEnum]
@@ -5565,6 +5589,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -5717,6 +5749,8 @@ export namespace Prisma {
     version?: StringFilter<"GameState"> | string
     lastUpdatedAt?: DateTimeFilter<"GameState"> | Date | string
     inviteCode?: StringFilter<"GameState"> | string
+    snapshotState?: JsonNullableFilter<"GameState">
+    snapshotId?: StringNullableFilter<"GameState"> | string | null
     PlayersInGame?: PlayersInGameListRelationFilter
   }
 
@@ -5729,6 +5763,8 @@ export namespace Prisma {
     version?: SortOrder
     lastUpdatedAt?: SortOrder
     inviteCode?: SortOrder
+    snapshotState?: SortOrderInput | SortOrder
+    snapshotId?: SortOrderInput | SortOrder
     PlayersInGame?: PlayersInGameOrderByRelationAggregateInput
   }
 
@@ -5744,6 +5780,8 @@ export namespace Prisma {
     version?: StringFilter<"GameState"> | string
     lastUpdatedAt?: DateTimeFilter<"GameState"> | Date | string
     inviteCode?: StringFilter<"GameState"> | string
+    snapshotState?: JsonNullableFilter<"GameState">
+    snapshotId?: StringNullableFilter<"GameState"> | string | null
     PlayersInGame?: PlayersInGameListRelationFilter
   }, "gameId">
 
@@ -5756,6 +5794,8 @@ export namespace Prisma {
     version?: SortOrder
     lastUpdatedAt?: SortOrder
     inviteCode?: SortOrder
+    snapshotState?: SortOrderInput | SortOrder
+    snapshotId?: SortOrderInput | SortOrder
     _count?: GameStateCountOrderByAggregateInput
     _max?: GameStateMaxOrderByAggregateInput
     _min?: GameStateMinOrderByAggregateInput
@@ -5773,6 +5813,8 @@ export namespace Prisma {
     version?: StringWithAggregatesFilter<"GameState"> | string
     lastUpdatedAt?: DateTimeWithAggregatesFilter<"GameState"> | Date | string
     inviteCode?: StringWithAggregatesFilter<"GameState"> | string
+    snapshotState?: JsonNullableWithAggregatesFilter<"GameState">
+    snapshotId?: StringNullableWithAggregatesFilter<"GameState"> | string | null
   }
 
   export type SnapshotStateWhereInput = {
@@ -5952,6 +5994,8 @@ export namespace Prisma {
     version: string
     lastUpdatedAt?: Date | string
     inviteCode?: string
+    snapshotState?: NullableJsonNullValueInput | InputJsonValue
+    snapshotId?: string | null
     PlayersInGame?: PlayersInGameCreateNestedManyWithoutGameInput
   }
 
@@ -5964,6 +6008,8 @@ export namespace Prisma {
     version: string
     lastUpdatedAt?: Date | string
     inviteCode?: string
+    snapshotState?: NullableJsonNullValueInput | InputJsonValue
+    snapshotId?: string | null
     PlayersInGame?: PlayersInGameUncheckedCreateNestedManyWithoutGameInput
   }
 
@@ -5976,6 +6022,8 @@ export namespace Prisma {
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviteCode?: StringFieldUpdateOperationsInput | string
+    snapshotState?: NullableJsonNullValueInput | InputJsonValue
+    snapshotId?: NullableStringFieldUpdateOperationsInput | string | null
     PlayersInGame?: PlayersInGameUpdateManyWithoutGameNestedInput
   }
 
@@ -5988,6 +6036,8 @@ export namespace Prisma {
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviteCode?: StringFieldUpdateOperationsInput | string
+    snapshotState?: NullableJsonNullValueInput | InputJsonValue
+    snapshotId?: NullableStringFieldUpdateOperationsInput | string | null
     PlayersInGame?: PlayersInGameUncheckedUpdateManyWithoutGameNestedInput
   }
 
@@ -6000,6 +6050,8 @@ export namespace Prisma {
     version: string
     lastUpdatedAt?: Date | string
     inviteCode?: string
+    snapshotState?: NullableJsonNullValueInput | InputJsonValue
+    snapshotId?: string | null
   }
 
   export type GameStateUpdateManyMutationInput = {
@@ -6011,6 +6063,8 @@ export namespace Prisma {
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviteCode?: StringFieldUpdateOperationsInput | string
+    snapshotState?: NullableJsonNullValueInput | InputJsonValue
+    snapshotId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GameStateUncheckedUpdateManyInput = {
@@ -6022,6 +6076,8 @@ export namespace Prisma {
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviteCode?: StringFieldUpdateOperationsInput | string
+    snapshotState?: NullableJsonNullValueInput | InputJsonValue
+    snapshotId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SnapshotStateCreateInput = {
@@ -6249,11 +6305,54 @@ export namespace Prisma {
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
 
   export type PlayersInGameListRelationFilter = {
     every?: PlayersInGameWhereInput
     some?: PlayersInGameWhereInput
     none?: PlayersInGameWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type PlayersInGameOrderByRelationAggregateInput = {
@@ -6269,6 +6368,8 @@ export namespace Prisma {
     version?: SortOrder
     lastUpdatedAt?: SortOrder
     inviteCode?: SortOrder
+    snapshotState?: SortOrder
+    snapshotId?: SortOrder
   }
 
   export type GameStateMaxOrderByAggregateInput = {
@@ -6278,6 +6379,7 @@ export namespace Prisma {
     version?: SortOrder
     lastUpdatedAt?: SortOrder
     inviteCode?: SortOrder
+    snapshotId?: SortOrder
   }
 
   export type GameStateMinOrderByAggregateInput = {
@@ -6287,6 +6389,7 @@ export namespace Prisma {
     version?: SortOrder
     lastUpdatedAt?: SortOrder
     inviteCode?: SortOrder
+    snapshotId?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -6356,6 +6459,50 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
 
   export type SnapshotStateCountOrderByAggregateInput = {
     snapshotId?: SortOrder
@@ -6412,11 +6559,6 @@ export namespace Prisma {
   export type PlayerScalarRelationFilter = {
     is?: PlayerWhereInput
     isNot?: PlayerWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type PlayersInGameGameIdPlayerIdCompoundUniqueInput = {
@@ -6532,6 +6674,10 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type PlayersInGameUpdateManyWithoutGameNestedInput = {
@@ -6680,6 +6826,20 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -6764,6 +6924,46 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
@@ -6883,6 +7083,8 @@ export namespace Prisma {
     version: string
     lastUpdatedAt?: Date | string
     inviteCode?: string
+    snapshotState?: NullableJsonNullValueInput | InputJsonValue
+    snapshotId?: string | null
   }
 
   export type GameStateUncheckedCreateWithoutPlayersInGameInput = {
@@ -6894,6 +7096,8 @@ export namespace Prisma {
     version: string
     lastUpdatedAt?: Date | string
     inviteCode?: string
+    snapshotState?: NullableJsonNullValueInput | InputJsonValue
+    snapshotId?: string | null
   }
 
   export type GameStateCreateOrConnectWithoutPlayersInGameInput = {
@@ -6938,6 +7142,8 @@ export namespace Prisma {
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviteCode?: StringFieldUpdateOperationsInput | string
+    snapshotState?: NullableJsonNullValueInput | InputJsonValue
+    snapshotId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GameStateUncheckedUpdateWithoutPlayersInGameInput = {
@@ -6949,6 +7155,8 @@ export namespace Prisma {
     version?: StringFieldUpdateOperationsInput | string
     lastUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviteCode?: StringFieldUpdateOperationsInput | string
+    snapshotState?: NullableJsonNullValueInput | InputJsonValue
+    snapshotId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PlayerUpsertWithoutPlayersInGameInput = {

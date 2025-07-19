@@ -12,6 +12,10 @@ const localStateSlice = createSlice({
   initialState,
   name: "localStateSlice",
   reducers: {
+    replaceLocalState: (state, action: PayloadAction<LocalGameStateSlice>) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      state = action.payload;
+    },
     setLocalState: (state, action: PayloadAction<object | undefined>) => {
       state.localState = action.payload;
     },
@@ -24,5 +28,6 @@ const localStateSlice = createSlice({
   }
 });
 
-export const { setLocalState, updateLocalState } = localStateSlice.actions;
+export const { replaceLocalState, setLocalState, updateLocalState } =
+  localStateSlice.actions;
 export const LocalStateReducer = localStateSlice.reducer;

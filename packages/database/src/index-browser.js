@@ -125,7 +125,9 @@ exports.Prisma.GameStateScalarFieldEnum = {
   gameType: 'gameType',
   version: 'version',
   lastUpdatedAt: 'lastUpdatedAt',
-  inviteCode: 'inviteCode'
+  inviteCode: 'inviteCode',
+  snapshotState: 'snapshotState',
+  snapshotId: 'snapshotId'
 };
 
 exports.Prisma.SnapshotStateScalarFieldEnum = {
@@ -158,6 +160,11 @@ exports.Prisma.SortOrder = {
 };
 
 exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 

@@ -17,9 +17,16 @@ const gameStateSlice = createSlice({
   initialState,
   name: "gameStateSlice",
   reducers: {
+    replaceState: (state, action: PayloadAction<GameStateReduxSlice>) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      state = action.payload;
+    },
     setGame: (state, action: PayloadAction<GameStateAndInfo>) => {
       state.gameInfo = omit(action.payload, "gameState");
       state.gameState = action.payload.gameState;
+    },
+    setGameState: (state, action: PayloadAction<object>) => {
+      state.gameState = action.payload;
     },
     updateGameState: <GameState extends object = object>(
       state: GameStateReduxSlice<object>,
@@ -34,5 +41,6 @@ const gameStateSlice = createSlice({
   }
 });
 
-export const { setGame, updateGameState } = gameStateSlice.actions;
+export const { replaceState, setGame, setGameState, updateGameState } =
+  gameStateSlice.actions;
 export const GameStateReducer = gameStateSlice.reducer;

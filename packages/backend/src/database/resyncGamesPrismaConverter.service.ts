@@ -35,10 +35,12 @@ export class ResyncGamesConverterService {
       gameId: gameState.gameId as GameId,
       gameState: gameState.gameState as object,
       gameType: gameState.gameType as GameType,
+      hasSnapshotState: gameState.snapshotState != null,
       lastUpdatedAt: gameState.lastUpdatedAt.toISOString(),
       players: players.map((p) =>
         this.convertPlayer(p, indexedPlayersInGame[p.playerId])
-      )
+      ),
+      snapshotId: (gameState.snapshotId ?? undefined) as SnapshotId | undefined
     };
   };
 

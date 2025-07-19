@@ -25,6 +25,23 @@ export interface InitiateGameFromSnapshotResponse {
   players: Player[];
 }
 
+export interface UpdateSnapshotStatRequest {
+  gameId?: GameId;
+  newSnapshotState: Omit<SnapshotState, "snapshotId" | "timestamp">;
+  snapshotId: SnapshotId;
+}
+
+export interface ResetGameToSnapshotRequest {
+  gameId: GameId;
+}
+
+export interface ResetGameToSnapshotResponse {
+  gameId: GameId;
+  gameStateSlice: object;
+  localStateSlice: object;
+  playerSlice: object;
+}
+
 export type SnapshotId = string & { __brand: "snapshot-id" };
 
 export interface SnapshotStateApi extends Service {
@@ -38,8 +55,16 @@ export interface SnapshotStateApi extends Service {
     payload: SnapshotStateDisplay;
     response: InitiateGameFromSnapshotResponse;
   };
+  resetGameToSnapshot: {
+    payload: ResetGameToSnapshotRequest;
+    response: ResetGameToSnapshotResponse;
+  };
   snapshotState: {
     payload: Omit<SnapshotState, "snapshotId" | "timestamp">;
+    response: { snapshotId: SnapshotId };
+  };
+  updateSnapshotState: {
+    payload: UpdateSnapshotStatRequest;
     response: { snapshotId: SnapshotId };
   };
 }
@@ -50,6 +75,8 @@ export const SnapshotStateServiceDefinition: ServiceDefinition<SnapshotStateApi>
     endpoints: {
       getSnapshotStates: "get-snapshot-states",
       initiateGameFromSnapshot: "initiate-game-from-snapshot",
-      snapshotState: "snapshot-state"
+      resetGameToSnapshot: "reset-game-to-snapshot",
+      snapshotState: "snapshot-state",
+      updateSnapshotState: "update-snapshot-state"
     }
   };
