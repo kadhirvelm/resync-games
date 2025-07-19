@@ -77,9 +77,13 @@ export class SnapshotStateService {
     };
 
     const idMapping: Map<PlayerId, PlayerId> = new Map();
+    const teamMapping: Map<PlayerId, number> = new Map();
+
     const newPlayers = gameState.gameInfo.players.map((player): Player => {
       const newPlayerId = v4() as PlayerId;
+
       idMapping.set(player.playerId, newPlayerId);
+      teamMapping.set(player.playerId, player.team ?? 0);
 
       return {
         avatarCollection: player.avatarCollection,
@@ -98,7 +102,8 @@ export class SnapshotStateService {
       data: {
         PlayersInGame: {
           create: newPlayers.map((player) => ({
-            playerId: player.playerId
+            playerId: player.playerId,
+            team: teamMapping.get(player.playerId) ?? 0
           }))
         },
         currentGameState: "playing",

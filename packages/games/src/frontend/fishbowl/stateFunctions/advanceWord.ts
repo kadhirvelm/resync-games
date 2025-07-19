@@ -8,6 +8,23 @@ import {
 } from "../store/fishbowlRedux";
 import { newRound } from "./newRound";
 
+export function getNewWord(updatedRound: FishbowlRound) {
+  const newWord = sample(updatedRound.remainingWords);
+  if (newWord === undefined) {
+    updatedRound.currentActiveWord = undefined;
+
+    return updatedRound;
+  }
+
+  updatedRound.currentActiveWord = newWord;
+  const newWordIndex = updatedRound.remainingWords.findIndex((word) =>
+    isEqual(word, newWord)
+  );
+  updatedRound.remainingWords.splice(newWordIndex, 1);
+
+  return updatedRound;
+}
+
 export function advanceWord(
   activeRound: FishbowlRound,
   guessingPlayer: PlayerInGame
@@ -31,19 +48,7 @@ export function advanceWord(
   });
 
   updatedRound.currentActiveDrawing = undefined;
-
-  const newWord = sample(updatedRound.remainingWords);
-  if (newWord === undefined) {
-    updatedRound.currentActiveWord = undefined;
-
-    return updatedRound;
-  }
-
-  updatedRound.currentActiveWord = newWord;
-  const newWordIndex = updatedRound.remainingWords.findIndex((word) =>
-    isEqual(word, newWord)
-  );
-  updatedRound.remainingWords.splice(newWordIndex, 1);
+  getNewWord(updatedRound);
 
   return updatedRound;
 }

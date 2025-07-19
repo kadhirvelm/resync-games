@@ -31,5 +31,5 @@ export const TimerState = () => {
     return <CircleStop color="red" size={70} />;
   }
 
-  return <FishbowlTimer size={50} timer={timerState} />;
+  return <FishbowlTimer size={100} timer={timerState} />;
 };

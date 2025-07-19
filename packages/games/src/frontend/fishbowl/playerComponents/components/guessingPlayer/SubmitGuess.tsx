@@ -21,15 +21,23 @@ export const SubmitGuess = ({
   const maybeNewGuessDetails = useFishbowlSelector(selectNewPlayerGuess);
 
   const [guess, setGuess] = useState("");
+  const sanitizedGuess = guess.trim().toLowerCase();
+
   const textFieldRef = useRef<HTMLInputElement>(null);
 
+  const existingGuesses =
+    maybeNewGuessDetails?.currentRoundGuesses?.guesses ?? [];
+  const hasPreviouslyGuessed = existingGuesses.some(
+    (g) => g.guess === sanitizedGuess
+  );
+
   const onGuess = () => {
-    const sanitizedGuess = guess.trim().toLowerCase();
     if (
       sanitizedGuess.length === 0 ||
       maybeNewGuessDetails === undefined ||
       maybeNewGuessDetails.player === undefined ||
-      maybeNewGuessDetails.currentActiveWord === undefined
+      maybeNewGuessDetails.currentActiveWord === undefined ||
+      hasPreviouslyGuessed
     ) {
       return;
     }
@@ -42,9 +50,6 @@ export const SubmitGuess = ({
       roundNumber: maybeNewGuessDetails.roundNumber,
       timestamp: new Date().toISOString()
     };
-
-    const existingGuesses =
-      maybeNewGuessDetails.currentRoundGuesses?.guesses ?? [];
 
     const updatedRoundGuesses: FishbowlSinglePlayerGuesses = {
       guesses: [newGuess].concat(existingGuesses),
@@ -90,7 +95,11 @@ export const SubmitGuess = ({
         style={{ width: "50vw" }}
         value={guess}
       />
-      <Button color={isOnActiveTeam ? "green" : undefined} onClick={onGuess}>
+      <Button
+        color={isOnActiveTeam ? "green" : undefined}
+        disabled={hasPreviouslyGuessed}
+        onClick={onGuess}
+      >
         Guess
       </Button>
     </Flex>

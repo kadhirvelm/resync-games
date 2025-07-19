@@ -1,10 +1,12 @@
 import {
+  CurrentGameState,
   GameStateAndInfo,
   PlayerId,
   PlayerInGame,
   WithTimestamp
 } from "@/imports/api";
-import { IGameServer, TickGameState } from "../base";
+import { ICanChangeToState, IGameServer, TickGameState } from "../base";
+import _ from "lodash";
 
 export interface FishbowlActiveTracker extends WithTimestamp {
   /**
@@ -225,6 +227,24 @@ export class FishbowlServer
         turnOrder: []
       },
       version: "1.0.0"
+    };
+  }
+
+  public onChangeState(
+    game: ICanChangeToState<FishbowlGame, FishbowlGameConfiguration>,
+    newCurrentGameState: CurrentGameState
+  ): FishbowlGame | undefined {
+    if (newCurrentGameState !== "playing") {
+      return;
+    }
+
+    // This random turn order will get cleaned up when the first round starts.
+    const allPlayers = game.players.map((player) => player.playerId);
+    const randomTurnOrder: PlayerId[] = _.shuffle(allPlayers);
+
+    return {
+      ...game.gameState,
+      turnOrder: randomTurnOrder
     };
   }
 

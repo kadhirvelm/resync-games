@@ -9,12 +9,13 @@ import {
   GetGameState,
   JoinGameWithCode,
   LeaveGame,
+  ShuffleTeams,
   UpdateGame,
   UpdateGameConfiguration,
   UpdateGameResponse,
   UpdatePlayerInGame
 } from "@/imports/api";
-import _ from "lodash";
+import _, { range } from "lodash";
 import { ResyncGamesPrismaService } from "../database/resyncGamesPrisma.service";
 import { GameRegistryService } from "./utils/gameRegistry.service";
 import { GamesInFlightService } from "./utils/gamesInFlight.service";
@@ -370,6 +371,83 @@ export class GameStateService {
         },
         where: {
           gameId: updatePlayerInGame.gameId
+        }
+      }
+    );
+    if (newGameStateRaw == null) {
+      throw new BadRequestException(
+        "The requested game could not be found. Please check your request and try again."
+      );
+    }
+
+    const newGameState = this.prismaService.converterService.convertGameState(
+      newGameStateRaw,
+      newGameStateRaw.PlayersInGame.map((p) => p.player),
+      newGameStateRaw.PlayersInGame
+    );
+
+    await this.gamesInFlightService.updateGameInfo(newGameState);
+
+    return newGameState;
+  };
+
+  public shuffleTeams = async (shuffleTeams: ShuffleTeams) => {
+    const requestedGame = await this.prismaService.client.gameState.findFirst({
+      include: {
+        PlayersInGame: {
+          include: {
+            player: true
+          }
+        }
+      },
+      where: {
+        gameId: shuffleTeams.gameId,
+        gameType: shuffleTeams.gameType
+      }
+    });
+
+    if (requestedGame == null) {
+      throw new BadRequestException(
+        "The requested game could not be found. Please check your request and try again."
+      );
+    }
+
+    const playersInGame = requestedGame.PlayersInGame;
+    const numPlayers = playersInGame.length;
+
+    // Fill first half with team 1, second half with team 2
+    const teams: number[] = range(numPlayers).map((index) =>
+      index < Math.ceil(numPlayers / 2) ? 1 : 2
+    );
+    const shuffledTeams = _.shuffle(teams);
+
+    await Promise.all(
+      shuffledTeams.map((team, index) =>
+        this.prismaService.client.playersInGame.update({
+          data: {
+            team
+          },
+          where: {
+            gameId_playerId: {
+              gameId: shuffleTeams.gameId,
+              playerId: playersInGame[index].playerId
+            }
+          }
+        })
+      )
+    );
+
+    const newGameStateRaw = await this.prismaService.client.gameState.findFirst(
+      {
+        include: {
+          PlayersInGame: {
+            include: {
+              player: true
+            }
+          }
+        },
+        where: {
+          gameId: shuffleTeams.gameId
         }
       }
     );

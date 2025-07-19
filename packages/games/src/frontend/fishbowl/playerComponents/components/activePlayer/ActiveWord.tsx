@@ -1,14 +1,25 @@
 import { DisplayText, Flex } from "@/lib/radix";
 import { useFishbowlSelector } from "../../../store/fishbowlRedux";
 import styles from "./ActiveWord.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
+import { motion } from "motion/react";
 
 export const ActiveWord = () => {
-  const [viewingWord, setViewingWord] = useState(false);
+  const [viewingWord, setViewingWord] = useState(true);
   const activeWord = useFishbowlSelector(
     (s) => s.gameStateSlice.gameState?.round?.currentActiveWord
   );
+
+  useEffect(() => {
+    setViewingWord(true);
+
+    const timeout = setTimeout(() => {
+      setViewingWord(false);
+    }, 1500);
+
+    return () => clearTimeout(timeout);
+  }, [activeWord]);
 
   if (activeWord === undefined) {
     return;
@@ -32,13 +43,15 @@ export const ActiveWord = () => {
     >
       <Flex align="center" gap="2">
         {viewingWord ? <Eye size={40} /> : <EyeClosed size={40} />}
-        <DisplayText
-          size="9"
-          style={{ opacity: viewingWord ? 1 : 0.015 }}
-          weight="bold"
+        <motion.div
+          animate={{ opacity: viewingWord ? 1 : 0.015 }}
+          key={activeWord.word}
+          transition={{ duration: 0.35, ease: "easeInOut" }}
         >
-          {activeWord.word}
-        </DisplayText>
+          <DisplayText size="9" weight="bold">
+            {activeWord.word}
+          </DisplayText>
+        </motion.div>
       </Flex>
     </Flex>
   );
