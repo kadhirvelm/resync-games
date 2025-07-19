@@ -40,8 +40,12 @@ export const DisplayPlayer = ({ player }: { player: PlayerInGame }) => {
           <SkullIcon />
         </Button>
       )}
-      <PlayerIcon dimension={30} player={player} />
-      <DisplayText size="4">{player.displayName}</DisplayText>
+      <Flex>
+        <PlayerIcon dimension={30} player={player} />
+      </Flex>
+      <Flex className={styles.playerName}>
+        <DisplayText size="4">{player.displayName}</DisplayText>
+      </Flex>
       {isDisconnected && (
         <UnplugIcon className={styles.disconnected} size={18} />
       )}

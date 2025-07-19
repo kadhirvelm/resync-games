@@ -41,22 +41,36 @@
     border-radius: 5px;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    user-select: none;
 }
 
 .one {
     @extend %circleConfirm;
 
     background: vars.$red;
+
+    &:hover {
+        background: rgba(vars.$red, 0.5);
+    }
 }
 
 .two {
     @extend %circleConfirm;
 
     background: vars.$yellow;
+
+    &:hover {
+        background: rgba(vars.$yellow, 0.5);
+    }
 }
 
 .three {
     @extend %circleConfirm;
 
     background: vars.$green;
+
+    &:hover {
+        background: rgba(vars.$green, 0.5);
+    }
 }

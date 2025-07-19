@@ -6,6 +6,7 @@ import {
   FishbowlGameConfiguration,
   FishbowlRound
 } from "../../../backend";
+import { getNewWord } from "./advanceWord";
 
 export function getNextPlayer(
   turnOrder: PlayerId[],
@@ -56,6 +57,13 @@ export function advanceToNextPlayer(
   };
   newFishbowlRound.currentActivePlayer = nextActivePlayer;
   newFishbowlRound.currentActiveDrawing = undefined;
+
+  if (newFishbowlRound.currentActiveWord !== undefined) {
+    newFishbowlRound.remainingWords = newFishbowlRound.remainingWords.concat(
+      newFishbowlRound.currentActiveWord
+    );
+    getNewWord(newFishbowlRound);
+  }
 
   return newFishbowlRound;
 }

@@ -8,6 +8,7 @@ import {
   GetGlobalScreenUrl,
   JoinGameWithCode,
   LeaveGame,
+  ShuffleTeams,
   UpdateGame,
   UpdateGameConfiguration,
   UpdatePlayerInGame
@@ -52,6 +53,11 @@ export class GameStateController
   @getDecorator(GameStateServiceDefinition.endpoints.leaveGame)
   public async leaveGame(@Body() request: LeaveGame) {
     return this.gameStateService.leaveGame(request);
+  }
+
+  @getDecorator(GameStateServiceDefinition.endpoints.shuffleTeams)
+  public async shuffleTeams(@Body() request: ShuffleTeams) {
+    return this.gameStateService.shuffleTeams(request);
   }
 
   @getDecorator(GameStateServiceDefinition.endpoints.updateGame)

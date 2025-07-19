@@ -9,6 +9,7 @@ import {
 } from "@/lib/stableIdentifiers/teamIdentifier";
 import { useGameStateSelector } from "@/redux";
 import { ClientServiceCallers } from "@/services/serviceCallers";
+import { DicesIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { useContext, useState } from "react";
 import { PlayerContext } from "../player/PlayerContext";
@@ -16,8 +17,11 @@ import { GameConfigurationSideBar } from "./components/GameConfigurationSideBar"
 import { GoHome } from "./components/GoHome";
 import styles from "./GameLobby.module.scss";
 import { canStartGame } from "./utils/canStartGame";
+import { useMediaQuery } from "../../lib/hooks/useMediaQuery";
 
 export const GameLobby = () => {
+  const { isMobile } = useMediaQuery();
+
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
   const { player } = useContext(PlayerContext);
 
@@ -78,6 +82,25 @@ export const GameLobby = () => {
     console.error(response);
   };
 
+  const onShuffleTeams = async () => {
+    if (gameInfo === undefined) {
+      return;
+    }
+
+    setIsLoading(true);
+    const response = await ClientServiceCallers.gameState.shuffleTeams({
+      gameId: gameInfo.gameId,
+      gameType: gameInfo.gameType
+    });
+    setIsLoading(false);
+
+    if (!isServiceError(response)) {
+      return;
+    }
+
+    console.error(response);
+  };
+
   const renderInviteCode = () => {
     if (gameInfo === undefined) {
       return;
@@ -116,14 +139,13 @@ export const GameLobby = () => {
     }
 
     return (
-      <Flex align="center" direction="column">
+      <Flex direction="column">
         <DisplayText color="gray" mb="1" size="2">
           Undecided
         </DisplayText>
         <Flex
           className={styles.players}
           gap="3"
-          mx="3"
           style={{ background: getTeamColor(0) }}
         >
           {undecided.map((p) => (
@@ -166,36 +188,38 @@ export const GameLobby = () => {
     const teamName = getTeamName(playersInTeam, team);
 
     return (
-      <Flex direction="column">
+      <Flex flex="1" gap="4">
         <motion.div
           animate={{ opacity: 1, rotate: 0 }}
           initial={{ opacity: 0, rotate: -180 }}
           key={teamName}
           transition={{ delay: 0.5 }}
         >
-          <Flex justify="center" mb="1">
-            <DisplayText size="4" weight="bold">
+          <Flex justify="center" mt="2">
+            <DisplayText size="9" weight="bold">
               {teamName}
             </DisplayText>
           </Flex>
         </motion.div>
-        <Flex
-          className={styles.players}
-          direction="column"
-          gap="2"
-          style={{ background: getTeamColor(team) }}
-        >
-          {maybeRenderPlayers()}
-        </Flex>
-        <Flex mt="2" px="4">
-          <Button
-            disabled={thisPlayerTeam === team}
-            loading={isJoiningTeam}
-            onClick={joinTeam(team)}
-            variant="outline"
+        <Flex direction="column" flex="1" gap="2">
+          <Flex
+            className={styles.players}
+            direction="column"
+            gap="2"
+            style={{ background: getTeamColor(team) }}
           >
-            Join team
-          </Button>
+            {maybeRenderPlayers()}
+          </Flex>
+          <Flex>
+            <Button
+              disabled={thisPlayerTeam === team}
+              loading={isJoiningTeam}
+              onClick={joinTeam(team)}
+              variant="outline"
+            >
+              Join team
+            </Button>
+          </Flex>
         </Flex>
       </Flex>
     );
@@ -207,20 +231,37 @@ export const GameLobby = () => {
         <GoHome />
       </Flex>
       <GameConfigurationSideBar />
-      <Flex align="center" direction="column" flex="4" gap="8">
-        {renderInviteCode()}
-        {maybeRenderUndecided()}
-        <Flex align="center" direction="column" flex="1" gap="3">
-          {renderTeam(1)}
-          <DisplayText>VS</DisplayText>
-          {renderTeam(2)}
-        </Flex>
-        <Flex justify="center">
-          <Flex height="200px" width="25vw">
+      <Flex align="center" direction="column" flex="1">
+        <Flex direction="column" width={isMobile ? "85vw" : "50vw"}>
+          <Flex direction="column" gap="8">
+            {renderInviteCode()}
+            {maybeRenderUndecided()}
+            <Flex direction="column" flex="1" gap="6">
+              {renderTeam(1)}
+              <Flex
+                flex="1"
+                gap="2"
+                justify="center"
+                style={{ paddingLeft: "68px" }}
+              >
+                <DisplayText size="5" weight="bold">
+                  VS
+                </DisplayText>
+                <Flex>
+                  <Button onClick={onShuffleTeams} variant="outline">
+                    <DicesIcon />
+                  </Button>
+                </Flex>
+              </Flex>
+              {renderTeam(2)}
+            </Flex>
+          </Flex>
+          <Flex align="center" flex="1" mb="5" minHeight="50px" mt="8">
             <Button
               disabled={!maybeCheckCanStartGame()}
               loading={isLoading}
               onClick={onStartGame}
+              style={{ height: "100%" }}
             >
               Start!
             </Button>

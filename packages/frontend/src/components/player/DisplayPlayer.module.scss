@@ -3,3 +3,7 @@
 .disconnected {
     color: vars.$red;
 }
+
+.playerName {
+    word-break: break-all;
+}

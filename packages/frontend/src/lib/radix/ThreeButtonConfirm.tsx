@@ -22,6 +22,7 @@ export const ThreeButtonConfirm = ({
   slideColor
 }: ThreeButtonConfirmProps) => {
   const [value, setValue] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     if (value === 0) {
@@ -49,6 +50,15 @@ export const ThreeButtonConfirm = ({
     return () => clearTimeout(timeout);
   }, [value]);
 
+  const onIncrementMouseOver =
+    (expectedValue: number, newValue: number) => () => {
+      if (!isDragging) {
+        return;
+      }
+
+      return onIncrementValue(expectedValue, newValue)();
+    };
+
   const onIncrementValue = (expectedValue: number, newValue: number) => () => {
     if (value !== expectedValue) {
       return;
@@ -66,11 +76,11 @@ export const ThreeButtonConfirm = ({
     const width = rect.width;
     const percent = Math.floor((x / width) * 100);
 
-    if (percent <= 33 && value === 0) {
+    if (percent > 15 && percent <= 33 && value === 0) {
       onIncrementValue(0, 33)();
-    } else if (percent > 33 && percent <= 66 && value === 33) {
+    } else if (percent > 50 && percent <= 66 && value === 33) {
       onIncrementValue(33, 66)();
-    } else if (percent > 66 && value === 66) {
+    } else if (percent > 85 && value === 66) {
       onIncrementValue(66, 100)();
     }
 
@@ -81,6 +91,9 @@ export const ThreeButtonConfirm = ({
   return (
     <Flex
       className={styles.container}
+      onMouseDown={() => setIsDragging(true)}
+      onMouseLeave={() => setIsDragging(false)}
+      onMouseUp={() => setIsDragging(false)}
       onTouchMove={handleDrag}
       p="2"
       style={{ flex: 1, minWidth: `${calculatedMinimumWidth}px` }}
@@ -90,6 +103,7 @@ export const ThreeButtonConfirm = ({
         flex="1"
         justify="center"
         onClick={onIncrementValue(0, 33)}
+        onMouseOver={onIncrementMouseOver(0, 33)}
       >
         <Flex className={styles.one}></Flex>
       </Flex>
@@ -98,6 +112,7 @@ export const ThreeButtonConfirm = ({
         flex="1"
         justify="center"
         onClick={onIncrementValue(33, 66)}
+        onMouseOver={onIncrementMouseOver(33, 66)}
       >
         <Flex className={styles.two}></Flex>
       </Flex>
@@ -106,6 +121,7 @@ export const ThreeButtonConfirm = ({
         flex="1"
         justify="center"
         onClick={onIncrementValue(66, 100)}
+        onMouseOver={onIncrementMouseOver(66, 100)}
       >
         <Flex className={styles.three}></Flex>
       </Flex>

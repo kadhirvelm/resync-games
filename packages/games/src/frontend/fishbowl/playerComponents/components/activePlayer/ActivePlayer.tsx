@@ -1,4 +1,5 @@
 import { DisplayText, Flex } from "@/lib/radix";
+import { useState } from "react";
 import { useFishbowlSelector } from "../../../store/fishbowlRedux";
 import { selectActiveRound } from "../../selectors/playerSelectors";
 import { FishbowlTimer } from "../../timer/FishbowlTimer";
@@ -6,7 +7,6 @@ import { ActiveWord } from "./ActiveWord";
 import { DrawingMode } from "./DrawingMode";
 import { SomeoneGotIt } from "./SomeoneGotIt";
 import { TimerControl } from "./TimerControl";
-import { useState } from "react";
 
 export const ActivePlayer = () => {
   const timer = useFishbowlSelector(
@@ -34,7 +34,6 @@ export const ActivePlayer = () => {
             </DisplayText>
           </Flex>
           <TimerControl />
-          <SomeoneGotIt timer={timer} />
         </Flex>
       </Flex>
     );
