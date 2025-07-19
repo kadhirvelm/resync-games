@@ -1,10 +1,12 @@
-import { Body, Controller } from "@nestjs/common";
 import {
+  ResetGameToSnapshotRequest,
   SnapshotState,
   SnapshotStateApi,
   SnapshotStateDisplay,
-  SnapshotStateServiceDefinition
+  SnapshotStateServiceDefinition,
+  UpdateSnapshotStatRequest
 } from "@/imports/api";
+import { Body, Controller } from "@nestjs/common";
 import {
   ServiceControllerInterface,
   getDecorator
@@ -32,5 +34,17 @@ export class SnapshotStateController
   )
   public async initiateGameFromSnapshot(@Body() request: SnapshotStateDisplay) {
     return this.snapshotStateService.initiateGameFromSnapshot(request);
+  }
+
+  @getDecorator(SnapshotStateServiceDefinition.endpoints.resetGameToSnapshot)
+  public async resetGameToSnapshot(
+    @Body() request: ResetGameToSnapshotRequest
+  ) {
+    return this.snapshotStateService.resetGameToSnapshot(request);
+  }
+
+  @getDecorator(SnapshotStateServiceDefinition.endpoints.updateSnapshotState)
+  public async updateSnapshotState(@Body() request: UpdateSnapshotStatRequest) {
+    return this.snapshotStateService.updateSnapshotState(request);
   }
 }

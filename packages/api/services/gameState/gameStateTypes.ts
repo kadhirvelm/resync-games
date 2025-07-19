@@ -1,4 +1,5 @@
 import { WithTimestamp } from "../../genericTypes";
+import { SnapshotId } from "../snapshotState";
 import { Player } from "../user";
 
 export type GameId = string & { __brand: "game-id" };
@@ -16,8 +17,10 @@ export interface GameInfo<GameConfiguration = object> extends WithTimestamp {
   gameConfiguration: GameConfiguration;
   gameId: GameId;
   gameType: GameType;
+  hasSnapshotState: boolean;
   inviteCode: string;
   players: PlayerInGame[];
+  snapshotId?: SnapshotId;
   version: string;
 }
 

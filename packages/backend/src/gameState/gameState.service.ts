@@ -24,7 +24,7 @@ import { InviteCodeService } from "./utils/inviteCode.service";
 export class GameStateService {
   public constructor(
     private prismaService: ResyncGamesPrismaService,
-    private gamesInFlightService: GamesInFlightService,
+    public gamesInFlightService: GamesInFlightService,
     private userService: UserService,
     private gameRegistryService: GameRegistryService,
     private inviteCodeService: InviteCodeService
