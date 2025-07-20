@@ -1,0 +1,9 @@
+import { Flex } from "@/lib/radix";
+
+export const TriviaGlobalScreen = () => {
+  return (
+    <Flex align="center" flex="1" justify="center">
+      Hello Global Screen
+    </Flex>
+  );
+};

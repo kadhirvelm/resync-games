@@ -5,6 +5,7 @@ import { IGameServer } from "./base";
 import { FishbowlServer } from "./fishbowl/fishbowl";
 import { PongGameServer } from "./pong/pong";
 import { TheStockTimesServer } from "./theStockTimes/theStockTimes";
+import { TriviaServer } from "./trivia/trivia";
 
 export type BackendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: BackendRegisteredGame;
@@ -46,6 +47,10 @@ export const BACKEND_GAME_REGISTRY: BackendGameRegistry = {
   },
   "the-stock-times": {
     gameServer: new TheStockTimesServer(),
+    stateReconcilerMethod: "closest"
+  },
+  trivia: {
+    gameServer: new TriviaServer(),
     stateReconcilerMethod: "closest"
   }
 };
