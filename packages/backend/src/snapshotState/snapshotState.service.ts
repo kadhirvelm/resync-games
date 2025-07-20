@@ -220,4 +220,10 @@ export class SnapshotStateService {
 
     return { snapshotId: updateSnapshotStateRequest.snapshotId as SnapshotId };
   };
+
+  public deleteSnapshotState = async (snapshotId: SnapshotId) => {
+    await this.prismaService.client.snapshotState.delete({
+      where: { snapshotId }
+    });
+  };
 }

@@ -1,4 +1,5 @@
 import {
+  DeleteSnapshotStateRequest,
   ResetGameToSnapshotRequest,
   SnapshotState,
   SnapshotStateApi,
@@ -46,5 +47,14 @@ export class SnapshotStateController
   @getDecorator(SnapshotStateServiceDefinition.endpoints.updateSnapshotState)
   public async updateSnapshotState(@Body() request: UpdateSnapshotStatRequest) {
     return this.snapshotStateService.updateSnapshotState(request);
+  }
+
+  @getDecorator(SnapshotStateServiceDefinition.endpoints.deleteSnapshotState)
+  public async deleteSnapshotState(
+    @Body() request: DeleteSnapshotStateRequest
+  ) {
+    await this.snapshotStateService.deleteSnapshotState(request.snapshotId);
+
+    return {};
   }
 }
