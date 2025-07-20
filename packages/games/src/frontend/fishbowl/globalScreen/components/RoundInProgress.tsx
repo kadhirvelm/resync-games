@@ -25,7 +25,7 @@ export const RoundInProgress = () => {
   return (
     <Flex flex="1">
       {helpers()}
-      <Flex direction="column" flex="1" p="2">
+      <Flex direction="column" flex="1" gap="2" p="2">
         <Flex flex="1">
           <GlobalActivePlayer />
         </Flex>

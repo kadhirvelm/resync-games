@@ -56,12 +56,11 @@ export const ActivePlayer = () => {
 
   return (
     <Flex
-      align="center"
       direction="column"
       flex="1"
       gap="4"
-      justify="center"
-      m="2"
+      mx="2"
+      my={drawingMode ? "8" : "auto"}
     >
       <Flex direction="column" gap="4">
         <Flex align="center" gap="2">
@@ -72,7 +71,7 @@ export const ActivePlayer = () => {
           <SomeoneGotIt timer={timer} />
           <TimerControl />
         </Flex>
-        <Flex flex={drawingMode ? "1" : "0"}>
+        <Flex flex={drawingMode ? "1" : "0"} style={{ paddingBottom: "250px" }}>
           <DrawingMode
             drawingMode={drawingMode}
             setDrawingMode={setDrawingMode}

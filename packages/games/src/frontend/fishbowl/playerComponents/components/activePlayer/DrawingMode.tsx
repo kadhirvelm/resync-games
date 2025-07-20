@@ -57,9 +57,11 @@ export const DrawingMode = ({
   }
 
   return (
-    <DrawingBoard
-      initialDataUrl={activeRound?.currentActiveDrawing?.drawing}
-      onCavasChange={onCavasChange}
-    />
+    <Flex pr="4" style={{ maxHeight: "50vh" }}>
+      <DrawingBoard
+        initialDataUrl={activeRound?.currentActiveDrawing?.drawing}
+        onCavasChange={onCavasChange}
+      />
+    </Flex>
   );
 };
