@@ -9,67 +9,70 @@ import { FishbowlSingleGuess } from "../../../../backend";
 import { PlayerInGame } from "../../../../../imports/api";
 import { PlayerIcon } from "@/components/player/PlayerIcon";
 
-export const CurrentGuesses = () => {
-  const teams = useFishbowlSelector(selectTeamWithNames);
+const DisplayGuesses = ({
+  teamGuesses,
+  players
+}: {
+  players: PlayerInGame[];
+  teamGuesses: FishbowlSingleGuess[];
+}) => {
   const guessesByTeam = useFishbowlSelector(selectGuessesByTeam);
   const timerState = useFishbowlSelector(
     (s) => s.gameStateSlice.gameState?.round?.currentActivePlayer.timer.state
   );
 
-  if (teams === undefined || guessesByTeam === undefined) {
+  if (guessesByTeam === undefined) {
     return;
   }
 
-  const maybeRenderGuesses = (
-    teamGuesses: FishbowlSingleGuess[],
-    players: PlayerInGame[]
-  ) => {
-    if (timerState !== "running") {
+  if (timerState !== "running") {
+    return (
+      <Flex align="center" direction="column" flex="1" gap="4">
+        {players.map((p) => (
+          <Flex align="center" gap="4" key={p.playerId}>
+            <PlayerIcon dimension={50} player={p} />
+            <DisplayText size="8">{p.displayName}</DisplayText>
+          </Flex>
+        ))}
+      </Flex>
+    );
+  }
+
+  return teamGuesses.map((guess, index) => {
+    if (guess.guess === guessesByTeam.correctGuess) {
       return (
-        <Flex
-          align="center"
-          direction="column"
-          flex="1"
-          gap="4"
-          justify="center"
-        >
-          {players.map((p) => (
-            <Flex align="center" gap="2" key={p.playerId}>
-              <PlayerIcon dimension={25} player={p} />
-              <DisplayText size="4">{p.displayName}</DisplayText>
-            </Flex>
-          ))}
+        <Flex direction="column" gap="2" key={guess.timestamp}>
+          <DisplayText color="green" size="7" weight="bold">
+            {guess.guessingPlayer.displayName} got it!
+          </DisplayText>
         </Flex>
       );
     }
 
-    return teamGuesses.map((guess, index) => {
-      if (guess.guess === guessesByTeam.correctGuess) {
-        return (
-          <Flex direction="column" gap="2" key={guess.timestamp}>
-            <DisplayText color="green" size="7" weight="bold">
-              {guess.guessingPlayer.displayName} got it!
-            </DisplayText>
-          </Flex>
-        );
-      }
+    const opacity = Math.max(0.1, 1 - (index - 4) * 0.15);
 
-      const opacity = Math.max(0.1, 1 - (index - 4) * 0.15);
+    return (
+      <Flex
+        align="center"
+        gap="2"
+        justify="between"
+        key={guess.timestamp}
+        style={{ opacity }}
+      >
+        <DisplayText size="8">{guess.guess}</DisplayText>
+        <DisplayText size="4">{guess.guessingPlayer.displayName}</DisplayText>
+      </Flex>
+    );
+  });
+};
 
-      return (
-        <Flex
-          align="center"
-          gap="2"
-          justify="between"
-          key={guess.timestamp}
-          style={{ opacity }}
-        >
-          <DisplayText size="8">{guess.guess}</DisplayText>
-          <DisplayText size="4">{guess.guessingPlayer.displayName}</DisplayText>
-        </Flex>
-      );
-    });
-  };
+export const CurrentGuesses = () => {
+  const teams = useFishbowlSelector(selectTeamWithNames);
+  const guessesByTeam = useFishbowlSelector(selectGuessesByTeam);
+
+  if (teams === undefined || guessesByTeam === undefined) {
+    return;
+  }
 
   return (
     <Flex direction="column" flex="1">
@@ -83,20 +86,19 @@ export const CurrentGuesses = () => {
           <Flex
             direction="column"
             flex="1"
-            gap="7"
             key={teamNumber}
             p="5"
             style={{ background: getTeamColor(parseFloat(teamNumber)) }}
           >
             <Flex align="center" gap="2" justify="center" mb="5">
               {isActiveTeam && <ArrowRightIcon size={30} />}
-              <DisplayText size="9" weight="bold">
+              <DisplayText style={{ fontSize: "70px" }} weight="bold">
                 {teamName}
               </DisplayText>
               {isActiveTeam && <ArrowLeftIcon size={30} />}
             </Flex>
-            <Flex className={styles.guesses} direction="column" gap="4">
-              {maybeRenderGuesses(teamGuesses, players)}
+            <Flex className={styles.guesses} direction="column">
+              <DisplayGuesses players={players} teamGuesses={teamGuesses} />
             </Flex>
           </Flex>
         );

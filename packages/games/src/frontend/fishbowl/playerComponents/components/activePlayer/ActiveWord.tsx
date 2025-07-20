@@ -19,7 +19,7 @@ export const ActiveWord = () => {
     }, 1500);
 
     return () => clearTimeout(timeout);
-  }, [activeWord]);
+  }, [activeWord?.word]);
 
   if (activeWord === undefined) {
     return;

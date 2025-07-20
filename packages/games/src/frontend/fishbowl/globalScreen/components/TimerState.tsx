@@ -18,7 +18,7 @@ export const TimerState = () => {
       startingGun.play();
     }
 
-    if (timerState?.state === "paused") {
+    if (timerState?.state === "paused" && timerState?.seedTime > 0) {
       endTurn.play();
     }
   }, [timerState?.state]);

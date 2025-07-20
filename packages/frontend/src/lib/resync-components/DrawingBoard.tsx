@@ -37,7 +37,7 @@ export const DrawingBoard = ({
 
   const [tool, setTool] = useState<"marker" | "eraser">("marker");
   const [color, setColor] = useState<string>("#000000");
-  const [lineWidth, setLineWidth] = useState<number>(5);
+  const [lineWidth, setLineWidth] = useState<number>(10);
 
   const [isDrawing, setIsDrawing] = useState(false);
   const [startPoint, setStartPoint] = useState<Point | null>(null);
@@ -214,7 +214,7 @@ export const DrawingBoard = ({
   };
 
   return (
-    <Flex className={styles.temp} direction="column" flex="1" gap="2">
+    <Flex className={styles.temp} direction="column" flex="1" gap="3">
       <canvas
         className={styles.background}
         onMouseDown={startDrawing}
@@ -240,7 +240,7 @@ export const DrawingBoard = ({
             }}
           />
         ))}
-        <Flex ml="2">
+        <Flex ml="3">
           <Button
             onClick={() => setTool("eraser")}
             variant={tool === "eraser" ? "solid" : "outline"}
@@ -249,28 +249,28 @@ export const DrawingBoard = ({
           </Button>
         </Flex>
       </Flex>
+      <Flex align="center" flex="1" gap="2">
+        {LINE_WIDTHS.map((width) => (
+          <svg
+            className={clsx(styles.lineWidth, {
+              [styles.activeCanvas ?? ""]: lineWidth === width
+            })}
+            height="40"
+            key={width}
+            onClick={() => setLineWidth(width)}
+            width="40"
+          >
+            <path
+              className={styles.lineWidthInactive}
+              d="M20 10 C15 15, 25 25, 20 30"
+              fill="none"
+              strokeLinecap="round"
+              strokeWidth={width / 2}
+            />
+          </svg>
+        ))}
+      </Flex>
       <Flex align="center" gap="2">
-        <Flex align="center" flex="1" gap="2">
-          {LINE_WIDTHS.map((width) => (
-            <svg
-              className={clsx(styles.lineWidth, {
-                [styles.activeCanvas ?? ""]: lineWidth === width
-              })}
-              height="40"
-              key={width}
-              onClick={() => setLineWidth(width)}
-              width="40"
-            >
-              <path
-                className={styles.lineWidthInactive}
-                d="M20 10 C15 15, 25 25, 20 30"
-                fill="none"
-                strokeLinecap="round"
-                strokeWidth={width / 2}
-              />
-            </svg>
-          ))}
-        </Flex>
         <Flex>
           <Button
             disabled={history.length === 0}

@@ -44,6 +44,7 @@ export const StartGame = () => {
       updateFishbowlGameState(
         {
           gameWords,
+          lastUpdatedAt: new Date().toISOString(),
           round,
           turnOrder
         },
