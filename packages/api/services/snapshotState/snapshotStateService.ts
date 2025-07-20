@@ -42,9 +42,17 @@ export interface ResetGameToSnapshotResponse {
   playerSlice: object;
 }
 
+export interface DeleteSnapshotStateRequest {
+  snapshotId: SnapshotId;
+}
+
 export type SnapshotId = string & { __brand: "snapshot-id" };
 
 export interface SnapshotStateApi extends Service {
+  deleteSnapshotState: {
+    payload: DeleteSnapshotStateRequest;
+    response: Record<string, never>;
+  };
   getSnapshotStates: {
     payload: Record<string, never>;
     response: {
@@ -73,6 +81,7 @@ export const SnapshotStateServiceDefinition: ServiceDefinition<SnapshotStateApi>
   {
     controller: "snapshot-state",
     endpoints: {
+      deleteSnapshotState: "delete-snapshot-state",
       getSnapshotStates: "get-snapshot-states",
       initiateGameFromSnapshot: "initiate-game-from-snapshot",
       resetGameToSnapshot: "reset-game-to-snapshot",
