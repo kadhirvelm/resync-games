@@ -4105,6 +4105,7 @@ __metadata:
     compression: "npm:^1.8.0"
     dotenv: "npm:^16.5.0"
     eslint: "npm:^9.25.0"
+    express: "npm:^5.1.0"
     jest: "npm:^29.7.0"
     lodash: "npm:^4.17.21"
     lru-cache: "npm:^11.1.0"
@@ -8683,7 +8684,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:5.1.0":
+"express@npm:5.1.0, express@npm:^5.1.0":
   version: 5.1.0
   resolution: "express@npm:5.1.0"
   dependencies:

@@ -29,6 +29,7 @@
     "@resync-games/database": "workspace:^",
     "compression": "^1.8.0",
     "dotenv": "^16.5.0",
+    "express": "^5.1.0",
     "lodash": "^4.17.21",
     "lru-cache": "^11.1.0",
     "pm2": "^6.0.5",

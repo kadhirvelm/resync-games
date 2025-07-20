@@ -1,5 +1,5 @@
 import { describe, it } from "@jest/globals";
-import { replacePlayerIds } from "../replacePlayerIds";
+import { replacePlayers } from "../replacePlayerIds";
 import { PlayerId } from "../../../imports/api";
 
 describe("replacePlayerIds", () => {
@@ -16,7 +16,7 @@ describe("replacePlayerIds", () => {
       ["2000" as PlayerId, "4000" as PlayerId]
     ]);
 
-    const updatedGameState = replacePlayerIds(gameState, idMapping);
+    const updatedGameState = replacePlayers(gameState, idMapping);
 
     expect(updatedGameState).toEqual({
       players: [
@@ -39,7 +39,7 @@ describe("replacePlayerIds", () => {
       ["2000" as PlayerId, "4000" as PlayerId]
     ]);
 
-    const updatedGameState = replacePlayerIds(gameState, idMapping);
+    const updatedGameState = replacePlayers(gameState, idMapping);
 
     expect(updatedGameState).toEqual({
       players: {

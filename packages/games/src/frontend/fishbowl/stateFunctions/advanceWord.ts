@@ -38,7 +38,7 @@ export function advanceWord(
 
   updatedRound.correctGuesses.push({
     ...activeRound.currentActiveWord,
-    currentActiveDrawing: activeRound.currentActiveDrawing?.drawing,
+    currentActiveDrawing: undefined, // We don't want to store the drawing in the history, waste of space for now
     currentActivePlayer: activeRound.currentActivePlayer.player,
     currentActiveWord: activeRound.currentActiveWord,
     guess: activeRound.currentActiveWord.word,
@@ -103,6 +103,16 @@ export function useAdvanceWord() {
       allPlayers,
       gameConfiguration
     );
+
+    console.log("Dispatching to backend", {
+      lastUpdatedAt: new Date().toISOString(),
+      pastRounds: {
+        lastUpdatedAt: new Date().toISOString(),
+        rounds: newHistory
+      },
+      round,
+      turnOrder
+    });
 
     dispatch(
       updateFishbowlGameState(

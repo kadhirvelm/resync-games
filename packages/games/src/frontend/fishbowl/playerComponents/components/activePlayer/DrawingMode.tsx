@@ -45,10 +45,10 @@ export const DrawingMode = ({
 
   if (!drawingMode) {
     return (
-      <Flex flex="1" justify="end">
+      <Flex flex="1">
         <Flex>
           <Button onClick={() => setDrawingMode(true)} variant="outline">
-            <DisplayText>Drawing</DisplayText>
+            <DisplayText>Drawing mode</DisplayText>
             <PencilLineIcon />
           </Button>
         </Flex>
@@ -60,6 +60,7 @@ export const DrawingMode = ({
     <Flex pr="4" style={{ maxHeight: "50vh" }}>
       <DrawingBoard
         initialDataUrl={activeRound?.currentActiveDrawing?.drawing}
+        key={activeRound?.currentActiveWord?.word}
         onCavasChange={onCavasChange}
       />
     </Flex>

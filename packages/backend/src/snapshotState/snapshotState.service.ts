@@ -13,7 +13,7 @@ import {
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { v4 } from "uuid";
 import { ResyncGamesPrismaService } from "../database/resyncGamesPrisma.service";
-import { replacePlayerIds } from "./utils/replacePlayerIds";
+import { replacePlayers } from "./utils/replacePlayerIds";
 import { GameStateService } from "../gameState/gameState.service";
 
 @Injectable()
@@ -77,17 +77,24 @@ export class SnapshotStateService {
     };
 
     const idMapping: Map<PlayerId, PlayerId> = new Map();
+    const displayNameMapping: Map<PlayerId, { new: string; old: string }> =
+      new Map();
     const teamMapping: Map<PlayerId, number> = new Map();
 
     const newPlayers = gameState.gameInfo.players.map((player): Player => {
       const newPlayerId = v4() as PlayerId;
+      const newDisplayName = `${player.displayName}-snapshot`;
 
       idMapping.set(player.playerId, newPlayerId);
-      teamMapping.set(player.playerId, player.team ?? 0);
+      displayNameMapping.set(player.playerId, {
+        new: newDisplayName,
+        old: player.displayName
+      });
+      teamMapping.set(newPlayerId, player.team ?? 0);
 
       return {
         avatarCollection: player.avatarCollection,
-        displayName: `${player.displayName}-snapshot`,
+        displayName: newDisplayName,
         playerId: newPlayerId
       };
     });
@@ -96,7 +103,11 @@ export class SnapshotStateService {
       data: newPlayers
     });
 
-    const updatedGameState = replacePlayerIds(gameState.gameState, idMapping);
+    const updatedGameState = replacePlayers(
+      gameState.gameState,
+      idMapping,
+      displayNameMapping
+    );
 
     const newGame = await this.prismaService.client.gameState.create({
       data: {
