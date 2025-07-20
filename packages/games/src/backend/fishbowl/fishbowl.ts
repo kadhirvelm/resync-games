@@ -68,6 +68,8 @@ export interface FishbowlSingleGuess {
 export interface FishbowlCorrectSingleGuess extends FishbowlSingleGuess {
   /**
    * The current active player's drawing for the active word.
+   *
+   * NOTE: this is not stored for now, wasted space, can evaluate later
    */
   currentActiveDrawing: string | undefined;
 }

@@ -1,5 +1,3 @@
-import { UserService } from "@/user/user.service";
-import { BadRequestException, Injectable } from "@nestjs/common";
 import {
   ChangeGameState,
   GameId,
@@ -11,6 +9,14 @@ import {
   PlayerId,
   TimestampedState
 } from "@/imports/api";
+import {
+  AvailableGameType,
+  BACKEND_GAME_REGISTRY,
+  BackendRegisteredGame,
+  StateReconcilerMethod
+} from "@/imports/games";
+import { UserService } from "@/user/user.service";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { GameState, Player, PlayersInGame } from "@resync-games/database";
 import * as _ from "lodash";
 import { LRUCache } from "lru-cache";
@@ -18,16 +24,12 @@ import { ResyncGamesPrismaService } from "../../database/resyncGamesPrisma.servi
 import { GameStateSocketGateway } from "../gameState.socket";
 import { GameRegistryService } from "./gameRegistry.service";
 import { reconcileStates } from "./reconcileStates";
-import {
-  StateReconcilerMethod,
-  BackendRegisteredGame,
-  BACKEND_GAME_REGISTRY,
-  AvailableGameType
-} from "@/imports/games";
 
 @Injectable()
 export class GamesInFlightService {
-  public changeGameStateCallback?: (changeGameState: ChangeGameState) => void;
+  public changeGameStateCallback?: (
+    changeGameState: ChangeGameState
+  ) => Promise<GameStateAndInfo>;
 
   private gamesInFlightCache = new LRUCache<GameId, GameStateAndInfo>({
     max: 50
@@ -392,25 +394,34 @@ export class GamesInFlightService {
     );
 
     const maybeNewGameState = await backend.onGameStateChange?.(newGameState);
-    if (maybeNewGameState != null) {
-      newGameState.gameState = maybeNewGameState?.gameState ?? newState;
+    newGameState.gameState = maybeNewGameState?.gameState ?? newState;
 
-      if (maybeNewGameState.hasFinished) {
-        this.changeGameStateCallback?.({
-          currentGameState: "finished",
-          gameId: nextGameState.gameId,
-          gameType: nextGameState.gameType,
-          playerId: "GAME_TICKER" as PlayerId
-        });
-      }
+    // When a game has not finished, we need to get the update out asap, we so dispatch it
+    if (!maybeNewGameState?.hasFinished) {
+      this.gamesInFlightCache.set(newGameState.gameId, newGameState);
+      this.socketGateway.updateGameState(newGameState, newGameState.gameId);
+
+      this.debouncedUpdateInFlightGame(newGameState);
+
+      return { didAcceptChange: true, newGameState };
     }
 
-    this.gamesInFlightCache.set(newGameState.gameId, newGameState);
-    this.socketGateway.updateGameState(newGameState, newGameState.gameId);
+    // When a game has finished, we first update its value in the db
+    await this.updateInFlightGameInDb(newGameState);
 
-    this.debouncedUpdateInFlightGame(newGameState);
+    // Then we need the game to recognize and accept that it has finished, it could throw an error if something went wrong
+    // we rely on this callback to dispatch the update to the frontends - there could be a small lag
+    const finalizedGameState = await this.changeGameStateCallback?.({
+      currentGameState: "finished",
+      gameId: nextGameState.gameId,
+      gameType: nextGameState.gameType,
+      playerId: "GAME_TICKER" as PlayerId
+    });
 
-    return { didAcceptChange: true, newGameState };
+    return {
+      didAcceptChange: true,
+      newGameState: finalizedGameState ?? newGameState
+    };
   };
 
   private getGameStateReconcilerMethod = (

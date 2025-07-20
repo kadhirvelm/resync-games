@@ -56,26 +56,30 @@ export const ActivePlayer = () => {
 
   return (
     <Flex
+      align="center"
       direction="column"
       flex="1"
       gap="4"
       mx="2"
       my={drawingMode ? "8" : "auto"}
     >
-      <Flex direction="column" gap="4">
+      <Flex direction="column" gap="4" style={{ paddingBottom: "150px" }}>
         <Flex align="center" gap="2">
           <ActiveWord />
           <FishbowlTimer timer={timer} />
         </Flex>
-        <Flex align="center" gap="2">
-          <SomeoneGotIt timer={timer} />
-          <TimerControl />
-        </Flex>
-        <Flex flex={drawingMode ? "1" : "0"} style={{ paddingBottom: "250px" }}>
+        <SomeoneGotIt timer={timer} />
+        <Flex
+          flex={drawingMode ? "1" : "0"}
+          style={drawingMode ? { paddingBottom: "175px" } : {}}
+        >
           <DrawingMode
             drawingMode={drawingMode}
             setDrawingMode={setDrawingMode}
           />
+        </Flex>
+        <Flex>
+          <TimerControl />
         </Flex>
       </Flex>
     </Flex>
