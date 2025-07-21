@@ -36,7 +36,14 @@ export const currentFibbageSubmittedAnswers = createSelector(
     if (!currentRound || currentRound.type !== "fibbage") {
       return {};
     }
-    return currentRound.answers;
+    // Filter any "lastUpdatedAt" properties from the answers.
+    // This is because the answers are stored as a PlayerAnswers type which includes a timestamp.
+    return Object.fromEntries(
+      Object.entries(currentRound.answers)
+        // filter out the timestamp entry
+        .filter(([key]) => key !== "lastUpdatedAt")
+        .map(([playerId, answer]) => [playerId, answer.trim()])
+    );
   }
 );
 
@@ -50,7 +57,15 @@ export const currentFibbagePlayerGuesses = createSelector(
     if (!currentRound || currentRound.type !== "fibbage") {
       return {};
     }
-    return currentRound.guesses;
+
+    // Filter any "lastUpdatedAt" properties from the guesses.
+    // This is because the guesses are stored as a PlayerGuesses type which includes a timestamp
+    return Object.fromEntries(
+      Object.entries(currentRound.guesses)
+        // filter out the timestamp entry
+        .filter(([key]) => key !== "lastUpdatedAt")
+        .map(([playerId, guess]) => [playerId, guess.trim()])
+    );
   }
 );
 
