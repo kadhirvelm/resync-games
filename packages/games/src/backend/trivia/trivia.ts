@@ -52,6 +52,7 @@ export interface FibbageRound extends WithTimestamp {
    * The round number.
    */
   roundNumber: number;
+  type: "fibbage";
 }
 
 export interface TriviaGame extends WithTimestamp {
@@ -166,7 +167,8 @@ export class TriviaServer
       guesses: { lastUpdatedAt: new Date().toISOString() },
       lastUpdatedAt: new Date().toISOString(),
       question: selectedQuestion.question,
-      roundNumber
+      roundNumber,
+      type: "fibbage"
     };
   }
 }
