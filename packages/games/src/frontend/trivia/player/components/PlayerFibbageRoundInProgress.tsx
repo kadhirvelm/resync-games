@@ -102,14 +102,8 @@ export const PlayerFibbageRoundInProgress: React.FC = () => {
     return <div>No player information available!</div>;
   }
 
-  const {
-    roundNumber,
-    currentGameState,
-    allAnswers,
-    answers,
-    guesses,
-    activePlayers
-  } = round;
+  const { roundNumber, state, allAnswers, answers, guesses, activePlayers } =
+    round;
   const { playerId } = curPlayer;
 
   // Note that the user will be able to see the question and the names of players we are waiting on
@@ -153,7 +147,7 @@ export const PlayerFibbageRoundInProgress: React.FC = () => {
     );
   };
 
-  if (currentGameState === "waiting-for-answers") {
+  if (state === "waiting-for-answers") {
     // If the current player hasn't answered, present a text input for the current player to submit their answer.
     // Otherwise, display the set of players you are waiting on.
     if (answers[playerId] === undefined) {
@@ -188,7 +182,7 @@ export const PlayerFibbageRoundInProgress: React.FC = () => {
     }
   }
 
-  if (currentGameState === "waiting-for-guesses") {
+  if (state === "waiting-for-guesses") {
     // If the current player hasn't guessed, let the current player pick one of the answers as their guess.
     // Otherwise, display the set of players you are waiting on.
     if (guesses[playerId] === undefined) {
@@ -222,6 +216,15 @@ export const PlayerFibbageRoundInProgress: React.FC = () => {
         </div>
       );
     }
+  }
+
+  if (state === "finished") {
+    // The main results will be on the global screen. So we just say the round is finished.
+    return (
+      <div className="p-4">
+        <h2 className="text-xl font-bold mb-4">Round {roundNumber} Finished</h2>
+      </div>
+    );
   }
 
   return null;

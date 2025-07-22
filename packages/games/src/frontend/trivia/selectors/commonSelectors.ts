@@ -12,6 +12,13 @@ export const currentTriviaRound = createSelector(
   }
 );
 
+export const currentScores = createSelector(
+  [(state: TriviaReduxState) => state.gameStateSlice.gameState?.scores],
+  (scores) => {
+    return scores;
+  }
+);
+
 export const currentPlayer = createSelector(
   [(state: TriviaReduxState) => state.playerSlice.player],
   (player) => {
