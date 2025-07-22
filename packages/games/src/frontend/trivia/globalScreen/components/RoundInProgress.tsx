@@ -1,63 +1,26 @@
 import { Flex } from "@/lib/radix";
 import { useTriviaSelector } from "../../store/triviaRedux";
-import {
-  currentFibbageQuestion,
-  currentFibbagePlayerGuesses,
-  currentNumPlayers,
-  currentFibbageSubmittedAnswers,
-  currentFibbageCorrectAnswer
-} from "../selectors/fibbageSelectors";
+import { currentTriviaRound } from "../../selectors/commonSelectors";
+import { FibbageRoundInProgress } from "./FibbageRoundInProgress";
 
 export const RoundInProgress = () => {
-  const currentQuestion = useTriviaSelector(currentFibbageQuestion);
-  const currentAnswers = useTriviaSelector(currentFibbagePlayerGuesses);
-  const numPlayers = useTriviaSelector(currentNumPlayers);
-  const submittedAnswers = useTriviaSelector(currentFibbageSubmittedAnswers);
-  const correctAnswer = useTriviaSelector(currentFibbageCorrectAnswer);
+  const currentRound = useTriviaSelector(currentTriviaRound);
 
-  // If number of current answers < number of players, it means not all players have submitted their answers yet.
-  if (Object.keys(currentAnswers).length < numPlayers) {
-    // Display the current question and the number of players we are waiting on.
-    return (
-      <Flex flex="1" gap="2">
-        <Flex>
-          <h2>{currentQuestion}</h2>
-        </Flex>
-        <Flex>
-          <p>
-            Waiting for {numPlayers - Object.keys(currentAnswers).length}{" "}
-            players to submit their answers.
-          </p>
-        </Flex>
-      </Flex>
-    );
+  if (!currentRound) {
+    return <div>No round in progress!</div>;
   }
-  // If number of guesses is less than number of players, it means not all players have made their guesses yet.
-  if (Object.keys(submittedAnswers).length < numPlayers) {
-    // Display the current question, all the possible answers (submitted + correct), and the number of players we are waiting on.
-    const allAnswers: string[] = [
-      ...Object.values(submittedAnswers),
-      correctAnswer ? correctAnswer : ""
-    ].filter((answer) => answer.trim() !== "");
-    // Sort so it's always in the same order.
-    allAnswers.sort((a, b) => a.localeCompare(b));
-    return (
-      <Flex flex="1" gap="2">
-        <Flex>
-          <h2>{currentQuestion}</h2>
-        </Flex>
-        <Flex direction="column" gap="1">
-          {allAnswers.map((answer, index) => (
-            <div key={index}>{answer}</div>
-          ))}
-        </Flex>
-        <Flex>
-          <p>
-            Waiting for {numPlayers - Object.keys(submittedAnswers).length}{" "}
-            players to make their guesses.
-          </p>
-        </Flex>
-      </Flex>
-    );
+
+  if (currentRound.type === "fibbage") {
+    return <FibbageRoundInProgress />;
   }
+
+  // Not implemented for other round types yet.
+  return (
+    // Placeholder for other round types (e.g., "trivia", "multiple-choice" etc.
+    // You can create similar components for those types as needed.
+    <Flex align="center" direction="column" flex="1" justify="center">
+      <h2>Round {currentRound.roundNumber}</h2>
+      {/* Additional round details can be added here */}
+    </Flex>
+  );
 };

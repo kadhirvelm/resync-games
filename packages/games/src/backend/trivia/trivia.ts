@@ -8,21 +8,21 @@ export interface TriviaGameConfiguration {
   totalRounds: number;
 }
 
-export interface TriviaGameScores extends WithTimestamp {
+export interface TriviaGameScores {
   /**
    * The scores of all players in the game.
    */
   [playerId: PlayerId]: number;
 }
 
-export interface PlayerGuesses extends WithTimestamp {
+export interface PlayerGuesses {
   /**
    * The guesses made by players in a round.
    */
   [playerId: PlayerId]: string;
 }
 
-export interface PlayerAnswers extends WithTimestamp {
+export interface PlayerAnswers {
   /**
    * The submitted by players in a round.
    */
@@ -54,6 +54,8 @@ export interface FibbageRound extends WithTimestamp {
   roundNumber: number;
   type: "fibbage";
 }
+
+export type TriviaRound = FibbageRound;
 
 export interface TriviaGame extends WithTimestamp {
   rounds: FibbageRound[];
@@ -107,9 +109,7 @@ export class TriviaServer
       gameState: {
         lastUpdatedAt: new Date().toISOString(),
         rounds: [],
-        scores: {
-          lastUpdatedAt: new Date().toISOString()
-        }
+        scores: {}
       },
       version: "1.0.0"
     };
@@ -162,9 +162,9 @@ export class TriviaServer
     }
 
     return {
-      answers: { lastUpdatedAt: new Date().toISOString() },
+      answers: {},
       correctAnswer: selectedQuestion.answer,
-      guesses: { lastUpdatedAt: new Date().toISOString() },
+      guesses: {},
       lastUpdatedAt: new Date().toISOString(),
       question: selectedQuestion.question,
       roundNumber,
