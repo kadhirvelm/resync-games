@@ -1,4 +1,4 @@
-import { TriviaGameConfiguration } from "@/src/backend/trivia/trivia";
+import { TriviaGameConfiguration } from "../..//backend/trivia/trivia";
 import { MapGameConfiguration } from "../baseConfiguration";
 
 export const TriviaConfiguration: MapGameConfiguration<TriviaGameConfiguration> =
