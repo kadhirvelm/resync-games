@@ -128,23 +128,25 @@ export const PlayerFibbageRoundInProgress: React.FC = () => {
     );
   };
 
-  const handleGuessSubmit = (optionIdx: string) => {
-    const guess = allAnswers[parseInt(optionIdx, 10)];
-    console.log("submit guess:", guess);
-    dispatch(
-      updateTriviaGameState(
-        {
-          rounds: {
-            [roundNumber]: {
-              guesses: {
-                [playerId]: guess
+  const handleGuessSubmit = (options: string[]) => {
+    return (optionIdx: string) => {
+      const guess = options[parseInt(optionIdx, 10)];
+      console.log("submit guess:", guess);
+      dispatch(
+        updateTriviaGameState(
+          {
+            rounds: {
+              [roundNumber]: {
+                guesses: {
+                  [playerId]: guess
+                }
               }
             }
-          }
-        },
-        curPlayer
-      )
-    );
+          },
+          curPlayer
+        )
+      );
+    };
   };
 
   if (state === "waiting-for-answers") {
@@ -186,11 +188,18 @@ export const PlayerFibbageRoundInProgress: React.FC = () => {
     // If the current player hasn't guessed, let the current player pick one of the answers as their guess.
     // Otherwise, display the set of players you are waiting on.
     if (guesses[playerId] === undefined) {
-      // Current player hasn't guessed yet
+      // Current player hasn't guessed yet.
+      // Show options other than their own answer.
+      const options = allAnswers.filter(
+        (answer) => answer !== answers[playerId]
+      );
       return (
         <div className="p-4">
           <h2 className="text-xl font-bold mb-4">Your Guess</h2>
-          <FibbageGuessInput onGuess={handleGuessSubmit} options={allAnswers} />
+          <FibbageGuessInput
+            onGuess={handleGuessSubmit(options)}
+            options={allAnswers}
+          />
         </div>
       );
     } else {
@@ -222,7 +231,7 @@ export const PlayerFibbageRoundInProgress: React.FC = () => {
     // The main results will be on the global screen. So we just say the round is finished.
     return (
       <div className="p-4">
-        <h2 className="text-xl font-bold mb-4">Round {roundNumber} Finished</h2>
+        <h2 className="text-xl font-bold mb-4">Round Finished!</h2>
       </div>
     );
   }

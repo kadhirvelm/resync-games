@@ -24,6 +24,12 @@ fi
 
 echo -e "\033[33mDocker is running\033[0m"
 
+if [ "$1" = "reset" ]; then
+  echo -e "\033[33mResetting Docker environment...\033[0m"
+  docker-compose -p resync-games -f docker-compose.yml down -v --remove-orphans
+  echo -e "\033[33mEnvironment reset complete.\033[0m"
+  exit 0
+fi
 
 if [ "$1" = "local" ]; then
   ip_address="localhost"

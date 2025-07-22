@@ -13,6 +13,7 @@
     "check": "turbo run check",
     "dev": "turbo run dev --filter=@resync-games/${0}",
     "docker": "./scripts/env.sh",
+    "docker:reset": "./scripts/env.sh reset",
     "docker:local": "./scripts/env.sh local"
   },
   "monorepo": true,
