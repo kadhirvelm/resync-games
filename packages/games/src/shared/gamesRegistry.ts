@@ -2,7 +2,12 @@ export type GameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: RegisteredGame;
 };
 
-export const GAME_SLUGS = ["pong", "fishbowl", "the-stock-times"] as const;
+export const GAME_SLUGS = [
+  "pong",
+  "fishbowl",
+  "trivia",
+  "the-stock-times"
+] as const;
 
 export interface GameTags {
   /**
@@ -44,6 +49,13 @@ export const GAME_REGISTRY: GameRegistry = {
       completed: true
     },
     name: "Stonks Market",
+    version: "1.0.0"
+  },
+  trivia: {
+    description:
+      "Test your knowledge with a variety of trivia questions across different categories.",
+    gameTags: {},
+    name: "Trivia",
     version: "1.0.0"
   }
 };

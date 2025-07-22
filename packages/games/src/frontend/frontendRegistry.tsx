@@ -13,6 +13,10 @@ import { TheStockTimesConfiguration } from "./theStockTimes/theStockTimesConfigu
 import { INITIAL_FISHBOWL_LOCAL_STATE } from "./fishbowl/store/fishbowlLocalState";
 import dynamic from "next/dynamic";
 import { FishbowlGlobalScreen } from "./fishbowl/FishbowlGlobalScreen";
+import { TriviaConfiguration } from "./trivia/TriviaConfiguration";
+import { INITIAL_TRIVIA_LOCAL_STATE } from "./trivia/store/triviaLocalState";
+import { DisplayTrivia } from "./trivia/DisplayTrivia";
+import { TriviaGlobalScreen } from "./trivia/TrivialGlobalScreen";
 
 export type FrontendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: FrontendRegisteredGame;
@@ -90,5 +94,11 @@ export const GAME_REGISTRY: FrontendGameRegistry = {
     globalScreen: StockTimesGlobalScreen,
     initialLocalState: INITIAL_THE_STOCK_TIMES_LOCAL_STATE,
     tutorialScreen: StockTimesTutorial
+  },
+  trivia: {
+    gameConfiguration: TriviaConfiguration,
+    gameEntry: DisplayTrivia,
+    globalScreen: TriviaGlobalScreen,
+    initialLocalState: INITIAL_TRIVIA_LOCAL_STATE
   }
 };
