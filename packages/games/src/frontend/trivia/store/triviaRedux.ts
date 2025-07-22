@@ -1,4 +1,4 @@
-import { TriviaGame } from "@/src/backend/trivia/trivia";
+import { TriviaGame } from "../../../backend/trivia/trivia";
 import { TriviaLocalState } from "./triviaLocalState";
 import {
   GameStateStoreWithStates,

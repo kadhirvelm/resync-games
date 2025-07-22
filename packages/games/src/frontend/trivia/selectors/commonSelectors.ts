@@ -1,4 +1,4 @@
-import { TriviaRound } from "@/src/backend/trivia/trivia";
+import { TriviaRound } from "../../../backend/trivia/trivia";
 import { createSelector } from "@reduxjs/toolkit";
 import { TriviaReduxState } from "../store/triviaRedux";
 

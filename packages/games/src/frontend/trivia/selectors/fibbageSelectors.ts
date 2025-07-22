@@ -1,7 +1,7 @@
-import { FibbageRound } from "@/src/backend/trivia/trivia";
 import { createSelector } from "@reduxjs/toolkit";
 import { TriviaReduxState } from "../store/triviaRedux";
 import { currentTriviaRound } from "./commonSelectors";
+import { FibbageRound } from "../../../backend/trivia/trivia";
 
 export interface ExtendedFibbageRound extends FibbageRound {
   activePlayers: {
