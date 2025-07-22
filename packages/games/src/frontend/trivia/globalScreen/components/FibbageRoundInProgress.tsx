@@ -7,8 +7,6 @@ export const FibbageRoundInProgress = () => {
     return <div>No Fibbage round in progress!</div>;
   }
 
-  console.log("FibbageRoundInProgress", curFibbageRound);
-
   const question = curFibbageRound.question;
   if (curFibbageRound.currentGameState === "waiting-for-answers") {
     // Display the question and the names of players we are waiting on.
