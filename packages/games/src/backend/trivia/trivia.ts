@@ -58,7 +58,7 @@ export interface FibbageRound extends WithTimestamp {
 export type TriviaRound = FibbageRound;
 
 export interface TriviaGame extends WithTimestamp {
-  rounds: FibbageRound[];
+  rounds: Record<number, TriviaRound>;
   scores: TriviaGameScores;
 }
 
@@ -108,7 +108,7 @@ export class TriviaServer
     return {
       gameState: {
         lastUpdatedAt: new Date().toISOString(),
-        rounds: [],
+        rounds: {},
         scores: {}
       },
       version: "1.0.0"
@@ -124,13 +124,19 @@ export class TriviaServer
     }
 
     // Initialize with a fibbage round.
-    const round = this.initializeFibbageRound(0, game.gameState.rounds || []);
+    const previousRounds = Object.values(game.gameState.rounds);
+    const round = this.initializeFibbageRound(0, previousRounds);
 
     return {
       ...game.gameState,
       rounds: game.gameState.rounds
-        ? [...game.gameState.rounds, round]
-        : [round]
+        ? {
+            ...game.gameState.rounds,
+            [round.roundNumber]: round
+          }
+        : {
+            [round.roundNumber]: round
+          }
     };
   }
 
