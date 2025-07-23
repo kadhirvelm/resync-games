@@ -37,6 +37,13 @@ export interface GlobalScreenComponentProps<
   gameStateHandler: IGameStateHandler<GameState, LocalGameState>;
 }
 
+/**
+ * The team configuration for the game.
+ * 2-teams: The game will have 2 teams.
+ * no-teams: The game will have no teams.
+ */
+export type ResyncTeamConfiguration = "2-teams" | "no-teams";
+
 export interface FrontendRegisteredGame {
   /**
    * The configuration by the user for the game.
@@ -58,6 +65,10 @@ export interface FrontendRegisteredGame {
    * The initial local state for the game, dispatches before the game initializes.
    */
   initialLocalState: object | undefined;
+  /**
+   * The team configuration for the game. Default is 2-teams.
+   */
+  teamConfiguration?: ResyncTeamConfiguration;
   /**
    * Dispays how to play the game.
    */
