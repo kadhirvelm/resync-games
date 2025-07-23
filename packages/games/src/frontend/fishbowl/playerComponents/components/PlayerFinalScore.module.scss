@@ -1,5 +1,14 @@
 @use "@/styles/variables.scss" as vars;
 
-.scoreBox {
-    border-radius: 10px;
+.tab {
+    cursor: pointer;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+
+    &.active {
+        text-decoration: underline;
+        color: vars.$blue;
+    }
 }
