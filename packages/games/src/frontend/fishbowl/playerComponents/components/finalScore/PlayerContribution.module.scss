@@ -1,0 +1,18 @@
+@use "@/styles/variables.scss" as vars;
+
+.container {
+    overflow-y: auto;
+    max-height: 85vh;
+}
+
+.scrollable {
+    padding-bottom: 150px;
+    height: fit-content;
+}
+
+.singleWord {
+    border-radius: 5px;
+    border: 1px solid vars.$black;
+    background: vars.$white;
+    max-width: 75vw;
+}

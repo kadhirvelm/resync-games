@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { FishbowlGameConfiguration } from "../../../../backend";
+import { FishbowlGameConfiguration, FishbowlWord } from "../../../../backend";
 import { FishbowlReduxState } from "../../store/fishbowlRedux";
 
 export const selectFishbowlPlayer = createSelector(
@@ -100,5 +100,26 @@ export const selectNewPlayerGuess = createSelector(
       player: allPlayers?.find((p) => p.playerId === player.playerId),
       roundNumber: round.roundNumber
     };
+  }
+);
+
+export const selectAllPlayerContributions = createSelector(
+  [
+    (state: FishbowlReduxState) =>
+      state.gameStateSlice.gameState?.playerWordContributions,
+    (state: FishbowlReduxState) => state.gameStateSlice.gameInfo?.players
+  ],
+  (contributions, players) => {
+    if (contributions === undefined || players === undefined) {
+      return;
+    }
+
+    const allWords = Object.values(contributions).flatMap(
+      ({ words }): FishbowlWord[] => words
+    );
+
+    allWords.sort((a, b) => a.word.localeCompare(b.word));
+
+    return allWords;
   }
 );
