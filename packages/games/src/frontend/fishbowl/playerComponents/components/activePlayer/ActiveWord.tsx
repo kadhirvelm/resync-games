@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
 import { motion } from "motion/react";
 
-export const ActiveWord = () => {
+export const ActiveWord = ({ sampleWord }: { sampleWord?: string }) => {
   const [viewingWord, setViewingWord] = useState(true);
   const activeWord = useFishbowlSelector(
     (s) => s.gameStateSlice.gameState?.round?.currentActiveWord
   );
+
+  const finalActiveWord = sampleWord ?? activeWord?.word;
 
   useEffect(() => {
     setViewingWord(true);
@@ -19,9 +21,9 @@ export const ActiveWord = () => {
     }, 1500);
 
     return () => clearTimeout(timeout);
-  }, [activeWord?.word]);
+  }, [finalActiveWord]);
 
-  if (activeWord === undefined) {
+  if (finalActiveWord === undefined) {
     return;
   }
 
@@ -45,11 +47,11 @@ export const ActiveWord = () => {
         {viewingWord ? <Eye size={40} /> : <EyeClosed size={40} />}
         <motion.div
           animate={{ opacity: viewingWord ? 1 : 0.015 }}
-          key={activeWord.word}
+          key={finalActiveWord}
           transition={{ duration: 0.35, ease: "easeInOut" }}
         >
           <DisplayText size="9" weight="bold">
-            {activeWord.word}
+            {finalActiveWord}
           </DisplayText>
         </motion.div>
       </Flex>

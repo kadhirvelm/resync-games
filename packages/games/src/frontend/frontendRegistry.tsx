@@ -17,6 +17,7 @@ import { TriviaConfiguration } from "./trivia/TriviaConfiguration";
 import { INITIAL_TRIVIA_LOCAL_STATE } from "./trivia/store/triviaLocalState";
 import { DisplayTrivia } from "./trivia/DisplayTrivia";
 import { TriviaGlobalScreen } from "./trivia/TrivialGlobalScreen";
+import { FishbowlTutorial } from "./fishbowl/FishbowlTutorial";
 
 export type FrontendGameRegistry = {
   [GameSlug in (typeof GAME_SLUGS)[number]]: FrontendRegisteredGame;
@@ -92,7 +93,8 @@ export const GAME_REGISTRY: FrontendGameRegistry = {
     gameConfiguration: FishbowlConfiguration,
     gameEntry: DisplayFishbowl,
     globalScreen: FishbowlGlobalScreen,
-    initialLocalState: INITIAL_FISHBOWL_LOCAL_STATE
+    initialLocalState: INITIAL_FISHBOWL_LOCAL_STATE,
+    tutorialScreen: FishbowlTutorial
   },
   pong: {
     gameConfiguration: PongConfiguration,
