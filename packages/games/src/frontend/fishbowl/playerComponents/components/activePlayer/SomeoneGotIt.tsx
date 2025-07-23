@@ -6,7 +6,7 @@ import { useTimer } from "../../../utils/hooks/useTimer";
 import { selectFishbowlPlayer } from "../../selectors/playerSelectors";
 import { LOW_TIME_THRESHOLD } from "../../timer/FishbowlTimer";
 
-export const SomeoneGotIt = ({ timer }: { timer: FishbowlActiveTracker }) => {
+export const SomeoneGotIt = ({ timer }: { timer?: FishbowlActiveTracker }) => {
   const { timeFraction } = useTimer(timer);
 
   const activePlayer = useFishbowlSelector(selectFishbowlPlayer);
