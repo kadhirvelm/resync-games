@@ -1,3 +1,4 @@
+import { Button } from "@/lib/radix";
 import { currentPlayer } from "../../selectors/commonSelectors";
 import { currentFibbageRound } from "../../selectors/fibbageSelectors";
 import {
@@ -79,13 +80,9 @@ const FibbageGuessInput: React.FC<GuessProps> = ({ options, onGuess }) => {
           </div>
         ))}
       </fieldset>
-      <button
-        className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 disabled:opacity-50"
-        disabled={!selected}
-        type="submit"
-      >
+      <Button disabled={!selected} type="submit">
         Submit Guess
-      </button>
+      </Button>
     </form>
   );
 };

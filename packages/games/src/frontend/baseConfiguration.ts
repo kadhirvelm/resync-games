@@ -4,6 +4,7 @@
 export interface BaseGameConfigurationField {
   default?: unknown;
   label: string;
+  order?: number;
   required: boolean;
   type: string;
 }
@@ -31,6 +32,13 @@ export interface GameConfigurationFieldString
   type: "string";
 }
 
+export interface GameConfigurationFieldRoundTimer
+  extends BaseGameConfigurationField {
+  default: { [roundNumber: number]: number };
+  totalRoundsKey: string;
+  type: "round-timer";
+}
+
 export interface GameConfigurationNoopField extends BaseGameConfigurationField {
   default: object | string | number;
   type: "noop";
@@ -42,6 +50,7 @@ export interface GameConfigurationNoopField extends BaseGameConfigurationField {
 export type GameConfigurationField =
   | GameConfigurationFieldNumber
   | GameConfigurationFieldString
+  | GameConfigurationFieldRoundTimer
   | GameConfigurationNoopField;
 
 /**

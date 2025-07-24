@@ -3,6 +3,7 @@ import { isServiceError } from "@/imports/api";
 import {
   GameConfigurationField,
   GameConfigurationFieldNumber,
+  GameConfigurationFieldRoundTimer,
   GameConfigurationFieldString
 } from "@/imports/games";
 import { DisplayText } from "@/lib/radix";
@@ -12,7 +13,8 @@ import { NumberInput } from "@/lib/resync-components/NumberInput";
 import { getFrontendGame } from "@/lib/utils/getFrontendGame";
 import { useGameStateSelector } from "@/redux";
 import { ClientServiceCallers } from "@/services/serviceCallers";
-import { useContext, useState } from "react";
+import { range } from "lodash-es";
+import { JSX, useContext, useState } from "react";
 
 export const ConfigureGame = () => {
   const { gameInfo } = useGameStateSelector((s) => s.gameStateSlice);
@@ -106,28 +108,99 @@ export const ConfigureGame = () => {
     );
   };
 
+  const renderRoundTimerField = (
+    key: string,
+    currentValue: string | number | boolean | undefined | null,
+    configurationValue: GameConfigurationFieldRoundTimer
+  ) => {
+    const totalRounds =
+      currentGameConfiguration[
+        configurationValue.totalRoundsKey as keyof typeof currentGameConfiguration
+      ];
+
+    if (typeof totalRounds !== "number") {
+      return (
+        <DisplayText color="red" key={key} size="2">
+          Something went wrong with {key}
+        </DisplayText>
+      );
+    }
+
+    if (totalRounds === 0) {
+      return (
+        <DisplayText key={key} size="2">
+          No rounds
+        </DisplayText>
+      );
+    }
+
+    return (
+      <Flex direction="column" gap="2" key={key}>
+        <DisplayText>{configurationValue.label}</DisplayText>
+        {range(1, totalRounds + 1).map((round) => {
+          const roundTimer =
+            currentValue?.[round as unknown as keyof typeof currentValue] ??
+            configurationValue.default[round];
+
+          if (typeof roundTimer !== "number") {
+            return (
+              <DisplayText color="red" size="2">
+                Something went wrong with {key} at round {round}
+              </DisplayText>
+            );
+          }
+
+          return (
+            <Flex align="center" gap="1" key={round}>
+              <DisplayText color="gray" size="2">
+                R{round}
+              </DisplayText>
+              <NumberInput
+                onChange={(newValue) =>
+                  onSaveConfiguration({
+                    ...currentGameConfiguration,
+                    [key]: newValue
+                  })
+                }
+                value={roundTimer}
+              />
+              <DisplayText color="gray" size="2">
+                (s)
+              </DisplayText>
+            </Flex>
+          );
+        })}
+      </Flex>
+    );
+  };
+
+  // TODO: make each field a component
   const renderField = (
     key: string,
     configurationValue: GameConfigurationField
-  ) => {
+  ): JSX.Element | null => {
     const currentValue =
       currentGameConfiguration[key as keyof typeof currentGameConfiguration];
 
-    if (configurationValue.type === "number") {
-      return renderNumberField(key, currentValue, configurationValue);
-    }
-
-    if (configurationValue.type === "string") {
-      return renderStringField(key, currentValue, configurationValue);
+    switch (configurationValue.type) {
+      case "noop":
+        return null;
+      case "round-timer":
+        return renderRoundTimerField(key, currentValue, configurationValue);
+      case "number":
+        return renderNumberField(key, currentValue, configurationValue);
+      case "string":
+        return renderStringField(key, currentValue, configurationValue);
     }
   };
 
   return (
-    <Flex direction="column" gap="2">
-      {Object.entries(accordingGame.gameConfiguration).map(
-        ([key, configurationValue]: [string, GameConfigurationField]) =>
+    <Flex direction="column" gap="3">
+      {Object.entries(accordingGame.gameConfiguration)
+        .sort((a, b) => a[1].order - b[1].order)
+        .map(([key, configurationValue]: [string, GameConfigurationField]) =>
           renderField(key, configurationValue)
-      )}
+        )}
     </Flex>
   );
 };
