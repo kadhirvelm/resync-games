@@ -1,6 +1,6 @@
 import { Flex } from "@/lib/radix/Flex";
 import { useMediaQuery } from "../../lib/hooks/useMediaQuery";
-import { GameConfigurationSideBar } from "./components/GameConfigurationSideBar";
+import { GameConfigurationSideBar } from "./gameLobby/GameConfigurationSideBar";
 import { GoHome } from "./components/GoHome";
 import { DisplayGameCode } from "./gameLobby/DisplayGameCode";
 import { DisplayTeamType } from "./gameLobby/DisplayTeamType";
