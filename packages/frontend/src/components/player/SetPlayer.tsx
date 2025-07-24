@@ -125,8 +125,7 @@ export const SetPlayer = ({
 
     return (
       <Flex align="center" className={styles.trigger} gap="2" px="3" py="1">
-        <PlayerIcon dimension={25} player={existingPlayer} />
-        <DisplayText>{existingPlayer.displayName}</DisplayText>
+        <PlayerIcon dimension={35} player={existingPlayer} />
       </Flex>
     );
   };
