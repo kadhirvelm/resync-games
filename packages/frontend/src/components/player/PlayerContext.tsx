@@ -34,6 +34,8 @@ export const PlayerContextProvider = ({
 }) => {
   const browserIdentifier = useMemo(() => getBrowserIdentifier(), []);
 
+  console.log(process.env.NEXT_PUBLIC_API_URL);
+
   const {
     result: maybePlayer,
     setResult,

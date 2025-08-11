@@ -1,6 +1,6 @@
 {
     "framework": "nextjs",
-    "installCommand": "corepack enable && yarn set version 4.9.1 && yarn install",
+    "installCommand": "corepack enable && bun install",
     "buildCommand": "yarn run turbo run build --filter=@resync-games/frontend",
     "outputDirectory": "packages/frontend/.next"
 }

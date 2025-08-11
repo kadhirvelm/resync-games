@@ -30,4 +30,12 @@ const nextConfig = {
   },
 };
 
+if (process.env.NODE_ENV === "development") {
+  nextConfig.env = {
+    NEXT_PUBLIC_DEVELOPMENT_MODE: "true",
+    NEXT_PUBLIC_API_URL: `http://${process.env.PUBLIC_URL}:8080`,
+    NEXT_PUBLIC_API_CLIENT_URL: `http://${process.env.PUBLIC_URL}:8080`
+  };
+}
+
 module.exports = nextConfig;

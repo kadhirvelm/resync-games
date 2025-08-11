@@ -3,7 +3,6 @@
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
-import typescriptSort from "eslint-plugin-typescript-sort-keys";
 import objectSort from "eslint-plugin-sort-keys-fix";
 import nextEslintPlugin from "@next/eslint-plugin-next";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
@@ -15,8 +14,7 @@ export default [
   eslintPluginPrettierRecommended,
   {
     plugins: {
-      "sort-keys-fix": objectSort,
-      "typescript-sort-keys": typescriptSort
+      "sort-keys-fix": objectSort
     },
     rules: {
       "@typescript-eslint/no-extraneous-class": 0,
@@ -32,9 +30,7 @@ export default [
           varsIgnorePattern: "^_"
         }
       ],
-      "sort-keys-fix/sort-keys-fix": "error",
-      "typescript-sort-keys/interface": "error",
-      "typescript-sort-keys/string-enum": "error"
+      "sort-keys-fix/sort-keys-fix": "error"
     }
   },
   {
@@ -42,7 +38,6 @@ export default [
     plugins: {
       "@next/next": nextEslintPlugin,
       react: reactEslint,
-      // @ts-expect-error - Typings are incorrect
       "react-hooks": fixupPluginRules(reactHooksPlugin)
     },
     rules: {
