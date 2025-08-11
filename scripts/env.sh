@@ -22,7 +22,12 @@ if ! docker info > /dev/null 2>&1; then
     echo "Docker is now running"
 fi
 
-echo -e "\033[33mDocker is running\033[0m"
+export $(cat .env | grep -v '^#' | xargs)
+
+if ! grep -q "^NODE_ENV=development" .env; then
+  echo "Error: NODE_ENV=development not found in .env file. Please create a .env file with the right content and try again."
+  exit 1
+fi
 
 if [ "$1" = "reset" ]; then
   echo -e "\033[33mResetting Docker environment...\033[0m"
@@ -40,16 +45,18 @@ else
   echo -e "\033[33mUsing IP address: $ip_address\033[0m"
 fi
 
-# Update PUBLIC_URL in .env file with local IP address
 sed -i.bak "s|^PUBLIC_URL=.*|PUBLIC_URL=$ip_address|" .env
 echo -e "\033[33mUpdated PUBLIC_URL in .env file\033[0m"
 
-echo -e "\033[33mStarting Docker containers\033[0m"
-docker-compose -p resync-games -f docker-compose.yml up -d
+# Turning everything on!
 
-rm .env.bak
-
-echo -e "\033[33mWaiting for frontend to be ready...\033[0m"
+# Function to turn on services
+turn_on_services() {
+    docker-compose -p resync-games -f docker-compose.yml up -d
+    rm .env.bak
+    # Run turbo in foreground - don't background this process
+    turbo run dev --ui=tui
+}
 
 # Function to check if the frontend is available
 check_frontend() {
@@ -57,21 +64,30 @@ check_frontend() {
     return $?
 }
 
-# Wait until frontend is available, checking every 2 seconds
-while ! check_frontend; do
-    sleep 2
-done
+# Function to open the frontend in the browser
+open_frontend() {
+    # Wait until frontend is available, checking every 2 seconds
+    while ! check_frontend; do
+        sleep 2
+    done
 
-echo -e "\033[33mFrontend is ready. Opening in browser...\033[0m"
+    echo -e "\033[33mFrontend is ready. Opening in browser...\033[0m"
 
-# Open browser based on OS
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS
-    open "http://$ip_address:3000"
-elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    # Linux
-    xdg-open "http://$ip_address:3000"
-else
-    echo "Unsupported OS for automatic browser opening"
-fi
+    # Open browser based on OS
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS
+        open "http://$ip_address:3000"
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        # Linux
+        xdg-open "http://$ip_address:3000"
+    else
+        echo "Unsupported OS for automatic browser opening"
+    fi
+}
+
+# Run only the browser opening in background, services in foreground
+open_frontend &
+turn_on_services
+
+
 

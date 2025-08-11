@@ -3,6 +3,11 @@ import { AppModule } from "./app.module";
 import { AllExceptionsFilter } from "./library/AllExceptions.filter";
 import compression from "compression";
 import { json, urlencoded } from "express";
+import dotenv from "dotenv";
+
+if (process.env.NODE_ENV === "development") {
+  dotenv.config({ path: ".env.development" });
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -19,4 +24,5 @@ async function bootstrap() {
 
   await app.listen(8080, process.env.PUBLIC_URL ?? "0.0.0.0");
 }
+
 bootstrap();
