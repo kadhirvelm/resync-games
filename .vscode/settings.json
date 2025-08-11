@@ -4,14 +4,12 @@
     "**/.pnp.*": true,
     "**/*.js*": true,
   },
-  "eslint.nodePath": ".yarn/sdks",
   "eslint.useFlatConfig": true,
   "eslint.workingDirectories": [
     {
       "mode": "auto"
     }
   ],
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"

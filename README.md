@@ -94,20 +94,23 @@ Deployed on
 ### Prerequisites
 * Node.js >= 22
 * Docker (for local development)
-* Yarn 4.9.1 (the project uses PnP - Plug'n'Play)
+* Bun 1.2.20
 
 ### Environment Variables
-The following environment variables are required:
+The following environment variables are required for local development:
 * `GAME_STATE_DATABASE_HOST_URL` - Postgres database URL
 * `GAME_STATE_DIRECT_URL` - Direct connection URL for Postgres (used by Prisma)
 * `GAME_ORCHESTRATOR` - Boolean flag for game orchestration
 * `NODE_ENV` - "production" or "development"
+* `PUBLIC_URL` - Public URL for the application - this should be automatically set to your local network IP address when running bun dev
+* `PGADMIN_DEFAULT_EMAIL` - Default email for pgAdmin access
+* `PGADMIN_DEFAULT_PASSWORD` - Default password for pgAdmin access
+
 
 ### Project Structure
 The project is set up as a monorepo using:
-* Yarn PnP (4.9.1) for package management
+* Bun for the node runtime and package management
 * Turborepo for build system orchestration
-* Docker Compose for local development environment
 
 ### Key Technologies & Libraries
 #### Frontend
@@ -135,19 +138,16 @@ The project is set up as a monorepo using:
 
 ### Getting Started
 1. Clone the repository
-2. Install dependencies: `yarn install`
+2. Install dependencies: `bun install`
 3. Copy `.env.example` to `.env` and fill in the required variables
-4. Start the development environment: `yarn docker`
-5. Start the development servers:
-   * Frontend: `yarn dev frontend`
-   * Backend: `yarn dev backend`
+4. Start the development environment: `bun dev` -> this will turn on docker for the DB, then turn on the BE and FE via turbo (tui)
 
 ### Build & Deployment
 * Frontend is deployed to Vercel
 * Backend is deployed to AWS EC2
 * Database is hosted on Neon (PostgreSQL)
 
-The repo uses Yarn PnP (4.9.1) for its package management (which in turn allows us to use docker-compose for local development) and Turborepo for its build system. We're aiming for a [zero-installs](https://yarnpkg.com/features/caching) setup, though we've got a few more steps to go.
+The repo uses bun for its package management and Turborepo for its build system.
 
 ### VSCode Extensions
 Recommended extensions for development:
@@ -155,6 +155,5 @@ Recommended extensions for development:
 * GitLens
 * NPM IntelliSense
 * ESLint
-* ZipFS (for Yarn PnP)
 * GitHub Copilot
 * Prisma
