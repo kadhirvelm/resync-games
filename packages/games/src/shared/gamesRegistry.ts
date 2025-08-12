@@ -5,6 +5,7 @@ export type GameRegistry = {
 export const GAME_SLUGS = [
   "pong",
   "fishbowl",
+  "fun-facts",
   "trivia",
   "the-stock-times"
 ] as const;
@@ -34,6 +35,13 @@ export const GAME_REGISTRY: GameRegistry = {
       completed: true
     },
     name: "Fishbowl",
+    version: "1.0.0"
+  },
+  "fun-facts": {
+    description:
+      "Players submit interesting fun facts about themselves, then everyone reads and enjoys learning about each other!",
+    gameTags: {},
+    name: "Fun Facts",
     version: "1.0.0"
   },
   pong: {
