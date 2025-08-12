@@ -3,6 +3,7 @@
 import { GAME_SLUGS } from "../shared/gamesRegistry";
 import { IGameServer } from "./base";
 import { FishbowlServer } from "./fishbowl/fishbowl";
+import { FunFactsServer } from "./fun-facts/funFacts";
 import { PongGameServer } from "./pong/pong";
 import { TheStockTimesServer } from "./theStockTimes/theStockTimes";
 import { TriviaServer } from "./trivia/trivia";
@@ -40,6 +41,10 @@ export const BACKEND_GAME_REGISTRY: BackendGameRegistry = {
   fishbowl: {
     gameServer: new FishbowlServer(),
     stateReconcilerMethod: "closest"
+  },
+  "fun-facts": {
+    gameServer: new FunFactsServer(),
+    stateReconcilerMethod: "top-level"
   },
   pong: {
     gameServer: new PongGameServer(),

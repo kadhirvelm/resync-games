@@ -4,6 +4,11 @@ import { GAME_SLUGS } from "../shared/gamesRegistry";
 import { MapGameConfiguration } from "./baseConfiguration";
 import { DisplayFishbowl } from "./fishbowl/DisplayFishbowl";
 import { FishbowlConfiguration } from "./fishbowl/FishbowlConfiguration";
+import { DisplayFunFacts } from "./fun-facts/DisplayFunFacts";
+import { FunFactsConfiguration } from "./fun-facts/FunFactsConfiguration";
+import { FunFactsGlobalScreen } from "./fun-facts/FunFactsGlobalScreen";
+import { FunFactsTutorial } from "./fun-facts/FunFactsTutorial";
+import { INITIAL_FUN_FACTS_LOCAL_STATE } from "./fun-facts/store/funFactsLocalState";
 import { PongConfiguration } from "./pong/pongConfiguration";
 import { DisplayTheStockTimes } from "./theStockTimes/DisplayTheStockTimes";
 import { StockTimesGlobalScreen } from "./theStockTimes/StockTimesGlobalScreen";
@@ -95,6 +100,14 @@ export const GAME_REGISTRY: FrontendGameRegistry = {
     globalScreen: FishbowlGlobalScreen,
     initialLocalState: INITIAL_FISHBOWL_LOCAL_STATE,
     tutorialScreen: FishbowlTutorial
+  },
+  "fun-facts": {
+    gameConfiguration: FunFactsConfiguration,
+    gameEntry: DisplayFunFacts,
+    globalScreen: FunFactsGlobalScreen,
+    initialLocalState: INITIAL_FUN_FACTS_LOCAL_STATE,
+    teamConfiguration: "no-teams",
+    tutorialScreen: FunFactsTutorial
   },
   pong: {
     gameConfiguration: PongConfiguration,
