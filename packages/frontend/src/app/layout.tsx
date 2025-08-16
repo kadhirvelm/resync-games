@@ -33,6 +33,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {(process.env.NODE_ENV === "development" ||
+          process.env.VERCEL_ENV === "preview") && (
+          // eslint-disable-next-line @next/next/no-sync-scripts
+          <script
+            data-is-production-environment="false"
+            data-recording-token="qZpaMrgIj6JZ3UJUP0NF2CsqI9nRfPJVGyM7fu2o"
+            src="https://snippet.meticulous.ai/v1/meticulous.js"
+          />
+        )}
+      </head>
       <body className={clsx(styles.body, font.className)}>
         <Theme className={styles.entryPoint} hasBackground={false}>
           <ToastContainer />
