@@ -7,6 +7,7 @@
         "^build"
       ]
     },
+    "check": {},
     "dev": {
       "env": ["OPEN_AI_CREDS", "POSTGRES_PASSWORD", "PUBLIC_URL", "GAME_STATE_DATABASE_HOST_URL", "GAME_STATE_DIRECT_URL"]
     },

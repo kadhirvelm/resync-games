@@ -11,18 +11,47 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+
     - uses: actions/setup-node@v4
       with:
         node-version: '23.11.0'
-    - uses: oven-sh/setup-bun@v2
-    - run: bun install
-    - run: bun run ci
+  
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+
+    - name: Cache Bun dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.bun/install/cache # Path to Bun's global cache
+        key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }} # Unique key based on OS and bun.lockb
+        restore-keys: |
+          ${{ runner.os }}-bun-
+  
+    - name: Install dependencies
+      run: bun install
+
+    - name: Run CI checks
+      run: bun run ci
+
   install:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+
     - uses: actions/setup-node@v4
       with:
         node-version: '23.11.0'
-    - uses: oven-sh/setup-bun@v2
-    - run: bun ci
+
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+
+    - name: Cache Bun dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.bun/install/cache # Path to Bun's global cache
+        key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }} # Unique key based on OS and bun.lockb
+        restore-keys: |
+          ${{ runner.os }}-bun-
+
+    - name: Test dependencies
+      run: bun ci
