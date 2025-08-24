@@ -9,9 +9,6 @@ RUN cp -r packages/games out/packages/games && cp -r packages/api out/packages/a
 
 WORKDIR /app/out
 
-RUN apt-get update -y && apt-get install -y openssl
-
-RUN corepack enable
 RUN bun install
 
 ENV NODE_ENV=production
@@ -19,14 +16,13 @@ RUN bun run turbo run build --filter=@resync-games/backend && bun install --prod
 
 FROM imbios/bun-node:latest-23.11.0-slim AS runner
 
-COPY --from=builder /app/out /app/out
+RUN apt-get update -y && apt-get install -y openssl && corepack enable
 
-RUN apt-get update -y && apt-get install -y openssl
+COPY --from=builder /app/out /app/out
 
 WORKDIR /app/out/packages/backend
 
-RUN corepack enable
-RUN bun install
+RUN bun install --production
 
 ENV NODE_ENV=production
 
