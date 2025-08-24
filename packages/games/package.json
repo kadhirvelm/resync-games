@@ -1,7 +1,8 @@
 {
   "name": "@resync-games/do-not-use-this-package-directly",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.2",

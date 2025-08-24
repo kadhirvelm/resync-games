@@ -2,6 +2,7 @@
   "name": "@resync-games/database",
   "scripts": {
     "db:migrate": "bunx prisma migrate deploy",
+    "check": "",
     "db:create-migration": "bunx prisma migrate dev --create-only",
     "db:generate": "bunx prisma format && yarn pnpify prisma generate",
     "build": "bun db:generate"

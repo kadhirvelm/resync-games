@@ -16,7 +16,7 @@ describe("replacePlayerIds", () => {
       ["2000" as PlayerId, "4000" as PlayerId]
     ]);
 
-    const updatedGameState = replacePlayers(gameState, idMapping);
+    const updatedGameState = replacePlayers(gameState, idMapping, new Map());
 
     expect(updatedGameState).toEqual({
       players: [
@@ -39,7 +39,7 @@ describe("replacePlayerIds", () => {
       ["2000" as PlayerId, "4000" as PlayerId]
     ]);
 
-    const updatedGameState = replacePlayers(gameState, idMapping);
+    const updatedGameState = replacePlayers(gameState, idMapping, new Map());
 
     expect(updatedGameState).toEqual({
       players: {
